@@ -8,7 +8,10 @@ int main()
     cout << "Commkom(king-zzk) Steam Workshops Tools (SWTools)[版本 0.1.0(2025.01)]" << endl;
     cout << "(c) Commkom(king-zzk) 2021 All rights reserved。" << endl;
     cout << "\33[4m\33[31m这是一个Beta测试版，可能存在Bug!\33[31m\33[0m" << endl;
-    
+    cout << "SWTools#> ";
+    string input;
+    cin >> input;
+    void command(input);
     return 0;
 }
 
