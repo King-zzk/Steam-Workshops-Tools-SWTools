@@ -1,4 +1,5 @@
-#pragma once 
+#ifndef SWTOOLS_H
+#define SWTOOLS_H
 
 //必要的头文件
 #include <string>
@@ -10,7 +11,5 @@
 using namespace std;
 
 //函数声明
-void command(string arg);
-void help();
-void about();
-void SWTools();
+void command(const string input);
+#endif // SWTOOLS_H
