@@ -13,5 +13,6 @@ using namespace std;
 //º¯ÊıÉùÃ÷
 void command(const string input);
 void help();
-void goto_main();
+void transmit();
+void goto_transmit();
 #endif // SWTOOLS_H

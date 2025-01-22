@@ -3,6 +3,19 @@
 
 void command(const string input) {
     // 这里是command函数的实现
-    cout << "你输入的命令是: " << input << endl;
-    goto_main();
+    if (input == "help") {
+        help();
+        transmit();
+    }
+    else if (input == "exit") {
+        exit(0);
+    }
+    else if (input == "clear") {
+        system("cls");
+        transmit();
+    }
+    else {
+        cout << "Invalid command. Type 'help' for a list of commands." << endl;
+        transmit();
+    }
 }

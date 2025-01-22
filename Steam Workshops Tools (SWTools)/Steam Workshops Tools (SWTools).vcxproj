@@ -129,7 +129,8 @@
   <ItemGroup>
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="help.cpp" />
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="transmit.cpp" />
+    <ClCompile Include="statement.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SWTools.h" />
