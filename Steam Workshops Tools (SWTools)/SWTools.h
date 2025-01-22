@@ -13,4 +13,5 @@ using namespace std;
 //º¯ÊıÉùÃ÷
 void command(const string input);
 void help();
+void goto_main();
 #endif // SWTOOLS_H

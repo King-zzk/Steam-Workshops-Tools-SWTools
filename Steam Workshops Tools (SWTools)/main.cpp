@@ -2,6 +2,7 @@
 //这是一个输出声明的代码,获取用户的输入。
 #include "SWTools.h"
 
+
 int main() {
     cout << "Commkom(king-zzk) Steam Workshops Tools (SWTools)[版本 0.1.0(2025.01)]" << endl;
     cout << "(c) Commkom(king-zzk) 2021 All rights reserved。" << endl;
@@ -11,6 +12,10 @@ int main() {
     getline(cin, input); // 使用 getline 读取整行输入
     command(input);
     return 0;
+}
+
+void goto_main() {
+    main();
 }
 
 // 运行程序: Ctrl + F5 或调试 >“开始执行(不调试)”菜单
