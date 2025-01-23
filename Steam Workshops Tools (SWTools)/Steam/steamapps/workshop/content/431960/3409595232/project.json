@@ -1,0 +1,211 @@
+{
+	"contentrating" : "Everyone",
+	"description" : "------------------------中文---------------------------\n画师:奇诺777 背景音乐：命起涟漪 (凤鸣调)\n长安雪 | 奇诺777 #pixiv https://www.pixiv.net/artworks/117165405\n关于音频条的两个颜色：这个音频条为渐变音频条，颜色0是顶部颜色颜色1是底部颜色。\n如果觉得壁纸做的不错请给作者一个好评,十分感谢！！(*´∀人)\n倘若您对壁纸有什么建议请评论区留言。 (*´∀｀)ﾉゞ\n------------------------English---------------------------\nArtist:奇诺777 Background music: 命起涟漪 (凤鸣调)\n长安雪 | 奇诺777 #pixiv https://www.pixiv.net/artworks/117165405\nAbout the two colors of the audio bar: This audio bar is the gradient audio bar, color 0 is the top color and color 1 is the bottom color.\nIf you think the wallpaper is good, please give the author a good review, thank you very much!!(*´∀人)\nIf you have any suggestions for wallpaper, please leave a comment in the comments section.\n(*´∀｀)ﾉゞ",
+	"file" : "scene.json",
+	"general" : 
+	{
+		"properties" : 
+		{
+			"_1" : 
+			{
+				"condition" : "newproperty2.value",
+				"index" : 10,
+				"order" : 110,
+				"text" : "颜色0/colour0",
+				"type" : "color",
+				"value" : "0 0.21176470588235294 0.7372549019607844"
+			},
+			"_11" : 
+			{
+				"condition" : "newproperty2.value",
+				"index" : 11,
+				"order" : 111,
+				"text" : "颜色1/colour1",
+				"type" : "color",
+				"value" : "1 1 1"
+			},
+			"newproperty" : 
+			{
+				"index" : 5,
+				"order" : 105,
+				"text" : "高光/highlight",
+				"type" : "bool",
+				"value" : true
+			},
+			"newproperty1" : 
+			{
+				"condition" : "newproperty9.value",
+				"fraction" : true,
+				"index" : 15,
+				"max" : 1,
+				"min" : 0,
+				"order" : 115,
+				"precision" : 3,
+				"step" : 0.01,
+				"text" : "大小/size",
+				"type" : "slider",
+				"value" : 0.26
+			},
+			"newproperty10" : 
+			{
+				"condition" : "newproperty9.value",
+				"index" : 14,
+				"order" : 114,
+				"text" : "颜色/colour",
+				"type" : "color",
+				"value" : "1 1 1"
+			},
+			"newproperty11" : 
+			{
+				"index" : 2,
+				"options" : 
+				[
+					{
+						"label" : "关/off",
+						"value" : "1"
+					},
+					{
+						"label" : ".",
+						"value" : "2"
+					},
+					{
+						"label" : "❄",
+						"value" : "3"
+					}
+				],
+				"order" : 102,
+				"text" : "雪/snow",
+				"type" : "combo",
+				"value" : "2"
+			},
+			"newproperty12" : 
+			{
+				"index" : 1,
+				"order" : 101,
+				"text" : "<br><p><center><img src=http://m.qpic.cn/psc?/V14PRR3o2EVCK9/TmEUgtj9EK6.7V8ajmQrEFM2Aw.RNP3ROnrUolYCxC8bnFxNioc4Qs5Iz78Y0ExQUxI0SCXcMuWyfWfHes61usnV9MFEUkLf6RAuRWWiAaM!/b&bo=OQF7ADkBewADByI!&rf=viewer_4>",
+				"value" : ""
+			},
+			"newproperty13" : 
+			{
+				"index" : 0,
+				"order" : 100,
+				"text" : "<center><p><h3><b><a>如果觉得壁纸做的不错请给作者一个好评,十分感谢！！(*´∀人) </center></i></a></h3></b><b><a><center><h4><br>If you think the wallpaper is good, please give the author a good review, thank you very much!!(*´∀人)</br></a><b></h4></p>",
+				"value" : ""
+			},
+			"newproperty2" : 
+			{
+				"index" : 8,
+				"order" : 108,
+				"text" : "音频条/Audio strip",
+				"type" : "bool",
+				"value" : true
+			},
+			"newproperty3" : 
+			{
+				"condition" : "newproperty2.value",
+				"fraction" : true,
+				"index" : 9,
+				"max" : 1,
+				"min" : 0,
+				"order" : 109,
+				"precision" : 3,
+				"step" : 0.01,
+				"text" : "透明度/diaphaneity",
+				"type" : "slider",
+				"value" : 0.59
+			},
+			"newproperty4" : 
+			{
+				"index" : 4,
+				"order" : 104,
+				"text" : "光束/light beam",
+				"type" : "bool",
+				"value" : true
+			},
+			"newproperty5" : 
+			{
+				"index" : 7,
+				"order" : 107,
+				"text" : "灯笼/lantern",
+				"type" : "bool",
+				"value" : true
+			},
+			"newproperty6" : 
+			{
+				"index" : 3,
+				"order" : 103,
+				"text" : "寒气/cold air",
+				"type" : "bool",
+				"value" : true
+			},
+			"newproperty7" : 
+			{
+				"index" : 12,
+				"order" : 112,
+				"text" : "时间组件/Time module",
+				"type" : "group",
+				"value" : ""
+			},
+			"newproperty8" : 
+			{
+				"index" : 6,
+				"order" : 106,
+				"text" : "音频组件//Audio module",
+				"type" : "group",
+				"value" : ""
+			},
+			"newproperty9" : 
+			{
+				"index" : 13,
+				"order" : 113,
+				"text" : "开关/switch",
+				"type" : "bool",
+				"value" : true
+			},
+			"schemecolor" : 
+			{
+				"index" : 0,
+				"order" : 100,
+				"text" : "ui_browse_properties_scheme_color",
+				"type" : "color",
+				"value" : "0.3686274509803922 0.5215686274509804 0.9019607843137255"
+			},
+			"x" : 
+			{
+				"condition" : "newproperty9.value",
+				"fraction" : true,
+				"index" : 16,
+				"max" : 1,
+				"min" : 0,
+				"order" : 116,
+				"precision" : 3,
+				"step" : 0.01,
+				"text" : "x轴/x axis",
+				"type" : "slider",
+				"value" : 0.26
+			},
+			"y" : 
+			{
+				"condition" : "newproperty9.value",
+				"fraction" : true,
+				"index" : 17,
+				"max" : 1,
+				"min" : 0,
+				"order" : 117,
+				"precision" : 3,
+				"step" : 0.01,
+				"text" : "y轴/y axis",
+				"type" : "slider",
+				"value" : 0.21
+			}
+		},
+		"supportsaudioprocessing" : true
+	},
+	"preview" : "preview.gif",
+	"ratingsex" : "none",
+	"ratingviolence" : "none",
+	"tags" : [ "Anime" ],
+	"title" : "Miku-长安雪",
+	"type" : "scene",
+	"version" : 0
+}
