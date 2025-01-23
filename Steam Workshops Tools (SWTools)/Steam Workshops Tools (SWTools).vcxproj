@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="about.cpp" />
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="help.cpp" />
     <ClCompile Include="transmit.cpp" />
