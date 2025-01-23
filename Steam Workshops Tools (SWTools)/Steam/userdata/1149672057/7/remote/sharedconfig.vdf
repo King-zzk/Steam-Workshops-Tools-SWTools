@@ -1,0 +1,32 @@
+"UserRoamingConfigStore"
+{
+	"Software"
+	{
+		"Valve"
+		{
+			"Steam"
+			{
+				"SurveyDate"		"2021-03-18"
+				"SurveyDateVersion"		"-3453402909898970576"
+				"StartMenuShortcutCheck"		"0"
+				"DesktopShortcutCheck"		"1"
+				"CloudEnabled"		"1"
+				"apps"
+				{
+					"431960"
+					{
+						"CloudEnabled"		"0"
+					}
+				}
+			}
+		}
+	}
+	"JSClientStorage"
+	{
+		"spotlight.review.431960"
+		{
+			"rgPromptDismissals"		"3"
+			"bWasAskedToRevise"		"0"
+		}
+	}
+}

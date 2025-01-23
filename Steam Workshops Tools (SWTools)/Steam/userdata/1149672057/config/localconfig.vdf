@@ -1,0 +1,268 @@
+"UserLocalConfigStore"
+{
+	"Broadcast"
+	{
+		"Permissions"		"1"
+	}
+	"friends"
+	{
+		"1149672057"
+		{
+			"NameHistory"
+			{
+				"0"		"76561199109937785"
+			}
+			"avatar"		"0000000000000000000000000000000000000000"
+			"name"		"76561199109937785"
+		}
+		"PersonaName"		"76561199109937785"
+		"communitypreferences"		"18002000280130013800"
+		"contentdescriptorpreferences"		"0a08080510c2c1c4bc060a08080210c2c1c4bc060a08080110c2c1c4bc060a08080410c2c1c4bc060a08080310c2c1c4bc06"
+		"103582791468653154"
+		{
+			"name"		"河北邯郸"
+			"tag"		"HeBeiHanDan"
+			"avatar"		"55ff073a37a386f2890e739962650a11196cd03c"
+		}
+		"PersonaStateDesired"		"0"
+	}
+	"apptickets"
+	{
+		"7"		"3200000004000000799a86440100100107000000729d1c686901a8c000000000f243926772f3ad6701000000000000000000a4c2af6ba347acb48085967834f17446446054f14c781ea7254205c1303af27f3b39cc01ab470576189595e12bf0a5bfc820a89e44e184232270380d1963d99727dd5a95599d23458b4035697f1bac20901ed0f30fa4a2ff4fd420fff71a7907b62cf9f33368954ad7edc2d3f6139fb5233231b006bcc753a3b09af6bb44cdf2"
+	}
+	"ParentalSettings"
+	{
+		"Settings"		"09799a8644000000004800"
+		"Signature"		"5d4a30ce94059604fb6f6637a5ca6f976b5f5e5bcc977294fa1ca4fb7df0c933305cc5d1af44d6e29f7105684594f19d55af61301ad6057bee0260c86dfed1e4ba5a63e9e548c6c7cd1d9e81d29d0bcd74d045ead3fcde9aaab375034f830df42b7f102e0d5d59535225eea585e14cdc80f8c73a43164018f42a1e3aa4325f312f20c9de5129588daad4ea0f725f0a5179c0bbd452ae1e3c57ee1af6d71335fd2e21032c7947190442568472256c49cf638abb10e65848aeda2a4743346deb04ea3b3788be468dbdaec5a7b443cd39888e45685ab8929c01c817d9086eb9971fd9ff8c2d2479c66e4adaf3b1b3cbfd5c387a162c8e7cf73afd283b5782ba4dff"
+	}
+	"Offline"
+	{
+		"Ticket"		"08f9b49aa40415f2439267"
+		"Signature"		"2d681622cb87026021dbc483fd0095b1bbb89fc9a4f7e835e0ac8b6c320d2f2fb04129ab124daa3f97c725f76d5db4d570a262511a89a5652a38f396c658be4daf9ca74ffd53fb7b1121428f570eb4fd1459a3a2c5b1c5cc799b46a8de787c25580346c33cde9f6ebb4b5f4ea3eb8dd8f63081b94ad929fad293262c8aafabd3b751a504c79af44be62ff24eeab68dd5e714ce2e2217f17bac4a81143d91f57d5ff82f0d89470a845e56d1d5d566f6b635764095ef2b34002ab9eb0af3dbdbc89b84b12fede4f9853b6d7779e0df5679cb222de2de37c3eebe8149e9b96ec2449a6f21d5db3ea69ede1a9ff132f70e1b111001e90ee8b62b1acc8f37333da93b"
+		"EncryptedTicket"		"0a2045ae762a6297a47661e29ad799f2b6f538370a7b0565e2ff51d37ee98c8b6a791280022d681622cb87026021dbc483fd0095b1bbb89fc9a4f7e835e0ac8b6c320d2f2fb04129ab124daa3f97c725f76d5db4d570a262511a89a5652a38f396c658be4daf9ca74ffd53fb7b1121428f570eb4fd1459a3a2c5b1c5cc799b46a8de787c25580346c33cde9f6ebb4b5f4ea3eb8dd8f63081b94ad929fad293262c8aafabd3b751a504c79af44be62ff24eeab68dd5e714ce2e2217f17bac4a81143d91f57d5ff82f0d89470a845e56d1d5d566f6b635764095ef2b34002ab9eb0af3dbdbc89b84b12fede4f9853b6d7779e0df5679cb222de2de37c3eebe8149e9b96ec2449a6f21d5db3ea69ede1a9ff132f70e1b111001e90ee8b62b1acc8f37333da93b18062208ef89e41f820bfb94280432082eb5d80d46220624"
+		"EncryptedSignature"		"2d681622cb87026021dbc483fd0095b1bbb89fc9a4f7e835e0ac8b6c320d2f2fb04129ab124daa3f97c725f76d5db4d570a262511a89a5652a38f396c658be4daf9ca74ffd53fb7b1121428f570eb4fd1459a3a2c5b1c5cc799b46a8de787c25580346c33cde9f6ebb4b5f4ea3eb8dd8f63081b94ad929fad293262c8aafabd3b751a504c79af44be62ff24eeab68dd5e714ce2e2217f17bac4a81143d91f57d5ff82f0d89470a845e56d1d5d566f6b635764095ef2b34002ab9eb0af3dbdbc89b84b12fede4f9853b6d7779e0df5679cb222de2de37c3eebe8149e9b96ec2449a6f21d5db3ea69ede1a9ff132f70e1b111001e90ee8b62b1acc8f37333da93b"
+	}
+	"AppInfoChangeNumber"		"27131119"
+	"CloudKey"		"01000000519a13ee8fe860e1672070763b3a38222f62350cf8a38bb164418f8d303aa0affa9ef3cb"
+	"CloudKeyCRC"		"933381168"
+	"Software"
+	{
+		"Valve"
+		{
+			"Steam"
+			{
+				"apps"
+				{
+					"7"
+					{
+						"cloud"
+						{
+							"last_sync_state"		"synchronized"
+						}
+					}
+					"480"
+					{
+						"LastPlayed"		"1736722335"
+						"Playtime2wks"		"70"
+						"Playtime"		"71"
+					}
+					"730"
+					{
+						"LastPlayed"		"1689066888"
+						"Playtime"		"14143"
+					}
+					"230410"
+					{
+						"LastPlayed"		"1640984551"
+						"Playtime"		"3"
+					}
+					"236390"
+					{
+						"LastPlayed"		"1737122726"
+						"Playtime2wks"		"26"
+						"Playtime"		"39"
+					}
+					"311730"
+					{
+						"LastPlayed"		"1647591407"
+						"Playtime"		"33"
+					}
+					"374280"
+					{
+						"LastPlayed"		"1633796537"
+						"Playtime"		"40"
+					}
+					"383080"
+					{
+						"LastPlayed"		"1642715779"
+						"Playtime"		"1"
+					}
+					"431960"
+					{
+						"LastPlayed"		"1737627568"
+						"Playtime2wks"		"4270"
+						"Playtime"		"13061"
+						"PlaytimeDisconnected"		"190"
+					}
+					"550650"
+					{
+						"LastPlayed"		"1660029146"
+						"Playtime"		"1"
+					}
+					"565080"
+					{
+						"LastPlayed"		"1735103404"
+						"Playtime"		"23"
+					}
+					"625340"
+					{
+						"LastPlayed"		"1640984330"
+						"Playtime"		"3"
+					}
+					"943700"
+					{
+						"LastPlayed"		"1734637727"
+						"Playtime"		"18"
+					}
+					"950460"
+					{
+						"LastPlayed"		"1736678826"
+						"Playtime2wks"		"4"
+						"Playtime"		"14"
+					}
+					"950860"
+					{
+						"LastPlayed"		"1642716081"
+						"Playtime"		"1"
+					}
+					"1058700"
+					{
+						"LastPlayed"		"1642282234"
+						"Playtime"		"9"
+					}
+					"1161770"
+					{
+						"LastPlayed"		"1642282420"
+						"Playtime"		"3"
+					}
+					"1198260"
+					{
+						"LastPlayed"		"1643044923"
+						"Playtime"		"3"
+					}
+					"1212830"
+					{
+						"LastPlayed"		"1635853119"
+						"Playtime"		"2"
+					}
+					"1213740"
+					{
+						"LastPlayed"		"1626624292"
+						"Playtime"		"19"
+					}
+					"1256610"
+					{
+						"LastPlayed"		"1737610215"
+						"Playtime2wks"		"34"
+						"Playtime"		"56"
+						"PlaytimeDisconnected"		"1"
+					}
+					"1463120"
+					{
+						"LastPlayed"		"1646080374"
+						"Playtime"		"25"
+					}
+					"1522260"
+					{
+						"LastPlayed"		"1734637984"
+						"Playtime"		"14"
+					}
+					"1568940"
+					{
+						"LastPlayed"		"1737565167"
+						"Playtime2wks"		"16"
+						"Playtime"		"20"
+					}
+					"1581700"
+					{
+						"LastPlayed"		"1642716594"
+						"Playtime"		"2"
+					}
+					"1611300"
+					{
+						"LastPlayed"		"1635882384"
+						"Playtime"		"86"
+					}
+					"1628760"
+					{
+						"LastPlayed"		"1734757134"
+						"Playtime"		"2"
+					}
+					"1630080"
+					{
+						"LastPlayed"		"1734639121"
+						"Playtime"		"30"
+					}
+					"1634680"
+					{
+						"LastPlayed"		"1662967454"
+						"Playtime"		"7"
+					}
+					"1634720"
+					{
+						"LastPlayed"		"1662966704"
+						"Playtime"		"1"
+					}
+					"1661030"
+					{
+						"LastPlayed"		"1637696425"
+						"Playtime"		"15"
+					}
+					"1684760"
+					{
+						"LastPlayed"		"1647591835"
+						"Playtime"		"2"
+					}
+					"1710930"
+					{
+						"LastPlayed"		"1735727678"
+						"Playtime"		"1"
+						"PlaytimeDisconnected"		"1"
+					}
+					"1743260"
+					{
+						"LastPlayed"		"1646161435"
+						"Playtime"		"35"
+					}
+					"1811180"
+					{
+						"LastPlayed"		"1643019480"
+						"Playtime"		"19"
+					}
+					"1905180"
+					{
+						"LastPlayed"		"1737374423"
+						"Playtime2wks"		"13"
+						"Playtime"		"110"
+					}
+					"1170820"
+					{
+						"LastPlayed"		"1734309671"
+						"Playtime"		"5"
+					}
+					"218"
+					{
+						"LastPlayed"		"1734997983"
+						"Playtime"		"62"
+					}
+					"533540"
+					{
+						"LastPlayed"		"1735103869"
+						"Playtime"		"6"
+					}
+				}
+				"LastPlayedTimesSyncTime"		"1737627568"
+			}
+		}
+	}
+}
