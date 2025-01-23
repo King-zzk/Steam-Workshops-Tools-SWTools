@@ -17,4 +17,7 @@ void command(const string& input) {
     else if (input == "about") {
         about();
     }
+    else if (input == "wallpaper") {
+        wallpaper();
+    }
 }

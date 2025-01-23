@@ -132,6 +132,7 @@
     <ClCompile Include="help.cpp" />
     <ClCompile Include="transmit.cpp" />
     <ClCompile Include="statement.cpp" />
+    <ClCompile Include="Wallpaper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SWTools.h" />

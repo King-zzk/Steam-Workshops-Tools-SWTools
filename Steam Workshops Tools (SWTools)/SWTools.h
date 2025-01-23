@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <windows.h>
+#include <io.h>
 #include <conio.h>
 using namespace std;
 
@@ -16,4 +17,5 @@ void help();
 void transmit();
 void goto_transmit();
 void about();
+void wallpaper();
 #endif // SWTOOLS_H
