@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunksiteserverui=self.webpackChunksiteserverui||[]).push([[488],{488:e=>{e.exports=JSON.parse('{"test_string":"test string"}')}}]);
