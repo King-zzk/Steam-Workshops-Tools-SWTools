@@ -20,4 +20,8 @@ void command(const string& input) {
     else if (input == "wallpaper") {
         wallpaper();
     }
+    else {
+        cout << "Invalid command. Type 'help' for a list of commands." << endl;
+        transmit();
+    }
 }
