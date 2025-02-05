@@ -33,9 +33,6 @@
     <ClCompile Include="Wallpaper.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="hoi4.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SWTools.h">
