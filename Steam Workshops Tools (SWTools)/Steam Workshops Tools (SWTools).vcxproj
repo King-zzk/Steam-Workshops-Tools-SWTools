@@ -130,6 +130,7 @@
     <ClCompile Include="about.cpp" />
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="help.cpp" />
+    <ClCompile Include="hoi4.cpp" />
     <ClCompile Include="transmit.cpp" />
     <ClCompile Include="statement.cpp" />
     <ClCompile Include="Wallpaper.cpp" />
