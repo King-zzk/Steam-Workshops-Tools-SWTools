@@ -1,9 +1,9 @@
 #include "SWTools.h"
 
 int main() {
-    cout << "Commkom(king-zzk) Steam Workshops Tools (SWTools)[°æ±¾ 0.1.2(2025.02)]" << endl;
-    cout << "(c) Commkom(king-zzk) 2025 All rights reserved¡£" << endl;
-    cout << "Çë×¢Òâ£º±¾Èí¼þÍêÈ«Ãâ·ÑÊ¹ÓÃ£¬ÇëÎðÓÃÓÚµ¹Âô»òÓ¯ÀûÄ¿µÄ£¬·ñÔòºó¹û×Ô¸º¡£" << endl;
+    cout << "Commkom(king-zzk) Steam Workshops Tools (SWTools)[ç‰ˆæœ¬ 0.1.2(2025.02)]" << endl;
+    cout << "(c) Commkom(king-zzk) 2025 All rights reservedã€‚" << endl;
+    cout << "è¯·æ³¨æ„ï¼šæœ¬è½¯ä»¶å®Œå…¨å…è´¹ä½¿ç”¨ï¼Œè¯·å‹¿ç”¨äºŽå€’å–æˆ–ç›ˆåˆ©ç›®çš„ï¼Œå¦åˆ™åŽæžœè‡ªè´Ÿï¼" << endl;
     cout << endl;
     transmit();
 }
