@@ -1,47 +1,47 @@
 #include "SWTools.h"
 
 void hoi4() {
-	//æ£€æŸ¥æ˜¯å¦æœ‰steamæ–‡ä»¶å¤¹
+	//¼ì²éÊÇ·ñÓĞsteamÎÄ¼ş¼Ğ
 	if (_access(".\\Steam", 0) == -1) {
 		system("mkdir Steam");
 	}
-	//æ¸…å±
+	//ÇåÆÁ
 	system("cls");
-	cout << "åˆ›æ„å·¥åŠç¼–å·ï¼ˆç¤ºä¾‹ï¼‰ï¼šhttps://steamcommunity.com/sharedfiles/filedetails/?id=XXXXXX&searchtext=" << endl;
-	cout << "åœ¨idåé¢çš„æ•°å­—ä¸ºåˆ›æ„å·¥åŠç¼–å·" << endl;
+	cout << "´´Òâ¹¤·»±àºÅ£¨Ê¾Àı£©£ºhttps://steamcommunity.com/sharedfiles/filedetails/?id=XXXXXXX&searchtext=" << endl;
+	cout << "ÔÚidºóÃæµÄÊı×ÖÎª´´Òâ¹¤·»±àºÅ" << endl;
 	cout << endl;
-	cout << "è¯·è¾“å…¥ä½ çš„é’¢é“é›„å¿ƒ4çš„åˆ›æ„å·¥åŠç¼–å·:";
+	cout << "ÇëÊäÈëÄãµÄ¸ÖÌúĞÛĞÄ4µÄ´´Òâ¹¤·»±àºÅ:";
 	string input;
 	getline(cin, input);
-	//æ£€æŸ¥è¾“å…¥æ˜¯å¦ä¸ºæ•°å­—
+	//¼ì²éÊäÈëÊÇ·ñÎªÊı×Ö
 	if (input.find_first_not_of("0123456789") != string::npos) {
-		cout << "è¾“å…¥æœ‰è¯¯ï¼Œè¯·é‡æ–°è¾“å…¥ï¼" << endl;
+		cout << "ÊäÈëÓĞÎó£¬ÇëÖØĞÂÊäÈë£¡" << endl;
 		hoi4();
 	}
 	else {
-		//æ£€æŸ¥åœ¨steamæ–‡ä»¶å¤¹æ˜¯å¦æœ‰steamcmd.exe
+		//¼ì²éÔÚsteamÎÄ¼ş¼ĞÊÇ·ñÓĞsteamcmd.exe
 		if (_access(".\\Steam\\steamcmd.exe", 0) == -1) {
-			cout << "Steamcmd.exeæœªæ‰¾åˆ°ï¼Œæ­£åœ¨ä¸‹è½½..." << endl;
-			//ä¸‹è½½steamcmd.exe
+			cout << "Steamcmd.exeÎ´ÕÒµ½£¬ÕıÔÚÏÂÔØ..." << endl;
+			//ÏÂÔØsteamcmd.exe
 			int downloadResult = system(R"(cd .\Steam\ && curl -o "steamcmd.zip" "https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip" && tar -xzvf steamcmd.zip && del steamcmd.zip)");
 			if (downloadResult == 0) {
-				cout << "ä¸‹è½½å®Œæˆï¼" << endl;
+				cout << "ÏÂÔØÍê³É£¡" << endl;
 			}
 			else {
-				cout << "ä¸‹è½½å¤±è´¥ï¼(è¯·æ£€æŸ¥ç½‘ç»œè¿æ¥)" << endl;
+				cout << "ÏÂÔØÊ§°Ü£¡(Çë¼ì²éÍøÂçÁ¬½Ó)" << endl;
 				transmit();
 			}
 		}
 	}
-	//ä¸‹è½½åˆ›æ„å·¥åŠæ–‡ä»¶
-	cout << "æ­£åœ¨ä¸‹è½½åˆ›æ„å·¥åŠæ–‡ä»¶ä¸­..." << endl;
+	//ÏÂÔØ´´Òâ¹¤·»ÎÄ¼ş
+	cout << "ÕıÔÚÏÂÔØ´´Òâ¹¤·»ÎÄ¼şÖĞ..." << endl;
 	string command = ".\\Steam\\steamcmd.exe +login steam_username steam_userpasswd +workshop_download_item 431960 " + input + " +quit";
-	system(command.c_str()); // è¿™è¡Œä»£ç ä¼šç­‰å¾…steamcmd.exeæ‰§è¡Œå®Œæ¯•
-	//æ‰“å¼€åˆ›æ„å·¥åŠæ–‡ä»¶å¤¹
+	system(command.c_str()); // ÕâĞĞ´úÂë»áµÈ´ısteamcmd.exeÖ´ĞĞÍê±Ï
+	//´ò¿ª´´Òâ¹¤·»ÎÄ¼ş¼Ğ
 	string path = ".\\Steam\\steamapps\\workshop\\content\\431960\\" + input + "\\";
-	// ä½¿ç”¨æ­£ç¡®çš„å‘½ä»¤æ ¼å¼æ¥æ‰“å¼€æ–‡ä»¶å¤¹
+	// Ê¹ÓÃÕıÈ·µÄÃüÁî¸ñÊ½À´´ò¿ªÎÄ¼ş¼Ğ
 	string explorerCommand = "explorer.exe " + path;
-	system(explorerCommand.c_str()); // è¿™è¡Œä»£ç ä¼šç­‰å¾…explorer.exeæ‰§è¡Œå®Œæ¯•
-	cout << "ä¸‹è½½å®Œæˆï¼(å¦‚æœå‡ºç°timeoutï¼Œè¯·é‡è¯•ï¼)" << endl;
+	system(explorerCommand.c_str()); // ÕâĞĞ´úÂë»áµÈ´ıexplorer.exeÖ´ĞĞÍê±Ï
+	cout << "ÏÂÔØÍê³É£¡(Èç¹û³öÏÖtimeout£¬ÇëÖØÊÔ£¡)" << endl;
 	transmit();
 }
