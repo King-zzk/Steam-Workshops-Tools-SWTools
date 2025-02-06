@@ -7,7 +7,7 @@ void wallpaper() {
 	}
 	//清屏
 	system("cls");
-	cout << "创意工坊编号（示例）：https://steamcommunity.com/sharedfiles/filedetails/?id=123456789&searchtext=" << endl;
+	cout << "创意工坊编号（示例）：https://steamcommunity.com/sharedfiles/filedetails/?id=XXXXXXX&searchtext=" << endl;
 	cout << "在id后面的数字为创意工坊编号" << endl;
 	cout << endl;
 	cout << "请输入你的Wallpaper Engine的创意工坊编号:";

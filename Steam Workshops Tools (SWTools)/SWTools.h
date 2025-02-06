@@ -18,4 +18,5 @@ void transmit();
 void goto_transmit();
 void about();
 void wallpaper();
+void hoi4();
 #endif // SWTOOLS_H
