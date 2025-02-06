@@ -137,13 +137,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
-    <ClInclude Include="resource1.h" />
-    <ClInclude Include="resource2.h" />
-    <ClInclude Include="resource3.h" />
     <ClInclude Include="SWTools.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Steam Workshops Tools (SWTools)1.rc" />
+    <ResourceCompile Include="Steam Workshops Tools (SWTools).rc" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="C:\Users\User\Downloads\bitbug_favicon.ico" />
