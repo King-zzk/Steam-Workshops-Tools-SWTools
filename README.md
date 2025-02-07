@@ -1,4 +1,5 @@
 #Steam创意工坊下载文件工具
+
 ##免费下载，畅享创意！
 
 -还在为Steam创意工坊的文件下载而烦恼吗？这款工具将为您解决所有问题！它完全*免费*，无需任何付费或订阅，即可轻松下载您喜爱的Steam创意工坊内容，包括模组、地图、皮肤等。
@@ -10,6 +11,8 @@
 ##开源共享，自由使用！
 
 -本软件基于GNU General Public License v2.0开源协议发布，这意味着您可以自由地使用、修改和分发该软件，但必须遵循该协议的相关规定。我们相信开源精神能够促进软件的进步和发展，也欢迎您为该项目贡献代码。
+
+我的bilibili：https://space.bilibili.com/650353694
 
 #Steam Workshop Download Tool
 
@@ -24,3 +27,5 @@
 ##Open Source, Free to Use!
 
 -This software is released under the GNU General Public License v2.0, meaning you are free to use, modify, and distribute the software, provided you comply with the terms of the license. We believe that the spirit of open source promotes software progress and development, and we welcome your contributions to the project.
+
+My bilibili：https://space.bilibili.com/650353694
