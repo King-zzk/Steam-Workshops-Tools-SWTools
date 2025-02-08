@@ -35,10 +35,10 @@ void hoi4() {
 	}
 	//下载创意工坊文件
 	cout << "正在下载创意工坊文件中..." << endl;
-	string command = ".\\Steam\\steamcmd.exe +login thb112259 steamok7416 +workshop_download_item 431960 " + input + " +quit";
+	string command = ".\\Steam\\steamcmd.exe +login thb112259 steamok7416 +workshop_download_item 394360 " + input + " +quit";
 	system(command.c_str()); // 这行代码会等待steamcmd.exe执行完毕
 	//打开创意工坊文件夹
-	string path = ".\\Steam\\steamapps\\workshop\\content\\431960\\" + input + "\\";
+	string path = ".\\Steam\\steamapps\\workshop\\content\\394360\\" + input + "\\";
 	// 使用正确的命令格式来打开文件夹
 	string explorerCommand = "explorer.exe " + path;
 	system(explorerCommand.c_str()); // 这行代码会等待explorer.exe执行完毕
