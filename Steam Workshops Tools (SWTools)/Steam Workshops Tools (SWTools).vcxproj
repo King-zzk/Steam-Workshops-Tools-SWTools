@@ -143,7 +143,7 @@
     <ResourceCompile Include="Steam Workshops Tools (SWTools).rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="C:\Users\User\Downloads\bitbug_favicon.ico" />
+    <Image Include="C:\Users\User\Pictures\kbm1u-3c498-001.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
