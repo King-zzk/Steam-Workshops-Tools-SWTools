@@ -24,9 +24,6 @@
     <ClCompile Include="help.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="statement.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="about.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -34,6 +31,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="hoi4.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -44,23 +44,14 @@
     <ClInclude Include="resource.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="resource1.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="resource2.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="resource3.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Steam Workshops Tools (SWTools)1.rc">
+    <ResourceCompile Include="Steam Workshops Tools (SWTools).rc">
       <Filter>资源文件</Filter>
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="C:\Users\User\Downloads\bitbug_favicon.ico">
+    <Image Include="C:\Users\User\Pictures\kbm1u-3c498-001.ico">
       <Filter>资源文件</Filter>
     </Image>
   </ItemGroup>
