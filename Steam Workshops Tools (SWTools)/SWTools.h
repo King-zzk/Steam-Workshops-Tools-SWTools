@@ -9,6 +9,7 @@
 #include <windows.h>
 #include <io.h>
 #include <conio.h>
+#include <fstream>
 using namespace std;
 
 //º¯ÊýÉùÃ÷
@@ -19,4 +20,6 @@ void goto_transmit();
 void about();
 void wallpaper();
 void hoi4();
+void gmod();
+void useragreement();
 #endif // SWTOOLS_H
