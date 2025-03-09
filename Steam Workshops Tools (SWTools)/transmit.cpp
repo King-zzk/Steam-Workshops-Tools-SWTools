@@ -4,7 +4,7 @@
 
 
 void transmit() {
-    cout << "SWTools#> ";
+    cout << "SWTools# >";
     string input;
     getline(cin, input); // 使用 getline 读取整行输入
     command(input);
