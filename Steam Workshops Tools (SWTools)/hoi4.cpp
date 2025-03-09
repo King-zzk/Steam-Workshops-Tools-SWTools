@@ -16,7 +16,7 @@ void hoi4() {
 	//检查输入是否为数字
 	if (input.find_first_not_of("0123456789") != string::npos) {
 		cout << "输入有误，请重新输入！" << endl;
-		hoi4();
+		return hoi4();
 	}
 	else {
 		//检查在steam文件夹是否有steamcmd.exe
@@ -29,7 +29,7 @@ void hoi4() {
 			}
 			else {
 				cout << "下载失败！(请检查网络连接)" << endl;
-				transmit();
+				return transmit();
 			}
 		}
 	}
@@ -43,5 +43,5 @@ void hoi4() {
 	string explorerCommand = "explorer.exe " + path;
 	system(explorerCommand.c_str()); // 这行代码会等待explorer.exe执行完毕
 	cout << "下载完成！(如果出现timeout，请重试！)" << endl;
-	transmit();
+	return transmit();
 }

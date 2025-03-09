@@ -134,6 +134,8 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="transmit.cpp" />
     <ClCompile Include="wallpaper.cpp" />
+    <ClCompile Include="gmod.cpp" />
+    <ClCompile Include="UserAgreement.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
