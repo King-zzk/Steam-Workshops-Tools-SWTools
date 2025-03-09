@@ -1,4 +1,5 @@
 #include "SWTools.h"
+#include <conio.h> // Include necessary header for _getch()
 
 void useragreement()
 {
@@ -41,7 +42,7 @@ void useragreement()
 	else {
 		cout << "用户协议未同意！(你无法使用此软件！)" << endl;
 		//任意键退出
-		_getch();
+		int ch = _getch(); // Store the return value to avoid the warning
 		exit(0);
 	}
 }
