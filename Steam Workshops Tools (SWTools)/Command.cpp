@@ -26,6 +26,9 @@ void command(const string& input) {
     else if (input == "hoi4") {
         hoi4();
     }
+	else if (input == "v3") {
+		v3();
+	}
     else {
         cout << "Invalid command. Type 'help' for a list of commands." << endl;
         return transmit();
