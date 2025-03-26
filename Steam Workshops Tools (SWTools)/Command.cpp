@@ -20,7 +20,7 @@ void command(const string& input) {
     else if (input == "wallpaper") {
         wallpaper();
     }
-    else if (input == "Gmod") {
+    else if (input == "gmod") {
         gmod();
     }
     else if (input == "hoi4") {
