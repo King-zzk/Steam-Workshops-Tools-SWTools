@@ -22,4 +22,5 @@ void wallpaper();
 void hoi4();
 void gmod();
 void useragreement();
+void v3();
 #endif // SWTOOLS_H
