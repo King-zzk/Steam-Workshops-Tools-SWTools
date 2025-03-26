@@ -138,14 +138,7 @@
     <ClCompile Include="UserAgreement.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="resource.h" />
     <ClInclude Include="SWTools.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="Steam Workshops Tools (SWTools).rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="C:\Users\User\Pictures\kbm1u-3c498-001.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
