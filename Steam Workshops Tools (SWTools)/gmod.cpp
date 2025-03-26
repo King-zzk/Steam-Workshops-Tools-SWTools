@@ -38,7 +38,7 @@ void gmod() {
 	string command = ".\\Steamcmd\\steamcmd.exe +login anonymous +workshop_download_item 4000 " + input + " +quit";
 	system(command.c_str()); // 这行代码会等待steamcmd.exe执行完毕
 	//打开创意工坊文件夹
-	string path = ".\\Steamcmd\\steamapps\\workshop\\content\\431960\\" + input + "\\";
+	string path = ".\\Steamcmd\\steamapps\\workshop\\content\\4000\\" + input + "\\";
 	// 使用正确的命令格式来打开文件夹
 	string explorerCommand = "explorer.exe " + path;
 	system(explorerCommand.c_str()); // 这行代码会等待explorer.exe执行完毕
