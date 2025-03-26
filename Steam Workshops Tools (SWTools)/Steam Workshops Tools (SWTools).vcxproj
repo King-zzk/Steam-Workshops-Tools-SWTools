@@ -133,6 +133,7 @@
     <ClCompile Include="hoi4.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="transmit.cpp" />
+    <ClCompile Include="Victoria3.cpp" />
     <ClCompile Include="wallpaper.cpp" />
     <ClCompile Include="gmod.cpp" />
     <ClCompile Include="UserAgreement.cpp" />

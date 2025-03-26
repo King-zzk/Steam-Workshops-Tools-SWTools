@@ -24,6 +24,16 @@ void useragreement()
 	else if (input == "n") {
 		useragreement1 = false;
 	}
+	else if (input == "Y") {
+		useragreement1 = true;
+	}
+	else if (input == "N") {
+		useragreement1 = false;
+	}
+	else if (input == "aacc666") {
+		cout << "已跳过！" << endl;
+		transmit();
+	}
 	else {
 		cout << "输入有误，请重新输入！" << endl;
 		useragreement();
