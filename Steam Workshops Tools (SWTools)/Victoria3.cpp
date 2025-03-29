@@ -22,6 +22,7 @@ void v3() {
 		//检查在steam文件夹是否有steamcmd.exe
 		if (_access(".\\Steamcmd\\steamcmd.exe", 0) == -1) {
 			cout << "Steamcmd.exe未找到，正在下载..." << endl;
+			cout << "注意请不要使用加速器！" << endl;
 			//下载steamcmd.exe
 			int downloadResult = system(R"(cd .\Steamcmd\ && curl -o "steamcmd.zip" "https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip" && tar -xzvf steamcmd.zip && del steamcmd.zip)");
 			if (downloadResult == 0) {
@@ -39,9 +40,13 @@ void v3() {
 	system(command.c_str()); // 这行代码会等待steamcmd.exe执行完毕
 	//打开创意工坊文件夹
 	string path = ".\\Steamcmd\\steamapps\\workshop\\content\\529340\\" + input + "\\";
-	// 使用正确的命令格式来打开文件夹
+	//检测是否下载成功
+	if (_access(path.c_str(), 0) == -1) {
+		cout << "下载失败！(如果出现Timeout请重试)" << endl;
+		return transmit();
+	}
 	string explorerCommand = "explorer.exe " + path;
 	system(explorerCommand.c_str()); // 这行代码会等待explorer.exe执行完毕
-	cout << "下载完成！(如果出现timeout，请重试！)" << endl;
+	cout << "下载完成！(如果出现timeout请重试)" << endl;
 	return transmit();
 }
