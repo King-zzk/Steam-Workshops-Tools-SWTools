@@ -1,31 +1,18 @@
-# Steam创意工坊下载文件工具
+# Steam Workshops Tools 创意工坊下载工具
 
-## 免费下载，畅享创意！
+这是一款下载steam创意工坊下载模组的工具
+没有什么技术含量，只是SteamCMD加一个正版账号登陆就没了(＠_＠;)
 
-- 还在为Steam创意工坊的文件下载而烦恼吗？这款工具将为您解决所有问题！它完全*免费*，无需任何付费或订阅，即可轻松下载您喜爱的Steam创意工坊内容，包括模组、地图、皮肤等。
 
-## 禁止倒卖，尊重原创！
+## 编译方法
 
-- 本工具仅供个人学习交流使用，严禁任何形式的 ***倒卖行为*** 。Steam创意工坊的所有内容均属于原创作者，请尊重他们的劳动成果，支持正版。
+使用**vs2022**打开sin编译即可
 
-## 开源共享，自由使用！
+### 支持游戏
 
-- 本软件基于GNU General Public License v2.0开源协议发布，这意味着您可以自由地使用、修改和分发该软件，但必须遵循该协议的相关规定。我们相信开源精神能够促进软件的进步和发展，也欢迎您为该项目贡献代码。
+维多利亚3，钢铁雄心4，盖瑞模组，小红车。
 
-我的bilibili：https://space.bilibili.com/650353694
+#### 声明
 
-# Steam Workshop Download Tool
+记得补票，支持正版。禁止用任何商业用途！
 
-## Free Download, Enjoy Creativity!
-
-- Still struggling with downloading files from the Steam Workshop? This tool will solve all your problems! It is completely free, requiring no payments or subscriptions, allowing you to easily download your favorite Steam Workshop content, including mods, maps, skins, and more.
-
-## Resale Prohibited, Respect Originality!
-
-- This tool is for personal learning and exchange only. Any form of resale is strictly prohibited. All content on the Steam Workshop belongs to the original creators. Please respect their hard work and support the official versions.
-
-## Open Source, Free to Use!
-
-- This software is released under the GNU General Public License v2.0, meaning you are free to use, modify, and distribute the software, provided you comply with the terms of the license. We believe that the spirit of open source promotes software progress and development, and we welcome your contributions to the project.
-
-My bilibili：https://space.bilibili.com/650353694
