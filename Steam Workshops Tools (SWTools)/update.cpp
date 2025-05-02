@@ -11,7 +11,7 @@ void update() {
 		ifstream input("C:\\Windows\\Temp\\version.txt");
 		if (input.is_open()) {
 			while (getline(input, line)) {
-				if (line == "0.1.8") {
+				if (line == "0.1.9") {
 					cout << "当前版本为最新版本" << endl;
 					useragreement();
 				}
