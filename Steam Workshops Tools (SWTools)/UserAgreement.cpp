@@ -30,7 +30,7 @@ void useragreement()
 	else if (input == "N") {
 		useragreement1 = false;
 	}
-	else if (input == "aacc666") {
+	else if (input == "skip") {
 		cout << "ÒÑÌø¹ı£¡" << endl;
 		transmit();
 	}
