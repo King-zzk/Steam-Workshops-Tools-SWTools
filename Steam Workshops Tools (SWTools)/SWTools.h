@@ -9,7 +9,9 @@
 #include <windows.h>
 #include <io.h>
 #include <conio.h>
+#include <urlmon.h>
 #include <fstream>
+#pragma comment(lib, "urlmon.lib")
 using namespace std;
 
 //º¯ÊýÉùÃ÷
@@ -23,4 +25,5 @@ void hoi4();
 void gmod();
 void useragreement();
 void v3();
+void update();
 #endif // SWTOOLS_H
