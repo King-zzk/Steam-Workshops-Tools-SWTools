@@ -25,7 +25,6 @@ void update() {
 	}
 	else {
 		cout << "检查失败(检查是否打开加速器，没有请打开！)" << endl;
-		cout << "错误码：0x" << hex << endl;
 		useragreement();
 	}
 }
