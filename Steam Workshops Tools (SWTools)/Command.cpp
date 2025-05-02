@@ -29,6 +29,9 @@ void command(const string& input) {
 	else if (input == "v3") {
 		v3();
 	}
+    else if (input == "update") {
+        update();
+    }
     else {
         cout << "Invalid command. Type 'help' for a list of commands." << endl;
         return transmit();
