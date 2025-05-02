@@ -45,6 +45,9 @@
     <ClCompile Include="Victoria3.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="update.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SWTools.h">
