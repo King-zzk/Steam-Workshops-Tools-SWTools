@@ -14,7 +14,7 @@ void update() {
     }
 
     // 下载新的 version.txt 文件
-    const wchar_t* url = L"https://king-zzk.github.io/version.txt";
+    const wchar_t* url = L"https://raw.githubusercontent.com/King-zzk/king-zzk.github.io/refs/heads/main/version.txt";
     const wchar_t* path = L".\\version.txt";
     HRESULT hr = URLDownloadToFileW(NULL, url, path, 0, NULL);
 
