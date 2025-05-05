@@ -12,6 +12,8 @@
 #include <conio.h>
 #include <urlmon.h>
 #include <fstream>
+#include <cerrno>
+#include <cstring>
 #pragma comment(lib, "urlmon.lib")
 using namespace std;
 
