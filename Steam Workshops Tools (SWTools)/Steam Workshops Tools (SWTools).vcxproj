@@ -127,21 +127,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="about.cpp" />
-    <ClCompile Include="Command.cpp" />
-    <ClCompile Include="help.cpp" />
-    <ClCompile Include="hoi4.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="transmit.cpp" />
-    <ClCompile Include="update.cpp" />
-    <ClCompile Include="Victoria3.cpp" />
-    <ClCompile Include="wallpaper.cpp" />
-    <ClCompile Include="gmod.cpp" />
-    <ClCompile Include="UserAgreement.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="app_info.hpp" />
+    <ClInclude Include="command.hpp" />
+    <ClInclude Include="downloader.hpp" />
+    <ClInclude Include="eula.hpp" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="SWTools.h" />
+    <ClInclude Include="texts.hpp" />
+    <ClInclude Include="update.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Steam Workshops Tools (SWTools).rc" />

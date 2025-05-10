@@ -15,46 +15,31 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="transmit.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Command.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="help.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="about.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Wallpaper.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="hoi4.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="gmod.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="UserAgreement.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Victoria3.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="update.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="SWTools.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="texts.hpp">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="update.hpp">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="eula.hpp">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="downloader.hpp">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="command.hpp">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="app_info.hpp">
+      <Filter>源文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
