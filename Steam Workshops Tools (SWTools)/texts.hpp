@@ -9,13 +9,13 @@ using namespace std;
 
 namespace text {
 	// TODO: 版本更新时修改这里的版本号
-	const string version = "devlop";
+	const string version = "0.1.9";
 	const string headline = "Commkom(king-zzk) Steam Workshops Tools (SWTools)[" + version +
 		"]\nCopyright (c) Commkom(king-zzk) 2025 All rights reserved.";
 	const string website = "https://github.com/King-zzk/Steam-Workshops-Tools-SWTools";
 
 	// TODO: EULA更新时修改这里的版本号
-	const string eula_version = "2025.05.10";
+	const string eula_version = "2025.05.11";
 	const string eula = R"(
 最终用户许可协议(EULA)
 最后修改日期：)" + eula_version + R"(
