@@ -38,6 +38,6 @@ bool elua() {
 		return false;
 	}
 
-	cout << "无效输入";
-	return false;
+	cout << "无效输入" << endl;
+	return elua();
 }
