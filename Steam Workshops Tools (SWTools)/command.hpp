@@ -7,7 +7,7 @@
 // 返回 false 表示要退出程序
 bool command() {
 	// 提示用户输入
-	cout << "> ";
+	cout << "swtools@> ";
 	string opt;
 	getline(cin, opt);
 	// 命令分支
