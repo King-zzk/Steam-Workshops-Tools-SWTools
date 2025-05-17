@@ -26,4 +26,8 @@ map < string, AppInfo> app_cmd = {
 		"v3",
 		{"steamok1090250","steamok45678919","529340"}
 	},
+	{
+		"ck3",
+		{"wgfy3000","Hh573461px","1158310"}
+	}
 };

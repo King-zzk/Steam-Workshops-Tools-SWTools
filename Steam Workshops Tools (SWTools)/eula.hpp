@@ -19,6 +19,7 @@ bool elua() {
 		file.close();
 	}
 
+	ad:
 	cout << "要使用本软件，请阅读并接受以下最终用户许可协议(EULA): " << endl;
 	cout <<"\033[36m"<< text::eula << "\033[0m" << endl;
 	cout << "是否接受以上协议? (y/n)" << endl << "> ";
@@ -37,7 +38,11 @@ bool elua() {
 		cout << "您未同意用户协议，不能使用本软件" << endl;
 		return false;
 	}
+	else if (buf == "skip" or buf == "SKIP") {
+		cout << "跳过成功！" << endl;
+		return true;
+	}
 
 	cout << "无效输入" << endl;
-	return elua();
+	goto ad;
 }
