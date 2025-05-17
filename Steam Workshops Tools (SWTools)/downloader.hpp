@@ -18,13 +18,13 @@ void download(AppInfo info) {
 		if (res == 0) {
 			cout << "下载完成" << endl;
 		} else {
-			cout << "\033[31m错误：steamcmd下载失败，请检查网络连接\033[0m" << endl;
+			cout << "错误：steamcmd下载失败，请检查网络连接" << endl;
 			return;
 		}
 	}
 
 	cout << "创意工坊物品URL示例: https://steamcommunity.com/sharedfiles/filedetails/?id=\033[33mXXXXXXX\033[0m" << endl;
-	cout << "其中\033[33mXXXXXXX\033[0m为创意工坊物品编号" << endl << endl;
+	cout << "其中XXXXXXX为创意工坊物品编号" << endl << endl;
 	string id;
 begin:
 	cout << "输入要下载的创意工坊物品编号:" << endl << "> ";
@@ -40,7 +40,7 @@ begin:
 	// 打开创意工坊文件夹
 	string path = "steamcmd\\steamapps\\workshop\\content\\" + info.app_id + "\\" + id + "\\";
 	if (_access(path.c_str(), 0) == -1) {
-		cout << "\033[31m错误：创意工坊物品下载失败(如果出现Timeout请重试)\033[0m" << endl;
+		cout << "错误：创意工坊物品下载失败(如果出现Timeout请重试)" << endl;
 		return;
 	}
 	string explorerCommand = "explorer.exe " + path;

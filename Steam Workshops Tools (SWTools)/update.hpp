@@ -16,7 +16,7 @@ void check_update() {
 		}
 	}
 
-	// 下载新的 headline.txt 文件 (用代理网站)
+/*
 	const char url[] = "https://gh-proxy.net/https://raw.githubusercontent.com/King-zzk/king-zzk.github.io/refs/heads/main/version.txt";
 	const char path[] = "version.txt";
 
@@ -46,5 +46,40 @@ void check_update() {
 		}
 	} else {
 		throw exception("无法获取最新版本信息");
+	}
+}
+*/
+
+	//源代码注释
+
+	system ("curl -s https://gh-proxy.net/https://raw.githubusercontent.com/King-zzk/king-zzk.github.io/refs/heads/main/version.txt -o version");
+	//被逼无奈火绒会报毒，所以只能用curl了(┬┬﹏┬┬)
+	file.open("version", ios::in);
+	if (file.is_open()) {
+		string line;
+		if (getline(file, line)) { // 只读取第一行
+			if (line == text::version) {
+				cout << "当前版本为最新版本" << endl;
+			}
+			else {
+				cout << "检测到新版本：" << line << "当前版本：" << text::version << endl;
+				cout << "请前往 " + text::website + " 下载最新版本" << endl;
+			}
+			file.close();
+		}
+		else {
+			file.close();
+			throw exception("version.txt中的内容无效");
+		}
+	}
+	else {
+		cerr << "文件打开失败!" << endl;
+		cerr << "错误码：" << errno << endl;
+	}
+
+	if (_access("version.txt", 0) == 0) {
+		if (remove("version.txt") != 0) {
+			cout << "警告: 文件删除失败(代码" << errno << ")，请尝试手动删除此目录下的version.txt" << endl;
+		}
 	}
 }

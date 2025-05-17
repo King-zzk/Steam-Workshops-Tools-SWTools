@@ -9,13 +9,13 @@ using namespace std;
 
 namespace text {
 	// TODO: 版本更新时修改这里的版本号
-	const string version = "0.2.0";
+	const string version = "develop";
 	const string headline = "Commkom(king-zzk) Steam Workshops Tools (SWTools)[" + version +
 		"]\nCopyright (c) Commkom(king-zzk) 2025 All rights reserved.";
 	const string website = "https://github.com/King-zzk/Steam-Workshops-Tools-SWTools";
 
 	// TODO: EULA更新时修改这里的版本号
-	const string eula_version = "2025.05.11";
+	const string eula_version = "2025.05.17";
 	const string eula = R"(
 最终用户许可协议(EULA)
 最后修改日期：)" + eula_version + R"(
@@ -44,6 +44,7 @@ hoi4      下载 钢铁雄心4 的创意工坊物品
 gmod      下载 Garry's Mod 的创意工坊物品
 wallpaper 下载 壁纸引擎 的创意工坊物品
 v3        下载 维多利亚3 的创意工坊物品
+ck3		  下载 Crusader Kings III 的创意工坊物品
 
 exit	  退出程序
 clear	  清屏
@@ -54,7 +55,6 @@ eula      查看最终用户许可协议(EULA)
 )";
 	const string about = headline + R"(
 这是一个完全免费的Steam Workshops 下载工具，请勿倒卖！
-作者：king-Zzk Commkom
-贡献者：masterLazy
+作者：king-Zzk Commkom,masterLazy
 Github：)" + website;
 }
