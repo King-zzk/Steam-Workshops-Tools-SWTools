@@ -22,14 +22,14 @@ bool elua() {
 	ad:
 	cout << "要使用本软件，请阅读并接受以下最终用户许可协议(EULA): " << endl;
 	cout << text::eula << endl;
-	cout << "是否接受以上协议? (y/n)" << endl << "> ";
+	cout << "是否接受以上协议? (y/n) > ";
 
 	getline(cin, buf);
 	if (buf == "Y" or buf == "y") {
 		cout << "您已同意用户协议" << endl;
 		file.open("eula.txt", ios::out);
 		if (not file.is_open()) {
-			throw exception("无法写入到eula.txt");
+			throw exception("无法写入到 eula.txt");
 		}
 		file << text::eula_accepted << endl;
 		file.close();

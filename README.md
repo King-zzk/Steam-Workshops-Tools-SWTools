@@ -4,13 +4,19 @@
 
 没有什么技术含量，只是SteamCMD加一个正版账号登陆就没了(＠_＠;)
 
-# 编译方法
-使用**Visual Studio**打开sln编译即可
+在 [Releases](https://github.com/King-zzk/Steam-Workshops-Tools-SWTools/releases) 下载最新版本即可使用。
 
-# 支持游戏
+## 编译方法
+使用**Visual Studio**打开sln编译即可。
 
-维多利亚3，钢铁雄心4，盖瑞模组，小红车，十字军之王III
+## 支持的 Steam 游戏
 
-# 声明
+- 维多利亚3
+- 钢铁雄心4
+- 盖瑞模组
+- 小红车（壁纸引擎）
+- 十字军之王III
+
+## 声明
 
 记得补票，支持正版。禁止用任何商业用途！
