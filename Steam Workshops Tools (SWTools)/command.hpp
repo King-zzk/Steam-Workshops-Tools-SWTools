@@ -16,11 +16,11 @@ bool command() {
 	} else if (opt == "clear") {
 		system("cls");
 	} else if (opt == "help") {
-		cout << "\033[36m" << text::usage << "\033[0m" << endl;
+		cout << text::usage << endl;
 	} else if (opt == "about") {
-		cout << "\033[36m" << text::about << "\033[0m" << endl;
+		cout << text::about << endl;
 	} else if (opt == "eula") {
-		cout << "\033[36m" << text::eula << "\033[0m" << endl;
+		cout << text::eula << endl;
 		cout << "您已同意用户协议" << endl;
 	} else if (app_cmd.find(opt) != app_cmd.end()) {
 		download(app_cmd[opt]);

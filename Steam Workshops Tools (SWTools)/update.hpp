@@ -12,7 +12,7 @@ void check_update() {
 	if (file.is_open()) {
 		file.close();
 		if (remove("version.txt") != 0) {
-			throw exception(("文件删除失败(代码" + to_string(errno) + ")，请尝试手动删除此目录下的version.txt").c_str());
+			throw exception(("文件删除失败(代码" + to_string(errno) + ")，请尝试手动删除此目录下的 version.txt").c_str());
 		}
 	}
 
@@ -52,9 +52,9 @@ void check_update() {
 
 	//源代码注释
 
-	system ("curl -s https://gh-proxy.net/https://raw.githubusercontent.com/King-zzk/king-zzk.github.io/refs/heads/main/version.txt -o version");
+	system (R"(curl -o "version.txt" "https://gh-proxy.net/https://raw.githubusercontent.com/King-zzk/king-zzk.github.io/refs/heads/main/version.txt" -s)");
 	//被逼无奈火绒会报毒，所以只能用curl了(┬┬﹏┬┬)
-	file.open("version", ios::in);
+	file.open("version.txt", ios::in);
 	if (file.is_open()) {
 		string line;
 		if (getline(file, line)) { // 只读取第一行
@@ -62,24 +62,22 @@ void check_update() {
 				cout << "当前版本为最新版本" << endl;
 			}
 			else {
-				cout << "检测到新版本：" << line << "当前版本：" << text::version << endl;
+				cout << "检测到新版本：" << line << " 当前版本：" << text::version << endl;
 				cout << "请前往 " + text::website + " 下载最新版本" << endl;
 			}
 			file.close();
 		}
 		else {
 			file.close();
-			throw exception("version.txt中的内容无效");
+			throw exception("version.txt 中的内容无效");
 		}
-	}
-	else {
-		cerr << "文件打开失败!" << endl;
-		cerr << "错误码：" << errno << endl;
+	} else {
+		throw exception("version.txt 打开失败");
 	}
 
 	if (_access("version.txt", 0) == 0) {
 		if (remove("version.txt") != 0) {
-			cout << "警告: 文件删除失败(代码" << errno << ")，请尝试手动删除此目录下的version.txt" << endl;
+			cout << "警告: 文件删除失败(代码" << errno << ")，请尝试手动删除此目录下的 version.txt" << endl;
 		}
 	}
 }
