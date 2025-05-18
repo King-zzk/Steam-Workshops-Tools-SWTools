@@ -11,7 +11,7 @@ namespace text {
 	// TODO: 版本更新时修改这里的版本号
 	const string version = "0.2.1";
 	const string headline = "Commkom(king-zzk) Steam Workshops Tools (SWTools)[" + version +
-		"]\nCopyright (c) Commkom(king-zzk) 2025 All rights reserved.";
+		"]\nCopyright (c) Commkom(king-zzk),masterLazy(mLazy) 2025 All rights reserved.";
 	const string website = "https://github.com/King-zzk/Steam-Workshops-Tools-SWTools";
 
 	// TODO: EULA更新时修改这里的版本号
@@ -55,6 +55,6 @@ eula      查看最终用户许可协议(EULA)
 )";
 	const string about = headline + R"(
 这是一个完全免费的 Steam Workshops 下载工具，请勿倒卖！
-作者：king-Zzk Commkom, masterLazy
+作者：king-Zzk(Commkom), masterLazy(mLazy)
 Github：)" + website;
 }

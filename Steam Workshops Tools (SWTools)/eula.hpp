@@ -33,6 +33,9 @@ bool elua() {
 		}
 		file << text::eula_accepted << endl;
 		file.close();
+		Sleep(2000);
+		system("cls");
+		cout << text::headline << endl;
 		return true;
 	} else if (buf == "N" or buf == "n") {
 		cout << "您未同意用户协议，不能使用本软件" << endl;
