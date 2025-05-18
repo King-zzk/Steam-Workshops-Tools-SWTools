@@ -14,7 +14,7 @@ void download(AppInfo info) {
 		cout << "注意请不要使用加速器！" << endl;
 		// 下载steamcmd.exe
 		CreateDirectoryA("steamcmd", NULL);
-		int res = system(R"(cd .\steamcmd\ && curl -o "steamcmd.zip" "https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip" && tar -xzvf steamcmd.zip && del steamcmd.zip)");
+		int res = system(R"(cd .\steamcmd\ && curl -o -s "steamcmd.zip" "https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip" && tar -xzvf steamcmd.zip && del steamcmd.zip)");
 		if (res == 0) {
 			cout << "下载完成" << endl;
 		} else {
