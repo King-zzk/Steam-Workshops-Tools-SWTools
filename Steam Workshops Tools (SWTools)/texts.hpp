@@ -45,6 +45,7 @@ gmod      下载 Garry's Mod 的创意工坊物品
 wallpaper 下载 壁纸引擎 的创意工坊物品
 v3        下载 维多利亚3 的创意工坊物品
 ck3       下载 Crusader Kings III 的创意工坊物品
+eu4       下载 欧陆风云4 的创意工坊物品
 
 exit	  退出程序
 clear	  清屏
