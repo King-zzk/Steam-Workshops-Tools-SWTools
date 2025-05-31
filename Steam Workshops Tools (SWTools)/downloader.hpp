@@ -14,7 +14,7 @@ void download(AppInfo info) {
 		cout << "注意请不要使用加速器！" << endl;
 		// 下载steamcmd.exe
 		CreateDirectoryA("steamcmd", NULL);
-		int res = system(R"(cd .\steamcmd\ && curl -o -s "steamcmd.zip" "https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip" && tar -xzvf steamcmd.zip && del steamcmd.zip)");
+		int res = system(R"(cd .\steamcmd\ && curl -s -o "steamcmd.zip" "https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip" && tar -xzvf steamcmd.zip && del steamcmd.zip)");
 		if (res == 0) {
 			cout << "下载完成" << endl;
 		} else {
@@ -57,7 +57,7 @@ begin:
 			cout << "要下载的物品未找到" << endl;
 			cout << "提示：检查编号是否正确、该物品与游戏名是否对应" << endl;
 		} else if (log.find("Timeout") != string::npos) { // TODO：检查这个逻辑是否正确，我没有遇到过 Timeout的情况。
-			cout << "下载超时(请重试)" << endl;
+			cout << "下载超时(请重试)" << endl;			// >没有问题
 			cout << "提示：请重试" << endl;
 		} else if (log.find("No Connection") != string::npos) {
 			cout << "无网络连接" << endl;
