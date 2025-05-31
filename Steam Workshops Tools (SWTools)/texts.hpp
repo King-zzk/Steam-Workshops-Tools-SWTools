@@ -11,7 +11,7 @@ namespace text {
 	// TODO: 版本更新时修改这里的版本号
 	const string version = "0.2.1";
 	const string headline = "Commkom(king-zzk) Steam Workshops Tools (SWTools)[" + version +
-		"]\nCopyright (c) Commkom(king-zzk),masterLazy(mLazy) 2025 All rights reserved.";
+		"]\nCopyright (c) Commkom(king-zzk), masterLazy(mLazy) 2025 All rights reserved.";
 	const string website = "https://github.com/King-zzk/Steam-Workshops-Tools-SWTools";
 
 	// TODO: EULA更新时修改这里的版本号

@@ -134,6 +134,7 @@
     <ClInclude Include="command.hpp" />
     <ClInclude Include="downloader.hpp" />
     <ClInclude Include="eula.hpp" />
+    <ClInclude Include="process.hpp" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="texts.hpp" />
     <ClInclude Include="update.hpp" />

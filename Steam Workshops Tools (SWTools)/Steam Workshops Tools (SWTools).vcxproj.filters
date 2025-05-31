@@ -41,6 +41,9 @@
     <ClInclude Include="app_info.hpp">
       <Filter>源文件</Filter>
     </ClInclude>
+    <ClInclude Include="process.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Steam Workshops Tools (SWTools).rc">

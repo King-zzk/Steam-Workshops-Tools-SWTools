@@ -9,7 +9,7 @@ bool command() {
 	// 提示用户输入
 	cout << "swtools> ";
 	string opt;
-	getline(cin, opt);
+	cin >> opt;
 	// 命令分支
 	if (opt == "exit") {
 		return false;

@@ -30,8 +30,7 @@ int main() {
 	// 检查更新
 	try {
 		check_update();
-	}
-	catch (exception e) {
+	} catch (exception e) {
 		cout << "错误: " << e.what() << endl;
 		cout << "警告: 正在跳过更新检查" << endl;
 	}
