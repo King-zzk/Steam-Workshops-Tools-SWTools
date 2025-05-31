@@ -108,6 +108,30 @@ namespace mlib {
 				return res;
 			}
 			/**
+			* @brief				从进程的 stdout 读取数据直到行尾
+			* @param max_bytes		要读取的最大字节数
+			* @return				实际读取的字节数
+			* @exception std::exception 读取失败时抛出异常
+			*/
+			std::string readline(DWORD max_bytes = 1024) {
+				DWORD bytes_read;
+				std::string res;
+				char buf;
+				for (DWORD i = 0; i < max_bytes; i++) {
+					if (ReadFile(from_hRead, &buf, 1, &bytes_read, NULL) == 0) {
+						throw std::exception("Failed to read from pipe");
+					}
+					if (buf == '\r' or buf == '\n') {
+						if (res.empty()) {
+							continue;
+						}
+						else return res;
+					}
+					res += buf;
+				}
+				return res;
+			}
+			/**
 			* @brief				获取进程的返回值
 			* @retval STILL_ACTIVE	进程未退出
 			*/

@@ -60,10 +60,11 @@ void check_update() {
 		if (getline(file, line)) { // 只读取第一行
 			if (line == text::version) {
 				cout << "当前版本为最新版本" << endl;
-			}
-			else {
+			} else if(line > text::version) {
 				cout << "检测到新版本：" << line << " 当前版本：" << text::version << endl;
 				cout << "请前往 " + text::website + " 下载最新版本" << endl;
+			} else {
+				cout << "哇哦！当前版本居然比“最新版本”更新！" << endl;
 			}
 			file.close();
 		}
