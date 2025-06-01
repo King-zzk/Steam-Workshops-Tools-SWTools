@@ -15,43 +15,48 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClInclude Include="SWTools.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="SWToolsDlg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="framework.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="SWTools.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SWToolsDlg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="resource.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="texts.hpp">
-      <Filter>源文件</Filter>
-    </ClInclude>
-    <ClInclude Include="update.hpp">
-      <Filter>源文件</Filter>
-    </ClInclude>
-    <ClInclude Include="eula.hpp">
-      <Filter>源文件</Filter>
-    </ClInclude>
-    <ClInclude Include="downloader.hpp">
-      <Filter>源文件</Filter>
-    </ClInclude>
-    <ClInclude Include="command.hpp">
-      <Filter>源文件</Filter>
-    </ClInclude>
-    <ClInclude Include="app_info.hpp">
-      <Filter>源文件</Filter>
-    </ClInclude>
-    <ClInclude Include="process.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="Steam Workshops Tools (SWTools).rc">
+    <ResourceCompile Include="SWTools.rc">
       <Filter>资源文件</Filter>
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="s9isp-45pxa-001.ico">
+    <None Include="res\SWTools.rc2">
+      <Filter>资源文件</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\SWTools.ico">
       <Filter>资源文件</Filter>
     </Image>
   </ItemGroup>
