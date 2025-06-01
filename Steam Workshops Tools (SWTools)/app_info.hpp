@@ -32,7 +32,7 @@ map < string, AppInfo> app_cmd = {
 	},
 	{
 		"eu4",
-		{"agt8729","Apk66433","236850"}
+		{"junjun888666525","Xiaohejiaoao489891","236850"}
 
 	}
 
