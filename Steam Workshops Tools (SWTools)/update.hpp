@@ -64,7 +64,7 @@ void check_update() {
 				cout << "检测到新版本：" << line << " 当前版本：" << text::version << endl;
 				cout << "请前往 " + text::website + " 下载最新版本" << endl;
 			} else {
-				cout << "哇哦！当前版本居然比“最新版本”更加的新！" << endl;
+				cout << "哇哦！当前版本居然比“最新版本”还要新！" << endl;
 			}
 			file.close();
 		}
