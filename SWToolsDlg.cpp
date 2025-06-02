@@ -7,57 +7,138 @@
 #include "SWTools.h"
 #include "SWToolsDlg.h"
 #include "afxdialogex.h"
+#include "backend/backend.hpp"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
 
 
+// CEulaDlg 对话框
+
+class CEulaDlg : public CDialogEx {
+public:
+	CEulaDlg();
+
+	// 对话框数据
+#ifdef AFX_DESIGN_TIME
+	enum { IDD = IDD_EULA_DIALOG };
+#endif
+
+protected:
+	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
+	virtual BOOL OnInitDialog();
+
+	// 实现
+protected:
+	DECLARE_MESSAGE_MAP()
+public:
+	bool accepted = false;
+	bool canChange = true;
+	CEdit m_eula;
+	CButton m_rbDecline;
+	CButton m_rbAccept;
+	CButton m_btnOk;
+};
+
+CEulaDlg::CEulaDlg() : CDialogEx(IDD_EULA_DIALOG) {
+}
+
+void CEulaDlg::DoDataExchange(CDataExchange* pDX) {
+	CDialogEx::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_EDIT1, m_eula);
+	DDX_Control(pDX, IDC_DECLINE, m_rbDecline);
+	DDX_Control(pDX, IDC_ACCEPT, m_rbAccept);
+	DDX_Control(pDX, IDOK, m_btnOk);
+}
+
+BOOL CEulaDlg::OnInitDialog() {
+	CDialogEx::OnInitDialog();
+
+	m_eula.SetWindowText(text::eula.c_str());
+	if (accepted) {
+		m_rbAccept.SetCheck(1);
+	} else {
+		m_rbDecline.SetCheck(1);
+		m_btnOk.EnableWindow(0);
+	}
+	if (!canChange) {
+		m_rbAccept.EnableWindow(0);
+		m_rbDecline.EnableWindow(0);
+	}
+
+	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
+}
+
+BEGIN_MESSAGE_MAP(CEulaDlg, CDialogEx)
+END_MESSAGE_MAP()
+
+
+
+
 // 用于应用程序“关于”菜单项的 CAboutDlg 对话框
 
-class CAboutDlg : public CDialogEx
-{
+class CAboutDlg : public CDialogEx {
 public:
 	CAboutDlg();
 
-// 对话框数据
+	// 对话框数据
 #ifdef AFX_DESIGN_TIME
 	enum { IDD = IDD_ABOUTBOX };
 #endif
 
-	protected:
+protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
+	virtual BOOL OnInitDialog();
 
-// 实现
+	// 实现
 protected:
 	DECLARE_MESSAGE_MAP()
+public:
+	CEdit m_about;
+	afx_msg void OnBnClickedGithubbtn();
+	afx_msg void OnBnClickedEulabtn();
+	CEdit m_accepted;
 };
 
-CAboutDlg::CAboutDlg() : CDialogEx(IDD_ABOUTBOX)
-{
+CAboutDlg::CAboutDlg() : CDialogEx(IDD_ABOUTBOX) {
 }
 
-void CAboutDlg::DoDataExchange(CDataExchange* pDX)
-{
+void CAboutDlg::DoDataExchange(CDataExchange* pDX) {
 	CDialogEx::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_EDIT1, m_about);
+	DDX_Control(pDX, IDC_EDIT2, m_accepted);
+}
+
+BOOL CAboutDlg::OnInitDialog() {
+	CDialogEx::OnInitDialog();
+
+	wstring aboutInfo;
+	aboutInfo += text::appname + L" 版本 " + text::version + L"\r\n"; // 可恶要 \r\n 才能换行
+	aboutInfo += L"作者：" + text::authors + L"\r\n\r\n";
+	aboutInfo += text::copyright;
+	m_about.SetWindowText(aboutInfo.c_str());
+	m_accepted.SetWindowText(text::eula_accepted.c_str());
+
+	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 
 BEGIN_MESSAGE_MAP(CAboutDlg, CDialogEx)
+	ON_BN_CLICKED(IDC_GITHUBBTN, &CAboutDlg::OnBnClickedGithubbtn)
+	ON_BN_CLICKED(IDC_EULABTN, &CAboutDlg::OnBnClickedEulabtn)
 END_MESSAGE_MAP()
+
+
 
 
 // CSWToolsDlg 对话框
 
-
-
 CSWToolsDlg::CSWToolsDlg(CWnd* pParent /*=nullptr*/)
-	: CDialogEx(IDD_SWTOOLS_DIALOG, pParent)
-{
+	: CDialogEx(IDD_SWTOOLS_DIALOG, pParent) {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
 
-void CSWToolsDlg::DoDataExchange(CDataExchange* pDX)
-{
+void CSWToolsDlg::DoDataExchange(CDataExchange* pDX) {
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_COMBO1, m_cboAppName);
 	DDX_Control(pDX, IDC_APPSLT, m_txtAppSlt);
@@ -65,6 +146,7 @@ void CSWToolsDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_LAUNCHBTN, m_btnLaunch);
 	DDX_Control(pDX, IDC_EDIT2, m_edtID);
 	DDX_Control(pDX, IDC_DASHBOARD, m_dashboard);
+	DDX_Control(pDX, IDC_EDIT1, m_state);
 }
 
 BEGIN_MESSAGE_MAP(CSWToolsDlg, CDialogEx)
@@ -73,13 +155,13 @@ BEGIN_MESSAGE_MAP(CSWToolsDlg, CDialogEx)
 	ON_WM_QUERYDRAGICON()
 	ON_BN_CLICKED(IDC_ABOUTBTN, &CSWToolsDlg::OnBnClickedAboutbtn)
 	ON_EN_CHANGE(IDC_EDIT2, &CSWToolsDlg::OnEnChangeEdit2)
+	ON_BN_CLICKED(IDC_EXITBTN, &CSWToolsDlg::OnBnClickedExitbtn)
 END_MESSAGE_MAP()
 
 
 // CSWToolsDlg 消息处理程序
 
-BOOL CSWToolsDlg::OnInitDialog()
-{
+BOOL CSWToolsDlg::OnInitDialog() {
 	CDialogEx::OnInitDialog();
 
 	// 将“关于...”菜单项添加到系统菜单中。
@@ -89,14 +171,12 @@ BOOL CSWToolsDlg::OnInitDialog()
 	ASSERT(IDM_ABOUTBOX < 0xF000);
 
 	CMenu* pSysMenu = GetSystemMenu(FALSE);
-	if (pSysMenu != nullptr)
-	{
+	if (pSysMenu != nullptr) {
 		BOOL bNameValid;
 		CString strAboutMenu;
 		bNameValid = strAboutMenu.LoadString(IDS_ABOUTBOX);
 		ASSERT(bNameValid);
-		if (!strAboutMenu.IsEmpty())
-		{
+		if (!strAboutMenu.IsEmpty()) {
 			pSysMenu->AppendMenu(MF_SEPARATOR);
 			pSysMenu->AppendMenu(MF_STRING, IDM_ABOUTBOX, strAboutMenu);
 		}
@@ -106,32 +186,25 @@ BOOL CSWToolsDlg::OnInitDialog()
 	SetIcon(m_hIcon, TRUE);			// 设置大图标
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
 
-	// TODO: 添加新的 app 时修改这里
 	// 初始化下拉菜单
-	// 格式: [英文名] | [中文名]
-	m_cboAppName.AddString(_T("Victoria 3 | 维多利亚3"));
-	m_cboAppName.AddString(_T("Hearts of Iron IV | 钢铁雄心IV"));
-	m_cboAppName.AddString(_T("Garry's Mod | 盖瑞模组"));
-	m_cboAppName.AddString(_T("Wallpaper Engine | 壁纸引擎"));
-	m_cboAppName.AddString(_T("Crusader Kings III | 十字军之王3"));
-	m_cboAppName.SetCurSel(0); // 选中第一项
+	for (auto pair : app_infos) {
+		m_cboAppName.AddString(pair.first.c_str());
+	}
+	m_cboAppName.SetCurSel(0); // 选择第一项
 
-	m_dashboard.SetWindowText(_T("提示：先选择 App 再填写物品 ID，然后点击“开始下载”"));
+	m_dashboard.SetWindowText(_T("提示：先选择 App，然后填写物品 ID，最后点击“开始下载”"));
+	m_state.SetWindowTextW(_T("空闲中"));
 
 	// TODO: 在此添加额外的初始化代码
 
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 
-void CSWToolsDlg::OnSysCommand(UINT nID, LPARAM lParam)
-{
-	if ((nID & 0xFFF0) == IDM_ABOUTBOX)
-	{
+void CSWToolsDlg::OnSysCommand(UINT nID, LPARAM lParam) {
+	if ((nID & 0xFFF0) == IDM_ABOUTBOX) {
 		CAboutDlg dlgAbout;
 		dlgAbout.DoModal();
-	}
-	else
-	{
+	} else {
 		CDialogEx::OnSysCommand(nID, lParam);
 	}
 }
@@ -140,10 +213,8 @@ void CSWToolsDlg::OnSysCommand(UINT nID, LPARAM lParam)
 //  来绘制该图标。  对于使用文档/视图模型的 MFC 应用程序，
 //  这将由框架自动完成。
 
-void CSWToolsDlg::OnPaint()
-{
-	if (IsIconic())
-	{
+void CSWToolsDlg::OnPaint() {
+	if (IsIconic()) {
 		CPaintDC dc(this); // 用于绘制的设备上下文
 
 		SendMessage(WM_ICONERASEBKGND, reinterpret_cast<WPARAM>(dc.GetSafeHdc()), 0);
@@ -158,20 +229,18 @@ void CSWToolsDlg::OnPaint()
 
 		// 绘制图标
 		dc.DrawIcon(x, y, m_hIcon);
-	}
-	else
-	{
+	} else {
 		CDialogEx::OnPaint();
 	}
 }
 
 //当用户拖动最小化窗口时系统调用此函数取得光标
 //显示。
-HCURSOR CSWToolsDlg::OnQueryDragIcon()
-{
+HCURSOR CSWToolsDlg::OnQueryDragIcon() {
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+// “关于”对话框
 void CSWToolsDlg::OnBnClickedAboutbtn() {
 	CAboutDlg aboutDlg;
 	aboutDlg.DoModal();
@@ -184,4 +253,21 @@ void CSWToolsDlg::OnEnChangeEdit2() {
 	} else {
 		m_btnLaunch.EnableWindow(0);
 	}
+}
+
+void CSWToolsDlg::OnBnClickedExitbtn() {
+	CDialog::OnOK(); // 退出程序
+}
+
+
+void CAboutDlg::OnBnClickedGithubbtn() {
+	ShellExecute(NULL, L"open", text::website.c_str(), NULL, NULL, SW_SHOWNORMAL);
+}
+
+
+void CAboutDlg::OnBnClickedEulabtn() {
+	CEulaDlg eulaDlg;
+	eulaDlg.accepted = true;
+	eulaDlg.canChange = false;
+	eulaDlg.DoModal();
 }

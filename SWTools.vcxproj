@@ -184,6 +184,13 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="backend\app_info.hpp" />
+    <ClInclude Include="backend\backend.hpp" />
+    <ClInclude Include="backend\downloader.hpp" />
+    <ClInclude Include="backend\eula.hpp" />
+    <ClInclude Include="backend\process.hpp" />
+    <ClInclude Include="backend\texts.hpp" />
+    <ClInclude Include="backend\update.hpp" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />

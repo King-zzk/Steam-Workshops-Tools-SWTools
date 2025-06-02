@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="头文件\后端">
+      <UniqueIdentifier>{c1b730bf-af87-49a2-bf31-85faa6bb578f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SWTools.h">
@@ -32,6 +35,27 @@
     </ClInclude>
     <ClInclude Include="pch.h">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="backend\backend.hpp">
+      <Filter>头文件\后端</Filter>
+    </ClInclude>
+    <ClInclude Include="backend\app_info.hpp">
+      <Filter>头文件\后端</Filter>
+    </ClInclude>
+    <ClInclude Include="backend\downloader.hpp">
+      <Filter>头文件\后端</Filter>
+    </ClInclude>
+    <ClInclude Include="backend\eula.hpp">
+      <Filter>头文件\后端</Filter>
+    </ClInclude>
+    <ClInclude Include="backend\process.hpp">
+      <Filter>头文件\后端</Filter>
+    </ClInclude>
+    <ClInclude Include="backend\texts.hpp">
+      <Filter>头文件\后端</Filter>
+    </ClInclude>
+    <ClInclude Include="backend\update.hpp">
+      <Filter>头文件\后端</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

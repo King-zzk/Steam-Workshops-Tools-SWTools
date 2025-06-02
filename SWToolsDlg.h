@@ -32,7 +32,6 @@ protected:
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
 public:
-	afx_msg void OnBnClickedExitbtn();
 	CComboBox m_cboAppName;
 	CStatic m_txtAppSlt;
 	CButton m_btnExit;
@@ -41,4 +40,6 @@ public:
 	CButton m_btnLaunch;
 	CEdit m_edtID;
 	CEdit m_dashboard;
+	afx_msg void OnBnClickedExitbtn();
+	CEdit m_state;
 };
