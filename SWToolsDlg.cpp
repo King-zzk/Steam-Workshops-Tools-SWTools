@@ -39,6 +39,9 @@ public:
 	CButton m_rbDecline;
 	CButton m_rbAccept;
 	CButton m_btnOk;
+	afx_msg void OnBnClickedAccept();
+	afx_msg void OnBnClickedDecline();
+	afx_msg void OnBnClickedOk();
 };
 
 CEulaDlg::CEulaDlg() : CDialogEx(IDD_EULA_DIALOG) {
@@ -71,6 +74,9 @@ BOOL CEulaDlg::OnInitDialog() {
 }
 
 BEGIN_MESSAGE_MAP(CEulaDlg, CDialogEx)
+	ON_BN_CLICKED(IDC_ACCEPT, &CEulaDlg::OnBnClickedAccept)
+	ON_BN_CLICKED(IDC_DECLINE, &CEulaDlg::OnBnClickedDecline)
+	ON_BN_CLICKED(IDOK, &CEulaDlg::OnBnClickedOk)
 END_MESSAGE_MAP()
 
 
@@ -156,6 +162,7 @@ BEGIN_MESSAGE_MAP(CSWToolsDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_ABOUTBTN, &CSWToolsDlg::OnBnClickedAboutbtn)
 	ON_EN_CHANGE(IDC_EDIT2, &CSWToolsDlg::OnEnChangeEdit2)
 	ON_BN_CLICKED(IDC_EXITBTN, &CSWToolsDlg::OnBnClickedExitbtn)
+	ON_BN_CLICKED(IDC_UPDATEBTN, &CSWToolsDlg::OnBnClickedUpdatebtn)
 END_MESSAGE_MAP()
 
 
@@ -163,6 +170,18 @@ END_MESSAGE_MAP()
 
 BOOL CSWToolsDlg::OnInitDialog() {
 	CDialogEx::OnInitDialog();
+
+	// 先让用户同意用户协议
+	if (!CheckEula()) {
+		CEulaDlg eulaDlg;
+		if (eulaDlg.DoModal() != IDOK) {
+			CDialog::OnOK(); // 退出程序
+			return TRUE;
+		}
+		if (!WriteEula()) {
+			MessageBox(_T("未能写入EULA同意信息"), _T("警告"), MB_ICONWARNING | MB_OK);
+		}
+	}
 
 	// 将“关于...”菜单项添加到系统菜单中。
 
@@ -270,4 +289,26 @@ void CAboutDlg::OnBnClickedEulabtn() {
 	eulaDlg.accepted = true;
 	eulaDlg.canChange = false;
 	eulaDlg.DoModal();
+}
+
+
+void CEulaDlg::OnBnClickedAccept() {
+	m_btnOk.EnableWindow(m_rbAccept.GetCheck());
+}
+
+
+void CEulaDlg::OnBnClickedDecline() {
+	m_btnOk.EnableWindow(m_rbAccept.GetCheck());
+}
+
+
+void CEulaDlg::OnBnClickedOk() {
+	CDialogEx::OnOK();
+}
+
+
+void CSWToolsDlg::OnBnClickedUpdatebtn() {
+	m_state.SetWindowText(_T("检查更新中"));
+	CheckUpdate();
+	m_state.SetWindowText(_T("空闲中"));
 }

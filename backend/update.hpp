@@ -1,84 +1,57 @@
-#pragma once
+ï»¿#pragma once
 /*
-* upgrade.hpp
-* ¼ì²é¸üĞÂ
+* update.hpp
+* æ£€æŸ¥æ›´æ–°
 */
 
-void check_update() {
-	cout << "¼ì²é¸üĞÂÖĞ..." << endl;
-	fstream file("version.txt", ios::in);
+void CheckUpdate() {
+	cout << "æ£€æŸ¥æ›´æ–°ä¸­..." << endl;
+	wfstream file("version.txt", ios::in);
 
-	// ¼ì²é²¢É¾³ı¾ÉµÄ headline.txt ÎÄ¼ş
+	// æ£€æŸ¥å¹¶åˆ é™¤æ—§çš„ headline.txt æ–‡ä»¶
 	if (file.is_open()) {
 		file.close();
 		if (remove("version.txt") != 0) {
-			throw exception(("ÎÄ¼şÉ¾³ıÊ§°Ü(´úÂë" + to_string(errno) + ")£¬Çë³¢ÊÔÊÖ¶¯É¾³ı´ËÄ¿Â¼ÏÂµÄ version.txt").c_str());
+			MessageBox(NULL, _T("æ–‡ä»¶åˆ é™¤å¤±è´¥ï¼Œè¯·å°è¯•æ‰‹åŠ¨åˆ é™¤æ­¤ç›®å½•ä¸‹çš„ version.txt"), _T("é”™è¯¯"), MB_ICONERROR | MB_OK);
 		}
 	}
 
-/*
-	const char url[] = "https://gh-proxy.net/https://raw.githubusercontent.com/King-zzk/king-zzk.github.io/refs/heads/main/version.txt";
-	const char path[] = "version.txt";
-
-	if (URLDownloadToFileA(NULL, url, path, 0, NULL) == 0) {
-		file.open("version.txt", ios::in);
-		if (file.is_open()) {
-			string line;
-			if (getline(file, line)) { // Ö»¶ÁÈ¡µÚÒ»ĞĞ
-				if (line == text::version) {
-					cout << "µ±Ç°°æ±¾Îª×îĞÂ°æ±¾" << endl;
-				} else {
-					cout << "¼ì²âµ½ĞÂ°æ±¾£º\033[36m" << line << "\033[0m µ±Ç°°æ±¾£º" << text::version << endl;
-					cout << "ÇëÇ°Íù " + text::website + " ÏÂÔØ×îĞÂ°æ±¾" << endl;
-				}
-				file.close();
-			} else {
-				file.close();
-				throw exception("version.txtÖĞµÄÄÚÈİÎŞĞ§");
-			}
-		} else {
-			throw exception("ÎŞ·¨¶ÁÈ¡version.txt");
-		}
-
-		// É¾³ıÎÄ¼ş
-		if (remove("version.txt") != 0) {
-			cout << "\033[33m¾¯¸æ: ÎÄ¼şÉ¾³ıÊ§°Ü(´úÂë" << errno << ")£¬Çë³¢ÊÔÊÖ¶¯É¾³ı´ËÄ¿Â¼ÏÂµÄversion.txt\033[0m" << endl;
-		}
-	} else {
-		throw exception("ÎŞ·¨»ñÈ¡×îĞÂ°æ±¾ĞÅÏ¢");
-	}
-}
-*/
-
-	//Ô´´úÂë×¢ÊÍ
-
-	system (R"(curl -o "version.txt" "https://gh-proxy.net/https://raw.githubusercontent.com/King-zzk/king-zzk.github.io/refs/heads/main/version.txt" -s)");
-	//±»±ÆÎŞÄÎ»ğÈŞ»á±¨¶¾£¬ËùÒÔÖ»ÄÜÓÃcurlÁË(©Ğ©Ğ©n©Ğ©Ğ)
+	wstring command = LR"(-o "version.txt" "https://gh-proxy.net/https://raw.githubusercontent.com/King-zzk/king-zzk.github.io/refs/heads/main/version.txt" -s)";
+	SHELLEXECUTEINFO ShExecInfo = { 0 };
+	ShExecInfo.cbSize = sizeof(SHELLEXECUTEINFO);
+	ShExecInfo.fMask = SEE_MASK_NOCLOSEPROCESS;
+	ShExecInfo.lpFile = L"curl";
+	ShExecInfo.lpParameters = LR"(-o "version.txt" "https://gh-proxy.net/https://raw.githubusercontent.com/King-zzk/king-zzk.github.io/refs/heads/main/version.txt" -s)";
+	ShExecInfo.nShow = SW_HIDE;
+	ShellExecuteEx(&ShExecInfo);
+	WaitForSingleObject(ShExecInfo.hProcess, INFINITE);
+	// è¢«é€¼æ— å¥ˆç«ç»’ä¼šæŠ¥æ¯’ï¼Œæ‰€ä»¥åªèƒ½ç”¨curläº†(â”¬â”¬ï¹â”¬â”¬)
 	file.open("version.txt", ios::in);
 	if (file.is_open()) {
-		string line;
-		if (getline(file, line)) { // Ö»¶ÁÈ¡µÚÒ»ĞĞ
+		wstring line;
+		if (getline(file, line)) { // åªè¯»å–ç¬¬ä¸€è¡Œ
 			if (line == text::version) {
-				cout << "µ±Ç°°æ±¾Îª×îĞÂ°æ±¾" << endl;
-			} else if(line > text::version) {
-				cout << "¼ì²âµ½ĞÂ°æ±¾£º" << line << " µ±Ç°°æ±¾£º" << text::version << endl;
-				cout << "ÇëÇ°Íù " + text::website + " ÏÂÔØ×îĞÂ°æ±¾" << endl;
+				MessageBox(NULL, _T("å½“å‰ç‰ˆæœ¬ä¸ºæœ€æ–°ç‰ˆæœ¬"), _T("ä¿¡æ¯"), MB_ICONINFORMATION | MB_OK);
+			} else if (line > text::version) {
+				wstring temp = L"æ£€æµ‹åˆ°æ–°ç‰ˆæœ¬ " + line + L"\r\næ˜¯å¦è¦è·³è½¬åˆ°Githubä»“åº“é¡µé¢ä¸‹è½½æ–°ç‰ˆæœ¬ï¼Ÿ";
+				if (MessageBox(NULL, temp.c_str(), _T("æ£€æµ‹åˆ°æ–°ç‰ˆæœ¬"), MB_ICONINFORMATION | MB_YESNO) == IDYES) {
+					ShellExecute(NULL, L"open", (text::website + L"/releases").c_str(), NULL, NULL, SW_SHOWNORMAL);
+				}
 			} else {
-				cout << "ÍÛÅ¶£¡µ±Ç°°æ±¾¾ÓÈ»±È¡°×îĞÂ°æ±¾¡±»¹ÒªĞÂ£¡" << endl;
+				MessageBox(NULL, _T("å“‡å“¦ï¼å½“å‰ç‰ˆæœ¬å±…ç„¶æ¯”â€œæœ€æ–°ç‰ˆæœ¬â€è¿˜è¦æ–°ï¼"), _T("ä¿¡æ¯"), MB_ICONINFORMATION | MB_OK);
 			}
 			file.close();
-		}
-		else {
+		} else {
 			file.close();
-			throw exception("version.txt ÖĞµÄÄÚÈİÎŞĞ§");
+			MessageBox(NULL, _T("æ›´æ–°æ£€æŸ¥å¤±è´¥ï¼Œversion.txt ä¸­çš„å†…å®¹æ— æ•ˆ"), _T("é”™è¯¯"), MB_ICONERROR | MB_OK);
 		}
 	} else {
-		throw exception("version.txt ´ò¿ªÊ§°Ü");
+		MessageBox(NULL, _T("æ›´æ–°æ£€æŸ¥å¤±è´¥ï¼Œæ— æ³•æ‰“å¼€ version.txt"), _T("é”™è¯¯"), MB_ICONERROR | MB_OK);
 	}
 
 	if (_access("version.txt", 0) == 0) {
 		if (remove("version.txt") != 0) {
-			cout << "¾¯¸æ: ÎÄ¼şÉ¾³ıÊ§°Ü(´úÂë" << errno << ")£¬Çë³¢ÊÔÊÖ¶¯É¾³ı´ËÄ¿Â¼ÏÂµÄ version.txt" << endl;
+			MessageBox(NULL, _T("æ–‡ä»¶åˆ é™¤å¤±è´¥ï¼Œè¯·å°è¯•æ‰‹åŠ¨åˆ é™¤æ­¤ç›®å½•ä¸‹çš„ version.txt"), _T("è­¦å‘Š"), MB_ICONWARNING | MB_OK);
 		}
 	}
 }

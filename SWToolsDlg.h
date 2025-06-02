@@ -42,4 +42,5 @@ public:
 	CEdit m_dashboard;
 	afx_msg void OnBnClickedExitbtn();
 	CEdit m_state;
+	afx_msg void OnBnClickedUpdatebtn();
 };

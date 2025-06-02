@@ -14,5 +14,9 @@
 #include <map>
 using namespace std;
 
+#include <windows.h>
+
 #include "app_info.hpp"
 #include "texts.hpp"
+#include "eula.hpp"
+#include "update.hpp"
