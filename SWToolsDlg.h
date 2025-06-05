@@ -11,6 +11,7 @@ class CSWToolsDlg : public CDialogEx
 // 构造
 public:
 	CSWToolsDlg(CWnd* pParent = nullptr);	// 标准构造函数
+	~CSWToolsDlg();
 
 // 对话框数据
 #ifdef AFX_DESIGN_TIME
@@ -43,4 +44,9 @@ public:
 	afx_msg void OnBnClickedExitbtn();
 	CEdit m_state;
 	afx_msg void OnBnClickedUpdatebtn();
+	void appendToDashboard(CString str); // 往仪表盘追加信息
+
+	void* downloader; // 后端接口~
+	afx_msg void OnBnClickedLaunchbtn();
+	afx_msg void OnBnClickedFolderbtn();
 };
