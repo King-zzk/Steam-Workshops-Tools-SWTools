@@ -16,16 +16,11 @@ void CheckUpdate() {
 		}
 	}
 
-	wstring command = LR"(-o "version.txt" "https://gh-proxy.net/https://raw.githubusercontent.com/King-zzk/king-zzk.github.io/refs/heads/main/version.txt" -s)";
-	SHELLEXECUTEINFO ShExecInfo = { 0 };
-	ShExecInfo.cbSize = sizeof(SHELLEXECUTEINFO);
-	ShExecInfo.fMask = SEE_MASK_NOCLOSEPROCESS;
-	ShExecInfo.lpFile = L"curl";
-	ShExecInfo.lpParameters = LR"(-o "version.txt" "https://gh-proxy.net/https://raw.githubusercontent.com/King-zzk/king-zzk.github.io/refs/heads/main/version.txt" -s)";
-	ShExecInfo.nShow = SW_HIDE;
-	ShellExecuteEx(&ShExecInfo);
-	WaitForSingleObject(ShExecInfo.hProcess, INFINITE);
 	// 被逼无奈火绒会报毒，所以只能用curl了(┬┬﹏┬┬)
+	ExecuteCmd(
+		L"curl",
+		LR"(-o "version.txt" "https://gh-proxy.net/https://raw.githubusercontent.com/King-zzk/king-zzk.github.io/refs/heads/main/version.txt)"
+	);
 	file.open("version.txt", ios::in);
 	if (file.is_open()) {
 		wstring line;

@@ -120,8 +120,9 @@ BOOL CAboutDlg::OnInitDialog() {
 	CDialogEx::OnInitDialog();
 
 	wstring aboutInfo;
-	aboutInfo += text::appname + L" 版本 " + text::version + L"\r\n"; // 可恶要 \r\n 才能换行
-	aboutInfo += L"作者：" + text::authors + L"\r\n\r\n";
+	aboutInfo += text::appname + L" 版本 " + text::version + L"\r\n";
+	aboutInfo += L"作者：" + text::authors + L"\r\n";
+	aboutInfo += text::about + L"\r\n\r\n";
 	aboutInfo += text::copyright;
 	m_about.SetWindowText(aboutInfo.c_str());
 	m_accepted.SetWindowText(text::eula_accepted.c_str());
@@ -142,6 +143,10 @@ END_MESSAGE_MAP()
 CSWToolsDlg::CSWToolsDlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_SWTOOLS_DIALOG, pParent) {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
+	downloader = new Downloader(this);
+}
+CSWToolsDlg::~CSWToolsDlg() {
+	delete (Downloader*)downloader;
 }
 
 void CSWToolsDlg::DoDataExchange(CDataExchange* pDX) {
@@ -163,6 +168,8 @@ BEGIN_MESSAGE_MAP(CSWToolsDlg, CDialogEx)
 	ON_EN_CHANGE(IDC_EDIT2, &CSWToolsDlg::OnEnChangeEdit2)
 	ON_BN_CLICKED(IDC_EXITBTN, &CSWToolsDlg::OnBnClickedExitbtn)
 	ON_BN_CLICKED(IDC_UPDATEBTN, &CSWToolsDlg::OnBnClickedUpdatebtn)
+	ON_BN_CLICKED(IDC_LAUNCHBTN, &CSWToolsDlg::OnBnClickedLaunchbtn)
+	ON_BN_CLICKED(IDC_FOLDERBTN, &CSWToolsDlg::OnBnClickedFolderbtn)
 END_MESSAGE_MAP()
 
 
@@ -211,7 +218,7 @@ BOOL CSWToolsDlg::OnInitDialog() {
 	}
 	m_cboAppName.SetCurSel(0); // 选择第一项
 
-	m_dashboard.SetWindowText(_T("提示：先选择 App，然后填写物品 ID，最后点击“开始下载”"));
+	m_dashboard.SetWindowText(_T("提示：先选择 App，然后填写物品 ID，最后点击“开始下载”。\r\n"));
 	m_state.SetWindowTextW(_T("空闲中"));
 
 	// TODO: 在此添加额外的初始化代码
@@ -311,4 +318,26 @@ void CSWToolsDlg::OnBnClickedUpdatebtn() {
 	m_state.SetWindowText(_T("检查更新中"));
 	CheckUpdate();
 	m_state.SetWindowText(_T("空闲中"));
+}
+
+void CSWToolsDlg::appendToDashboard(CString str) {
+	CString str0;
+	m_dashboard.GetWindowText(str0);
+	str0 += str;
+	m_dashboard.SetWindowText(str0.GetBuffer());
+	m_dashboard.PostMessage(WM_VSCROLL, SB_BOTTOM, 0); // 跟随滚动
+}
+
+// 下载按钮
+void CSWToolsDlg::OnBnClickedLaunchbtn() {
+	CString appname, id;
+	m_cboAppName.GetWindowText(appname);
+	m_edtID.GetWindowText(id);
+	appendToDashboard(L"\r\n");
+	((Downloader*)downloader)->Download(appname.GetBuffer(), id.GetBuffer());
+}
+
+
+void CSWToolsDlg::OnBnClickedFolderbtn() {
+	((Downloader*)downloader)->OpenLastFolder();
 }
