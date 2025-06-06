@@ -2,7 +2,7 @@
 name: Bug report | 报告 bug
 about: 报告程序中的问题，帮助我们改进
 title: ''
-labels: ''
+labels: bug
 assignees: ''
 
 ---
