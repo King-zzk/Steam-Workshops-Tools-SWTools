@@ -107,6 +107,7 @@ private:
 	const int SIGNAL_DOWNLOAD = 1;
 	const int SIGNAL_END = -1;
 	int signal = SIGNAL_NULL;
+	std::mutex mtx;
 	AppInfo downloadInfo;
 	string downloadId;
 	void TaskThreadCallback() {
@@ -116,10 +117,14 @@ private:
 					DownloadFromId();
 				}
 				EnableBtns(1);
+				mtx.lock();
 				signal = SIGNAL_NULL;
+				mtx.unlock();
 			}
 		}
+		mtx.lock();
 		signal = SIGNAL_NULL;
+		mtx.unlock();
 	}
 public:
 	Downloader(CSWToolsDlg* pDlg) :pDlg(pDlg) {
@@ -135,7 +140,9 @@ public:
 		EnableBtns(0);
 		downloadInfo = app_infos[appname];
 		downloadId = ToStr(id);
+		mtx.lock();
 		signal = SIGNAL_DOWNLOAD; // 炫酷地开始下载
+		mtx.unlock();
 	}
 	void OpenLastFolder() {
 		if (last_path == "") {

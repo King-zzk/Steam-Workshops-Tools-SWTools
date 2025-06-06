@@ -10,6 +10,7 @@
 #include <iomanip>		// setprecision()
 #include <string>
 #include <thread>
+#include <mutex>
 #include <io.h> // _access()
 #include <map>
 #include <windows.h>
