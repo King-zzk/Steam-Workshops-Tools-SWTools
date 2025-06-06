@@ -18,14 +18,20 @@ private:
 	}
 	bool CheckSteamcmd() {
 		pDlg->m_state.SetWindowText(_T("检查 Steamcmd"));
-		if (_access("Steamcmd/steamcmd.exe", 0) == -1) {
+		if (_access("Steamcmd\\steamcmd.exe", 0) == -1) {
 			pDlg->appendToDashboard(L"未找到 Steamcmd，正在下载...\r\n");
 			pDlg->appendToDashboard(L"请注意不要使用加速器！\r\n");
 			pDlg->m_state.SetWindowText(_T("下载 Steamcmd..."));
 			// 下载steamcmd.exe
 			CreateDirectoryA("steamcmd", NULL);
-			int res = system(R"(cd .\steamcmd\ && curl -s -o "steamcmd.zip" "https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip" && tar -xzvf steamcmd.zip && del steamcmd.zip)");
-			if (res == 0) {
+			ExecuteCmd(
+				L"curl",
+				LR"(-o "steamcmd.zip" "https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip")",
+				L"steamcmd\\"
+			);
+			ExecuteCmd(L"tar", L"-xzvf steamcmd.zip", L"steamcmd\\");
+			remove("steamcmd\\steamcmd.zip");
+			if (_access("Steamcmd\\steamcmd.exe", 0) == 0) {
 				pDlg->appendToDashboard(L"Steamcmd 下载完成。\r\n");
 			} else {
 				pDlg->appendToDashboard(L"Steamcmd下载失败，请检查网络连接\r\n");
@@ -36,7 +42,7 @@ private:
 		return true;
 	}
 	void DownloadFromId() {
-		pDlg->m_state.SetWindowText(_T("等待 Steamcmd 启动"));
+		pDlg->m_state.SetWindowText(_T("等待 Steamcmd 启动..."));
 		string command = "steamcmd\\steamcmd.exe +login " + downloadInfo.user + " " + downloadInfo.password +
 			" +workshop_download_item " + downloadInfo.app_id + " " + downloadId + " +quit";
 		mlib::process::Process cmd(command);
@@ -94,7 +100,7 @@ private:
 			}
 			return;
 		}
-		ExecuteCmd(L"explorer.exe", ToWstr(path), true);
+		ExecuteCmd(L"explorer.exe", ToWstr(path), L"", true);
 		wchar_t fullpath[1024] = { 0 };
 		_wfullpath(fullpath, ToWstr(path).c_str(), sizeof(fullpath) / sizeof(*fullpath));
 		pDlg->m_state.SetWindowText(_T("下载成功"));
@@ -148,7 +154,7 @@ public:
 		if (last_path == "") {
 			MessageBox(NULL, L"还没有成功的下载", L"提示", MB_ICONINFORMATION | MB_OK);
 		} else {
-			ExecuteCmd(L"explorer.exe", ToWstr(last_path), true);
+			ExecuteCmd(L"explorer.exe", ToWstr(last_path), L"", true);
 		}
 	}
 };

@@ -21,13 +21,14 @@ using namespace std;
 #include "process.hpp"
 
 // ¾²Ä¬ÔËÐÐÃüÁîÐÐ (×èÈû)
-void ExecuteCmd(wstring file, wstring parameter, bool show = false) {
+void ExecuteCmd(wstring file, wstring parameter, wstring dir=L"", bool show = false) {
 	SHELLEXECUTEINFO ShExecInfo = { 0 };
 	ShExecInfo.cbSize = sizeof(SHELLEXECUTEINFO);
 	ShExecInfo.fMask = SEE_MASK_NOCLOSEPROCESS;
 	ShExecInfo.lpFile = file.c_str();
 	ShExecInfo.lpParameters = parameter.c_str();
 	ShExecInfo.nShow = show ? SW_SHOW : SW_HIDE;
+	ShExecInfo.lpDirectory = dir.c_str();
 	ShellExecuteEx(&ShExecInfo);
 	if (ShExecInfo.hProcess == 0) return;
 	WaitForSingleObject(ShExecInfo.hProcess, INFINITE);
