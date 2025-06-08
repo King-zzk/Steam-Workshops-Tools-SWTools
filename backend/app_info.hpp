@@ -9,9 +9,9 @@ struct AppInfo {
 };
 
 // TODO: 扩充此列表来支持更多 app 的下载
-map < wstring, AppInfo> app_infos = {
+map <wstring, AppInfo> app_infos = {
 	{
-		L"Hearts of Iron IV | 钢铁雄心IV", // 这个字符串会显示在下拉菜单 (会自动按字母顺序排序)
+		L"Hearts of Iron IV | 钢铁雄心4", // 这个字符串会显示在下拉菜单 (会自动按字母顺序排序)
 		{"thb112259","steamok7416","394360"}
 	},
 	{
