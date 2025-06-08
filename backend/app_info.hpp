@@ -9,29 +9,29 @@ struct AppInfo {
 };
 
 // TODO: 扩充此列表来支持更多 app 的下载
-map < string, AppInfo> app_cmd = {
+map < wstring, AppInfo> app_infos = {
 	{
-		"hoi4",
+		L"Hearts of Iron IV | 钢铁雄心IV", // 这个字符串会显示在下拉菜单 (会自动按字母顺序排序)
 		{"thb112259","steamok7416","394360"}
 	},
 	{
-		"gmod",
+		L"Garry's Mod | 盖瑞模组",
 		{"anonymous","","4000"}
 	},
 	{
-		"wallpaper",
+		L"Wallpaper Engine | 壁纸引擎",
 		{"kzeon410","wnq69815I","431960"}
 	},
 	{
-		"v3",
+		L"Victoria 3 | 维多利亚3",
 		{"steamok1090250","steamok45678919","529340"}
 	},
 	{
-		"ck3",
+		L"Crusader Kings III | 十字军之王3",
 		{"wgfy3000","Hh573461px","1158310"}
 	},
 	{
-		"eu4",
+		L"Europa Universalis IV | 欧陆风云4",
 		{"junjun888666525","Xiaohejiaoao489891","236850"}
 
 	}
