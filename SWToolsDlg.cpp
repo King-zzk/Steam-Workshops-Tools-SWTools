@@ -8,6 +8,7 @@
 #include "SWToolsDlg.h"
 #include "afxdialogex.h"
 #include "backend/backend.hpp"
+#include "CManyDownload.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -172,6 +173,7 @@ BEGIN_MESSAGE_MAP(CSWToolsDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_LAUNCHBTN, &CSWToolsDlg::OnBnClickedLaunchbtn)
 	ON_BN_CLICKED(IDC_FOLDERBTN, &CSWToolsDlg::OnBnClickedFolderbtn)
 	ON_BN_CLICKED(IDC_UPDATEBTN2, &CSWToolsDlg::OnBnClickedUpdatebtn2)
+	ON_BN_CLICKED(IDC_LAUNCHBTN2, &CSWToolsDlg::OnBnClickedLaunchbtn2)
 END_MESSAGE_MAP()
 
 
@@ -347,5 +349,12 @@ void CSWToolsDlg::OnBnClickedFolderbtn() {
 void CSWToolsDlg::OnBnClickedUpdatebtn2()
 {
 	m_version.SetWindowTextW(text::version.c_str());
+	// TODO: 在此添加控件通知处理程序代码
+}
+
+void CSWToolsDlg::OnBnClickedLaunchbtn2()
+{
+	CManyDownload dlg;
+	dlg.DoModal();
 	// TODO: 在此添加控件通知处理程序代码
 }
