@@ -121,7 +121,7 @@ namespace mlib {
 					if (ReadFile(from_hRead, &buf, 1, &bytes_read, NULL) == 0) {
 						throw std::exception("Failed to read from pipe");
 					}
-					if (buf == '\r' or buf == '\n') {
+					if (buf == '\r' || buf == '\n') {
 						if (res.empty()) {
 							continue;
 						}
@@ -139,6 +139,12 @@ namespace mlib {
 				DWORD code;
 				GetExitCodeProcess(process_info.hProcess, &code);
 				return code;
+			}
+			/**
+			* @brief	强制终止进程
+			*/
+			void terminate(UINT exit_code = 0) {
+				TerminateProcess(process_info.hProcess, exit_code);
 			}
 		};
 	} // namespace process
