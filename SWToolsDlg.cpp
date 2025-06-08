@@ -172,8 +172,7 @@ BEGIN_MESSAGE_MAP(CSWToolsDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_UPDATEBTN, &CSWToolsDlg::OnBnClickedUpdatebtn)
 	ON_BN_CLICKED(IDC_LAUNCHBTN, &CSWToolsDlg::OnBnClickedLaunchbtn)
 	ON_BN_CLICKED(IDC_FOLDERBTN, &CSWToolsDlg::OnBnClickedFolderbtn)
-	ON_BN_CLICKED(IDC_UPDATEBTN2, &CSWToolsDlg::OnBnClickedUpdatebtn2)
-	ON_BN_CLICKED(IDC_LAUNCHBTN2, &CSWToolsDlg::OnBnClickedLaunchbtn2)
+	ON_BN_CLICKED(IDC_MANYDWNBTN, &CSWToolsDlg::OnBnClickedManydwnbtn)
 END_MESSAGE_MAP()
 
 
@@ -224,6 +223,7 @@ BOOL CSWToolsDlg::OnInitDialog() {
 
 	m_dashboard.SetWindowText(_T("提示：先选择 App，然后填写物品 ID，最后点击“开始下载”。\r\n"));
 	m_state.SetWindowTextW(_T("空闲中"));
+	m_version.SetWindowTextW(text::version.c_str());
 
 	// TODO: 在此添加额外的初始化代码
 
@@ -346,15 +346,8 @@ void CSWToolsDlg::OnBnClickedFolderbtn() {
 	((Downloader*)downloader)->OpenLastFolder();
 }
 
-void CSWToolsDlg::OnBnClickedUpdatebtn2()
-{
-	m_version.SetWindowTextW(text::version.c_str());
-	// TODO: 在此添加控件通知处理程序代码
-}
 
-void CSWToolsDlg::OnBnClickedLaunchbtn2()
-{
+void CSWToolsDlg::OnBnClickedManydwnbtn() {
 	CManyDownload dlg;
 	dlg.DoModal();
-	// TODO: 在此添加控件通知处理程序代码
 }
