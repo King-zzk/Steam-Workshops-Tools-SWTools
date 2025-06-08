@@ -49,4 +49,7 @@ public:
 	void* downloader; // 后端接口~
 	afx_msg void OnBnClickedLaunchbtn();
 	afx_msg void OnBnClickedFolderbtn();
+	afx_msg void OnBnClickedUpdatebtn2();
+	CStatic m_version;
+	afx_msg void OnBnClickedLaunchbtn2();
 };
