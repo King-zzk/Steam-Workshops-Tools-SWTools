@@ -51,4 +51,5 @@ public:
 	afx_msg void OnBnClickedFolderbtn();
 	afx_msg void OnBnClickedUpdatebtn2();
 	CStatic m_version;
+	afx_msg void OnBnClickedLaunchbtn2();
 };
