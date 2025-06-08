@@ -158,6 +158,7 @@ void CSWToolsDlg::DoDataExchange(CDataExchange* pDX) {
 	DDX_Control(pDX, IDC_EDIT2, m_edtID);
 	DDX_Control(pDX, IDC_DASHBOARD, m_dashboard);
 	DDX_Control(pDX, IDC_EDIT1, m_state);
+	DDX_Control(pDX, IDC_TEXT, m_version);
 }
 
 BEGIN_MESSAGE_MAP(CSWToolsDlg, CDialogEx)
@@ -170,6 +171,7 @@ BEGIN_MESSAGE_MAP(CSWToolsDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_UPDATEBTN, &CSWToolsDlg::OnBnClickedUpdatebtn)
 	ON_BN_CLICKED(IDC_LAUNCHBTN, &CSWToolsDlg::OnBnClickedLaunchbtn)
 	ON_BN_CLICKED(IDC_FOLDERBTN, &CSWToolsDlg::OnBnClickedFolderbtn)
+	ON_BN_CLICKED(IDC_UPDATEBTN2, &CSWToolsDlg::OnBnClickedUpdatebtn2)
 END_MESSAGE_MAP()
 
 
@@ -340,4 +342,10 @@ void CSWToolsDlg::OnBnClickedLaunchbtn() {
 
 void CSWToolsDlg::OnBnClickedFolderbtn() {
 	((Downloader*)downloader)->OpenLastFolder();
+}
+
+void CSWToolsDlg::OnBnClickedUpdatebtn2()
+{
+	m_version.SetWindowTextW(text::version.c_str());
+	// TODO: 在此添加控件通知处理程序代码
 }

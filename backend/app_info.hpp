@@ -26,14 +26,5 @@ map < wstring, AppInfo> app_infos = {
 		L"Victoria 3 | 维多利亚3",
 		{"steamok1090250","steamok45678919","529340"}
 	},
-	{
-		L"Crusader Kings III | 十字军之王3",
-		{"wgfy3000","Hh573461px","1158310"}
-	},
-	{
-		L"Europa Universalis IV | 欧陆风云4",
-		{"junjun888666525","Xiaohejiaoao489891","236850"}
-
-	}
 
 };
