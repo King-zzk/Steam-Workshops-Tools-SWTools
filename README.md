@@ -4,7 +4,7 @@
 
 在 [Releases](https://github.com/King-zzk/Steam-Workshops-Tools-SWTools/releases) 下载最新版本即可使用。
 
-如果你想要在此项目上做开发，请在这里查看[贡献指南]([Steam-Workshops-Tools-SWTools/CONTRIBUTING.md at master · King-zzk/Steam-Workshops-Tools-SWTools](https://github.com/King-zzk/Steam-Workshops-Tools-SWTools/blob/master/CONTRIBUTING.md))。
+如果你想要在此项目上做开发，请在这里查看[贡献指南](https://github.com/King-zzk/Steam-Workshops-Tools-SWTools/blob/master/CONTRIBUTING.md)。
 
 ## 支持的 Steam 游戏（Steam App）
 
