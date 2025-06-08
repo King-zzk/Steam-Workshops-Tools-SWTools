@@ -51,88 +51,81 @@ void CManyDownload::OnBnClickedButton1()
 	// TODO: 在此添加控件通知处理程序代码
 }
 
-void CManyDownload::OnBnClickedButton2()
-{
-	// 检查文件是否存在
-	if (_access("./WallpaperID.txt", 0) == -1)
-	{
-		MessageBox(TEXT("WallpaperID.txt不存在！"), TEXT("提示"), MB_OK | MB_ICONWARNING);
-		return;
-	}
+void CManyDownload::OnBnClickedButton2()  
+{  
+	// 检查文件是否存在  
+	if (_access("./WallpaperID.txt", 0) == -1)  
+	{  
+		MessageBox(TEXT("WallpaperID.txt不存在！"), TEXT("提示"), MB_OK | MB_ICONWARNING);  
+		return;  
+	}  
 
-	CString lines[10];
-	int lineCount = 0;
-	CStdioFile file;
+	CString lines[10];  
+	int lineCount = 0;  
+	CStdioFile file;  
 
-	// 打开文件并读取前10个ID
-	if (file.Open(TEXT("WallpaperID.txt"), CFile::modeRead))
-	{
-		CString line;
-		while (lineCount < 10 && file.ReadString(line))
-		{
-			// 跳过空行
-			if (!line.IsEmpty())
-				lines[lineCount++] = line;
-		}
-		file.Close();
-	}
-	else
-	{
-		MessageBox(TEXT("无法打开文件！"), TEXT("错误"), MB_OK | MB_ICONERROR);
-		return;
-	}
+	// 打开文件并读取前10个ID  
+	if (file.Open(TEXT("WallpaperID.txt"), CFile::modeRead))  
+	{  
+		CString line;  
+		while (lineCount < 10 && file.ReadString(line))  
+		{  
+			// 跳过空行  
+			if (!line.IsEmpty())  
+				lines[lineCount++] = line;  
+		}  
+		file.Close();  
+	}  
+	else  
+	{  
+		MessageBox(TEXT("无法打开文件！"), TEXT("错误"), MB_OK | MB_ICONERROR);  
+		return;  
+	}  
 
-	if (lineCount == 0)
-	{
-		MessageBox(TEXT("文件中没有有效的ID！"), TEXT("提示"), MB_OK);
-		return;
-	}
+	if (lineCount == 0)  
+	{  
+		MessageBox(TEXT("文件中没有有效的ID！"), TEXT("提示"), MB_OK);  
+		return;  
+	}  
 
-	// 确认下载
-	CString msg;
-	msg.Format(TEXT("准备下载 %d 个创意工坊内容，是否继续？"), lineCount);
-	if (MessageBox(msg, TEXT("确认下载"), MB_YESNO | MB_ICONQUESTION) != IDYES)
-		return;
+	// 确认下载  
+	CString msg;  
+	msg.Format(TEXT("准备下载 %d 个创意工坊内容，是否继续？"), lineCount);  
+	if (MessageBox(msg, TEXT("确认下载"), MB_YESNO | MB_ICONQUESTION) != IDYES)  
+		return;  
 
-	// 获取当前程序路径，构建steamcmd绝对路径
-	TCHAR szPath[MAX_PATH];
-	GetModuleFileName(NULL, szPath, MAX_PATH);
-	PathRemoveFileSpec(szPath);
-	CString steamcmdPath = CString(szPath) + TEXT("\\steamcmd\\");
+	// 获取当前程序路径，构建steamcmd绝对路径  
+	TCHAR szPath[MAX_PATH];  
+	GetModuleFileName(NULL, szPath, MAX_PATH);  
+	PathRemoveFileSpec(szPath);  
+	CString steamcmdPath = CString(szPath) + TEXT("\\steamcmd\\");  
 
-	// 执行批量下载
+	// 执行批量下载  
 	for (int i = 0; i < lineCount; i++)
 	{
-		// 更新进度显示
+		// 更新进度显示  
 		msg.Format(TEXT("正在下载第 %d/%d 个: %s"), i + 1, lineCount, lines[i]);
 		SetDlgItemText(IDC_TEXT, msg);
 		UpdateWindow();
 
-		// 构建命令行
+		// 构建命令行  
 		CString command;
 		command.Format(
 			TEXT("cd /d \"%s\" && steamcmd.exe +login kzeon410 wnq69815I +workshop_download_item %s +quit"),
 			steamcmdPath, lines[i]);
 
-		// 执行命令
-		int result = _wsystem(command);
+		// 执行命令并获取结果  
+		system(CT2A(command));
 
-		// 检查结果
-		if (result != 0)
-		{
-			msg.Format(TEXT("下载失败: %s\n错误码: %d"), lines[i], result);
-			MessageBox(msg,TEXT("下载错误"), MB_OK | MB_ICONERROR);
-		}
+
+		// 完成提示  
+		MessageBox(TEXT("所有内容下载完成！"), TEXT("完成"), MB_OK | MB_ICONINFORMATION);
+		SetDlgItemText(IDC_TEXT, TEXT("下载已完成"));
 	}
-
-	// 完成提示
-	MessageBox(TEXT("所有内容下载完成！"), TEXT("完成"), MB_OK | MB_ICONINFORMATION);
-	SetDlgItemText(IDC_TEXT, TEXT("下载已完成"));
-	Sleep(3000);
-	SetDlgItemText(IDC_TEXT, TEXT("进度：未知（上一次下载已完成！）"));
 }
 
-void CManyDownload::OnStnClickedText()
-{
-	// TODO: 在此添加控件通知处理程序代码
+void CManyDownload::OnStnClickedText() {
+
+
+
 }
