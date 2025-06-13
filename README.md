@@ -11,12 +11,13 @@
 
 
 ***计划添加***
-- Crusader Kings III | 十字军之王3
 - Europa Universalis IV | 欧陆风云4
 
 ====================================
 
 ***已可使用***
+- Crusader Kings III | 十字军之王3
+- Cities: Skylines | 天际线
 - Garry's Mod | 盖瑞模组
 - Hearts of Iron IV | 钢铁雄心4
 - Victoria 3 | 维多利亚3
