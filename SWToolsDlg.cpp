@@ -351,3 +351,4 @@ void CSWToolsDlg::OnBnClickedManydwnbtn() {
 	CManyDownload dlg;
 	dlg.DoModal();
 }
+
