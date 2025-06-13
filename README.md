@@ -1,5 +1,7 @@
 # Steam Workshops Tools 创意工坊下载工具
 
+![mdi_steam](https://github.com/user-attachments/assets/67a33987-017f-4bb1-9740-3c84eb55c4a6)
+
 这是一款下载steam创意工坊下载模组的工具
 
 在 [Releases](https://github.com/King-zzk/Steam-Workshops-Tools-SWTools/releases) 下载最新版本即可使用。
@@ -9,14 +11,22 @@
 ## 支持的 Steam 游戏（Steam App）
 
 按字母顺序排列。
-
+***计划添加***
 - Crusader Kings III | 十字军之王3
 - Europa Universalis IV | 欧陆风云4
+====================================
+***已可使用***
 - Garry's Mod | 盖瑞模组
 - Hearts of Iron IV | 钢铁雄心4
 - Victoria 3 | 维多利亚3
 - Wallpaper Engine | 壁纸引擎
+- 
+## 支持
+如果你想要贡献代码可以参考[贡献指南](https://github.com/King-zzk/Steam-Workshops-Tools-SWTools/blob/master/CONTRIBUTING.md)。
+或者你也可以捐赠任何一个有创意工坊游戏的**Steam游戏账号（我们不会把你的账号泄露出去）**
+**邮箱：**
+
 
 ## 声明
 
-记得补票，支持正版。禁止用任何商业用途！
+仅供学习参考，支持正版，禁止用任何商业用途！
