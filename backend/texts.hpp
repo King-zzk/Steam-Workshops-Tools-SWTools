@@ -6,14 +6,14 @@
 
 namespace text {
 	// TODO: 版本更新时修改这里的版本号
-	const wstring version = L"0.3.0";
+	const wstring version = L"1.0.0";
 	const wstring appname = L"Steam Workshops Tools (SWTools)";
 	const wstring authors = L"Commkom(king-zzk), masterLazy(mLazy)";
 	const wstring copyright = L"Copyright (c) " + authors + L" 2025\r\nAll rights reserved.";
 	const wstring website = L"https://github.com/King-zzk/Steam-Workshops-Tools-SWTools";
 
 	// TODO: EULA更新时修改这里的版本号
-	const wstring eula_version = L"2025.06.09";
+	const wstring eula_version = L"2025.06.13";
 	const wstring eula = L"\
 最终用户许可协议(EULA)\r\n\
 最后修改日期：" + eula_version + L"\r\n\

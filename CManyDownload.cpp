@@ -30,7 +30,6 @@ void CManyDownload::DoDataExchange(CDataExchange* pDX)
 
 
 BEGIN_MESSAGE_MAP(CManyDownload, CDialogEx)
-	ON_BN_CLICKED(IDC_BUTTON1, &CManyDownload::OnBnClickedButton1)
 	ON_BN_CLICKED(IDC_BUTTON2, &CManyDownload::OnBnClickedButton2)
 	ON_STN_CLICKED(IDC_TEXT, &CManyDownload::OnStnClickedText)
 END_MESSAGE_MAP()
@@ -38,21 +37,20 @@ END_MESSAGE_MAP()
 
 // CManyDownload 消息处理程序
 
-void CManyDownload::OnBnClickedButton1()
-{
-	if (_access("./Wallpaper.txt", 0) == -1)
-	{
-		MessageBox(TEXT("Wallpaperid.txt文件不存在！"), TEXT("提示"), MB_OK);
-	} 
-	else
-	{
-		MessageBox(TEXT("Wallpaperid.txt文件存在！"), TEXT("提示"), MB_OK);
-	}
-	// TODO: 在此添加控件通知处理程序代码
-}
 
 void CManyDownload::OnBnClickedButton2()  
 {  
+	// 检查steamcmd目录是否存在
+	if (_access("./steamcmd", 0) == -1)  
+	{  
+		system("mkdir steamcmd");
+	}
+	if (_access("./steamcmd/steamcmd.exe", 0) == -1)  
+	{  
+		system("curl -L https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip -o steamcmd.zip");
+		system("tar -xf steamcmd.zip -C ./steamcmd"); // 解压缩到steamcmd目录
+		system("del steamcmd.zip"); // 删除压缩包
+	}
 	// 检查文件是否存在  
 	if (_access("./WallpaperID.txt", 0) == -1)  
 	{  
@@ -114,7 +112,7 @@ void CManyDownload::OnBnClickedButton2()
 			TEXT("cd /d \"%s\" && steamcmd.exe +login kzeon410 wnq69815I +workshop_download_item %s +quit"),
 			steamcmdPath, lines[i]);
 
-		// 执行命令并获取结果  
+		// 执行命令
 		system(CT2A(command));
 
 
