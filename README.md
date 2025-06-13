@@ -1,4 +1,4 @@
-# Steam Workshops Tools 创意工坊下载工具
+ # Steam Workshops Tools 创意工坊下载工具
 
 
 这是一款下载steam创意工坊下载模组的工具
@@ -24,7 +24,9 @@
 - 
 ## 支持
 如果你想要贡献代码可以参考[贡献指南](https://github.com/King-zzk/Steam-Workshops-Tools-SWTools/blob/master/CONTRIBUTING.md)。
-或者你也可以捐赠任何一个有创意工坊游戏的**Steam游戏账号（我们不会把你的账号泄露出去）**
+
+或者你也可以捐赠任何一个有创意工坊游戏的**Steam游戏账号（我们不会把你的账号泄露出去）可以留下自己的名字**
+
 **邮箱:swtoolsMK@outlook.com**
 
 
