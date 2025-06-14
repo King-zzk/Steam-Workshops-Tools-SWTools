@@ -12,6 +12,7 @@
 
 ***计划添加***
 - Europa Universalis IV | 欧陆风云4
+- Company of Heroes 3 | 英雄连3
 
 ====================================
 
