@@ -43,20 +43,49 @@ void CManyDownload::OnBnClickedManydwnlaunch() {
 		return;
 	}
 
-	CString lines[10];
+	// 检查steamcmd目录是否存在，不存在则创建并下载
+	bool needSteamcmd = (_access("./steamcmd", 0) == -1);
+	if (needSteamcmd) {
+		CString Path = TEXT("steamcmd");
+		bool flag = CreateDirectory(Path, NULL);
+		if (!flag) {
+			MessageBox(TEXT("无法创建steamcmd目录，请检查权限！"), TEXT("错误"), MB_OK | MB_ICONERROR);
+			return;
+		}
+
+		// 下载steamcmd.zip
+		CString downloadCmd = TEXT("curl -s https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip -o steamcmd.zip");
+		int downloadResult = system(CT2A(downloadCmd));
+		if (downloadResult != 0) {
+			MessageBox(TEXT("下载steamcmd.zip失败，请检查网络连接！"), TEXT("错误"), MB_OK | MB_ICONERROR);
+			return;
+		}
+
+		// 解压steamcmd.zip
+		CString extractCmd = TEXT("tar -xf steamcmd.zip");
+		int extractResult = system(CT2A(extractCmd));
+		if (extractResult != 0) {
+			MessageBox(TEXT("解压steamcmd.zip失败，请确保tar命令可用！"), TEXT("错误"), MB_OK | MB_ICONERROR);
+			return;
+		}
+	}
+
+	// 读取文件内容
+	CString lines[128];  // 增大数组大小为128
 	int lineCount = 0;
 	CStdioFile file;
 
-	// 打开文件并读取前10个ID  
+	// 打开文件并读取ID
 	if (file.Open(TEXT("WallpaperID.txt"), CFile::modeRead)) {
 		CString line;
-		while (lineCount < 10 && file.ReadString(line)) {
+		while (lineCount < 128 && file.ReadString(line)) {
 			// 跳过空行  
 			if (!line.IsEmpty())
 				lines[lineCount++] = line;
 		}
 		file.Close();
-	} else {
+	}
+	else {
 		MessageBox(TEXT("无法打开文件！"), TEXT("错误"), MB_OK | MB_ICONERROR);
 		return;
 	}
@@ -79,6 +108,10 @@ void CManyDownload::OnBnClickedManydwnlaunch() {
 	CString steamcmdPath = CString(szPath) + TEXT("\\steamcmd\\");
 
 	// 执行批量下载  
+	int successCount = 0;
+	int failedCount = 0;
+	CString failedIDs;
+
 	for (int i = 0; i < lineCount; i++) {
 		// 更新进度显示  
 		msg.Format(TEXT("正在下载第 %d/%d 个: %s"), i + 1, lineCount, lines[i]);
@@ -92,9 +125,27 @@ void CManyDownload::OnBnClickedManydwnlaunch() {
 			steamcmdPath, lines[i]);
 
 		// 执行命令并获取结果  
-		system(CT2A(command));
+		int result = system(CT2A(command));
+		if (result != 0) {
+			failedCount++;
+			failedIDs += lines[i] + TEXT("\n");
+			msg.Format(TEXT("下载失败: %s"), lines[i]);
+			MessageBox(msg, TEXT("下载错误"), MB_OK | MB_ICONERROR);
+		}
+		else {
+			successCount++;
+		}
 	}
+
 	// 完成提示  
-	MessageBox(TEXT("所有内容下载完成！"), TEXT("完成"), MB_OK | MB_ICONINFORMATION);
+	if (failedCount == 0) {
+		MessageBox(TEXT("所有内容下载完成！"), TEXT("完成"), MB_OK | MB_ICONINFORMATION);
+	}
+	else {
+		msg.Format(TEXT("下载完成！成功: %d，失败: %d\n\n失败的ID:\n%s"),
+			successCount, failedCount, failedIDs);
+		MessageBox(msg, TEXT("下载结果"), MB_OK | MB_ICONWARNING);
+	}
+
 	SetDlgItemText(IDC_TEXT, TEXT("下载已完成"));
 }
