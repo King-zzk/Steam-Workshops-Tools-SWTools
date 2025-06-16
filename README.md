@@ -14,7 +14,7 @@
 - Europa Universalis IV | 欧陆风云4
 - Company of Heroes 3 | 英雄连3
 
-====================================
+---
 
 ***已可使用***
 - Crusader Kings III | 十字军之王3
