@@ -5,12 +5,10 @@
 
 在 [Releases](https://github.com/King-zzk/Steam-Workshops-Tools-SWTools/releases) 下载最新版本即可使用。
 
-如果你想要在此项目上做开发，请在这里查看[贡献指南](https://github.com/King-zzk/Steam-Workshops-Tools-SWTools/blob/master/CONTRIBUTING.md)。
-
 ## 支持的 Steam 游戏（Steam App）
 
-
 ***计划添加***
+
 - Europa Universalis IV | 欧陆风云4
 - Company of Heroes 3 | 英雄连3
 
@@ -25,13 +23,20 @@
 - Wallpaper Engine | 壁纸引擎
 
 ## 支持
-如果你想要贡献代码可以参考[贡献指南](https://github.com/King-zzk/Steam-Workshops-Tools-SWTools/blob/master/CONTRIBUTING.md)。
+欢迎为本项目贡献一份力量！
 
-或者你也可以捐赠任何一个有创意工坊游戏的**Steam游戏账号（我们不会把你的账号泄露出去）可以留下自己的名字**
+如果你想要贡献代码，请参考：[贡献指南](https://github.com/King-zzk/Steam-Workshops-Tools-SWTools/blob/master/CONTRIBUTING.md)。
 
-**邮箱:swtoolsMK@outlook.com**
+你也可以捐赠任何一个 **拥有创意工坊游戏的Steam游戏账号，你可以留下自己的名字。** 我们不会将你的账号和密码上传到仓库，并且承诺不会泄露你的账号。
+
+请将你捐赠的账号发送至：**swtoolsMK@outlook.com**。
 
 
 ## 声明
 
 仅供学习参考，支持正版，禁止用任何商业用途！
+
+本项目使用了以下第三方依赖库，它们的许可证也可以在项目源代码中找到：
+
+- [masterLazy/mLib](https://github.com/masterLazy/mLib)（部分）
+- [hjiang/jsonxx](https://github.com/hjiang/jsonxx)

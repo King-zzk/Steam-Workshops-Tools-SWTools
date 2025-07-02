@@ -13,81 +13,60 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="头文件\后端">
-      <UniqueIdentifier>{c1b730bf-af87-49a2-bf31-85faa6bb578f}</UniqueIdentifier>
+    <Filter Include="头文件\backend">
+      <UniqueIdentifier>{4b74e641-6141-4857-9723-ad9dfedc0795}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\backend">
+      <UniqueIdentifier>{219dd5dd-e955-4520-8ef1-667cd6e8aaaf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\backend\mlib">
+      <UniqueIdentifier>{dcca0dba-4003-4cc0-b127-c00ae070caed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\backend\jsonxx">
+      <UniqueIdentifier>{68a8c239-6dec-4585-84c4-dfc826e5e33e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\backend\jsonxx">
+      <UniqueIdentifier>{f17faaa4-8e52-4959-be16-55714ac41059}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="SWTools.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="backend\backend.h">
+      <Filter>头文件\backend</Filter>
     </ClInclude>
-    <ClInclude Include="SWToolsDlg.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="backend\tasker.h">
+      <Filter>头文件\backend</Filter>
     </ClInclude>
-    <ClInclude Include="framework.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="backend\mlib\process.hpp">
+      <Filter>头文件\backend\mlib</Filter>
     </ClInclude>
-    <ClInclude Include="targetver.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="backend\jsonxx\jsonxx.h">
+      <Filter>头文件\backend\jsonxx</Filter>
     </ClInclude>
-    <ClInclude Include="Resource.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="backend\item.h">
+      <Filter>头文件\backend</Filter>
     </ClInclude>
-    <ClInclude Include="pch.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="backend\backend.hpp">
-      <Filter>头文件\后端</Filter>
-    </ClInclude>
-    <ClInclude Include="backend\app_info.hpp">
-      <Filter>头文件\后端</Filter>
-    </ClInclude>
-    <ClInclude Include="backend\downloader.hpp">
-      <Filter>头文件\后端</Filter>
-    </ClInclude>
-    <ClInclude Include="backend\eula.hpp">
-      <Filter>头文件\后端</Filter>
-    </ClInclude>
-    <ClInclude Include="backend\process.hpp">
-      <Filter>头文件\后端</Filter>
-    </ClInclude>
-    <ClInclude Include="backend\texts.hpp">
-      <Filter>头文件\后端</Filter>
-    </ClInclude>
-    <ClInclude Include="backend\update.hpp">
-      <Filter>头文件\后端</Filter>
-    </ClInclude>
-    <ClInclude Include="CManyDownload.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="backend\userpool.h">
+      <Filter>头文件\backend</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="SWTools.cpp">
+    <ClCompile Include="backend\backend.cpp">
+      <Filter>源文件\backend</Filter>
+    </ClCompile>
+    <ClCompile Include="backend\tasker.cpp">
+      <Filter>源文件\backend</Filter>
+    </ClCompile>
+    <ClCompile Include="backend\jsonxx\jsonxx.cc">
+      <Filter>源文件\backend\jsonxx</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="SWToolsDlg.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="backend\item.cpp">
+      <Filter>源文件\backend</Filter>
     </ClCompile>
-    <ClCompile Include="pch.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="backend\userpool.cpp">
+      <Filter>源文件\backend</Filter>
     </ClCompile>
-    <ClCompile Include="CManyDownload.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="SWTools.rc">
-      <Filter>资源文件</Filter>
-    </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="res\SWTools.rc2">
-      <Filter>资源文件</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="res\SWTools.ico">
-      <Filter>资源文件</Filter>
-    </Image>
   </ItemGroup>
 </Project>
