@@ -1,27 +1,11 @@
-#pragma once
 /*
-* backend.hpp
-* 后端暴露给前端调用的接口
+* backend.h
+* 鍚庣鎺ュ彛
 */
 
-#include <iostream>
-#include <fstream>
-#include <sstream>		// ostringstream
-#include <iomanip>		// setprecision()
-#include <string>
-#include <thread>
-#include <mutex>
-#include <io.h> // _access()
-#include <map>
-#include <windows.h>
-#include <locale>	// string <-> wstring
-#include <codecvt> // 同上
-using namespace std;
+#include "backend.h"
 
-#include "process.hpp"
-
-// 静默运行命令行 (阻塞)
-void ExecuteCmd(wstring file, wstring parameter, wstring dir=L"", bool show = false) {
+void ExecuteCmd(wstring file, wstring parameter, wstring dir, bool show) {
 	SHELLEXECUTEINFO ShExecInfo = { 0 };
 	ShExecInfo.cbSize = sizeof(SHELLEXECUTEINFO);
 	ShExecInfo.fMask = SEE_MASK_NOCLOSEPROCESS;
@@ -34,19 +18,11 @@ void ExecuteCmd(wstring file, wstring parameter, wstring dir=L"", bool show = fa
 	WaitForSingleObject(ShExecInfo.hProcess, INFINITE);
 }
 
-// string -> wstring
 wstring ToWstr(const string& str) {
 	static wstring_convert<std::codecvt_utf8<wchar_t>> converter;
 	return converter.from_bytes(str);
 }
-// wstring -> string
 string ToStr(const wstring& wstr) {
 	static wstring_convert<std::codecvt_utf8<wchar_t>> converter;
 	return converter.to_bytes(wstr);
 }
-
-#include "app_info.hpp"
-#include "texts.hpp"
-#include "eula.hpp"
-#include "update.hpp"
-#include "downloader.hpp"
