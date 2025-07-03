@@ -19,10 +19,18 @@ void ExecuteCmd(wstring file, wstring parameter, wstring dir, bool show) {
 }
 
 wstring ToWstr(const string& str) {
-	static wstring_convert<std::codecvt_utf8<wchar_t>> converter;
-	return converter.from_bytes(str);
+	int len = MultiByteToWideChar(CP_ACP, 0, str.c_str(), str.size(), NULL, 0);
+	wchar_t* buf = new wchar_t[len];
+	MultiByteToWideChar(CP_ACP, 0, str.c_str(), str.size(), buf, len);
+	wstring res(buf, len);
+	delete[] buf;
+	return res;
 }
 string ToStr(const wstring& wstr) {
-	static wstring_convert<std::codecvt_utf8<wchar_t>> converter;
-	return converter.to_bytes(wstr);
+	int len = WideCharToMultiByte(CP_ACP, 0, wstr.c_str(), wstr.size(), NULL, 0, NULL, NULL);
+	char* buf = new char[len];
+	WideCharToMultiByte(CP_ACP, 0, wstr.c_str(), wstr.size(), buf, len, NULL, NULL);
+	string res(buf, len);
+	delete[] buf;
+	return res;
 }

@@ -5,7 +5,7 @@
 * (唯一声明和定义不分离的)
 */
 
-map<appid_t, string> AppName = {
+inline map<appid_t, string> AppName = {
 	// 注意: 中文名称中统一用阿拉伯数字
 
 	{394360, "Hearts of Iron IV | 钢铁雄心4"},
