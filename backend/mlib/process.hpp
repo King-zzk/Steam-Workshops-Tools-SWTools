@@ -148,7 +148,8 @@ namespace mlib {
                     if (buf == '\r' || buf == '\n') {
                         if (res.empty()) {
                             continue;
-                        } else return res;
+                        }
+                        else return res;
                     }
                     res += buf;
                 }

@@ -6,6 +6,7 @@
 
 #include "backend.h"
 
+map<appid_t, vector<User>> UserPool::pool;
 void UserPool::addUser(appid_t appid, string username, string password) {
 	if (pool.find(appid) == pool.end()) {
 		pool[appid] = { {username, password} };

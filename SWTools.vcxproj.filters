@@ -19,14 +19,14 @@
     <Filter Include="源文件\backend">
       <UniqueIdentifier>{219dd5dd-e955-4520-8ef1-667cd6e8aaaf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="头文件\backend\mlib">
-      <UniqueIdentifier>{dcca0dba-4003-4cc0-b127-c00ae070caed}</UniqueIdentifier>
-    </Filter>
     <Filter Include="头文件\backend\jsonxx">
       <UniqueIdentifier>{68a8c239-6dec-4585-84c4-dfc826e5e33e}</UniqueIdentifier>
     </Filter>
     <Filter Include="源文件\backend\jsonxx">
       <UniqueIdentifier>{f17faaa4-8e52-4959-be16-55714ac41059}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\backend\mlib">
+      <UniqueIdentifier>{dcca0dba-4003-4cc0-b127-c00ae070caed}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -48,6 +48,15 @@
     <ClInclude Include="backend\userpool.h">
       <Filter>头文件\backend</Filter>
     </ClInclude>
+    <ClInclude Include="backend\app_name.h">
+      <Filter>头文件\backend</Filter>
+    </ClInclude>
+    <ClInclude Include="backend\mlib\function.hpp">
+      <Filter>头文件\backend\mlib</Filter>
+    </ClInclude>
+    <ClInclude Include="backend\mlib\logger.hpp">
+      <Filter>头文件\backend\mlib</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="backend\backend.cpp">
@@ -66,6 +75,9 @@
       <Filter>源文件\backend</Filter>
     </ClCompile>
     <ClCompile Include="backend\userpool.cpp">
+      <Filter>源文件\backend</Filter>
+    </ClCompile>
+    <ClCompile Include="backend\userpool_private.cpp">
       <Filter>源文件\backend</Filter>
     </ClCompile>
   </ItemGroup>

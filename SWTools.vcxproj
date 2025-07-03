@@ -104,6 +104,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -127,6 +128,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="backend\app_name.h" />
+    <ClInclude Include="backend\mlib\function.hpp" />
+    <ClInclude Include="backend\mlib\logger.hpp" />
     <ClInclude Include="backend\userpool.h" />
     <ClInclude Include="backend\backend.h" />
     <ClInclude Include="backend\item.h" />
@@ -140,6 +144,7 @@
     <ClCompile Include="backend\jsonxx\jsonxx.cc" />
     <ClCompile Include="backend\tasker.cpp" />
     <ClCompile Include="backend\userpool.cpp" />
+    <ClCompile Include="backend\userpool_private.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

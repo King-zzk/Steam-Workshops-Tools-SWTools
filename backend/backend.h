@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_WARNINGS
 #pragma once
 /*
 * backend.h
@@ -5,6 +6,7 @@
 */
 
 #include "mlib/process.hpp"
+#include "mlib/logger.hpp"
 #include "jsonxx/jsonxx.h"
 
 #include <windows.h>
@@ -16,11 +18,10 @@
 #include <map>
 #include <mutex>	// 线程锁
 #include <io.h>		// _access()
-#include <locale>	// string <-> wstring
-#include <codecvt>	// 同上
 
 using namespace std;
 using namespace mlib::process;
+using namespace mlib::logger;
 
 /* 类型定义 */
 typedef unsigned appid_t;	// 用于 SteamApp ID
