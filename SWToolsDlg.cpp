@@ -3,6 +3,7 @@
 //
 
 #include "pch.h"
+#include "CWorkshops_info.h"
 #include "framework.h"
 #include "SWTools.h"
 #include "SWToolsDlg.h"
@@ -173,6 +174,7 @@ BEGIN_MESSAGE_MAP(CSWToolsDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_LAUNCHBTN, &CSWToolsDlg::OnBnClickedLaunchbtn)
 	ON_BN_CLICKED(IDC_FOLDERBTN, &CSWToolsDlg::OnBnClickedFolderbtn)
 	ON_BN_CLICKED(IDC_MANYDWNBTN, &CSWToolsDlg::OnBnClickedManydwnbtn)
+	ON_BN_CLICKED(IDC_MANYDWNBTN2, &CSWToolsDlg::OnBnClickedManydwnbtn2)
 END_MESSAGE_MAP()
 
 
@@ -352,3 +354,24 @@ void CSWToolsDlg::OnBnClickedManydwnbtn() {
 	dlg.DoModal();
 }
 
+
+void CSWToolsDlg::OnBnClickedManydwnbtn2()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	CString id;
+	m_edtID.GetWindowText(id);
+	if (id.IsEmpty()) {
+		MessageBox(TEXT("请输入id在继续！"), TEXT("Error"), MB_ICONERROR | MB_OK);
+	}
+	else {
+		CString file_path;
+		file_path.Format(TEXT("./workshops/%s.json"), id.GetString());
+		CString command_curl;
+		command_curl.Format(TEXT("curl -o \"%s\" https://steamworkshopdownloader.io/api/details/file %s"), file_path.GetString(), id.GetString());
+		CWorkshops_info dlg;
+		dlg.workshops_id = id.GetString();
+		dlg.command_curl = command_curl.GetString();
+		dlg.file_path = file_path.GetString();
+		dlg.DoModal();
+	}
+}

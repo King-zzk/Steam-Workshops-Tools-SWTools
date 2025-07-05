@@ -51,4 +51,5 @@ public:
 	afx_msg void OnBnClickedFolderbtn();
 	CStatic m_version;
 	afx_msg void OnBnClickedManydwnbtn();
+	afx_msg void OnBnClickedManydwnbtn2();
 };
