@@ -194,6 +194,7 @@
     <ClInclude Include="backend\texts.hpp" />
     <ClInclude Include="backend\update.hpp" />
     <ClInclude Include="CManyDownload.h" />
+    <ClInclude Include="CWorkshops_info.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
@@ -203,6 +204,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CManyDownload.cpp" />
+    <ClCompile Include="CWorkshops_info.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

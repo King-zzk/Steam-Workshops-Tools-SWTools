@@ -60,6 +60,9 @@
     <ClInclude Include="CManyDownload.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="CWorkshops_info.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SWTools.cpp">
@@ -72,6 +75,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="CManyDownload.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CWorkshops_info.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
