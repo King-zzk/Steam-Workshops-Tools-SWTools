@@ -357,6 +357,7 @@ void CSWToolsDlg::OnBnClickedManydwnbtn() {
 
 void CSWToolsDlg::OnBnClickedManydwnbtn2()
 {
+	m_state.SetWindowText(TEXT("查看创意工坊文件信息中"));
 	// TODO: 在此添加控件通知处理程序代码
 	CString id;
 	m_edtID.GetWindowText(id);
@@ -373,5 +374,6 @@ void CSWToolsDlg::OnBnClickedManydwnbtn2()
 		dlg.command_curl = command_curl.GetString();
 		dlg.file_path = file_path.GetString();
 		dlg.DoModal();
+		m_state.SetWindowText(TEXT("空闲中"));
 	}
 }
