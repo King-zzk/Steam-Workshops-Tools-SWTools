@@ -367,7 +367,7 @@ void CSWToolsDlg::OnBnClickedManydwnbtn2()
 		CString file_path;
 		file_path.Format(TEXT("./workshops/%s.json"), id.GetString());
 		CString command_curl;
-		command_curl.Format(TEXT("curl -o \"%s\" https://steamworkshopdownloader.io/api/details/file %s"), file_path.GetString(), id.GetString());
+		command_curl.Format(TEXT("curl -o \"%s\" https://steamworkshopdownloader.io/api/details/file -d [%s]"), file_path.GetString(), id.GetString());
 		CWorkshops_info dlg;
 		dlg.workshops_id = id.GetString();
 		dlg.command_curl = command_curl.GetString();
