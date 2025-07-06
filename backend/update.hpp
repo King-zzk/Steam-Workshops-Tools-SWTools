@@ -22,10 +22,10 @@ void CheckUpdate() {
 		LR"(-o "version.txt" "https://raw.githubusercontent.com/King-zzk/king-zzk.github.io/refs/heads/main/version.txt)"
 	);
 	if (_access("./version.txt", 0) == -1) {
-		MessageBox(NULL, TEXT("直连github失败！（开启代理再试试），正在使用镜像站！"), TEXT("错误"), MB_OK);
+		MessageBox(NULL, TEXT("直连github失败，正在使用镜像站！"), TEXT("错误"), MB_OK);
 		ExecuteCmd(
 			L"curl",
-			LR"(-o "version.txt" " https://raw.githubusercontent.com/King-zzk/king-zzk.github.io/refs/heads/main/version.txt)"
+			LR"(-o "version.txt" "https://gh.llkk.cc/https://raw.githubusercontent.com/King-zzk/king-zzk.github.io/refs/heads/main/version.txt)"
 		);
 	}
 	file.open("version.txt", ios::in);
@@ -48,7 +48,7 @@ void CheckUpdate() {
 			MessageBox(NULL, _T("更新检查失败，version.txt 中的内容无效"), _T("错误"), MB_ICONERROR | MB_OK);
 		}
 	} else {
-		MessageBox(NULL, _T("更新检查失败，无法打开 version.txt"), _T("错误"), MB_ICONERROR | MB_OK);
+		MessageBox(NULL, _T("更新检查失败，无法打开 version.txt（开启代理试试！）"), _T("错误"), MB_ICONERROR | MB_OK);
 	}
 
 	if (_access("version.txt", 0) == 0) {
