@@ -19,8 +19,15 @@ void CheckUpdate() {
 	// 被逼无奈火绒会报毒，所以只能用curl了(┬┬﹏┬┬)
 	ExecuteCmd(
 		L"curl",
-		LR"(-o "version.txt" "https://gh-proxy.net/https://raw.githubusercontent.com/King-zzk/king-zzk.github.io/refs/heads/main/version.txt)"
+		LR"(-o "version.txt" "https://raw.githubusercontent.com/King-zzk/king-zzk.github.io/refs/heads/main/version.txt)"
 	);
+	if (_access("./version.txt", 0) == -1) {
+		MessageBox(NULL, TEXT("直连github失败！（开启代理再试试），正在使用镜像站！"), TEXT("错误"), MB_OK);
+		ExecuteCmd(
+			L"curl",
+			LR"(-o "version.txt" " https://raw.githubusercontent.com/King-zzk/king-zzk.github.io/refs/heads/main/version.txt)"
+		);
+	}
 	file.open("version.txt", ios::in);
 	if (file.is_open()) {
 		wstring line;
