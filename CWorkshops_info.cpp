@@ -36,24 +36,28 @@ BOOL CWorkshops_info::OnInitDialog()
 		MessageBox(_T("无法打开物品信息文件"), _T("错误"), MB_ICONERROR | MB_OK);
 		return FALSE; // 退出对话框
 	}
+
+
 	// 读取JSON文件
 	try
 	{
 		json j;
 		file >> j;
-		std::string nameStr = j["name"].get<std::string>();  // 获取物品名称
-        CString name(nameStr.c_str());
-		std::string file_description = j["title"].get<std::string>();// 获取物品描述
-		CString description(file_description.c_str());
-		std::string app_name = j["app_name"].get<std::string>(); // 所属软件&游戏
-		CString appName(app_name.c_str());
-		std::string views = j["views"].get<std::string>(); // 浏览量
-		CString viewsStr(views.c_str());
-        CString info;
-        info.Format(_T("物品名称: %s\r\n物品描述: %s\r\n所属软件&游戏: %s\r\n浏览量: %s\r\n"),  
-                    name.GetString(), description.GetString(), appName.GetString(), viewsStr.GetString());  
-        m_workshops_info.SetWindowTextW(info.GetString());
-		m_workshops_info.SetWindowTextW(info.GetString());
+		for (auto& element : j) {
+			std::string nameStr = element["title"].get<std::string>();
+			CString name(nameStr.c_str());
+			int followers = element["followers"].get<int>();
+			CString followerstr;
+			followerstr.Format(_T("%d"), followers);
+			std::string app_name = element["app_name"].get<std::string>();
+			CString appName(app_name.c_str());
+			int views = element["views"].get<int>();
+			CString viewsStr;
+			viewsStr.Format(_T("%d"), views);
+			CString info;
+			info.Format(_T("物品名称: %s\r\n物品关注: %s\r\n所属软件&游戏: %s\r\n浏览量: %s\r\n"),name.GetString(), followerstr.GetString(), appName.GetString(), viewsStr.GetString());
+			m_workshops_info.SetWindowTextW(info.GetString());
+		}
 	}
 	// 错误处理
 	catch (const json::parse_error& e)
