@@ -1,12 +1,13 @@
-#define _CRT_SECURE_NO_WARNINGS
 #pragma once
 /*
 * backend.h
 * 后端接口
 */
 
+#define not !
 #include "mlib/process.hpp"
 #include "mlib/logger.hpp"
+#undef not
 #include "jsonxx/jsonxx.h"
 
 #include <windows.h>
@@ -20,8 +21,8 @@
 #include <io.h>		// _access()
 
 using namespace std;
-using namespace mlib::process;
-using namespace mlib::logger;
+//using namespace mlib::process;
+//using namespace mlib::logger;
 
 /* 类型定义 */
 typedef unsigned appid_t;	// 用于 SteamApp ID
@@ -35,7 +36,7 @@ wstring ToWstr(const string& str);
 string ToStr(const wstring& wstr);
 
 /* 组件 */
-#include "app_name.h"
-#include "item.h"
-#include "userpool.h"
-#include "tasker.h"
+//#include "app_name.h"
+//#include "item.h"
+//#include "userpool.h"
+//#include "tasker.h"
