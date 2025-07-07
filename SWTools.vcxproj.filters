@@ -13,72 +13,114 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="头文件\backend">
-      <UniqueIdentifier>{4b74e641-6141-4857-9723-ad9dfedc0795}</UniqueIdentifier>
+    <Filter Include="头文件\后端">
+      <UniqueIdentifier>{a27cb14c-000f-4c1e-9e1e-1b190ce27e15}</UniqueIdentifier>
     </Filter>
-    <Filter Include="源文件\backend">
-      <UniqueIdentifier>{219dd5dd-e955-4520-8ef1-667cd6e8aaaf}</UniqueIdentifier>
+    <Filter Include="源文件\后端">
+      <UniqueIdentifier>{5520db1e-a109-42ac-8b5c-1b725fb13456}</UniqueIdentifier>
     </Filter>
-    <Filter Include="头文件\backend\jsonxx">
-      <UniqueIdentifier>{68a8c239-6dec-4585-84c4-dfc826e5e33e}</UniqueIdentifier>
+    <Filter Include="头文件\后端\mlib">
+      <UniqueIdentifier>{8ef76e0c-0ad1-4754-8a62-1959051d6bf3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="源文件\backend\jsonxx">
-      <UniqueIdentifier>{f17faaa4-8e52-4959-be16-55714ac41059}</UniqueIdentifier>
+    <Filter Include="头文件\后端\jsonxx">
+      <UniqueIdentifier>{64337c5a-8aa0-41b4-b6ed-67b9c46b2952}</UniqueIdentifier>
     </Filter>
-    <Filter Include="头文件\backend\mlib">
-      <UniqueIdentifier>{dcca0dba-4003-4cc0-b127-c00ae070caed}</UniqueIdentifier>
+    <Filter Include="源文件\后端\jsonxx">
+      <UniqueIdentifier>{837ddd24-f878-4926-b7c5-08da542daef4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="backend\backend.h">
-      <Filter>头文件\backend</Filter>
+    <ClInclude Include="SWTools.h">
+      <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="backend\tasker.h">
-      <Filter>头文件\backend</Filter>
+    <ClInclude Include="SWToolsDlg.h">
+      <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="backend\mlib\process.hpp">
-      <Filter>头文件\backend\mlib</Filter>
+    <ClInclude Include="framework.h">
+      <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="backend\jsonxx\jsonxx.h">
-      <Filter>头文件\backend\jsonxx</Filter>
+    <ClInclude Include="targetver.h">
+      <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="backend\item.h">
-      <Filter>头文件\backend</Filter>
+    <ClInclude Include="Resource.h">
+      <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="backend\userpool.h">
-      <Filter>头文件\backend</Filter>
+    <ClInclude Include="AddTaskDlg.h">
+      <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="backend\app_name.h">
-      <Filter>头文件\backend</Filter>
+      <Filter>头文件\后端</Filter>
+    </ClInclude>
+    <ClInclude Include="backend\backend.h">
+      <Filter>头文件\后端</Filter>
+    </ClInclude>
+    <ClInclude Include="backend\item.h">
+      <Filter>头文件\后端</Filter>
+    </ClInclude>
+    <ClInclude Include="backend\tasker.h">
+      <Filter>头文件\后端</Filter>
+    </ClInclude>
+    <ClInclude Include="backend\userpool.h">
+      <Filter>头文件\后端</Filter>
     </ClInclude>
     <ClInclude Include="backend\mlib\function.hpp">
-      <Filter>头文件\backend\mlib</Filter>
+      <Filter>头文件\后端\mlib</Filter>
+    </ClInclude>
+    <ClInclude Include="backend\mlib\process.hpp">
+      <Filter>头文件\后端\mlib</Filter>
     </ClInclude>
     <ClInclude Include="backend\mlib\logger.hpp">
-      <Filter>头文件\backend\mlib</Filter>
+      <Filter>头文件\后端\mlib</Filter>
+    </ClInclude>
+    <ClInclude Include="backend\jsonxx\jsonxx.h">
+      <Filter>头文件\后端\jsonxx</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="backend\backend.cpp">
-      <Filter>源文件\backend</Filter>
-    </ClCompile>
-    <ClCompile Include="backend\tasker.cpp">
-      <Filter>源文件\backend</Filter>
-    </ClCompile>
-    <ClCompile Include="backend\jsonxx\jsonxx.cc">
-      <Filter>源文件\backend\jsonxx</Filter>
-    </ClCompile>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="SWTools.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="backend\item.cpp">
-      <Filter>源文件\backend</Filter>
+    <ClCompile Include="SWToolsDlg.cpp">
+      <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="backend\userpool.cpp">
-      <Filter>源文件\backend</Filter>
+    <ClCompile Include="AddTaskDlg.cpp">
+      <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="backend\userpool_private.cpp">
-      <Filter>源文件\backend</Filter>
+    <ClCompile Include="backend\backend.cpp">
+      <Filter>源文件\后端</Filter>
     </ClCompile>
+    <ClCompile Include="backend\jsonxx\jsonxx.cc">
+      <Filter>源文件\后端\jsonxx</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SWTools.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\SWTools.rc2">
+      <Filter>资源文件</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\SWTools.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\Start.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\Pause.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\AddTask.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\Delete.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\OpenFolder.ico">
+      <Filter>资源文件</Filter>
+    </Image>
   </ItemGroup>
 </Project>
