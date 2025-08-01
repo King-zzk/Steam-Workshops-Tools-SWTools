@@ -23,15 +23,16 @@ map <wstring, AppInfo> app_infos = {
 		{"kzeon410","wnq69815I","431960"}
 	},
 	{
-		L"Victoria 3 | 维多利亚3",
-		{"steamok1090250","steamok45678919","529340"}
-	},
-	{
 		L"Crusader Kings III | 十字军之王3 ",
 		{"wbtq1086059","steamok32548S","1158310"}
 	},
 	{
 		L"Cities: Skylines | 天际线",
 		{"thb112181","steamok123123","255710"}
-	}
+	},
+		{
+		L"Victoria 3 | 维多利亚3",
+		{"yejonfils","T39S5C3XYS97","529340"}
+	},
+
 };
