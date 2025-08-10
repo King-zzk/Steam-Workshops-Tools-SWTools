@@ -1,7 +1,7 @@
 #pragma once
 /**
- * @file		fuction.hpp
- * @brief		杂项函数
+ * @file		Fuction.hpp
+ * @brief		实用函数
  *
  * @author		masterLazy
  * @copyright	Copyright (c) 2025 masterLazy
@@ -11,10 +11,10 @@
 #include <sstream>		// ostringstream
 #include <iomanip>		// setprecision()
 #include <sys/stat.h>	// stat
-#include <chrono>		// chrono
+#include <chrono>
 
 namespace mlib {
-	namespace function {
+	namespace Function {
 		/**
 		 * @brief				字符数转字符串
 		 * @param bytes			字节数
@@ -60,29 +60,41 @@ namespace mlib {
 		}
 
 		/**
-		 * @brief			获取格式化的当前日期时间字符串
-		 * @param date		是否包含日期
-		 * @param time		是否包含时间
-		 */
-		inline std::string GetFormattedDateTime(bool date = true, bool time = true) {
-			auto now = std::chrono::system_clock::now();
-			auto in_time_t = std::chrono::system_clock::to_time_t(now);
-			std::tm tm = *std::localtime(&in_time_t);
-			
-			std::ostringstream oss;
-			oss << std::setfill('0');
-			if (date) {
-				oss << std::setw(4) << (tm.tm_year + 1900) << "-"
-					<< std::setw(2) << (tm.tm_mon + 1) << "-"
-					<< std::setw(2) << tm.tm_mday;
+		* @brief		获取日期-时间字符串 (yyyy-mm-dd_hh:mm:ss)
+		* @param date	是否包括 yyyy-mm-dd
+		* @param datetime	是否包括 hh:mm:ss
+		*/
+		inline std::string GetFormatDateTime(bool date = true, bool datetime = true) {
+			using namespace std::chrono;
+			auto now = system_clock::now();
+			time_t now_time = system_clock::to_time_t(now);
+			tm timeinfo;
+			localtime_s(&timeinfo, &now_time);
+			std::ostringstream ss;
+			if (date && datetime) {
+				ss << std::put_time(&timeinfo, "%Y-%m-%d_%H:%M:%S");
+			} else if (date) {
+				ss << std::put_time(&timeinfo, "%Y-%m-%d");
+			} else if (datetime) {
+				ss << std::put_time(&timeinfo, "%H:%M:%S");
 			}
-			if (date && time) oss << " ";
-			if (time) {
-				oss << std::setw(2) << tm.tm_hour << ":"
-					<< std::setw(2) << tm.tm_min << ":"
-					<< std::setw(2) << tm.tm_sec;
-			}
-			return oss.str();
+			return ss.str();
 		}
-	} // namespace function
+		inline std::wstring GetFormatDateTimeW(bool date = true, bool datetime = true) {
+			using namespace std::chrono;
+			auto now = system_clock::now();
+			time_t now_time = system_clock::to_time_t(now);
+			tm timeinfo;
+			localtime_s(&timeinfo, &now_time);
+			std::wostringstream ss;
+			if (date && datetime) {
+				ss << std::put_time(&timeinfo, L"%Y-%m-%d_%H:%M:%S");
+			} else if (date) {
+				ss << std::put_time(&timeinfo, L"%Y-%m-%d");
+			} else if (datetime) {
+				ss << std::put_time(&timeinfo, L"%H:%M:%S");
+			}
+			return ss.str();
+		}
+	} // namespace Function
 } // namespace mlib

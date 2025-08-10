@@ -9,7 +9,7 @@
 * https://github.com/dgibbs64/SteamCMD-Commands-List
 */
 
-#include "backend.h"
+#include "Backend.h"
 
 Tasker::Tasker(HWND hWnd) : hWnd(hWnd) {
 	thread th(&Tasker::threadHandler, this);

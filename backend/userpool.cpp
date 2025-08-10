@@ -1,13 +1,14 @@
 #pragma once
 /*
-* userpool.cpp
-* 账户池
+* UserPool.cpp
+* 用户池 (静态类)
 */
 
-#include "backend.h"
+#include "Backend.h"
 
-map<appid_t, vector<User>> UserPool::pool;
-void UserPool::addUser(appid_t appid, string username, string password) {
+UserPool userpool;
+void UserPool::addUser(appid_t appid, std::string username, 
+	std::string password) {
 	if (pool.find(appid) == pool.end()) {
 		pool[appid] = { {username, password} };
 	}
@@ -18,7 +19,7 @@ void UserPool::addUser(appid_t appid, string username, string password) {
 bool UserPool::hasUserOf(appid_t appid) {
 	return pool.find(appid) != pool.end();
 }
-vector<User> UserPool::getUsersOf(appid_t appid) {
+std::vector<UserPool::User> UserPool::getUsersOf(appid_t appid) {
 	return pool[appid];
 }
 UserPool::UserPool() {

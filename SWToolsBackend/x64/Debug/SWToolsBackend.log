@@ -1,0 +1,127 @@
+﻿  Backend.cpp
+D:\Repos\SWToolsBackend\backend\Backend.cpp(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+D:\Repos\SWToolsBackend\backend\Backend.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“backend/Backend.cpp”)
+  
+D:\Repos\SWToolsBackend\backend\mlib\Process.hpp(83,52): warning C4267: “参数”: 从“size_t”转换到“DWORD”，可能丢失数据
+  (编译源文件“backend/Backend.cpp”)
+  
+D:\Repos\SWToolsBackend\backend\mlib\Function.hpp(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“backend/Backend.cpp”)
+  
+D:\Repos\SWToolsBackend\backend\mlib\Function.hpp(58,23): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+  (编译源文件“backend/Backend.cpp”)
+  
+D:\Repos\SWToolsBackend\backend\Backend.cpp(36,64): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+D:\Repos\SWToolsBackend\backend\Backend.cpp(38,54): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+D:\Repos\SWToolsBackend\backend\Backend.cpp(44,66): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+D:\Repos\SWToolsBackend\backend\Backend.cpp(46,56): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+  Downloader.cpp
+D:\Repos\SWToolsBackend\backend\Backend.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“backend/Downloader.cpp”)
+  
+D:\Repos\SWToolsBackend\backend\mlib\Process.hpp(83,52): warning C4267: “参数”: 从“size_t”转换到“DWORD”，可能丢失数据
+  (编译源文件“backend/Downloader.cpp”)
+  
+D:\Repos\SWToolsBackend\backend\mlib\Function.hpp(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“backend/Downloader.cpp”)
+  
+D:\Repos\SWToolsBackend\backend\mlib\Function.hpp(58,23): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+  (编译源文件“backend/Downloader.cpp”)
+  
+  Item.cpp
+D:\Repos\SWToolsBackend\backend\Backend.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“backend/Item.cpp”)
+  
+D:\Repos\SWToolsBackend\backend\mlib\Process.hpp(83,52): warning C4267: “参数”: 从“size_t”转换到“DWORD”，可能丢失数据
+  (编译源文件“backend/Item.cpp”)
+  
+D:\Repos\SWToolsBackend\backend\mlib\Function.hpp(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“backend/Item.cpp”)
+  
+D:\Repos\SWToolsBackend\backend\mlib\Function.hpp(58,23): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+  (编译源文件“backend/Item.cpp”)
+  
+D:\Repos\SWToolsBackend\backend\Item.cpp(29,28): warning C4244: “=”: 从“T”转换到“size_t”，可能丢失数据
+D:\Repos\SWToolsBackend\backend\Item.cpp(29,28): warning C4244:         with
+D:\Repos\SWToolsBackend\backend\Item.cpp(29,28): warning C4244:         [
+D:\Repos\SWToolsBackend\backend\Item.cpp(29,28): warning C4244:             T=jsonxx::Number
+D:\Repos\SWToolsBackend\backend\Item.cpp(29,28): warning C4244:         ]
+D:\Repos\SWToolsBackend\backend\Item.cpp(32,25): warning C4244: “=”: 从“T”转换到“appid_t”，可能丢失数据
+D:\Repos\SWToolsBackend\backend\Item.cpp(32,25): warning C4244:         with
+D:\Repos\SWToolsBackend\backend\Item.cpp(32,25): warning C4244:         [
+D:\Repos\SWToolsBackend\backend\Item.cpp(32,25): warning C4244:             T=jsonxx::Number
+D:\Repos\SWToolsBackend\backend\Item.cpp(32,25): warning C4244:         ]
+D:\Repos\SWToolsBackend\backend\Item.cpp(97,24): warning C4244: “=”: 从“T”转换到“appid_t”，可能丢失数据
+D:\Repos\SWToolsBackend\backend\Item.cpp(97,24): warning C4244:         with
+D:\Repos\SWToolsBackend\backend\Item.cpp(97,24): warning C4244:         [
+D:\Repos\SWToolsBackend\backend\Item.cpp(97,24): warning C4244:             T=jsonxx::Number
+D:\Repos\SWToolsBackend\backend\Item.cpp(97,24): warning C4244:         ]
+  ItemEntry.cpp
+D:\Repos\SWToolsBackend\backend\Backend.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“backend/ItemEntry.cpp”)
+  
+D:\Repos\SWToolsBackend\backend\mlib\Process.hpp(83,52): warning C4267: “参数”: 从“size_t”转换到“DWORD”，可能丢失数据
+  (编译源文件“backend/ItemEntry.cpp”)
+  
+D:\Repos\SWToolsBackend\backend\mlib\Function.hpp(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“backend/ItemEntry.cpp”)
+  
+D:\Repos\SWToolsBackend\backend\mlib\Function.hpp(58,23): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+  (编译源文件“backend/ItemEntry.cpp”)
+  
+D:\Repos\SWToolsBackend\backend\ItemEntry.cpp(46,27): warning C4267: “参数”: 从“size_t”转换到“unsigned int”，可能丢失数据
+  Parser.cpp
+D:\Repos\SWToolsBackend\backend\Backend.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“backend/Parser.cpp”)
+  
+D:\Repos\SWToolsBackend\backend\mlib\Process.hpp(83,52): warning C4267: “参数”: 从“size_t”转换到“DWORD”，可能丢失数据
+  (编译源文件“backend/Parser.cpp”)
+  
+D:\Repos\SWToolsBackend\backend\mlib\Function.hpp(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“backend/Parser.cpp”)
+  
+D:\Repos\SWToolsBackend\backend\mlib\Function.hpp(58,23): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+  (编译源文件“backend/Parser.cpp”)
+  
+  UserPool.cpp
+D:\Repos\SWToolsBackend\backend\Backend.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“backend/UserPool.cpp”)
+  
+D:\Repos\SWToolsBackend\backend\mlib\Process.hpp(83,52): warning C4267: “参数”: 从“size_t”转换到“DWORD”，可能丢失数据
+  (编译源文件“backend/UserPool.cpp”)
+  
+D:\Repos\SWToolsBackend\backend\mlib\Function.hpp(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“backend/UserPool.cpp”)
+  
+D:\Repos\SWToolsBackend\backend\mlib\Function.hpp(58,23): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+  (编译源文件“backend/UserPool.cpp”)
+  
+  UserPool_private.cpp
+D:\Repos\SWToolsBackend\backend\Backend.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“backend/UserPool_private.cpp”)
+  
+D:\Repos\SWToolsBackend\backend\mlib\Process.hpp(83,52): warning C4267: “参数”: 从“size_t”转换到“DWORD”，可能丢失数据
+  (编译源文件“backend/UserPool_private.cpp”)
+  
+D:\Repos\SWToolsBackend\backend\mlib\Function.hpp(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“backend/UserPool_private.cpp”)
+  
+D:\Repos\SWToolsBackend\backend\mlib\Function.hpp(58,23): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+  (编译源文件“backend/UserPool_private.cpp”)
+  
+  源.cpp
+D:\Repos\SWToolsBackend\backend\Backend.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“源.cpp”)
+  
+D:\Repos\SWToolsBackend\backend\mlib\Process.hpp(83,52): warning C4267: “参数”: 从“size_t”转换到“DWORD”，可能丢失数据
+  (编译源文件“源.cpp”)
+  
+D:\Repos\SWToolsBackend\backend\mlib\Function.hpp(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“源.cpp”)
+  
+D:\Repos\SWToolsBackend\backend\mlib\Function.hpp(58,23): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+  (编译源文件“源.cpp”)
+  
+  正在生成代码...
+  SWToolsBackend.vcxproj -> D:\Repos\SWToolsBackend\x64\Debug\SWToolsBackend.exe
