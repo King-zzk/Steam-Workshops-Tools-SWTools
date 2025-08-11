@@ -4,6 +4,7 @@
 #include "pch.h"
 #include "SWTools.h"
 #include "afxdialogex.h"
+#include <Windows.h>
 #include <io.h>
 #include "CManyDownload.h"
 
@@ -26,11 +27,13 @@ void CManyDownload::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_TEXT, Loading);
+	DDX_Control(pDX, IDC_COMBO1, COMBO_Choose);
 }
 
 
 BEGIN_MESSAGE_MAP(CManyDownload, CDialogEx)
 	ON_BN_CLICKED(IDC_MANYDWNLAUNCH, &CManyDownload::OnBnClickedManydwnlaunch)
+	ON_CBN_SELCHANGE(IDC_COMBO1, &CManyDownload::OnCbnSelchangeCombo1)
 END_MESSAGE_MAP()
 
 
@@ -38,8 +41,8 @@ END_MESSAGE_MAP()
 
 void CManyDownload::OnBnClickedManydwnlaunch() {
 	// 检查文件是否存在  
-	if (_access("./WallpaperID.txt", 0) == -1) {
-		MessageBox(TEXT("WallpaperID.txt不存在！"), TEXT("提示"), MB_OK | MB_ICONWARNING);
+	if (_access("./WorkshopsID.txt", 0) == -1) {
+		MessageBox(TEXT("WorkshopsID.txt不存在！"), TEXT("提示"), MB_OK | MB_ICONWARNING);
 		return;
 	}
 
@@ -76,7 +79,7 @@ void CManyDownload::OnBnClickedManydwnlaunch() {
 	CStdioFile file;
 
 	// 打开文件并读取ID
-	if (file.Open(TEXT("WallpaperID.txt"), CFile::modeRead)) {
+	if (file.Open(TEXT("WorkshopsID.txt"), CFile::modeRead)) {
 		CString line;
 		while (lineCount < 128 && file.ReadString(line)) {
 			// 跳过空行  
@@ -111,32 +114,125 @@ void CManyDownload::OnBnClickedManydwnlaunch() {
 	int successCount = 0;
 	int failedCount = 0;
 	CString failedIDs;
+	
+    // 获取当前下拉框选择内容
+    CString choose;
+    COMBO_Choose.GetWindowText(choose);
+	if (choose.IsEmpty())
+	{
+		MessageBox(TEXT("请选择一个选项！"), TEXT("提示"), MB_OK | MB_ICONWARNING);
+	} 
+	if (choose == "钢铁雄心4") {
+		for (int i = 0; i < lineCount; i++) {
+			// 更新进度显示  
+			msg.Format(TEXT("正在下载第 %d/%d 个: %s"), i + 1, lineCount, lines[i]);
+			SetDlgItemText(IDC_TEXT, msg);
+			UpdateWindow();
 
-	for (int i = 0; i < lineCount; i++) {
-		// 更新进度显示  
-		msg.Format(TEXT("正在下载第 %d/%d 个: %s"), i + 1, lineCount, lines[i]);
-		SetDlgItemText(IDC_TEXT, msg);
-		UpdateWindow();
+			// 构建命令行  
+			CString command;
+			command.Format(
+				TEXT("cd /d \"%s\" && steamcmd.exe +login thb112259 steamok7416 +workshop_download_item %s +quit"),
+				steamcmdPath, lines[i]);
 
-		// 构建命令行  
-		CString command;
-		command.Format(
-			TEXT("cd /d \"%s\" && steamcmd.exe +login kzeon410 wnq69815I +workshop_download_item %s +quit"),
-			steamcmdPath, lines[i]);
-
-		// 执行命令并获取结果  
-		int result = system(CT2A(command));
-		if (result != 0) {
-			failedCount++;
-			failedIDs += lines[i] + TEXT("\n");
-			msg.Format(TEXT("下载失败: %s"), lines[i]);
-			MessageBox(msg, TEXT("下载错误"), MB_OK | MB_ICONERROR);
+			// 执行命令并获取结果  
+			int result = system(CT2A(command));
+			if (result != 0) {
+				failedCount++;
+				failedIDs += lines[i] + TEXT("\n");
+				msg.Format(TEXT("下载失败: %s"), lines[i]);
+				MessageBox(msg, TEXT("下载错误"), MB_OK | MB_ICONERROR);
+			}
+			else {
+				successCount++;
+			}
 		}
-		else {
-			successCount++;
+	}
+	else if (choose == "都市天际线") {
+		for (int i = 0; i < lineCount; i++) {
+			msg.Format(TEXT("正在下载第 %d/%d 个: %s"), i + 1, lineCount, lines[i]);
+			SetDlgItemText(IDC_TEXT, msg);
+			UpdateWindow();
+			CString command;
+			command.Format(
+				TEXT("cd /d \"%s\" && steamcmd.exe +login thb112181 steamok123123 +workshop_download_item %s +quit"),
+				steamcmdPath, lines[i]);
+			int result = system(CT2A(command));
+			if (result != 0) {
+				failedCount++;
+				failedIDs += lines[i] + TEXT("\n");
+				msg.Format(TEXT("下载失败: %s"), lines[i]);
+				MessageBox(msg, TEXT("下载错误"), MB_OK | MB_ICONERROR);
+			}
+			else {
+				successCount++;
+			}
+		}
+	}
+	else if (choose == "维多利亚3") {
+		for (int i = 0; i < lineCount; i++) {
+			msg.Format(TEXT("正在下载第 %d/%d 个: %s"), i + 1, lineCount, lines[i]);
+			SetDlgItemText(IDC_TEXT, msg);
+			UpdateWindow();
+			CString command;
+			command.Format(
+				TEXT("cd /d \"%s\" && steamcmd.exe +login yejonfils T39S5C3XYS97 +workshop_download_item %s +quit"),
+				steamcmdPath, lines[i]);
+			int result = system(CT2A(command));
+			if (result != 0) {
+				failedCount++;
+				failedIDs += lines[i] + TEXT("\n");
+				msg.Format(TEXT("下载失败: %s"), lines[i]);
+				MessageBox(msg, TEXT("下载错误"), MB_OK | MB_ICONERROR);
+			}
+			else {
+				successCount++;
+			}
+		}
+	}
+	else if (choose == "盖瑞模组") {
+		for (int i = 0; i < lineCount; i++) {
+			msg.Format(TEXT("正在下载第 %d/%d 个: %s"), i + 1, lineCount, lines[i]);
+			SetDlgItemText(IDC_TEXT, msg);
+			UpdateWindow();
+			CString command;
+			command.Format(
+				TEXT("cd /d \"%s\" && steamcmd.exe +login anonymous +workshop_download_item %s +quit"),
+				steamcmdPath, lines[i]);
+			int result = system(CT2A(command));
+			if (result != 0) {
+				failedCount++;
+				failedIDs += lines[i] + TEXT("\n");
+				msg.Format(TEXT("下载失败: %s"), lines[i]);
+				MessageBox(msg, TEXT("下载错误"), MB_OK | MB_ICONERROR);
+			}
+			else {
+				successCount++;
+			}
 		}
 	}
 
+	else if (choose == "壁纸引擎") {
+		for (int i = 0; i < lineCount; i++) {
+			msg.Format(TEXT("正在下载第 %d/%d 个: %s"), i + 1, lineCount, lines[i]);
+			SetDlgItemText(IDC_TEXT, msg);
+			UpdateWindow();
+			CString command;
+			command.Format(
+				TEXT("cd /d \"%s\" && steamcmd.exe +login kzeon410 wmq69815I +workshop_download_item %s +quit"),
+				steamcmdPath, lines[i]);
+			int result = system(CT2A(command));
+			if (result != 0) {
+				failedCount++;
+				failedIDs += lines[i] + TEXT("\n");
+				msg.Format(TEXT("下载失败: %s"), lines[i]);
+				MessageBox(msg, TEXT("下载错误"), MB_OK | MB_ICONERROR);
+			}
+			else {
+				successCount++;
+			}
+		}
+	}
 	// 完成提示  
 	if (failedCount == 0) {
 		MessageBox(TEXT("所有内容下载完成！"), TEXT("完成"), MB_OK | MB_ICONINFORMATION);
@@ -148,4 +244,8 @@ void CManyDownload::OnBnClickedManydwnlaunch() {
 	}
 
 	SetDlgItemText(IDC_TEXT, TEXT("下载已完成"));
+}
+void CManyDownload::OnCbnSelchangeCombo1()
+{
+	// TODO: 在此添加控件通知处理程序代码
 }

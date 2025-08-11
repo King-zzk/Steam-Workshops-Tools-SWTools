@@ -24,4 +24,6 @@ protected:
 public:
 	CStatic Loading;
 	afx_msg void OnBnClickedManydwnlaunch();
+	CComboBox COMBO_Choose;
+	afx_msg void OnCbnSelchangeCombo1();
 };
