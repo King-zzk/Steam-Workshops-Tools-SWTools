@@ -29,5 +29,9 @@ map <wstring, AppInfo> app_infos = {
 	{
 		L"Cities: Skylines | 天际线",
 		{"thb112181","steamok123123","255710"}
+	},
+		{
+		L"Sid Meier's Civilization VI | 文明6",
+		{"wenming622","Sw608728","289070"}
 	}
 };
