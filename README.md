@@ -21,7 +21,7 @@
 - Cities: Skylines | 天际线
 - Garry's Mod | 盖瑞模组
 - Hearts of Iron IV | 钢铁雄心4
-- Victoria 3 | 维多利亚3
+- Sid Meier’s Civilization VI | 文明6
 - Wallpaper Engine | 壁纸引擎
 
 ## 支持
