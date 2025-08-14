@@ -169,27 +169,6 @@ void CManyDownload::OnBnClickedManydwnlaunch() {
 			}
 		}
 	}
-	else if (choose == "维多利亚3") {
-		for (int i = 0; i < lineCount; i++) {
-			msg.Format(TEXT("正在下载第 %d/%d 个: %s"), i + 1, lineCount, lines[i]);
-			SetDlgItemText(IDC_TEXT, msg);
-			UpdateWindow();
-			CString command;
-			command.Format(
-				TEXT("cd /d \"%s\" && steamcmd.exe +login yejonfils T39S5C3XYS97 +workshop_download_item %s +quit"),
-				steamcmdPath, lines[i]);
-			int result = system(CT2A(command));
-			if (result != 0) {
-				failedCount++;
-				failedIDs += lines[i] + TEXT("\n");
-				msg.Format(TEXT("下载失败: %s"), lines[i]);
-				MessageBox(msg, TEXT("下载错误"), MB_OK | MB_ICONERROR);
-			}
-			else {
-				successCount++;
-			}
-		}
-	}
 	else if (choose == "盖瑞模组") {
 		for (int i = 0; i < lineCount; i++) {
 			msg.Format(TEXT("正在下载第 %d/%d 个: %s"), i + 1, lineCount, lines[i]);
