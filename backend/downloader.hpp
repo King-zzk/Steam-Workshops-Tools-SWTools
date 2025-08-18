@@ -45,7 +45,7 @@ private:
 		pDlg->m_state.SetWindowText(_T("等待 Steamcmd 启动..."));
 		string command = "steamcmd\\steamcmd.exe +login " + downloadInfo.user + " " + downloadInfo.password +
 			" +workshop_download_item " + downloadInfo.app_id + " " + downloadId + " +quit";
-		mlib::process::Process cmd(command);
+		mlib::Process cmd(command);
 		string msg, log;
 		DWORD peek_size;
 		while (true) {
@@ -59,19 +59,24 @@ private:
 				} else {
 					pDlg->m_state.SetWindowText(_T("等待 Steamcmd 完成更新..."));
 				}
-				pDlg->appendToDashboard(ToWstr(msg).c_str());
+				try {
+					pDlg->appendToDashboard(ToWstr(msg).c_str());
+				} catch (...) {
+					// TODO: 未修复的 bug
+					pDlg->appendToDashboard(L"appendToDashboard() 调用失败");
+				}
 				// TODO: 这其实是一个不太靠谱的策略...也许...
 				if (log.find("Unloading Steam API") != string::npos) {
-					cmd.terminate();
+					cmd.kill();
 					pDlg->appendToDashboard(L"已终止进程 (阻止 Steamcmd 更新)。\r\n");
 					break;
 				}
 				peek_size = cmd.peek();
 				Sleep(1);
 			}
-			if (cmd.get_exit_code() != STILL_ACTIVE) {
+			if (cmd.getExitCode() != STILL_ACTIVE) {
 				Sleep(10);
-				if (cmd.get_exit_code() != STILL_ACTIVE) break;
+				if (cmd.getExitCode() != STILL_ACTIVE) break;
 			}
 		}
 		// 后处理
