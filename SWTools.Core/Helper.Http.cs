@@ -1,33 +1,13 @@
 ﻿using System;
-using System.Text.Encodings.Web;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using System.Text.Unicode;
+using System.IO;
 using Serilog;
+using static SWTools.Core.SwdApi;
 
 namespace SWTools.Core {
     /// <summary>
     /// 辅助方法 (Http)
     /// </summary>
-    public partial class Helper {
-        public static readonly JsonSerializerOptions _jsonOptions = new JsonSerializerOptions {
-            // 序列化选项
-            WriteIndented = true,
-            Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.CjkUnifiedIdeographs)
-            // 反序列化选项
-            PropertyNameCaseInsensitive = true,
-            UnmappedMemberHandling = JsonUnmappedMemberHandling.Skip,
-            UnknownTypeHandling = JsonUnknownTypeHandling.JsonElement,
-        };
-
-        public static readonly string[] _githubProxies = {
-            "", // 这个空的不能删
-            "https://gh.llkk.cc/",
-            "https://gitproxy.click/",
-            "https://ghproxy.net/"
-            // 3 个够了
-        };
-
+    public static partial class Helper {
         // 发送 Http Get 请求
         public static string MakeHttpGet(string url) {
             using HttpClient client = new();
@@ -90,6 +70,39 @@ namespace SWTools.Core {
                 Log.Logger.Error("Exception occured when requesting \"{Url}\":\n{Exception}",
                     url, ex);
                 return string.Empty;
+            }
+        }
+
+        // 下载文件到指定目录
+        public static bool DownloadFile(in string url, in string filePath) {
+            using HttpClient client = new();
+            try {
+                // 发送请求
+                HttpResponseMessage response;
+                using (var task = client.GetAsync(url)) {
+                    task.Wait();
+                    response = task.Result;
+                    response.EnsureSuccessStatusCode();
+                }
+                // 接收
+                Stream contentStream;
+                using (var task = response.Content.ReadAsStreamAsync()) {
+                    task.Wait();
+                    contentStream = task.Result;
+                }
+                // 写入
+                using FileStream fileStream = new(filePath, FileMode.Create, FileAccess.Write, FileShare.None, 8192, true);
+                using (var task = contentStream.CopyToAsync(fileStream)) {
+                    task.Wait();
+                }
+                Log.Logger.Information("Downloaded \"{Url}\" to \"{FilePath}\"",
+                    url, filePath);
+                return true;
+            }
+            catch (Exception ex) {
+                Log.Logger.Error("Exception occured when downloading \"{Url}\":\n{Exception}",
+                    url, ex);
+                return false;
             }
         }
     }

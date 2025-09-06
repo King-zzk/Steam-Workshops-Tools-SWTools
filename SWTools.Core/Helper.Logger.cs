@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Reflection;
 using Serilog;
 using Serilog.Enrichers.CallerInfo;
 
@@ -7,7 +6,7 @@ namespace SWTools.Core {
     /// <summary>
     /// 辅助方法 (日志器)
     /// </summary>
-    public partial class Helper {
+    public static partial class Helper {
         private const string _logFileName = "latest.log";
         private const string _logOutputTemplate =
             "[{Timestamp:HH:mm:ss} {Level:u3}] {Namespace}.{Method}: {Message:lj}{NewLine}{Exception}";
@@ -29,7 +28,7 @@ namespace SWTools.Core {
                     rollingInterval: RollingInterval.Infinite)
                 .CreateLogger();
             // 启动消息
-            Log.Information("*** This is SWTools vesion {Version} ***", GetVersion());
+            Log.Information("*** This is SWTools vesion {Version} ***", GetVersionStr());
         }
     }
 }

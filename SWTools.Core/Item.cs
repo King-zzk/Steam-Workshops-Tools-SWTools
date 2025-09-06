@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 using Serilog;
 
@@ -25,6 +26,11 @@ namespace SWTools.Core {
         // 下载失败原因
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public EFailReason FailReason { get; set; } = EFailReason.Null;
+        private string _exceptionMsg = "";
+
+        // 解析之后的操作
+        [JsonIgnore]
+        public EAfterParse AfterParse { get; set; } = EAfterParse.Nothing; 
 
         public enum EParseState {
             InQueue, Handling, Done, Failed,
@@ -34,9 +40,12 @@ namespace SWTools.Core {
             InQueue, Handling, Done, Failed, Missing
         }
         public enum EFailReason {
-            Null, Unknown,
+            Null, Unknown, Exception,
             FileNotFound, Timeout, NoConnection,
             AccountDisabled, InvalidPassword, NoMatch
+        }
+        public enum EAfterParse {
+            Nothing, Download
         }
 
         // 空物品
@@ -47,11 +56,24 @@ namespace SWTools.Core {
             ItemId = itemId;
         }
 
+        // 序列化到 Json
+        public override string ToString() {
+            try {
+                return JsonSerializer.Serialize(this, Helper._jsonOptions);
+            }
+            catch (Exception ex) {
+                Log.Logger.Error("Exception occured when serializing Json:\n{Exception}", ex);
+                return string.Empty;
+            }
+        }
+
         // 获取失败原因对应的提示信息
         public string GetFailMessage() {
             switch (FailReason) {
                 case EFailReason.Null:
                     return "无";
+                case EFailReason.Exception:
+                    return "异常：" + _exceptionMsg;
                 case EFailReason.Unknown:
                     return "未知错误";
                 case EFailReason.FileNotFound:
@@ -91,7 +113,7 @@ namespace SWTools.Core {
         }
 
         // 解析下载日志，获取失败原因
-        private EFailReason GetFailReason(in string downloadLog) {
+        private static EFailReason GetFailReason(in string downloadLog) {
             if (downloadLog.Contains("File Not Found")) {
                 return EFailReason.FileNotFound;
             } else if (downloadLog.Contains("Timeout")) {
