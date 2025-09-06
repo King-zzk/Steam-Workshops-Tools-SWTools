@@ -6,7 +6,7 @@ namespace SWTools.Core {
     /// <summary>
     /// 辅助方法 (版本与更新)
     /// </summary>
-    public partial class Helper {
+    public static partial class Helper {
         private static readonly AssemblyName _assemblyName = Assembly.GetExecutingAssembly().GetName();
         private const string _versionUrl = "https://raw.githubusercontent.com/King-zzk/king-zzk.github.io/refs/heads/main/version.txt";
 
@@ -18,6 +18,11 @@ namespace SWTools.Core {
                 return EmptyVersion;
             }
             return _assemblyName.Version;
+        }
+
+        // 获取项目版本信息字符串
+        public static string GetVersionStr() {
+            return GetVersion().ToString(3);
         }
 
         // 获取最新版本

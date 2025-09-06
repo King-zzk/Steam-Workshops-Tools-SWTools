@@ -58,7 +58,7 @@ namespace SWTools.Core {
             try {
                 using StreamWriter sw = new(fileName);
                 sw.Write(ToString());
-                Log.Information("Succeessfully save {Count} item(s) to {Filaname}", Count, fileName);
+                Log.Information("Saved {Count} item(s) to {Filaname}", Count, fileName);
                 return true;
             }
             catch (Exception ex) {
@@ -77,7 +77,7 @@ namespace SWTools.Core {
                 var list = JsonSerializer.Deserialize<ItemList>(jsonString, Helper._jsonOptions);
                 if (list == null) return Empty;
                 list.RemoveEmptyItem();
-                Log.Information("Load {Count} item(s) from {Filaname}", list.Count, fileName);
+                Log.Information("Loaded {Count} item(s) from {Filaname}", list.Count, fileName);
                 return list;
             }
             catch (Exception ex) {
@@ -98,7 +98,7 @@ namespace SWTools.Core {
 
         // 解析全部队列中物品
         public void ParseAll() {
-            List<string> items = new();
+            List<string> items = [];
             StringBuilder sb = new();
             sb.Append('[');
             foreach (var item in this) {
@@ -128,11 +128,24 @@ namespace SWTools.Core {
         private void RemoveEmptyItem() {
             List<Item> itemsToRemove = [];
             foreach (var item in this) {
-                if (item.ItemId == "") itemsToRemove.Add(item);
+                if (string.IsNullOrEmpty(item.ItemId)) itemsToRemove.Add(item);
             }
             foreach (var item in itemsToRemove) {
                 Remove(item);
             }
+        }
+
+        // 检查已下载的物品是否丢失
+        public void CheckDownloadedItems() {
+            int count = 0;
+            for(var i = 0; i < Count; i++) {
+                if (this[i].DownloadState == EDownloadState.Done &&
+                    !Directory.Exists(this[i].GetDownloadPath())) {
+                    this[i].DownloadState = EDownloadState.Missing;
+                    count++;
+                }
+            }
+            Log.Logger.Information("Found {Count} item(s) missing", count);
         }
     }
 }

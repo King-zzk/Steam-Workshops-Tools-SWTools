@@ -4,14 +4,33 @@ using System.Text.Json;
 namespace SWTools.Core {
     internal class Program {
         private static void Main(string[] args) {
-            // 启动日志器
+            // 启动
+            ConfigManager.Load();
             Helper.SetupLogger();
 
-            //Console.WriteLine($"Lastest version: {Helper.RequestLatestVersion()}");
+            Helper.SetupSteamcmd();
 
-            Item item1 = new("3492532274");
-            Item item2 = new("3543159422");
-            ItemList items = [item1, item2];
+            Item item = new("3492532274");
+            item.Parse();
+            item.Download(AccountManager.GetAccountFor(item.AppId)[0]);
+            Console.WriteLine(item.ToString());
+
+
+            // 结束
+            ConfigManager.Save();
+        }
+
+        // 下面是一些测试用方法
+
+        // 测试检查更新
+        private static void TestUpdate() {
+            Console.WriteLine($"Lastest version: {Helper.RequestLatestVersion()}");
+        }
+        // 测试批量解析
+        private static void TestBatchParse() {
+            ItemList items = [];
+            items.Add(new("3492532274"));
+            items.Add(new("3543159422"));
             items.ParseAll();
             items.Save("items.json");
         }
