@@ -70,7 +70,7 @@ BOOL CWorkshops_info::OnInitDialog()
 		MessageBox(_T("发生异常: ") + CString(e.what()), _T("错误"), MB_ICONERROR | MB_OK);
 		return FALSE;
 	}
-
+	return TRUE;
 }
 
 CWorkshops_info::CWorkshops_info(CWnd* pParent /*=nullptr*/)
