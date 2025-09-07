@@ -59,7 +59,7 @@ namespace SWTools.Core {
                     Log.Information("Installed steamcmd at \"{SteamcmdPath}\"", ConfigManager.Config.SteamcmdPath);
                 }
                 catch (Exception ex) {
-                    Log.Logger.Error("Exception occured:\n{Exception}", ex);
+                    Log.Logger.Error("Exception occured when installing Steamcmd:\n{Exception}", ex);
                     return false;
                 }
             }
@@ -80,7 +80,7 @@ namespace SWTools.Core {
                 Log.Logger.Information("Completed update of steamcmd");
             }
             catch (Exception ex) {
-                Log.Logger.Error("Exception occured:\n{Exception}", ex);
+                Log.Logger.Error("Exception occured when launching Steamcmd:\n{Exception}", ex);
                 return false;
             }
             return true;
