@@ -6,7 +6,7 @@
 
 namespace text {
 	// TODO: 版本更新时修改这里的版本号
-	const wstring version = L"1.0.1";
+	const wstring version = L"1.0.2";
 	const wstring appname = L"Steam Workshops Tools (SWTools)";
 	const wstring authors = L"Commkom(king-zzk), masterLazy(mLazy)";
 	const wstring copyright = L"Copyright (c) " + authors + L" 2025\r\nAll rights reserved.";
