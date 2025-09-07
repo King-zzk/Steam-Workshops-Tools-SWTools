@@ -10,10 +10,10 @@ namespace SWTools.Core {
 
             Helper.SetupSteamcmd();
 
-            Item item = new("3492532274");
-            item.Parse();
-            item.Download(AccountManager.GetAccountFor(item.AppId)[0]);
-            Console.WriteLine(item.ToString());
+            //Item item = new("3492532274");
+            //item.Parse();
+            //item.Download(AccountManager.GetAccountFor(item.AppId)[0]);
+            //Console.WriteLine(item.ToString());
 
 
             // 结束

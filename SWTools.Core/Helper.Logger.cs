@@ -8,7 +8,9 @@ namespace SWTools.Core {
     /// </summary>
     public static partial class Helper {
         private const string _logFileName = "latest.log";
-        private const string _logOutputTemplate =
+        private const string _logTemplate =
+            "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}{Exception}";
+        private const string _logTemplateDebug =
             "[{Timestamp:HH:mm:ss} {Level:u3}] {Namespace}.{Method}: {Message:lj}{NewLine}{Exception}";
 
         // 配置并启动日志器
@@ -18,17 +20,28 @@ namespace SWTools.Core {
                 File.Delete(_logFileName);
             }
             // 配置日志器
-            Log.Logger = new LoggerConfiguration()
-                .Enrich.WithCallerInfo(includeFileInfo: false,
-                    assemblyPrefix: "SWTools.")
-                .MinimumLevel.Debug()
-                .WriteTo.Console(outputTemplate: _logOutputTemplate)
-                .WriteTo.File(_logFileName,
-                    outputTemplate: _logOutputTemplate,
-                    rollingInterval: RollingInterval.Infinite)
-                .CreateLogger();
+            if (ConfigManager.Config.LogDebug) {
+                Log.Logger = new LoggerConfiguration()
+                    .Enrich.WithCallerInfo(includeFileInfo: false,
+                        assemblyPrefix: "SWTools.")
+                    .MinimumLevel.Debug()
+                    .WriteTo.Console(outputTemplate: _logTemplateDebug)
+                    .WriteTo.File(_logFileName,
+                        outputTemplate: _logTemplateDebug,
+                        rollingInterval: RollingInterval.Infinite)
+                    .CreateLogger();
+                Log.Logger.Debug("Log level has been set to DEBUG");
+            } else {
+                Log.Logger = new LoggerConfiguration()
+                    .MinimumLevel.Information()
+                    .WriteTo.Console(outputTemplate: _logTemplate)
+                    .WriteTo.File(_logFileName,
+                        outputTemplate: _logTemplateDebug,
+                        rollingInterval: RollingInterval.Infinite)
+                    .CreateLogger();
+            }
             // 启动消息
-            Log.Information("*** This is SWTools vesion {Version} ***", GetVersionStr());
+            Log.Information("*** This is SWTools.Core v{Version} ***", GetVersionStr());
         }
     }
 }

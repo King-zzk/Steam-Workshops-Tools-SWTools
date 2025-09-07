@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35527.113 d17.12
+VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SWTools.Core", "SWTools.Core\SWTools.Core.csproj", "{BC5E34AE-1007-4000-A0EA-2C31288CB4DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SWTools.WPF", "SWTools.WPF\SWTools.WPF.csproj", "{245BDCB0-61EF-475C-AE7A-4CF541B418A0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{BC5E34AE-1007-4000-A0EA-2C31288CB4DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC5E34AE-1007-4000-A0EA-2C31288CB4DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BC5E34AE-1007-4000-A0EA-2C31288CB4DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{245BDCB0-61EF-475C-AE7A-4CF541B418A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{245BDCB0-61EF-475C-AE7A-4CF541B418A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{245BDCB0-61EF-475C-AE7A-4CF541B418A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{245BDCB0-61EF-475C-AE7A-4CF541B418A0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
