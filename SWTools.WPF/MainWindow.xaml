@@ -8,13 +8,12 @@
         Title="Steam Workshop Tools (SWTools)" 
         Height="600" Width="900"
         MinHeight="400" MinWidth="800"
-        Background="Black"
         WindowStartupLocation="CenterScreen"
         RenderOptions.BitmapScalingMode="HighQuality">
+    <Window.Background>
+        <ImageBrush ImageSource="/background.png" Opacity="0.5"/>
+    </Window.Background>
     <DockPanel>
-        <DockPanel.Background>
-            <ImageBrush Opacity="0.8" ImageSource="/background.png"/>
-        </DockPanel.Background>
         <!--顶栏-->
         <DockPanel LastChildFill="False" DockPanel.Dock="Top" Margin="10 10 10 10">
             <Image Height="40" Margin="0 0 5 0" VerticalAlignment="Center" Source="/icon.png" />

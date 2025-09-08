@@ -75,7 +75,8 @@ namespace SWTools.WPF {
                 FileStream F = new FileStream("background.dat",
                     FileMode.OpenOrCreate, FileAccess.ReadWrite);
                 F.Write(Encoding.UTF8.GetBytes(backgroundfile));
-                this.Background = new ImageBrush(new BitmapImage(new Uri(backgroundfile, UriKind.Absolute)));
+                F.Close();
+                MessageBox.Show("设置背景成功，请重启软件以应用新背景！","提示",MessageBoxButton.OK);
             }
             catch (Exception ex)
             {
