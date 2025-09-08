@@ -8,12 +8,14 @@
         Title="更多信息" 
         Height="460" Width="660"
         ResizeMode="NoResize"
-        Background="#f3f3f3"
         WindowStartupLocation="CenterScreen"
         RenderOptions.BitmapScalingMode="HighQuality">
+    <Window.Background>
+        <ImageBrush ImageSource="/img/background.png" Opacity="0.5"/>
+    </Window.Background>
     <DockPanel>
         <!--底栏-->
-        <DockPanel DockPanel.Dock="Bottom" LastChildFill="False" Background="#e4e4e4">
+        <DockPanel DockPanel.Dock="Bottom" LastChildFill="False" Background="#FF7D7D7D">
             <Button x:Name="BtnOk" Margin="10 10 20 10" VerticalAlignment="Top" Height="40" DockPanel.Dock="Right"
                 Style="{DynamicResource AccentButtonStyle}" Click="BtnOk_Click">
                 <StackPanel Orientation="Horizontal">
@@ -62,7 +64,11 @@
                         <TextBlock Text=" 设置" VerticalAlignment="Center"/>
                     </StackPanel>
                 </TabItem.Header>
-                <Grid>
+                <Grid Cursor="IBeam">
+                    <TextBox HorizontalAlignment="Left" Name="backgroundtextbox" Margin="130,27,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="232" Height="27"/>
+                    <Label Content="自定义背景图片:" HorizontalAlignment="Left" Margin="10,33,0,0" VerticalAlignment="Top" Width="115" Cursor="IBeam"/>
+                    <Label Content="输入文件地址即可" HorizontalAlignment="Left" Margin="10,54,0,0" VerticalAlignment="Top" FontSize="10"/>
+                    <Button Content="应用" Margin="381,28,0,0" VerticalAlignment="Top" Background="#FFA5A5A5" Click="Button_Click"/>
                 </Grid>
             </TabItem>
         </TabControl>
