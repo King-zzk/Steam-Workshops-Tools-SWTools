@@ -36,7 +36,10 @@ namespace SWTools.WPF {
                     backgroundfile = Encoding.UTF8.GetString(buffer);
                     F.Close();
                 }
-                this.Background = new ImageBrush(new BitmapImage(new Uri(backgroundfile, UriKind.Absolute)));
+                if (backgroundfile != null)
+                {
+                    this.Background = new ImageBrush(new BitmapImage(new Uri(backgroundfile, UriKind.Absolute)));
+                }
             }
         }
 

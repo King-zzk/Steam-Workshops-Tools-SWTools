@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,8 +18,25 @@ namespace SWTools.WPF {
     /// AddTaskWindow.xaml 的交互逻辑
     /// </summary>
     public partial class AddTaskWindow : Window {
-        public AddTaskWindow() {
+        public AddTaskWindow()
+        {
             InitializeComponent();
+            if (File.Exists("./background.dat"))
+            {
+                // 读取 background.dat 文件内容作为背景图片路径
+                string backgroundfile;
+                using (FileStream F = new FileStream("./background.dat", FileMode.Open, FileAccess.Read, FileShare.Read))
+                {
+                    byte[] buffer = new byte[F.Length];
+                    F.ReadExactly(buffer);
+                    backgroundfile = Encoding.UTF8.GetString(buffer);
+                    F.Close();
+                }
+                if (backgroundfile != null)
+                {
+                    this.Background = new ImageBrush(new BitmapImage(new Uri(backgroundfile, UriKind.Absolute)));
+                }
+            }
         }
 
         private void BtnOk_Click(object sender, RoutedEventArgs e) {
