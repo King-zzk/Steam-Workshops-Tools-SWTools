@@ -1,19 +1,30 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using Serilog;
+using PropertyChanged;
 
 namespace SWTools.Core {
     /// <summary>
     /// 创意工坊物品
     /// </summary>
-    public partial class Item {
+    [AddINotifyPropertyChangedInterface]
+    public partial class Item : INotifyPropertyChanged {
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected virtual void OnPropertyChanged(string propertyName) {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
         public string ItemId { get; set; } = "";      // 物品 Id
         public string ItemTitle { get; set; } = "";   // 物品标题
         public long ItemSize { get; set; }            // 该物品的文件大小
         public long AppId { get; set; }               // 物品属于的 App 的 Id
         public string AppName { get; set; } = "";     // 物品属于的 App 的名字
+        public string UrlPreview { get; set; } = "";           // 预览文件地址
+
+        // 有些物品不需要 Steamcmd 即可下载
+        public bool IsFree { get; set; }           // 是否不需要 Steamcmd
+        public string UrlFreeDownload { get; set; } = "";   // 下载地址
 
         // 解析状态
         [JsonConverter(typeof(JsonStringEnumConverter))]
@@ -30,7 +41,7 @@ namespace SWTools.Core {
 
         // 解析之后的操作
         [JsonIgnore]
-        public EAfterParse AfterParse { get; set; } = EAfterParse.Nothing; 
+        public EAfterParse AfterParse { get; set; } = EAfterParse.Nothing;
 
         public enum EParseState {
             InQueue, Handling, Done, Failed,
@@ -59,10 +70,9 @@ namespace SWTools.Core {
         // 序列化到 Json
         public override string ToString() {
             try {
-                return JsonSerializer.Serialize(this, Helper._jsonOptions);
-            }
-            catch (Exception ex) {
-                Log.Logger.Error("Exception occured when serializing Json:\n{Exception}", ex);
+                return JsonSerializer.Serialize(this, Constants.JsonOptions);
+            } catch (Exception ex) {
+                LogManager.Log.Error("Exception occured when serializing Json:\n{Exception}", ex);
                 return string.Empty;
             }
         }
@@ -89,7 +99,7 @@ namespace SWTools.Core {
                 case EFailReason.NoMatch:
                     return "Steam App 与物品 ID 不匹配";
             }
-            Log.Logger.Error("Received unknown enum value: {FailReason}", FailReason);
+            LogManager.Log.Error("Received unknown enum value: {FailReason}", FailReason);
             return string.Empty;
         }
 
@@ -128,6 +138,24 @@ namespace SWTools.Core {
                 return EFailReason.NoMatch;
             }
             return EFailReason.Unknown;
+        }
+
+        // 解析自己 (注意: 如果要解析多个物品，请使用 ItemList.ParseAll() )
+        public async Task Parse() {
+            ParseState = EParseState.Handling;
+            string str = await Helper.MakeHttpPost(SwdApi.Url, $"[{ItemId}]");
+            if (str == "") {
+                LogManager.Log.Error("Failed to parse item {ItemId}: empty response", ItemId);
+            }
+            // 处理回复
+            try {
+                var response = JsonSerializer.Deserialize<SwdApi.Response[]>(str, Constants.JsonOptions);
+                if (response != null) ParseWith(response[0]);
+                else throw new Exception("response is null");
+            } catch (Exception ex) {
+                LogManager.Log.Error("Exception occured when deserializing Json:\n{Exception}", ex);
+                ParseState = EParseState.Failed;
+            }
         }
     }
 }

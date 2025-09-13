@@ -1,12 +1,20 @@
-﻿using Serilog;
+﻿using PropertyChanged;
+using Serilog;
 using System;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Text.Json;
 
 namespace SWTools.Core {
     /// <summary>
     /// 可自定义的配置
     /// </summary>
-    public class Config {
+    [AddINotifyPropertyChangedInterface]
+    public class Config : INotifyPropertyChanged {
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected virtual void OnPropertyChanged(string propertyName) {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
         // 空配置
         public static readonly Config Empty = new();
 
@@ -21,10 +29,10 @@ namespace SWTools.Core {
         // 序列化到 Json
         public override string ToString() {
             try {
-                return JsonSerializer.Serialize(this, Helper._jsonOptions);
+                return JsonSerializer.Serialize(this, Constants.JsonOptions);
             }
             catch (Exception ex) {
-                Log.Logger.Error("Exception occured when serializing Json:\n{Exception}", ex);
+                LogManager.Log.Error("Exception occured when serializing Json:\n{Exception}", ex);
                 return string.Empty;
             }
         }

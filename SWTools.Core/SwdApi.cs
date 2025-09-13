@@ -8,7 +8,7 @@ namespace SWTools.Core {
         // API 地址
         public const string Url = "https://steamworkshopdownloader.io/api/details/file";
         // API 响应包
-        public class Response {
+        public record Response {
             public long result { get; set; }
             public string publishedfileid { get; set; }
             public string creator { get; set; }
@@ -18,9 +18,9 @@ namespace SWTools.Core {
             public string filename { get; set; }
             public string file_size { get; set; }
             public string preview_file_size { get; set; }
-            public Uri file_url { get; set; }
-            public Uri preview_url { get; set; }
-            public Uri url { get; set; }
+            public string file_url { get; set; }
+            public string preview_url { get; set; }
+            public string url { get; set; }
             public string hcontent_file { get; set; }
             public string hcontent_preview { get; set; }
             public string title { get; set; }
@@ -61,12 +61,12 @@ namespace SWTools.Core {
             public VoteData vote_data { get; set; }
             public long language { get; set; }
 
-            public class Tag {
+            public record Tag {
                 public string tag { get; set; }
                 public bool adminonly { get; set; }
             }
 
-            public class VoteData {
+            public record VoteData {
                 public long result { get; set; }
                 public long votes_up { get; set; }
                 public long votes_down { get; set; }

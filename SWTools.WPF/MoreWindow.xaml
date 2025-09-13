@@ -4,13 +4,18 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SWTools.WPF"
+        xmlns:viewmodel="clr-namespace:SWTools.ViewModel;assembly=SWTools.ViewModel"
         mc:Ignorable="d"
         Title="更多信息" 
         Height="460" Width="660"
         ResizeMode="NoResize"
         Background="#f3f3f3"
-        WindowStartupLocation="CenterScreen"
+        WindowStartupLocation="CenterOwner"  ShowInTaskbar="False"
         RenderOptions.BitmapScalingMode="HighQuality">
+    <Window.DataContext>
+        <viewmodel:MoreWindow/>
+    </Window.DataContext>
+    
     <DockPanel>
         <!--底栏-->
         <DockPanel DockPanel.Dock="Bottom" LastChildFill="False" Background="#e4e4e4">
@@ -34,7 +39,7 @@
                 </TabItem.Header>
                 <StackPanel Margin="10 10 10 10">
                     <DockPanel LastChildFill="False">
-                        <Image Height="60" Source="/icon.png" />
+                        <Image Height="60" Source="/img/icon.png" />
                         <TextBlock VerticalAlignment="Center" FontSize="30" Foreground="#13387b" Margin="10"
                                     Text="Steam Workshop Tools"/>
                         <Button x:Name="BtnGithub" Margin="10 10 20 10" VerticalAlignment="Top" Height="40" DockPanel.Dock="Right"
@@ -46,11 +51,11 @@
                         </Button>
                     </DockPanel>
                     <TextBlock x:Name="VersionText" Margin="10"
-                        Text="[运行时设定]"/>
+                        Text="[版本信息]"/>
                     <TextBlock Margin="10"
                         Text="本项目与 Valve Corporation 没有从属关系。&#10;这是一个免费、开源的 Steam Workshop 下载工具，请勿倒卖！"/>
                     <TextBlock Margin="10"
-                        Text="Copyright © 2025 Commkom(king-zzk)。根据 GPL-2.0 许可证授权。"/>
+                        Text="Copyright © 2025 Commkom (king-zzk), masterLazy (mLazy)。根据 GPL-2.0 许可证授权。"/>
                     <TextBlock Margin="10"
                         Text="请在 Github 上查看完整的许可证信息。"/>
                 </StackPanel>

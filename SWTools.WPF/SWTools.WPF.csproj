@@ -1,30 +1,34 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net9.0-windows</TargetFramework>
-    <Nullable>enable</Nullable>
-	<Version>2.0.0</Version>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <UseWPF>true</UseWPF>
-    <ApplicationIcon>img\icon.ico</ApplicationIcon>
-    <Copyright></Copyright>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net10.0-windows7.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<Version>2.0.0</Version>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<UseWPF>true</UseWPF>
+		<ApplicationIcon>img\icon.ico</ApplicationIcon>
+		<Copyright></Copyright>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="icon.png" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Remove="icon.png" />
+		<None Remove="img\default-preview.png" />
+		<None Remove="img\icon.png" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Content Include="img\icon.ico" />
-  </ItemGroup>
+	<ItemGroup>
+		<Content Include="img\icon.ico" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\SWTools.Core\SWTools.Core.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\SWTools.Core\SWTools.Core.csproj" />
+		<ProjectReference Include="..\SWTools.ViewModel\SWTools.ViewModel.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Resource Include="icon.png" />
-  </ItemGroup>
+	<ItemGroup>
+		<Resource Include="img\default-preview.png" />
+		<Resource Include="img\icon.png" />
+	</ItemGroup>
 
 </Project>

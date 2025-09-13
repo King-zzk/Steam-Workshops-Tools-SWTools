@@ -1,23 +1,26 @@
 ﻿using System;
+using System.Net.Mime;
 using System.Text.Json;
 
 namespace SWTools.Core {
     internal class Program {
         private static void Main(string[] args) {
             // 启动
-            ConfigManager.Load();
-            Helper.SetupLogger();
+            ConfigManager.Setup();
+            LogManager.Setup();
 
-            Helper.SetupSteamcmd();
+            //Helper.SetupSteamcmd().Wait();
 
-            //Item item = new("3492532274");
-            //item.Parse();
+            Item item = new("3543159422");
+            item.Parse().Wait();
+            Console.WriteLine(item.UrlPreview);
+            Helper.DownloadImage(item.UrlPreview,"preview").Wait();
             //item.Download(AccountManager.GetAccountFor(item.AppId)[0]);
             //Console.WriteLine(item.ToString());
 
 
             // 结束
-            ConfigManager.Save();
+            ConfigManager.Save("Exit");
         }
 
         // 下面是一些测试用方法
@@ -31,7 +34,7 @@ namespace SWTools.Core {
             ItemList items = [];
             items.Add(new("3492532274"));
             items.Add(new("3543159422"));
-            items.ParseAll();
+            items.ParseAll().Wait();
             items.Save("items.json");
         }
     }

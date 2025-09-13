@@ -1,7 +1,5 @@
 ﻿using System;
-using System.IO;
 using Serilog;
-using static SWTools.Core.SwdApi;
 
 namespace SWTools.Core {
     /// <summary>
@@ -9,14 +7,11 @@ namespace SWTools.Core {
     /// </summary>
     public static partial class Helper {
         // 发送 Http Get 请求
-        public static string MakeHttpGet(string url) {
+        public static async Task<string> MakeHttpGet(string url) {
             using HttpClient client = new();
             try {
                 // 发送请求
-                var task = client.GetAsync(url);
-                task.Wait();
-                var response = task.Result;
-
+                var response = await client.GetAsync(url);
                 // 检查回复
                 response.EnsureSuccessStatusCode();
                 var contentType = response.Content.Headers.ContentType;
@@ -29,27 +24,21 @@ namespace SWTools.Core {
                 if (!contentType.MediaType.StartsWith("text/")) {
                     throw new Exception("Content is not text");
                 }
-                var taskRead = response.Content.ReadAsStringAsync();
-                taskRead.Wait();
-                return taskRead.Result;
-            }
-            catch (Exception ex) {
-                Log.Logger.Error("Exception occured when requesting \"{Url}\":\n{Exception}",
+                return await response.Content.ReadAsStringAsync();
+            } catch (Exception ex) {
+                LogManager.Log.Error("Exception occured when requesting \"{Url}\":\n{Exception}",
                     url, ex);
                 return string.Empty;
             }
         }
 
         // 发送 Http Post 请求
-        public static string MakeHttpPost(string url, string content) {
+        public static async Task<string> MakeHttpPost(string url, string content) {
             using HttpClient client = new();
             try {
                 // 发送请求
                 using StringContent strContent = new(content);
-                var task = client.PostAsync(url, strContent);
-                task.Wait();
-                var response = task.Result;
-
+                var response = await client.PostAsync(url, strContent);
                 // 检查回复
                 response.EnsureSuccessStatusCode();
                 var contentType = response.Content.Headers.ContentType;
@@ -62,47 +51,70 @@ namespace SWTools.Core {
                 if (!contentType.MediaType.StartsWith("text/")) {
                     throw new Exception("Content is not text");
                 }
-                var taskRead = response.Content.ReadAsStringAsync();
-                taskRead.Wait();
-                return taskRead.Result;
-            }
-            catch (Exception ex) {
-                Log.Logger.Error("Exception occured when requesting \"{Url}\":\n{Exception}",
+                return await response.Content.ReadAsStringAsync();
+            } catch (Exception ex) {
+                LogManager.Log.Error("Exception occured when requesting \"{Url}\":\n{Exception}",
                     url, ex);
                 return string.Empty;
             }
         }
 
         // 下载文件到指定目录
-        public static bool DownloadFile(in string url, in string filePath) {
+        public static async Task<bool> DownloadFile(string url, string filePath) {
             using HttpClient client = new();
             try {
                 // 发送请求
-                HttpResponseMessage response;
-                using (var task = client.GetAsync(url)) {
-                    task.Wait();
-                    response = task.Result;
-                    response.EnsureSuccessStatusCode();
-                }
+                HttpResponseMessage response = await client.GetAsync(url);
                 // 接收
-                Stream contentStream;
-                using (var task = response.Content.ReadAsStreamAsync()) {
-                    task.Wait();
-                    contentStream = task.Result;
-                }
+                response.EnsureSuccessStatusCode();
+                Stream contentStream = await response.Content.ReadAsStreamAsync();
                 // 写入
                 using FileStream fileStream = new(filePath, FileMode.Create, FileAccess.Write, FileShare.None, 8192, true);
-                using (var task = contentStream.CopyToAsync(fileStream)) {
-                    task.Wait();
-                }
-                Log.Logger.Information("Downloaded \"{Url}\" to \"{FilePath}\"",
+                await contentStream.CopyToAsync(fileStream);
+                LogManager.Log.Information("Downloaded \"{Url}\" to \"{FilePath}\"",
                     url, filePath);
                 return true;
-            }
-            catch (Exception ex) {
-                Log.Logger.Error("Exception occured when downloading \"{Url}\":\n{Exception}",
+            } catch (Exception ex) {
+                LogManager.Log.Error("Exception occured when downloading \"{Url}\":\n{Exception}",
                     url, ex);
                 return false;
+            }
+        }
+
+        // 下载图片 (自动判断后缀名, 返回文件路径)
+        public static async Task<string?> DownloadImage(string url, string filePath) {
+            using HttpClient client = new();
+            try {
+                // 发送请求
+                //var task = client.GetAsync(url); // NOTE: 这里用 await 的话，ViewModel 调用 .Wait() 会卡住
+                //task.Wait();
+                HttpResponseMessage response = await client.GetAsync(url);
+                // 接收
+                response.EnsureSuccessStatusCode();
+                Stream contentStream = await response.Content.ReadAsStreamAsync();
+                // 判断后缀名
+                var contentType = response.Content.Headers.ContentType;
+                if (contentType == null) {
+                    throw new Exception("response.Content.Headers.ContentType is null");
+                }
+                if (contentType.MediaType == null) {
+                    throw new Exception("response.Content.Headers.ContentType.MediaType is null");
+                }
+                if (!contentType.MediaType.StartsWith("image/")) {
+                    throw new Exception("Content is not image");
+                }
+                filePath += '.' + contentType.MediaType.Split('/')[1];
+                // 写入
+                using FileStream fileStream = new(filePath, FileMode.Create, FileAccess.Write, FileShare.None, 8192, true);
+                await contentStream.CopyToAsync(fileStream);
+                LogManager.Log.Information("Downloaded \"{Url}\" to \"{FilePath}\"",
+                    url, filePath);
+                return filePath;
+            }
+            catch (Exception ex) {
+                LogManager.Log.Error("Exception occured when downloading \"{Url}\":\n{Exception}",
+                    url, ex);
+                return null;
             }
         }
     }

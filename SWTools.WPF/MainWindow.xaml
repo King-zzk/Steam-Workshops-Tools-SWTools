@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SWTools.WPF"
+        xmlns:viewmodel="clr-namespace:SWTools.ViewModel;assembly=SWTools.ViewModel"
         mc:Ignorable="d"
         Title="Steam Workshop Tools (SWTools)" 
         Height="600" Width="900"
@@ -11,17 +12,22 @@
         Background="#f3f3f3"
         WindowStartupLocation="CenterScreen"
         RenderOptions.BitmapScalingMode="HighQuality">
+    <Window.DataContext>
+        <viewmodel:MainWindow/>
+    </Window.DataContext>
+    
     <DockPanel>
         <!--顶栏-->
         <DockPanel LastChildFill="False" DockPanel.Dock="Top" Margin="10 10 10 10">
-            <Image Height="40" Margin="0 0 5 0" VerticalAlignment="Center" Source="/icon.png" />
+            <Image Height="40" Margin="0 0 5 0" VerticalAlignment="Center" Source="/img/icon.png" />
             <Button x:Name="BtnAddTask" Margin="5 0 5 0" VerticalAlignment="Center" Height="40" Click="BtnAddTask_Click">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xE710;" VerticalAlignment="Center"/>
                     <TextBlock Text=" 添加下载任务"/>
                 </StackPanel>
             </Button>
-            <Button x:Name="BtnStart" Margin="5 0 5 0" VerticalAlignment="Center" Height="40" Style="{DynamicResource AccentButtonStyle}">
+            <Button x:Name="BtnStart" Margin="5 0 5 0" VerticalAlignment="Center" Height="40" Style="{DynamicResource AccentButtonStyle}"
+                    Click="BtnStart_Click">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xE768;" VerticalAlignment="Center"/>
                     <TextBlock Text=" 下载全部"/>
@@ -33,10 +39,11 @@
                     <TextBlock Text=" 暂停全部"/>
                 </StackPanel>
             </Button>
-            <Button x:Name="BtnRemoveAll" Margin="5 0 5 0" VerticalAlignment="Center" Height="40">
+            <Button x:Name="BtnRemoveAll" Margin="5 0 5 0" VerticalAlignment="Center" Height="40" 
+                    ToolTip="清空已下载物品的列表，这不会删除物品文件" ToolTipService.InitialShowDelay="100">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xE74D;" VerticalAlignment="Center"/>
-                    <TextBlock Text=" 清空列表（不删除）"/>
+                    <TextBlock Text=" 清空列表"/>
                 </StackPanel>
             </Button>
             <Button x:Name="BtnMore" Margin="5 0 5 0" VerticalAlignment="Center" Height="40" DockPanel.Dock="Right" Click="BtnMore_Click">
@@ -61,7 +68,8 @@
                     <TextBlock Text=" 从列表中清除"/>
                 </StackPanel>
             </Button>
-            <Button x:Name="BtnLog" Margin="5 10 10 10" VerticalAlignment="Center" Height="40" DockPanel.Dock="Right">
+            <Button x:Name="BtnLog" Margin="5 10 10 10" VerticalAlignment="Center" Height="40" DockPanel.Dock="Right"
+                    Click="BtnLog_Click">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xE8A4;" VerticalAlignment="Center"/>
                     <TextBlock Text=" 打开日志窗口"/>
@@ -70,7 +78,43 @@
         </DockPanel>
         <Separator DockPanel.Dock="Bottom" BorderBrush="#d4d4d4"/>
         <!--下载列表-->
-        <ListView></ListView>
+        <ListView ItemsSource="{Binding DisplayItems}" FontSize="13" Background="White">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="" Width="60">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5 5 5 5"
+                                       Height="40" Source="{Binding PreviewImage}" ToolTipService.InitialShowDelay="300">
+                                    <ToolTipService.ToolTip>
+                                        <Image VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0"
+                                        Height="200" Source="{Binding PreviewImage}" />
+                                    </ToolTipService.ToolTip>
+                                </Image>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="名称" Width="300">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock TextTrimming="CharacterEllipsis" Text="{Binding ItemName}" ToolTip="{Binding ItemName}" 
+                                           ToolTipService.InitialShowDelay="300"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="适用的 App" Width="150">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock TextTrimming="CharacterEllipsis" Text="{Binding AppName}" ToolTip="{Binding AppName}"
+                                           ToolTipService.InitialShowDelay="300"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="大小" Width="100" DisplayMemberBinding="{Binding ItemSize}"/>
+                    <GridViewColumn Header="状态" Width="250" DisplayMemberBinding="{Binding State}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </DockPanel>
 
 </Window>

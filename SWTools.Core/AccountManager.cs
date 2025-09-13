@@ -41,7 +41,8 @@ namespace SWTools.Core {
         public static List<Account> GetAccountFor(long appId) {
             List<Account> accounts = [];
             foreach (Account account in _pubAccounts) {
-                if (account.AppIds.Contains(appId)) accounts.Add(account);
+                if (account.AppIds.Contains(appId))
+                    accounts.Add(account);
             }
             return accounts;
         }

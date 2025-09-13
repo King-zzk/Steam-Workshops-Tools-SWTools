@@ -16,13 +16,139 @@ namespace SWTools.WPF {
     /// <summary>
     /// AddTaskWindow.xaml 的交互逻辑
     /// </summary>
+
     public partial class AddTaskWindow : Window {
+        // ViewModel 访问点
+        public ViewModel.AddTaskWindow ViewModel {
+            get { return DataContext as ViewModel.AddTaskWindow; }
+            set { DataContext = value; }
+        }
+
         public AddTaskWindow() {
             InitializeComponent();
         }
 
         private void BtnOk_Click(object sender, RoutedEventArgs e) {
-            Close();
+            if (ViewModel.DisplayItems.Count == 0) {
+                MsgBox msgBox = new("未添加任何物品", "看起来你没有添加任何物品\n确认关闭此窗口吗？", true) { Owner = this };
+                bool? res = msgBox.ShowDialog();
+                if (res == true) {
+                    Close();
+                }
+            } else if (ViewModel.HasParsing()) {
+                MsgBox msgBox = new("请等待当前解析完成", "请等待列表中所有物品完成解析再关闭此窗口。", false) { Owner = this };
+                msgBox.ShowDialog();
+            } else if (ViewModel.HasFailed()) {
+                MsgBox msgBox = new("有物品解析失败", "有一个或多个物品信息解析失败。确认关闭此窗口吗？\n\n" +
+                    "单击“否”，您可以手动补充信息，然后添加到下载列表；\n" +
+                    "单击“是”，解析失败的物品不会被添加到下载列表。", true) { Owner = this };
+                bool? res = msgBox.ShowDialog();
+                if (res == true) {
+                    var owner = Owner as MainWindow;
+                    if (owner != null) {
+                        foreach (var item in ViewModel.Items) {
+                            if (item.ParseState == Core.Item.EParseState.Failed) continue;
+                            owner.ViewModel.Items.Add(item);
+                        }
+                    }
+                    Close();
+                }
+            } else {
+                var owner = Owner as MainWindow;
+                if (owner != null) {
+                    foreach (var item in ViewModel.Items) {
+                        owner.ViewModel.Items.Add(item);
+                    }
+                }
+                Close();
+            }
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e) {
+            if (ViewModel.CheckString(TextBox.Text)) {
+                ViewModel.IsBtnParseEnable = true;
+            } else {
+                ViewModel.IsBtnParseEnable = false;
+            }
+        }
+
+        private void BtnHelpItem_Click(object sender, RoutedEventArgs e) {
+            MsgBox msgBox = new("什么是物品 ID？",
+                "每个创意工坊物品有唯一的物品 ID。\n" +
+                "例如，您要下载的创意工坊物品的网页位于：\n" +
+                "https://steamcommunity.com/sharedfiles/filedetails/?id=XXXXXX\n" +
+                "那么 “XXXXXX” 就是物品 ID。", false) { Owner = this };
+            msgBox.ShowDialog();
+        }
+
+        private void BtnParse_Click(object sender, RoutedEventArgs e) {
+            if (ViewModel.AddToQueue()) {
+                ViewModel.StartParse();
+            } else {
+                MsgBox msgBox = new("未添加任何物品",
+               "您未添加任何物品到解析列表。\n" +
+               "这可能是由于解析列表中有相同的物品。", false) { Owner = this };
+                msgBox.ShowDialog();
+            }
+        }
+
+        private void BtnHelpApp_Click(object sender, RoutedEventArgs e) {
+            MsgBox msgBox = new("什么是 App ID？",
+                "每个 Steam App（包括游戏）有唯一的 ID。\n" +
+                "例如，对于您要下载的物品，其所属 App 的网页位于：\n" +
+                "https://steamcommunity.com/app/XXXXXX\n" +
+                "那么 “XXXXXX” 就是 App ID。", false) { Owner = this };
+            msgBox.ShowDialog();
+        }
+
+        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            if (ListView.SelectedItems.Count == 0) return;
+            var selection = ListView.SelectedItems[0] as ViewModel.DisplayItem;
+            if (selection == null) return;
+            if (selection.Item.ParseState == Core.Item.EParseState.Failed ||
+                selection.Item.ParseState == Core.Item.EParseState.Manual) {
+                BtnEdit.IsEnabled = true;
+            } else {
+                BtnEdit.IsEnabled = false;
+            }
+        }
+
+        private void BtnEdit_Click(object sender, RoutedEventArgs e) {
+            if (ListView.SelectedItems.Count == 0) { // 几乎不会执行这个分支
+                MsgBox msgBox = new("未选择要修改的项",
+                "您似乎没有选择要修改的物品。", false) { Owner = this };
+                msgBox.ShowDialog();
+                return;
+            }
+            var selection = ListView.SelectedItems[0] as ViewModel.DisplayItem;
+            if (selection == null) return;
+            if (!ViewModel.CheckString(TextBoxAppId.Text)) {
+                MsgBox msgBox = new("输入格式不正确",
+                "App ID 只能包含数字且不能为空。", false) { Owner = this };
+                msgBox.ShowDialog();
+                TextBoxAppId.Text = string.Empty;
+            } else {
+                try {
+                    ViewModel.Items[ViewModel.Items.FindIndex(selection.Item.ItemId)].AppId = long.Parse(TextBoxAppId.Text);
+                    ViewModel.Items[ViewModel.Items.FindIndex(selection.Item.ItemId)].AppName = "";
+                    ViewModel.Items[ViewModel.Items.FindIndex(selection.Item.ItemId)].ParseState = Core.Item.EParseState.Manual;
+                }
+                catch (Exception) {
+                    MsgBox msgBox = new("输入格式不正确",
+                    "输入无效。", false) { Owner = this };
+                    msgBox.ShowDialog();
+                    TextBoxAppId.Text = string.Empty;
+                }
+            }
         }
     }
 }
+
+/* 可用的测试数据
+
+3492532274
+3543159422
+3554383896
+3555017015
+ 
+ */
