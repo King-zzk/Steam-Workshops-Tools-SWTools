@@ -7,68 +7,123 @@
         xmlns:viewmodel="clr-namespace:SWTools.ViewModel;assembly=SWTools.ViewModel"
         mc:Ignorable="d"
         Title="更多信息" 
-        Height="460" Width="660"
+        Height="480" Width="680"
         ResizeMode="NoResize"
-        Background="#f3f3f3"
+        Background="{StaticResource BgDefault}"
         WindowStartupLocation="CenterOwner"  ShowInTaskbar="False"
         RenderOptions.BitmapScalingMode="HighQuality">
     <Window.DataContext>
         <viewmodel:MoreWindow/>
     </Window.DataContext>
-    
+
     <DockPanel>
         <!--底栏-->
-        <DockPanel DockPanel.Dock="Bottom" LastChildFill="False" Background="#e4e4e4">
-            <Button x:Name="BtnOk" Margin="10 10 20 10" VerticalAlignment="Top" Height="40" DockPanel.Dock="Right"
+        <DockPanel DockPanel.Dock="Bottom" LastChildFill="False" Background="{StaticResource BgGray}">
+            <Button x:Name="BtnOk" Margin="10 10 20 10" Height="40" DockPanel.Dock="Right"
                 Style="{DynamicResource AccentButtonStyle}" Click="BtnOk_Click">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xE8FB;" VerticalAlignment="Center"/>
-                    <TextBlock Text=" 确定"/>
+                    <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xE8FB;" VerticalAlignment="Center" Margin="0 0 10 0"/>
+                    <TextBlock Text="确定"/>
                 </StackPanel>
             </Button>
         </DockPanel>
         <Separator DockPanel.Dock="Bottom" BorderBrush="#d4d4d4"/>
         <!--标签页-->
         <TabControl Margin="0,8,0,0">
-            <TabItem IsSelected="True">
+            <TabItem IsSelected="True" Background="{StaticResource BgLight}">
                 <TabItem.Header>
-                    <StackPanel Orientation="Horizontal" Margin="5 0 0 0">
-                        <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xECAA;" VerticalAlignment="Center"/>
-                        <TextBlock Text=" 关于此项目" VerticalAlignment="Center"/>
+                    <StackPanel Orientation="Horizontal" Margin="5 0 5 0" MinWidth="60">
+                        <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xECAA;" VerticalAlignment="Center" Margin="0 0 10 0"/>
+                        <TextBlock Text="关于此项目" VerticalAlignment="Center"/>
                     </StackPanel>
                 </TabItem.Header>
-                <StackPanel Margin="10 10 10 10">
+                <StackPanel Margin="20 10 20 10">
                     <DockPanel LastChildFill="False">
                         <Image Height="60" Source="/img/icon.png" />
                         <TextBlock VerticalAlignment="Center" FontSize="30" Foreground="#13387b" Margin="10"
                                     Text="Steam Workshop Tools"/>
-                        <Button x:Name="BtnGithub" Margin="10 10 20 10" VerticalAlignment="Top" Height="40" DockPanel.Dock="Right"
+                        <Button x:Name="BtnGithub" Margin="10 10 20 10" Height="40" DockPanel.Dock="Right"
                                 Click="BtnGithub_Click">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xE71B;" VerticalAlignment="Center"/>
-                                <TextBlock Text=" 查看 Github 仓库"/>
+                                <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xE71B;" VerticalAlignment="Center" Margin="0 0 10 0"/>
+                                <TextBlock Text="查看 Github 仓库"/>
                             </StackPanel>
                         </Button>
                     </DockPanel>
                     <TextBlock x:Name="VersionText" Margin="10"
                         Text="[版本信息]"/>
                     <TextBlock Margin="10"
+                        Text="Copyright © 2025 Commkom (king-zzk), masterLazy (mLazy)。"/>
+                    <TextBlock Margin="10"
                         Text="本项目与 Valve Corporation 没有从属关系。&#10;这是一个免费、开源的 Steam Workshop 下载工具，请勿倒卖！"/>
                     <TextBlock Margin="10"
-                        Text="Copyright © 2025 Commkom (king-zzk), masterLazy (mLazy)。根据 GPL-2.0 许可证授权。"/>
-                    <TextBlock Margin="10"
-                        Text="请在 Github 上查看完整的许可证信息。"/>
+                        Text="根据 GPL-2.0 许可证授权。&#10;您可以在 “许可证” 标签页查看完整的许可证信息。"/>
                 </StackPanel>
             </TabItem>
-            <TabItem>
+            <TabItem Background="{StaticResource BgLight}">
                 <TabItem.Header>
-                    <StackPanel Orientation="Horizontal" Margin="5 0 0 0">
-                        <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xE713;" VerticalAlignment="Center"/>
-                        <TextBlock Text=" 设置" VerticalAlignment="Center"/>
+                    <StackPanel Orientation="Horizontal" Margin="5 0 5 0" MinWidth="80">
+                        <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xE713;" VerticalAlignment="Center" Margin="0 0 10 0"/>
+                        <TextBlock Text="设置" VerticalAlignment="Center"/>
                     </StackPanel>
                 </TabItem.Header>
-                <Grid>
-                </Grid>
+                <DockPanel Margin="20 10 20 10">
+                    <DockPanel DockPanel.Dock="Top" Margin="0 0 0 5">
+                        <Button x:Name="BtnReset" Height="40" DockPanel.Dock="Right"
+                            Click="BtnReset_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xE72C;" VerticalAlignment="Center" Margin="0 0 10 0"/>
+                                <TextBlock Text="重置所有设置"/>
+                            </StackPanel>
+                        </Button>
+                        <TextBlock VerticalAlignment="Center"
+                                Text="您做的大多数更改会被立即保存并生效。"/>
+                    </DockPanel>
+                    <TreeView Padding="5" AllowDrop="True" ScrollViewer.CanContentScroll="True"
+                              Background="{StaticResource BgLight}">
+                        <!--常规选项-->
+                        <TreeViewItem IsExpanded="True">
+                            <TreeViewItem.Header>
+                                <StackPanel Orientation="Horizontal" Margin="5">
+                                    <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xE713;" VerticalAlignment="Center" Margin="0 0 10 0"/>
+                                    <TextBlock Text="常规" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </TreeViewItem.Header>
+                            <StackPanel Width="480">
+                                <TextBlock Text="Steamcmd 安装目录" Margin="0 5 0 5"/>
+                                <DockPanel>
+                                    <Button Content="恢复默认" DockPanel.Dock="Right" Margin="5 0 5 0" x:Name="BtnResetScmd" Click="BtnResetScmd_Click"/>
+                                    <Button Content="浏览" DockPanel.Dock="Right" Margin="5 0 5 0"/>
+                                    <TextBox Text="{Binding Config.SteamcmdPath}" VerticalAlignment="Center" Margin="0 0 5 0"/>
+                                </DockPanel>
+                            </StackPanel>
+                        </TreeViewItem>
+                        <!--调试选项-->
+                        <TreeViewItem IsExpanded="True">
+                            <TreeViewItem.Header>
+                                <StackPanel Orientation="Horizontal" Margin="5">
+                                    <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xF157;" VerticalAlignment="Center" Margin="0 0 10 0"/>
+                                    <TextBlock Text="调试选项" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </TreeViewItem.Header>
+                            <CheckBox Content="输出调试日志（需要重启）" IsChecked="{Binding Config.LogDebug}"/>
+                            <StackPanel Orientation="Horizontal">
+                                <CheckBox Content="禁用缓存" IsChecked="{Binding Config.NoCache}"/>
+                                <Button Content="清空缓存" x:Name="BtnClearCache" Click="BtnClearCache_Click"/>
+                            </StackPanel>
+                        </TreeViewItem>
+                    </TreeView>
+                </DockPanel>
+            </TabItem>
+            <TabItem Background="{StaticResource BgLight}">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal" Margin="5 0 5 0" MinWidth="80">
+                        <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xE8A5;" VerticalAlignment="Center" Margin="0 0 10 0"/>
+                        <TextBlock Text="许可证" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <TextBox Margin="20 10 20 20" IsReadOnly="True" x:Name="LicenseText" Text="[许可证]" Padding="40 10 40 10"
+                         FontFamily="Consolas" FontSize="13" VerticalScrollBarVisibility="Visible"/>
             </TabItem>
         </TabControl>
     </DockPanel>

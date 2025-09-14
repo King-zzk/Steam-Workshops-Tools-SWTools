@@ -1,12 +1,38 @@
 ﻿using System;
+using System.Text;
+using System.Text.Json;
 
-namespace SWTools.Core {
+namespace SWTools.Core.API {
     /// <summary>
-    /// steamworkshopdownloader.io/api 互操作
+    /// steamworkshopdownloader.io/api
     /// </summary>
-    public class SwdApi {
+    public static class SwDownloader {
+        // 调用 API
+        public static async Task<Response[]?> Request(List<string> itemIds) {
+            if (itemIds.Count == 0) return null;
+            // 构造请求
+            StringBuilder sb = new();
+            sb.Append('[');
+            foreach (var item in itemIds) {
+                if (sb.Length > 1)
+                    sb.Append(',');
+                sb.Append(item);
+            }
+            sb.Append(']');
+            // 发送请求
+            string str = await Helper.MakeHttpPost(_apiUrl, sb.ToString());
+            // 处理回复
+            try {
+                return JsonSerializer.Deserialize<Response[]>(str, Constants.JsonOptions);
+            }
+            catch (Exception ex) {
+                LogManager.Log.Error("Exception occured when deserializing Json:\n{Exception}", ex);
+            }
+            return null;
+        }
+
         // API 地址
-        public const string Url = "https://steamworkshopdownloader.io/api/details/file";
+        private const string _apiUrl = "https://steamworkshopdownloader.io/api/details/file";
         // API 响应包
         public record Response {
             public long result { get; set; }

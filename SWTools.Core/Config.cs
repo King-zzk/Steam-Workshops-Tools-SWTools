@@ -20,11 +20,12 @@ namespace SWTools.Core {
 
         // 配置
 #if DEBUG
-        public bool LogDebug { get; set; } = true;
+        public bool LogDebug { get; set; } = true;                 // 输出调试日志
 #else
-        public bool LogDebug { get; set; } = false;
+        public bool LogDebug { get; set; } = false;                 // 输出调试日志
 #endif
-        public string SteamcmdPath { get; set; } = "Steamcmd\\";
+        public bool NoCache { get; set; } = false;                  // 禁用缓存
+        public string SteamcmdPath { get; set; } = "Steamcmd\\";    // Steamcmd 路径
 
         // 序列化到 Json
         public override string ToString() {

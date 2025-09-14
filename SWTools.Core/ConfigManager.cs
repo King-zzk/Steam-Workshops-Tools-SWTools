@@ -20,47 +20,48 @@ namespace SWTools.Core {
 
         // 保存到 Json
         public static bool Save(string? reason = null) {
-            if (!Directory.Exists(Constants.ConfigDirName)) {
-                Directory.CreateDirectory(Constants.ConfigDirName);
+            if (!Directory.Exists(Constants.ConfigDir)) {
+                Directory.CreateDirectory(Constants.ConfigDir);
             }
             try {
-                using StreamWriter sw = new(Constants.ConfigFileName);
+                using StreamWriter sw = new(Constants.ConfigFile);
                 sw.Write(Config.ToString());
                 if (reason == null) {
-                    LogManager.Log.Information("Succeessfully save Config to {Filaname}", Constants.ConfigFileName);
+                    LogManager.Log.Information("Saved save config to {Filaname}", Constants.ConfigFile);
                 } else {
-                    LogManager.Log.Information("Succeessfully save Config to {Filaname} ({Reason})", 
-                        Constants.ConfigFileName, reason);
+                    LogManager.Log.Information("Saved config to {Filaname} ({Reason})", 
+                        Constants.ConfigFile, reason);
                 }
                 return true;
             }
             catch (Exception ex) {
                 LogManager.Log.Error("Exception occured when saving {FileName}:\n{Exception}",
-                    Constants.ConfigFileName, ex);
+                    Constants.ConfigFile, ex);
                 return false;
             }
         }
 
         // 从 Json 读取
         public static void Load() {
-            if (!File.Exists(Constants.ConfigFileName)) {
+            // 此方法内必须用 LogManager.Log?. !!!
+            if (!File.Exists(Constants.ConfigFile)) {
                 LogManager.Log?.Error("{Filename} not found, skipping loading:",
-                    Constants.ConfigFileName);
+                    Constants.ConfigFile);
                 return;
             }
             try {
                 string jsonString;
-                using StreamReader sr = new(Constants.ConfigFileName);
+                using StreamReader sr = new(Constants.ConfigFile);
                 jsonString = sr.ReadToEnd();
                 var config = JsonSerializer.Deserialize<Config>(jsonString, Constants.JsonOptions);
                 if (config == null)
                     throw new Exception("config is null");
                 Config = config;
-                Log.Information("Loaded config from {Filaname}", Constants.ConfigFileName);
+                LogManager.Log?.Information("Loaded config from {Filaname}", Constants.ConfigFile);
             }
             catch (Exception ex) {
                 LogManager.Log?.Error("Exception occured when loading {Filename}:\n{Exception}",
-                    Constants.ConfigFileName, ex);
+                    Constants.ConfigFile, ex);
             }
         }
     }

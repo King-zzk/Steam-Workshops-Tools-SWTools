@@ -6,8 +6,7 @@ namespace SWTools.Core {
     internal class Program {
         private static void Main(string[] args) {
             // 启动
-            ConfigManager.Setup();
-            LogManager.Setup();
+            Helper.SetupAll();
 
             //Helper.SetupSteamcmd().Wait();
 
@@ -20,7 +19,7 @@ namespace SWTools.Core {
 
 
             // 结束
-            ConfigManager.Save("Exit");
+            Helper.CleanupAll();
         }
 
         // 下面是一些测试用方法

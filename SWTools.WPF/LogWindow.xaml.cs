@@ -25,7 +25,7 @@ namespace SWTools.WPF {
 
         private void BtnOpenFolder_Click(object sender, RoutedEventArgs e) {
             System.Diagnostics.Process.Start("explorer.exe",
-                Path.GetFullPath(Core.Constants.LogDirName));
+                Path.GetFullPath(Core.Constants.LogDir));
         }
     }
 }

@@ -10,13 +10,14 @@ namespace SWTools.ViewModel {
     /// </summary>
     internal static class Helper {
         public static string ByteToString(long bytes) {
-            if (bytes < 100) return bytes.ToString() + "B";
-            bytes /= 1024;
-            if (bytes < 100) return bytes.ToString("#.##") + "KiB";
-            bytes /= 1024;
-            if (bytes < 100) return bytes.ToString("#.##") + "MiB";
-            bytes /= 1024;
-            return bytes.ToString("#.##") + "GiB";
+            float fbytes = bytes;
+            if (bytes < 800) return bytes.ToString() + " B";
+            fbytes /= 1024;
+            if (fbytes < 800) return fbytes.ToString("#.##") + " KiB";
+            fbytes /= 1024;
+            if (fbytes < 800) return fbytes.ToString("#.##") + " MiB";
+            fbytes /= 1024;
+            return bytes.ToString("#.##") + " GiB";
         }
     }
 }

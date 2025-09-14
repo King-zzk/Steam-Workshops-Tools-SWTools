@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "dgSpecHash": "aejZErSCTBg=",
+  "success": true,
+  "projectFilePath": "D:\\Repos\\SWTools\\SWTools.Core\\SWTools.Core.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Admin\\.nuget\\packages\\ben.demystifier\\0.4.1\\ben.demystifier.0.4.1.nupkg.sha512",
+    "C:\\Users\\Admin\\.nuget\\packages\\fody\\6.6.4\\fody.6.6.4.nupkg.sha512",
+    "C:\\Users\\Admin\\.nuget\\packages\\propertychanged.fody\\4.1.0\\propertychanged.fody.4.1.0.nupkg.sha512",
+    "C:\\Users\\Admin\\.nuget\\packages\\serilog\\4.3.0\\serilog.4.3.0.nupkg.sha512",
+    "C:\\Users\\Admin\\.nuget\\packages\\serilog.enrichers.callerinfo\\1.0.6\\serilog.enrichers.callerinfo.1.0.6.nupkg.sha512",
+    "C:\\Users\\Admin\\.nuget\\packages\\serilog.sinks.console\\6.0.0\\serilog.sinks.console.6.0.0.nupkg.sha512",
+    "C:\\Users\\Admin\\.nuget\\packages\\serilog.sinks.file\\7.0.0\\serilog.sinks.file.7.0.0.nupkg.sha512",
+    "C:\\Users\\Admin\\.nuget\\packages\\serilog.sinks.textwriter\\3.0.0\\serilog.sinks.textwriter.3.0.0.nupkg.sha512",
+    "C:\\Users\\Admin\\.nuget\\packages\\system.reflection.metadata\\5.0.0\\system.reflection.metadata.5.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

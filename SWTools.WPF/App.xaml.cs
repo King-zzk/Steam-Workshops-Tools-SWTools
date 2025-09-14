@@ -9,14 +9,14 @@ namespace SWTools.WPF {
     public partial class App : Application {
         public App() {
             // 启动 Core
-            Core.ConfigManager.Setup();
-            Core.LogManager.Setup();
+            Core.Helper.SetupAll();
         }
 
         // 程序退出时...
         protected override void OnExit(ExitEventArgs e) {
             base.OnExit(e);
-            Core.ConfigManager.Save("Exit"); // 保存配置
+            // 关闭 Core
+            Core.Helper.CleanupAll();
             Environment.Exit(0); // 强制退出所有线程
         }
     }

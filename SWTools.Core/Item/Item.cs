@@ -59,9 +59,6 @@ namespace SWTools.Core {
             Nothing, Download
         }
 
-        // 空物品
-        public static readonly Item Empty = new();
-
         public Item() { }
         public Item(string itemId) {
             ItemId = itemId;
@@ -140,22 +137,15 @@ namespace SWTools.Core {
             return EFailReason.Unknown;
         }
 
-        // 解析自己 (注意: 如果要解析多个物品，请使用 ItemList.ParseAll() )
+        // 解析自己 (注意: 如果要解析多个物品，请使用 ItemList.ParseAll(), 此方法主要用于测试)
         public async Task Parse() {
             ParseState = EParseState.Handling;
-            string str = await Helper.MakeHttpPost(SwdApi.Url, $"[{ItemId}]");
-            if (str == "") {
-                LogManager.Log.Error("Failed to parse item {ItemId}: empty response", ItemId);
+            var response = await API.SwDownloader.Request([ItemId]);
+            if (response == null || response?.Count() == 0) {
+                LogManager.Log.Error("Failed to parse item {ItemId}", ItemId);
+                return;
             }
-            // 处理回复
-            try {
-                var response = JsonSerializer.Deserialize<SwdApi.Response[]>(str, Constants.JsonOptions);
-                if (response != null) ParseWith(response[0]);
-                else throw new Exception("response is null");
-            } catch (Exception ex) {
-                LogManager.Log.Error("Exception occured when deserializing Json:\n{Exception}", ex);
-                ParseState = EParseState.Failed;
-            }
+            ParseWith(response[0]);
         }
     }
 }

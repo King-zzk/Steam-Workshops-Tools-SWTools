@@ -14,9 +14,6 @@ namespace SWTools.Core {
         public bool IsDownloading { get; set; } = false;        // 是否自动启动下载
         public int Downloading { get; set; } = 0;      // 正在下载的物品个数
 
-        // 空列表
-        public static readonly ItemList Empty = [];
-
         // 检查是否包含指定 ItemId 的物品
         public bool Contains(in string itemId) {
             foreach (var item in this) {
@@ -28,13 +25,13 @@ namespace SWTools.Core {
         }
 
         // 查找指定 Item ID 对应的物品
-        public Item Find(in string itemId) {
+        public Item? Find(in string itemId) {
             foreach (var item in this) {
                 if (item.ItemId == itemId) {
                     return item;
                 }
             }
-            return Item.Empty;
+            return null;
         }
 
         // 查找指定 Item ID 对应的物品，返回索引
@@ -52,7 +49,7 @@ namespace SWTools.Core {
             if (!Contains(item.ItemId)) {
                 base.Add(item);
                 if (IsDownloading) { // 自动开始下载
-                    DownloadOne(item.ItemId);
+                    _ = DownloadOne(item.ItemId);
                 }
             }
         }
@@ -84,14 +81,14 @@ namespace SWTools.Core {
         }
 
         // 从 Json 读取
-        public static ItemList Load(in string fileName) {
+        public static ItemList? Load(in string fileName) {
             try {
                 string jsonString;
                 using StreamReader sr = new(fileName);
                 jsonString = sr.ReadToEnd();
                 var list = JsonSerializer.Deserialize<ItemList>(jsonString, Constants.JsonOptions);
                 if (list == null)
-                    return Empty;
+                    return null;
                 list.RemoveEmptyItem();
                 LogManager.Log.Information("Loaded {Count} item(s) from {Filaname}", list.Count, fileName);
                 return list;
@@ -99,42 +96,60 @@ namespace SWTools.Core {
             catch (Exception ex) {
                 LogManager.Log.Error("Exception occured when loading from {FileName}:\n{Exception}",
                     fileName, ex);
-                return Empty;
+                return null;
             }
         }
 
         // 解析全部队列中物品
         public async Task ParseAll() {
-            List<string> items = [];
-            // 构造请求
-            StringBuilder sb = new();
-            sb.Append('[');
+            if (!ConfigManager.Config.NoCache) await ParseWithCache();
+            await ParseAllWithRequest();
+        }
+
+        // 缓存解析
+        private async Task ParseWithCache() {
+            // 设置状态
             foreach (var item in this) {
                 if (item.ParseState == Item.EParseState.InQueue) {
-                    item.ParseState = Item.EParseState.Handling; // 顺便设置状态
-                    items.Add(item.ItemId);
-                    if (sb.Length > 1)
-                        sb.Append(',');
-                    sb.Append(item.ItemId);
+                    item.ParseState = Item.EParseState.Handling;
                 }
             }
-            sb.Append(']');
-            string str = await Helper.MakeHttpPost(SwdApi.Url, sb.ToString());
-            // 处理回复
-            try {
-                var response = JsonSerializer.Deserialize<SwdApi.Response[]>(str, Constants.JsonOptions);
-                if (response == null)
-                    throw new Exception("response is null");
-                // 注意回复的序列可能和请求的不一致
+            await Task.Delay(500); // 仪式感
+            for (var i = 0; i < Count; i++) {
+                if (this[i].ParseState == Item.EParseState.Handling &&
+                    Cache.Parse.Get(this[i].ItemId) != null) {
+                    this[i] = Cache.Parse.Get(this[i].ItemId);
+                }
+            }
+            // 复位状态
+            foreach (var item in this) {
+                if (item.ParseState == Item.EParseState.Handling) {
+                    item.ParseState = Item.EParseState.InQueue;
+                }
+            }
+        }
+
+        // 联网解析
+        private async Task ParseAllWithRequest() {
+            // 请求 API
+            List<string> items = [];
+            foreach (var item in this) {
+                if (item.ParseState == Item.EParseState.InQueue) {
+                    item.ParseState = Item.EParseState.Handling;
+                    items.Add(item.ItemId);
+                }
+            }
+            if (items.Count == 0) return;
+            var response = await API.SwDownloader.Request(items);
+            // 处理回复，注意回复的序列可能和请求的不一致
+            if (response == null) {
+                LogManager.Log.Error("Failed to parse items");
+            } else {
                 for (var i = 0; i < response.Length; i++) {
                     if (!Contains(response[i].publishedfileid))
                         continue;
                     this[FindIndex(response[i].publishedfileid)].ParseWith(response[i]);
                 }
-            }
-            catch (Exception ex) {
-                LogManager.Log.Error("Exception occured when deserializing Json:\n{Exception}", ex);
-                LogManager.Log.Debug("The request was: {Request}", sb.ToString());
             }
             // 设置状态
             foreach (var item in this) {

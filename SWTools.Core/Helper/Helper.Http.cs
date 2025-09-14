@@ -26,7 +26,7 @@ namespace SWTools.Core {
                 }
                 return await response.Content.ReadAsStringAsync();
             } catch (Exception ex) {
-                LogManager.Log.Error("Exception occured when requesting \"{Url}\":\n{Exception}",
+                LogManager.Log.Error("Exception occured when requesting \"{Url}\" (GET):\n{Exception}",
                     url, ex);
                 return string.Empty;
             }
@@ -53,8 +53,10 @@ namespace SWTools.Core {
                 }
                 return await response.Content.ReadAsStringAsync();
             } catch (Exception ex) {
-                LogManager.Log.Error("Exception occured when requesting \"{Url}\":\n{Exception}",
+                LogManager.Log.Error("Exception occured when requesting \"{Url}\" (POST):\n{Exception}",
                     url, ex);
+                LogManager.Log.Error("The POST content was: \"{Content}\"",
+                    content);
                 return string.Empty;
             }
         }

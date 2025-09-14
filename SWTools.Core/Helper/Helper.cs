@@ -9,6 +9,28 @@ namespace SWTools.Core {
     /// 辅助方法
     /// </summary>
     public static partial class Helper {
+        // 启动组件
+        public static void SetupAll() {
+            // 必须先加载这俩
+            ConfigManager.Setup();
+            LogManager.Setup();
+            // 加载其他组件
+            Cache.Parse.Load();
+        }
+        // 关闭组件
+        public static void CleanupAll() {
+            ConfigManager.Save("Exit");
+            Cache.Parse.Save();
+        }
+        // 清空所有缓存
+        public static void ClearAllCache() {
+            try {
+                Directory.Delete(Constants.CacheDir, true);
+            }
+            catch (Exception ex) {
+                LogManager.Log.Error("Exception occured when deleting {CacheDir}:\n{Exception}", Constants.CacheDir, ex);
+            }
+        }
 
         // 安装 Steamcmd
         public static async Task<bool> SetupSteamcmd() {

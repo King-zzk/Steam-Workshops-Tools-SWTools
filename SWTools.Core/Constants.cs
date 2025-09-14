@@ -10,11 +10,16 @@ namespace SWTools.Core {
     /// </summary>
     public record Constants {
         /* 目录 */
-        public const string ConfigDirName = "data/";
-        public const string ConfigFileName = "data/Config.json";
-        public const string LogDirName = "logs/";
-        public const string LogFileName = "logs/latest.log";
-        public const string PreviewDirName = "cache/previews/";
+        // 配置
+        public const string ConfigDir = "data/";
+        public const string ConfigFile = ConfigDir + "config.json";
+        // 日志
+        public const string LogDir = "logs/";
+        public const string LogFile = LogDir + "latest.log";
+        // 缓存
+        public const string CacheDir = "cache/";
+        public const string PreviewDir = CacheDir + "previews/";
+        public const string CacheParseFile = CacheDir + "parse.json";
 
         /* URL */
         public const string UrlVersion = "https://raw.githubusercontent.com/King-zzk/king-zzk.github.io/refs/heads/main/version.txt";

@@ -18,17 +18,21 @@ namespace SWTools.Core {
 
         // 日志字符串
         public static StringWriter LogWriter { get; private set; } = new();
-        // 更新事件
-        public static event EventHandler<string> LogMessageAdded;
 
         // 启动
         public static void Setup() {
             // 删除旧日志
-            if (File.Exists(Constants.LogFileName)) {
-                File.Delete(Constants.LogFileName);
+            bool failed = false;
+            if (File.Exists(Constants.LogFile)) {
+                try {
+                    File.Delete(Constants.LogFile);
+                }
+                catch (Exception) {
+                    failed = true;
+                }
             }
-            if (!Directory.Exists(Constants.LogDirName)) {
-                Directory.CreateDirectory(Constants.LogDirName);
+            if (!Directory.Exists(Constants.LogDir)) {
+                Directory.CreateDirectory(Constants.LogDir);
             }
             // 配置日志器
             if (ConfigManager.Config.LogDebug) {
@@ -37,7 +41,7 @@ namespace SWTools.Core {
                         assemblyPrefix: "SWTools.")
                     .MinimumLevel.Debug()
                     .WriteTo.Console(outputTemplate: Constants.LogTemplateDebug)
-                    .WriteTo.File(Constants.LogFileName,
+                    .WriteTo.File(Constants.LogFile,
                         outputTemplate: Constants.LogTemplateDebug,
                         rollingInterval: RollingInterval.Infinite)
                     .WriteTo.TextWriter(LogWriter, outputTemplate: Constants.LogTemplateDebug)
@@ -47,7 +51,7 @@ namespace SWTools.Core {
                 Log = new LoggerConfiguration()
                     .MinimumLevel.Information()
                     .WriteTo.Console(outputTemplate: Constants.LogTemplate)
-                    .WriteTo.File(Constants.LogFileName,
+                    .WriteTo.File(Constants.LogFile,
                         outputTemplate: Constants.LogTemplateDebug,
                         rollingInterval: RollingInterval.Infinite)
                     .WriteTo.TextWriter(LogWriter, outputTemplate: Constants.LogTemplate)
@@ -64,6 +68,11 @@ namespace SWTools.Core {
 ███████║╚███╔███╔╝   ██║   ╚██████╔╝╚██████╔╝███████╗███████║
 ╚══════╝ ╚══╝╚══╝    ╚═╝    ╚═════╝  ╚═════╝ ╚══════╝╚══════╝   Licensed under GPL-2.0.
 ", Helper.VersionStr);
+            // 错误
+            if (failed) {
+                Log.Error("Failed to delete {LogFile}", Constants.LogFile);
+                Log.Warning("Is there another instance running? This may make the application UNSTABLE!");
+            }
         }
     }
 }

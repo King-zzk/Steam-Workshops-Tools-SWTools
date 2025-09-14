@@ -8,38 +8,38 @@
         Title="标题" 
         Height="330" Width="520"
         ResizeMode="NoResize"
-        Background="#f3f3f3"
+        Background="{StaticResource BgDefault}"
         WindowStartupLocation="CenterOwner"  ShowInTaskbar="False"
         RenderOptions.BitmapScalingMode="HighQuality">
     <DockPanel>
         <!--底栏-->
-        <DockPanel DockPanel.Dock="Bottom" LastChildFill="False" Background="#e4e4e4">
-            <Button x:Name="BtnYes" Margin="10 10 20 10" VerticalAlignment="Top" Height="40" DockPanel.Dock="Right"
+        <DockPanel DockPanel.Dock="Bottom" LastChildFill="False" Background="{StaticResource BgGray}">
+            <Button x:Name="BtnYes" Margin="10 10 20 10" Height="40" DockPanel.Dock="Right"
                 Style="{DynamicResource AccentButtonStyle}" Click="BtnYes_Click">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xE8FB;" VerticalAlignment="Center"/>
-                    <TextBlock Text=" 是" x:Name="BtnYesText"/>
+                    <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xE8FB;" VerticalAlignment="Center" Margin="0 0 10 0"/>
+                    <TextBlock Text="是" x:Name="BtnYesText"/>
                 </StackPanel>
             </Button>
-            <Button x:Name="BtnNo" Margin="10 10 10 10" VerticalAlignment="Top" Height="40" DockPanel.Dock="Right"
+            <Button x:Name="BtnNo" Margin="10 10 10 10" Height="40" DockPanel.Dock="Right"
                     Click="BtnNo_Click">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xE711;" VerticalAlignment="Center"/>
-                    <TextBlock Text=" 否" x:Name="BtnNoText"/>
+                    <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xE711;" VerticalAlignment="Center" Margin="0 0 10 0"/>
+                    <TextBlock Text="否" x:Name="BtnNoText"/>
                 </StackPanel>
             </Button>
-            <Button x:Name="BtnLink" Margin="20 10 10 10" VerticalAlignment="Top" Height="40" DockPanel.Dock="Left"
+            <Button x:Name="BtnLink" Margin="20 10 10 10" Height="40" DockPanel.Dock="Left"
                 Click="BtnLink_Click">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xE71B;" VerticalAlignment="Center"/>
-                    <TextBlock Text=" 链接" x:Name="BtnLinkText"/>
+                    <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xE71B;" VerticalAlignment="Center" Margin="0 0 10 0"/>
+                    <TextBlock Text="链接" x:Name="BtnLinkText"/>
                 </StackPanel>
             </Button>
         </DockPanel>
         <Separator DockPanel.Dock="Bottom" BorderBrush="#d4d4d4"/>
         <!--主体-->
         <DockPanel>
-            <TextBlock DockPanel.Dock="Left" Margin="30 40 40 40" FontFamily="{StaticResource SymbolThemeFontFamily}" 
+            <TextBlock DockPanel.Dock="Left" Margin="40" FontFamily="{StaticResource SymbolThemeFontFamily}" 
                        Text="&#xE783;" FontSize="40"/>
             <DockPanel>
                 <TextBlock Margin="0 40 30 10" Text="这也是标题" FontSize="20" FontWeight="Bold" DockPanel.Dock="Top"

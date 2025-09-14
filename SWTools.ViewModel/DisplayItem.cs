@@ -80,13 +80,13 @@ namespace SWTools.ViewModel {
                     }
                 }
             }
-            // 加载缩略图
+            // 从缓存加载缩略图 (必须，不受 Config.UseCaeche 影响)
             if (string.IsNullOrEmpty(item.UrlPreview)) {
                 PreviewImage = "/img/default-preview.png";
             }
-            string? fileName = Core.Helper.FindFileIgnoreExt(Core.Constants.PreviewDirName, item.ItemId);
+            string? fileName = Core.Helper.FindFileIgnoreExt(Core.Constants.PreviewDir, item.ItemId);
             if (fileName != null) {
-                PreviewImage = Path.GetFullPath(Core.Constants.PreviewDirName + fileName);
+                PreviewImage = Path.GetFullPath(Core.Constants.PreviewDir + fileName);
             } else {
                 PreviewImage = String.Empty;
             }
@@ -99,10 +99,10 @@ namespace SWTools.ViewModel {
             lock (_downloadingPreviews) {
                 _downloadingPreviews.Add(Item.ItemId);
             }
-            if (!Directory.Exists(Core.Constants.PreviewDirName)) {
-                Directory.CreateDirectory(Core.Constants.PreviewDirName);
+            if (!Directory.Exists(Core.Constants.PreviewDir)) {
+                Directory.CreateDirectory(Core.Constants.PreviewDir);
             }
-            var res = await Core.Helper.DownloadImage(Item.UrlPreview, Core.Constants.PreviewDirName + Item.ItemId);
+            var res = await Core.Helper.DownloadImage(Item.UrlPreview, Core.Constants.PreviewDir + Item.ItemId);
             if (res != null) {
                 PreviewImage = Path.GetFullPath(res);
             }

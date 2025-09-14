@@ -25,7 +25,7 @@ namespace SWTools.WPF {
             if (isYesNoBox) {
                 BtnNo.Visibility = Visibility.Visible;
             } else {
-                BtnYesText.Text = " 确认";
+                BtnYesText.Text = "确认";
                 BtnNo.Visibility = Visibility.Hidden;
             }
             BtnLink.Visibility = Visibility.Hidden;
@@ -37,11 +37,11 @@ namespace SWTools.WPF {
             if (isYesNoBox) {
                 BtnNo.Visibility = Visibility.Visible;
             } else {
-                BtnYesText.Text = " 确认";
+                BtnYesText.Text = "确认";
                 BtnNo.Visibility = Visibility.Hidden;
             }
             BtnLink.Visibility = Visibility.Visible;
-            BtnLinkText.Text = ' ' + linkText;
+            BtnLinkText.Text = linkText;
             _linkUrl = linkUrl;
         }
 

@@ -49,7 +49,7 @@ namespace SWTools.ViewModel {
                     UpdateDisplay();
                 };
                 if (string.IsNullOrEmpty(displayItem.PreviewImage)) {
-                    displayItem.DownloadPreviewImage();
+                    _ = displayItem.DownloadPreviewImage();
                 }
                 DisplayItems.Add(displayItem);
             }

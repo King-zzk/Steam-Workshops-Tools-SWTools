@@ -9,7 +9,7 @@
         Title="日志窗口" 
         Height="460" Width="800"
         MinHeight="400" MinWidth="800"
-        Background="#f3f3f3"
+        Background="{StaticResource BgDefault}"
         WindowStartupLocation="CenterOwner"  ShowInTaskbar="False"
         RenderOptions.BitmapScalingMode="HighQuality">
     <Window.DataContext>
@@ -17,19 +17,19 @@
     </Window.DataContext>
     <DockPanel>
         <!--底栏-->
-        <DockPanel DockPanel.Dock="Bottom" LastChildFill="False" Background="#e4e4e4">
-            <Button x:Name="BtnOk" Margin="10 10 20 10" VerticalAlignment="Top" Height="40" DockPanel.Dock="Right"
+        <DockPanel DockPanel.Dock="Bottom" LastChildFill="False" Background="{StaticResource BgGray}">
+            <Button x:Name="BtnOk" Margin="10 10 20 10" Height="40" DockPanel.Dock="Right"
                 Style="{DynamicResource AccentButtonStyle}" Click="BtnOk_Click">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xE8FB;" VerticalAlignment="Center"/>
-                    <TextBlock Text=" 确定"/>
+                    <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xE8FB;" VerticalAlignment="Center" Margin="0 0 10 0"/>
+                    <TextBlock Text="确定"/>
                 </StackPanel>
             </Button>
-            <Button x:Name="BtnOpenFolder" Margin="10 10 20 10" VerticalAlignment="Top" Height="40"
+            <Button x:Name="BtnOpenFolder" Margin="10 10 20 10" Height="40"
                 Click="BtnOpenFolder_Click">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xE838;" VerticalAlignment="Center"/>
-                    <TextBlock Text=" 打开日志文件夹"/>
+                    <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xE838;" VerticalAlignment="Center" Margin="0 0 10 0"/>
+                    <TextBlock Text="打开日志文件夹"/>
                 </StackPanel>
             </Button>
         </DockPanel>

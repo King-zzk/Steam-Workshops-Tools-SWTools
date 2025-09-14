@@ -8,8 +8,8 @@ namespace SWTools.Core {
     /// 创意工坊物品 (核心逻辑)
     /// </summary>
     public partial class Item {
-        // 解析 steamworkshopdownloader.io/api 返回的数据
-        public void ParseWith(in SwdApi.Response swdResponse) {
+        // 解析 API.SwDownloader 返回的数据
+        public void ParseWith(in API.SwDownloader.Response swdResponse) {
             lock (this) {
                 ItemTitle = swdResponse.title;
                 ItemSize = long.Parse(swdResponse.file_size);
@@ -30,6 +30,8 @@ namespace SWTools.Core {
                 } else {
                     ParseState = EParseState.Done;
                     LogManager.Log.Debug("Parsed item {ItemId}", ItemId);
+                    // 保存到缓存
+                    Cache.Parse.Store(this);
                 }
             }
         }

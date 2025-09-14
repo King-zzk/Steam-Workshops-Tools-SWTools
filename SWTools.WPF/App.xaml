@@ -5,9 +5,16 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
+            <!--Fluent-->
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/PresentationFramework.Fluent;component/Themes/Fluent.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <!--背景画刷-->
+            <SolidColorBrush x:Key="BgLight" Color="#fdfdfd"/>
+            <SolidColorBrush x:Key="BgDefault" Color="#f3f3f3"/>
+            <SolidColorBrush x:Key="BgGray" Color="#e6e6e6"/>
+            
         </ResourceDictionary>
     </Application.Resources>
 </Application>
