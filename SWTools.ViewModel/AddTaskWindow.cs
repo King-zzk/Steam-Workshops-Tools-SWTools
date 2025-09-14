@@ -95,7 +95,6 @@ namespace SWTools.ViewModel {
         // 启动解析
         public async void StartParse() {
             await Items.ParseAll();
-            Items[0].ParseState = Core.Item.EParseState.Failed;
         }
 
         // 是否有正在解析的
