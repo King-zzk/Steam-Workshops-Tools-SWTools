@@ -11,9 +11,6 @@ namespace SWTools.Core {
     /// </summary>
     [AddINotifyPropertyChangedInterface]
     public class ItemList : ObservableCollection<Item> {
-        public bool IsDownloading { get; set; } = false;        // 是否自动启动下载
-        public int Downloading { get; set; } = 0;      // 正在下载的物品个数
-
         // 检查是否包含指定 ItemId 的物品
         public bool Contains(in string itemId) {
             foreach (var item in this) {
@@ -48,9 +45,6 @@ namespace SWTools.Core {
         public new void Add(Item item) {
             if (!Contains(item.ItemId)) {
                 base.Add(item);
-                if (IsDownloading) { // 自动开始下载
-                    _ = DownloadOne(item.ItemId);
-                }
             }
         }
 
@@ -70,7 +64,7 @@ namespace SWTools.Core {
             try {
                 using StreamWriter sw = new(fileName);
                 sw.Write(ToString());
-                Log.Information("Saved {Count} item(s) to {Filaname}", Count, fileName);
+                LogManager.Log.Information("Saved {Count} item(s) to {Filaname}", Count, fileName);
                 return true;
             }
             catch (Exception ex) {
@@ -156,16 +150,6 @@ namespace SWTools.Core {
                 if (items.Contains(item.ItemId) && item.ParseState == Item.EParseState.Handling) {
                     item.ParseState = Item.EParseState.Failed;
                 }
-            }
-        }
-
-        // 下载一项物品
-        public async Task DownloadOne(string itemId) {
-            if (Contains(itemId) &&
-                this[FindIndex(itemId)].DownloadState == Item.EDownloadState.InQueue) {
-                lock (this) { Downloading++; }
-                await this[FindIndex(itemId)].Download();
-                lock (this) { Downloading--; }
             }
         }
 

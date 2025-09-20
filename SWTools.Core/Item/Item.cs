@@ -20,11 +20,11 @@ namespace SWTools.Core {
         public long ItemSize { get; set; }            // 该物品的文件大小
         public long AppId { get; set; }               // 物品属于的 App 的 Id
         public string AppName { get; set; } = "";     // 物品属于的 App 的名字
-        public string UrlPreview { get; set; } = "";           // 预览文件地址
-
+        public string UrlPreview { get; set; } = "";  // 预览文件地址
         // 有些物品不需要 Steamcmd 即可下载
-        public bool IsFree { get; set; }           // 是否不需要 Steamcmd
+        public bool IsFree { get; set; }                    // 是否不需要 Steamcmd
         public string UrlFreeDownload { get; set; } = "";   // 下载地址
+
 
         // 解析状态
         [JsonConverter(typeof(JsonStringEnumConverter))]
@@ -68,7 +68,8 @@ namespace SWTools.Core {
         public override string ToString() {
             try {
                 return JsonSerializer.Serialize(this, Constants.JsonOptions);
-            } catch (Exception ex) {
+            }
+            catch (Exception ex) {
                 LogManager.Log.Error("Exception occured when serializing Json:\n{Exception}", ex);
                 return string.Empty;
             }
@@ -102,11 +103,7 @@ namespace SWTools.Core {
 
         // 获取下载文件目录
         public string GetDownloadPath() {
-            StringBuilder sb = new();
-            sb.Append("steamcmd\\steamapps\\workshop\\content\\");
-            sb.Append(AppId).Append('\\');
-            sb.Append(ItemId).Append('\\');
-            return sb.ToString();
+            return Constants.SteamcmdDir + $"steamapps/workshop/content/{AppId}/{ItemId}";
         }
 
         // 把状态二值化到 InQueue / Done
@@ -146,6 +143,15 @@ namespace SWTools.Core {
                 return;
             }
             ParseWith(response[0]);
+        }
+
+        // 检查信息是否完备
+        public bool IsCompleted() {
+            return !string.IsNullOrEmpty(ItemId) &&
+                !string.IsNullOrEmpty(ItemTitle) &&
+                ItemSize != 0 && AppId != 0 &&
+                !string.IsNullOrEmpty(AppName) &&
+                !string.IsNullOrEmpty(UrlPreview);
         }
     }
 }

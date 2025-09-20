@@ -4,37 +4,25 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SWTools.WPF"
+        xmlns:controls="clr-namespace:SWTools.WPF.Controls"
         mc:Ignorable="d"
-        Title="标题" 
-        Height="330" Width="520"
+        Title="标题"
+        SizeToContent="WidthAndHeight"
+        MaxWidth="600"
         ResizeMode="NoResize"
         Background="{StaticResource BgDefault}"
         WindowStartupLocation="CenterOwner"  ShowInTaskbar="False"
         RenderOptions.BitmapScalingMode="HighQuality">
+
     <DockPanel>
         <!--底栏-->
         <DockPanel DockPanel.Dock="Bottom" LastChildFill="False" Background="{StaticResource BgGray}">
-            <Button x:Name="BtnYes" Margin="10 10 20 10" Height="40" DockPanel.Dock="Right"
-                Style="{DynamicResource AccentButtonStyle}" Click="BtnYes_Click">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xE8FB;" VerticalAlignment="Center" Margin="0 0 10 0"/>
-                    <TextBlock Text="是" x:Name="BtnYesText"/>
-                </StackPanel>
-            </Button>
-            <Button x:Name="BtnNo" Margin="10 10 10 10" Height="40" DockPanel.Dock="Right"
-                    Click="BtnNo_Click">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xE711;" VerticalAlignment="Center" Margin="0 0 10 0"/>
-                    <TextBlock Text="否" x:Name="BtnNoText"/>
-                </StackPanel>
-            </Button>
-            <Button x:Name="BtnLink" Margin="20 10 10 10" Height="40" DockPanel.Dock="Left"
-                Click="BtnLink_Click">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xE71B;" VerticalAlignment="Center" Margin="0 0 10 0"/>
-                    <TextBlock Text="链接" x:Name="BtnLinkText"/>
-                </StackPanel>
-            </Button>
+            <controls:IconButtonAccent x:Name="BtnYes" Click="BtnYes_Click"
+                Text="是" Icon="&#xE8FB;" DockPanel.Dock="Right" Margin="10 10 20 10"/>
+            <controls:IconButton x:Name="BtnNo" Click="BtnNo_Click"
+                Text="否" Icon="&#xE711;" DockPanel.Dock="Right" Margin="10 10 10 10"/>
+            <controls:IconButton x:Name="BtnLink" Click="BtnLink_Click"
+                Text="链接" Icon="&#xE71B;" DockPanel.Dock="Left" Margin="20 10 10 10"/>
         </DockPanel>
         <Separator DockPanel.Dock="Bottom" BorderBrush="#d4d4d4"/>
         <!--主体-->

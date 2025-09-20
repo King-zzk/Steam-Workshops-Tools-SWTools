@@ -52,7 +52,7 @@ namespace SWTools.Core {
                     .MinimumLevel.Information()
                     .WriteTo.Console(outputTemplate: Constants.LogTemplate)
                     .WriteTo.File(Constants.LogFile,
-                        outputTemplate: Constants.LogTemplateDebug,
+                        outputTemplate: Constants.LogTemplate,
                         rollingInterval: RollingInterval.Infinite)
                     .WriteTo.TextWriter(LogWriter, outputTemplate: Constants.LogTemplate)
                     .CreateLogger();
@@ -67,7 +67,7 @@ namespace SWTools.Core {
 ╚════██║██║███╗██║   ██║   ██║   ██║██║   ██║██║     ╚════██║   masterLazy (mLazy).
 ███████║╚███╔███╔╝   ██║   ╚██████╔╝╚██████╔╝███████╗███████║
 ╚══════╝ ╚══╝╚══╝    ╚═╝    ╚═════╝  ╚═════╝ ╚══════╝╚══════╝   Licensed under GPL-2.0.
-", Helper.VersionStr);
+", Constants.Version);
             // 错误
             if (failed) {
                 Log.Error("Failed to delete {LogFile}", Constants.LogFile);

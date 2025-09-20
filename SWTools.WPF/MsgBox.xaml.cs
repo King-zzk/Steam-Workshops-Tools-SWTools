@@ -20,28 +20,32 @@ namespace SWTools.WPF {
 
         public MsgBox(string title, string content, bool isYesNoBox) {
             InitializeComponent();
+            DataContext = this;
+
             Title2.Text = Title = title;
             TextBlock.Text = content;
             if (isYesNoBox) {
                 BtnNo.Visibility = Visibility.Visible;
             } else {
-                BtnYesText.Text = "确认";
+                BtnYes.Text = "确认";
                 BtnNo.Visibility = Visibility.Hidden;
             }
             BtnLink.Visibility = Visibility.Hidden;
         }
         public MsgBox(string title, string content, bool isYesNoBox, string linkText, string linkUrl) {
             InitializeComponent();
+            DataContext = this;
+
             Title2.Text = Title = title;
             TextBlock.Text = content;
             if (isYesNoBox) {
                 BtnNo.Visibility = Visibility.Visible;
             } else {
-                BtnYesText.Text = "确认";
+                BtnYes.Text = "确认";
                 BtnNo.Visibility = Visibility.Hidden;
             }
             BtnLink.Visibility = Visibility.Visible;
-            BtnLinkText.Text = linkText;
+            BtnLink.Text = linkText;
             _linkUrl = linkUrl;
         }
 

@@ -16,7 +16,6 @@ namespace SWTools.WPF {
     /// <summary>
     /// AddTaskWindow.xaml 的交互逻辑
     /// </summary>
-
     public partial class AddTaskWindow : Window {
         // ViewModel 访问点
         public ViewModel.AddTaskWindow ViewModel {
@@ -30,7 +29,7 @@ namespace SWTools.WPF {
 
         private void BtnOk_Click(object sender, RoutedEventArgs e) {
             if (ViewModel.DisplayItems.Count == 0) {
-                MsgBox msgBox = new("未添加任何物品", "看起来你没有添加任何物品\n确认关闭此窗口吗？", true) { Owner = this };
+                MsgBox msgBox = new("未添加任何物品", "看起来你没有添加任何物品，\n确认关闭此窗口吗？", true) { Owner = this };
                 bool? res = msgBox.ShowDialog();
                 if (res == true) {
                     Close();
@@ -54,11 +53,28 @@ namespace SWTools.WPF {
                     Close();
                 }
             } else {
-                var owner = Owner as MainWindow;
-                if (owner != null) {
-                    foreach (var item in ViewModel.Items) {
-                        owner.ViewModel.Items.Add(item);
+                if (Owner is not MainWindow owner) return;
+                // 检查是否有重合的项
+                List<string> dupItems = [];
+                foreach (var item in ViewModel.Items) {
+                    if (owner.ViewModel.Items.Contains(item.ItemId)) {
+                        dupItems.Add(item.ItemId);
                     }
+                }
+                if (dupItems.Count > 0) {
+                    MsgBox msgBox = new("有重复的物品", "待添加的物品中有一个或多个已在下载列表中，您是否想覆盖？\n" +
+                    "单击“否”，重复的物品不会被添加到下载列表；\n" +
+                    "单击“是”，将会覆盖下载列表中重复的物品。", true) { Owner = this };
+                    bool? res = msgBox.ShowDialog();
+                    if (res == true) {
+                        foreach(var item in dupItems) {
+                            owner.ViewModel.Items.Remove(owner.ViewModel.Items.Find(item));
+                        }
+                    }
+                }
+                // 添加
+                foreach (var item in ViewModel.Items) {
+                    owner.ViewModel.Items.Add(item);
                 }
                 Close();
             }
@@ -107,9 +123,9 @@ namespace SWTools.WPF {
             if (selection == null) return;
             if (selection.Item.ParseState == Core.Item.EParseState.Failed ||
                 selection.Item.ParseState == Core.Item.EParseState.Manual) {
-                BtnEdit.IsEnabled = true;
+                ViewModel.IsBtnEditEnable = true;
             } else {
-                BtnEdit.IsEnabled = false;
+                ViewModel.IsBtnEditEnable = false;
             }
         }
 
@@ -134,22 +150,23 @@ namespace SWTools.WPF {
                     ViewModel.Items[ViewModel.Items.FindIndex(selection.Item.ItemId)].ParseState = Core.Item.EParseState.Manual;
                 }
                 catch (Exception) {
-                    MsgBox msgBox = new("输入格式不正确",
-                    "输入无效。", false) { Owner = this };
+                    MsgBox msgBox = new("输入格式不正确", "输入无效。", false) { Owner = this };
                     msgBox.ShowDialog();
                     TextBoxAppId.Text = string.Empty;
                 }
             }
         }
+
+        private void MenuRemove_Click(object sender, RoutedEventArgs e) {
+            if (sender is not MenuItem menuItem) return;
+            if (menuItem.Parent is not ContextMenu contextMenu) return;
+            if (contextMenu.PlacementTarget is not ListViewItem listViewItem) return;
+            if (listViewItem.Content is not ViewModel.DisplayItem item) return;
+            ViewModel.Items.Remove(item.Item);
+        }
+
+        private void BtnParseRetry_Click(object sender, RoutedEventArgs e) {
+            ViewModel.RetryParse();
+        }
     }
 }
-
-/* 可用的测试数据
-
-3492532274
-3543159422
-3554383896
-3555017015
-3509243656
- 
- */

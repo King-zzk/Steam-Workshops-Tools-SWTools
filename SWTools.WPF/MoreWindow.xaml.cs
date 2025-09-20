@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Navigation;
 
 namespace SWTools.WPF {
     /// <summary>
@@ -25,9 +26,6 @@ namespace SWTools.WPF {
 
         public MoreWindow() {
             InitializeComponent();
-            // 初始化控件
-            VersionText.Text = $"这是 Steam Workshop Tools v{Core.Helper.VersionStr}。";
-            LicenseText.Text = Core.LicenseManager.ProjectLicense;
         }
 
         private void BtnOk_Click(object sender, RoutedEventArgs e) {
@@ -42,16 +40,10 @@ namespace SWTools.WPF {
         private void BtnClearCache_Click(object sender, RoutedEventArgs e) {
             MsgBox msgBox0 = new("操作确认", "确认要清空缓存吗？\n", true) { Owner = this };
             if (msgBox0.ShowDialog() == true) {
-                Core.Helper.ClearAllCache();
-                MsgBox msgBox = new("清理完成", "已删除所有缓存（程序正在使用的除外）。\n", false) { Owner = this };
+                Core.Helper.Main.ClearAllCache();
+                MsgBox msgBox = new("清理完成", "已删除缓存（程序正在引用的缓存除外）。", false) { Owner = this };
                 msgBox.ShowDialog();
             }
-        }
-
-        private void BtnResetScmd_Click(object sender, RoutedEventArgs e) {
-            ViewModel.Config.SteamcmdPath = new Core.Config().SteamcmdPath;
-            MsgBox msgBox = new("操作成功", "已恢复默认目录。\n", false) { Owner = this };
-            msgBox.ShowDialog();
         }
 
         private void BtnReset_Click(object sender, RoutedEventArgs e) {
@@ -59,6 +51,10 @@ namespace SWTools.WPF {
             if (msgBox0.ShowDialog() == true) {
                 ViewModel.Config = new();
             }
+        }
+
+        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e) {
+            System.Diagnostics.Process.Start("explorer.exe", e.Uri.ToString());
         }
     }
 }

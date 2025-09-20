@@ -34,7 +34,7 @@ namespace SWTools.ViewModel {
                 OnPropertyChanged(nameof(IsBtnParseEnable));
             }
         }
-        // 解析进度条
+        // 进度条
         private bool _isIndeterminate = false;
         public bool IsIndeterminate {
             get { return _isIndeterminate; }
@@ -54,6 +54,16 @@ namespace SWTools.ViewModel {
                 UpdateDisplay();
             }
         }
+        // 修改按钮
+        private bool _isBtnEditEnable = false;
+        public bool IsBtnEditEnable {
+            get { return _isBtnEditEnable; }
+            set {
+                if (_isBtnEditEnable == value) return;
+                _isBtnEditEnable = value;
+                OnPropertyChanged(nameof(IsBtnEditEnable));
+            }
+        }
         // 绑定
         public ObservableCollection<DisplayItem> DisplayItems { get; set; } = [];
 
@@ -66,7 +76,8 @@ namespace SWTools.ViewModel {
 
         // 检查字符串是否只含合法字符
         public bool CheckString(in string str) {
-            return !string.IsNullOrEmpty(str) && Regex.IsMatch(str, "^[0-9\r\n]*$");
+            if (string.IsNullOrWhiteSpace(str)) return false;
+            return Regex.IsMatch(str, "^[0-9\r\n]*$");
         }
 
         // 添加到解析列表
@@ -129,6 +140,15 @@ namespace SWTools.ViewModel {
                 DisplayItems.Add(displayItem);
             }
             IsIndeterminate = HasParsing();
+        }
+
+        public async void RetryParse() {
+            for (var i = 0; i < Items.Count; i++) {
+                if (Items[i].ParseState != Core.Item.EParseState.Done) {
+                    Items[i].ParseState = Core.Item.EParseState.InQueue;
+                }
+            }
+            await Items.ParseAll();
         }
     }
 }

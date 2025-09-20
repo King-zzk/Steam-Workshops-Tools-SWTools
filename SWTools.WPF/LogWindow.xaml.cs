@@ -27,5 +27,9 @@ namespace SWTools.WPF {
             System.Diagnostics.Process.Start("explorer.exe",
                 Path.GetFullPath(Core.Constants.LogDir));
         }
+
+        private void LogText_TextChanged(object sender, TextChangedEventArgs e) {
+            LogText.ScrollToEnd();
+        }
     }
 }

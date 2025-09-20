@@ -17,11 +17,12 @@ namespace SWTools.Core.Cache {
             return Cache.Find(itemId);
         }
         // 存入缓存 (暂存)
-        public static void Store(Item item) {
+        public static void Store(in Item item) {
             lock (Cache) {
                 if (Cache.Contains(item.ItemId)) {
                     Cache.Remove(Cache.Find(item.ItemId));
                 }
+                item.DownloadState = Item.EDownloadState.InQueue;
                 Cache.Add(item);
             }
         }
@@ -33,7 +34,12 @@ namespace SWTools.Core.Cache {
                 if (!File.Exists(Constants.CacheParseFile)) return;
                 var cache = ItemList.Load(Constants.CacheParseFile);
                 if (cache != null) {
-                    Cache = cache;
+                    foreach (var item in cache) {
+                        if (item.IsCompleted()) {
+                            item.DownloadState = Item.EDownloadState.InQueue;
+                            Cache.Add(item);
+                        }
+                    }
                 }
             }
         }

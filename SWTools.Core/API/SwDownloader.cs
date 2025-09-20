@@ -20,7 +20,7 @@ namespace SWTools.Core.API {
             }
             sb.Append(']');
             // 发送请求
-            string str = await Helper.MakeHttpPost(_apiUrl, sb.ToString());
+            string str = await Helper.Http.MakeHttpPost(_apiUrl, sb.ToString());
             // 处理回复
             try {
                 return JsonSerializer.Deserialize<Response[]>(str, Constants.JsonOptions);

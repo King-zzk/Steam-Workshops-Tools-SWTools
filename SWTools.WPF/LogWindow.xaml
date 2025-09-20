@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SWTools.WPF"
+        xmlns:controls="clr-namespace:SWTools.WPF.Controls"
         xmlns:viewmodel="clr-namespace:SWTools.ViewModel;assembly=SWTools.ViewModel"
         mc:Ignorable="d"
         Title="日志窗口" 
@@ -18,24 +19,15 @@
     <DockPanel>
         <!--底栏-->
         <DockPanel DockPanel.Dock="Bottom" LastChildFill="False" Background="{StaticResource BgGray}">
-            <Button x:Name="BtnOk" Margin="10 10 20 10" Height="40" DockPanel.Dock="Right"
-                Style="{DynamicResource AccentButtonStyle}" Click="BtnOk_Click">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xE8FB;" VerticalAlignment="Center" Margin="0 0 10 0"/>
-                    <TextBlock Text="确定"/>
-                </StackPanel>
-            </Button>
-            <Button x:Name="BtnOpenFolder" Margin="10 10 20 10" Height="40"
-                Click="BtnOpenFolder_Click">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xE838;" VerticalAlignment="Center" Margin="0 0 10 0"/>
-                    <TextBlock Text="打开日志文件夹"/>
-                </StackPanel>
-            </Button>
+            <controls:IconButtonAccent x:Name="BtnOk" Click="BtnOk_Click"
+                Text="确定" Icon="&#xE8FB;" DockPanel.Dock="Right" Margin="10 10 20 10"/>
+            <controls:IconButton x:Name="BtnOpenFolder" Click="BtnOpenFolder_Click"
+                Text="打开日志文件夹" Icon="&#xE838;" DockPanel.Dock="Left" Margin="10 10 20 10"/>
         </DockPanel>
         <Separator DockPanel.Dock="Bottom" BorderBrush="#d4d4d4"/>
         <!--日志显示-->
         <TextBox Margin="10 10 10 10" IsReadOnly="True" Text="{Binding LogContent}" FontFamily="Consolas" FontSize="13"
-                 VerticalScrollBarVisibility="Visible" TextWrapping="Wrap"/>
+                 VerticalScrollBarVisibility="Visible" TextWrapping="Wrap"
+                 x:Name="LogText" TextChanged="LogText_TextChanged"/>
     </DockPanel>
 </Window>

@@ -20,8 +20,8 @@ namespace SWTools.Core {
 
         // 保存到 Json
         public static bool Save(string? reason = null) {
-            if (!Directory.Exists(Constants.ConfigDir)) {
-                Directory.CreateDirectory(Constants.ConfigDir);
+            if (!Directory.Exists(Constants.CommonDir)) {
+                Directory.CreateDirectory(Constants.CommonDir);
             }
             try {
                 using StreamWriter sw = new(Constants.ConfigFile);

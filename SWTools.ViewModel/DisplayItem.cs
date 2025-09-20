@@ -21,7 +21,9 @@ namespace SWTools.ViewModel {
         public string ItemName { get; set; } = "";
         public string ItemSize { get; set; } = "";
         public string AppName { get; set; } = "";
+        public string Creator { get; set; } = "";
         public string State { get; set; } = "";
+        public string StateInfo { get; set; } = "";
         private string _previewImage = "";
         public string PreviewImage {
             get { return _previewImage; }
@@ -59,7 +61,7 @@ namespace SWTools.ViewModel {
                 } else if (item.ParseState == Core.Item.EParseState.InQueue) {
                     State = "等待解析...";
                 } else if (item.ParseState == Core.Item.EParseState.Handling) {
-                    State = "解析中";
+                    State = "解析中...";
                 } else if (item.ParseState == Core.Item.EParseState.Done) {
                     State = "完成";
                 }
@@ -68,23 +70,24 @@ namespace SWTools.ViewModel {
                     State = "信息解析失败";
                 } else {
                     if (item.DownloadState == Core.Item.EDownloadState.InQueue) {
-                        State = "等待下载...";
+                        StateInfo = State = "等待下载...";
                     } else if (item.DownloadState == Core.Item.EDownloadState.Handling) {
-                        State = "下载中";
+                        StateInfo = State = "下载中...";
                     } else if (item.DownloadState == Core.Item.EDownloadState.Missing) {
-                        State = "文件丢失";
+                        StateInfo = State = "文件丢失";
                     } else if (item.DownloadState == Core.Item.EDownloadState.Done) {
-                        State = "完成";
+                        StateInfo = State = "完成";
                     } else if (item.DownloadState == Core.Item.EDownloadState.Failed) {
-                        State = item.GetFailMessage();
+                        State = "下载失败";
+                        StateInfo = item.GetFailMessage();
                     }
                 }
             }
             // 从缓存加载缩略图 (必须，不受 Config.UseCaeche 影响)
             if (string.IsNullOrEmpty(item.UrlPreview)) {
-                PreviewImage = "/img/default-preview.png";
+                PreviewImage = "Resources/default-preview.png";
             }
-            string? fileName = Core.Helper.FindFileIgnoreExt(Core.Constants.PreviewDir, item.ItemId);
+            string? fileName = Core.Helper.Main.FindFileIgnoreExt(Core.Constants.PreviewDir, item.ItemId);
             if (fileName != null) {
                 PreviewImage = Path.GetFullPath(Core.Constants.PreviewDir + fileName);
             } else {
@@ -102,7 +105,7 @@ namespace SWTools.ViewModel {
             if (!Directory.Exists(Core.Constants.PreviewDir)) {
                 Directory.CreateDirectory(Core.Constants.PreviewDir);
             }
-            var res = await Core.Helper.DownloadImage(Item.UrlPreview, Core.Constants.PreviewDir + Item.ItemId);
+            var res = await Core.Helper.Http.DownloadImage(Item.UrlPreview, Core.Constants.PreviewDir + Item.ItemId);
             if (res != null) {
                 PreviewImage = Path.GetFullPath(res);
             }

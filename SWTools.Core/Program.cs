@@ -6,27 +6,27 @@ namespace SWTools.Core {
     internal class Program {
         private static void Main(string[] args) {
             // 启动
-            Helper.SetupAll();
+            Helper.Main.SetupAll();
 
             //Helper.SetupSteamcmd().Wait();
 
             Item item = new("3543159422");
             item.Parse().Wait();
             Console.WriteLine(item.UrlPreview);
-            Helper.DownloadImage(item.UrlPreview,"preview").Wait();
+            Helper.Http.DownloadImage(item.UrlPreview,"preview").Wait();
             //item.Download(AccountManager.GetAccountFor(item.AppId)[0]);
             //Console.WriteLine(item.ToString());
 
 
             // 结束
-            Helper.CleanupAll();
+            Helper.Main.CleanupAll();
         }
 
         // 下面是一些测试用方法
 
         // 测试检查更新
         private static void TestUpdate() {
-            Console.WriteLine($"Lastest version: {Helper.RequestLatestVersion()}");
+            //Console.WriteLine($"Lastest version: {Helper.RequestLatestVersion()}");
         }
         // 测试批量解析
         private static void TestBatchParse() {

@@ -3,16 +3,21 @@ using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Text.Unicode;
+using Semver;
 
 namespace SWTools.Core {
     /// <summary>
     ///  包含了目录、URL、Helper 里面的常量
     /// </summary>
-    public record Constants {
+    public static class Constants {
+        /* 版本 */
+        public static readonly SemVersion Version = SemVersion.Parse("2.0.0-beta.1", SemVersionStyles.Strict);
+
         /* 目录 */
-        // 配置
-        public const string ConfigDir = "data/";
-        public const string ConfigFile = ConfigDir + "config.json";
+        // 公共数据
+        public const string CommonDir = "data/";
+        public const string ConfigFile = CommonDir + "config.json"; // 配置
+        public const string DownloadListFile = CommonDir + "download.json"; // 下载列表
         // 日志
         public const string LogDir = "logs/";
         public const string LogFile = LogDir + "latest.log";
@@ -20,6 +25,9 @@ namespace SWTools.Core {
         public const string CacheDir = "cache/";
         public const string PreviewDir = CacheDir + "previews/";
         public const string CacheParseFile = CacheDir + "parse.json";
+        // Steamcmd
+        public const string SteamcmdDir = "steamcmd/";
+        public const string SteamcmdFile = SteamcmdDir + "steamcmd.exe";
 
         /* URL */
         public const string UrlVersion = "https://raw.githubusercontent.com/King-zzk/king-zzk.github.io/refs/heads/main/version.txt";

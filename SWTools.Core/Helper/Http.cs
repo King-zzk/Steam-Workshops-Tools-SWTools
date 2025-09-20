@@ -1,11 +1,11 @@
 ﻿using System;
 using Serilog;
 
-namespace SWTools.Core {
+namespace SWTools.Core.Helper {
     /// <summary>
     /// 辅助方法 (Http)
     /// </summary>
-    public static partial class Helper {
+    public static class Http {
         // 发送 Http Get 请求
         public static async Task<string> MakeHttpGet(string url) {
             using HttpClient client = new();

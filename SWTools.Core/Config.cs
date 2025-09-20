@@ -25,7 +25,6 @@ namespace SWTools.Core {
         public bool LogDebug { get; set; } = false;                 // 输出调试日志
 #endif
         public bool NoCache { get; set; } = false;                  // 禁用缓存
-        public string SteamcmdPath { get; set; } = "Steamcmd\\";    // Steamcmd 路径
 
         // 序列化到 Json
         public override string ToString() {

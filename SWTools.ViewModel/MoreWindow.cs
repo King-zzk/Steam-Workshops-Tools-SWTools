@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Semver;
 
 namespace SWTools.ViewModel {
     public class MoreWindow : INotifyPropertyChanged {
@@ -20,5 +21,10 @@ namespace SWTools.ViewModel {
                 OnPropertyChanged(nameof(Config));
             }
         }
+
+        // 版本
+        public string Version => Core.Constants.Version.ToString();
+        // 许可证
+        public string ProjectLicense { get; set; } = Core.LicenseManager.ProjectLicense;
     }
 }

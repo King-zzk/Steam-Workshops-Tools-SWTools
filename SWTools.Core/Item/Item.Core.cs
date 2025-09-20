@@ -15,7 +15,8 @@ namespace SWTools.Core {
                 ItemSize = long.Parse(swdResponse.file_size);
                 AppId = swdResponse.consumer_appid;
                 AppName = swdResponse.app_name;
-                if (string.IsNullOrEmpty(swdResponse.filename)) {
+                // 免费下载
+                if (!string.IsNullOrEmpty(swdResponse.filename)) {
                     IsFree = true;
                     UrlFreeDownload = swdResponse.filename;
                 } else {
@@ -39,7 +40,7 @@ namespace SWTools.Core {
         // 下载总逻辑
         public async Task<bool> Download() {
             if (IsFree) {
-                if(await Helper.DownloadFile(UrlFreeDownload, GetDownloadPath())) {
+                if (await Helper.Http.DownloadFile(UrlFreeDownload, GetDownloadPath())) {
                     return true;
                 } else {
                     LogManager.Log.Warning("Failed to download {ItemId} with UrlFreeDownload, " +
@@ -47,15 +48,14 @@ namespace SWTools.Core {
                 }
             }
             var accounts = AccountManager.GetAccountFor(AppId);
-            lock (this) {
-                foreach (var account in accounts) {
-                    if (DownloadWithSteamcmd(account)) {
-                        return true;
-                    } else {
-                        if (FailReason != EFailReason.AccountDisabled &&
-                            FailReason != EFailReason.InvalidPassword) {
-                            break;
-                        }
+            foreach (var account in accounts) {
+                if (await DownloadWithSteamcmd(account)) {
+                    DownloadState = EDownloadState.Done;
+                    return true;
+                } else {
+                    if (FailReason != EFailReason.AccountDisabled &&
+                        FailReason != EFailReason.InvalidPassword) {
+                        break;
                     }
                 }
             }
@@ -64,18 +64,17 @@ namespace SWTools.Core {
 
         // 用 Steamcmd 下载
         /// <exception cref="FileNotFoundException"></exception>
-        private bool DownloadWithSteamcmd(in Account account) {
+        private async Task<bool> DownloadWithSteamcmd(Account account) {
             // 检查 Steamcmd 是否存在
-            string steamcmdPath = ConfigManager.Config.SteamcmdPath + "steamcmd.exe";
-            if (!File.Exists(steamcmdPath)) {
-                LogManager.Log.Error("\"{SteamCmdPath}\" not found", steamcmdPath);
-                throw new FileNotFoundException($"\"{steamcmdPath}\" not found");
+            if (!File.Exists(Constants.SteamcmdFile)) {
+                LogManager.Log.Error("\"{SteamCmdPath}\" not found", Constants.SteamcmdFile);
+                throw new FileNotFoundException($"\"{Constants.SteamcmdFile}\" not found");
             }
             // 启动 Steamcmd
             DownloadState = EDownloadState.Handling;
             FailReason = EFailReason.Null;
             _exceptionMsg = string.Empty;
-            ProcessStartInfo startInfo = Helper.GetProcessStartInfo(
+            ProcessStartInfo startInfo = Helper.Steamcmd.GetProcessStartInfo(
                     $"+login {account.Name} {account.Password} " +
                     $"+workshop_download_item {AppId} {ItemId} " +
                     $"+quit"
@@ -91,8 +90,9 @@ namespace SWTools.Core {
                 };
                 process.Start();
                 process.BeginOutputReadLine();
-                process.WaitForExit();
-                if (!Directory.Exists(GetDownloadPath())) { // 下载失败了
+                await process.WaitForExitAsync();
+                // 检查文件是否存在
+                if (!Directory.Exists(GetDownloadPath())) {
                     DownloadState = EDownloadState.Failed;
                     GetFailReason(downloadLog.ToString());
                     return false;
@@ -100,7 +100,8 @@ namespace SWTools.Core {
                 DownloadState = EDownloadState.Done;
                 LogManager.Log.Information("Downloaded item {ItemId} to \"{Path}\"",
                     ItemId, GetDownloadPath());
-            } catch (Exception ex) {
+            }
+            catch (Exception ex) {
                 LogManager.Log.Error("Exception occured when downloading {ItemId}:\n{Exception}", ItemId, ex);
                 DownloadState = EDownloadState.Failed;
                 FailReason = EFailReason.Exception;
