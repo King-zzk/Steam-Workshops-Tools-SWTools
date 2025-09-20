@@ -10,9 +10,10 @@
         Title="更多信息" 
         Height="480" Width="680"
         ResizeMode="NoResize"
-        Background="{StaticResource BgDefault}"
+        Background="{StaticResource BgDefault}" ThemeMode="Light"
         WindowStartupLocation="CenterOwner"  ShowInTaskbar="False"
-        RenderOptions.BitmapScalingMode="HighQuality">
+        RenderOptions.BitmapScalingMode="HighQuality"
+        Loaded="Window_Loaded">
     <Window.DataContext>
         <viewmodel:MoreWindow/>
     </Window.DataContext>
@@ -41,14 +42,17 @@
                         <controls:IconButton x:Name="BtnGithub" Click="BtnGithub_Click"
                                 Text="查看 Github 仓库" Icon="&#xE71B;" DockPanel.Dock="Right" Margin="10 10 20 10"/>
                     </DockPanel>
-                    <TextBlock Margin="10" Text="{Binding Version, StringFormat=这是 Steam Workshop Tools v{0}。}"/>
+                    <TextBlock Margin="10">
+                        <Run Text="{Binding Version, StringFormat=这是 Steam Workshop Tools v{0}。}"/><LineBreak/>
+                        <Run Text="{Binding PubVersion, StringFormat=公有账户池版本：{0}}"/>
+                    </TextBlock>
                     <TextBlock Margin="10">
                         Copyright © 2025 
                         <Hyperlink NavigateUri="https://github.com/King-zzk/" RequestNavigate="Hyperlink_RequestNavigate">
                             Commkom (king-zzk)
                         </Hyperlink>, <Hyperlink NavigateUri="https://github.com/masterLazy/" RequestNavigate="Hyperlink_RequestNavigate">
-                        masterLazy (mLazy)。
-                        </Hyperlink> <LineBreak/>
+                        masterLazy (mLazy)
+                        </Hyperlink>。<LineBreak/>
                         <LineBreak/>
                         本项目与 Valve Corporation 没有从属关系。<LineBreak/>
                         这是一个免费、开源的 Steam Workshop 下载工具，请勿倒卖！<LineBreak/>
@@ -91,7 +95,7 @@
                                     <TextBlock Text="调试选项" VerticalAlignment="Center"/>
                                 </StackPanel>
                             </TreeViewItem.Header>
-                            <CheckBox Content="输出调试日志（需要重启）" IsChecked="{Binding Config.LogDebug}"/>
+                            <CheckBox Content="输出调试日志" IsChecked="{Binding Config.LogDebug}"/>
                             <StackPanel Orientation="Horizontal">
                                 <CheckBox Content="禁用缓存" IsChecked="{Binding Config.NoCache}"/>
                                 <Button Content="清空缓存" x:Name="BtnClearCache" Click="BtnClearCache_Click"/>

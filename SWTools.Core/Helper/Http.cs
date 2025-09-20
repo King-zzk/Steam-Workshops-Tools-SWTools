@@ -7,7 +7,7 @@ namespace SWTools.Core.Helper {
     /// </summary>
     public static class Http {
         // 发送 Http Get 请求
-        public static async Task<string> MakeHttpGet(string url) {
+        public static async Task<string?> MakeHttpGet(string url) {
             using HttpClient client = new();
             try {
                 // 发送请求
@@ -25,15 +25,16 @@ namespace SWTools.Core.Helper {
                     throw new Exception("Content is not text");
                 }
                 return await response.Content.ReadAsStringAsync();
-            } catch (Exception ex) {
+            }
+            catch (Exception ex) {
                 LogManager.Log.Error("Exception occured when requesting \"{Url}\" (GET):\n{Exception}",
                     url, ex);
-                return string.Empty;
+                return null;
             }
         }
 
         // 发送 Http Post 请求
-        public static async Task<string> MakeHttpPost(string url, string content) {
+        public static async Task<string?> MakeHttpPost(string url, string content) {
             using HttpClient client = new();
             try {
                 // 发送请求
@@ -52,12 +53,13 @@ namespace SWTools.Core.Helper {
                     throw new Exception("Content is not text");
                 }
                 return await response.Content.ReadAsStringAsync();
-            } catch (Exception ex) {
+            }
+            catch (Exception ex) {
                 LogManager.Log.Error("Exception occured when requesting \"{Url}\" (POST):\n{Exception}",
                     url, ex);
                 LogManager.Log.Error("The POST content was: \"{Content}\"",
                     content);
-                return string.Empty;
+                return null;
             }
         }
 
@@ -76,7 +78,8 @@ namespace SWTools.Core.Helper {
                 LogManager.Log.Information("Downloaded \"{Url}\" to \"{FilePath}\"",
                     url, filePath);
                 return true;
-            } catch (Exception ex) {
+            }
+            catch (Exception ex) {
                 LogManager.Log.Error("Exception occured when downloading \"{Url}\":\n{Exception}",
                     url, ex);
                 return false;
@@ -88,8 +91,6 @@ namespace SWTools.Core.Helper {
             using HttpClient client = new();
             try {
                 // 发送请求
-                //var task = client.GetAsync(url); // NOTE: 这里用 await 的话，ViewModel 调用 .Wait() 会卡住
-                //task.Wait();
                 HttpResponseMessage response = await client.GetAsync(url);
                 // 接收
                 response.EnsureSuccessStatusCode();
@@ -118,6 +119,15 @@ namespace SWTools.Core.Helper {
                     url, ex);
                 return null;
             }
+        }
+
+        // 获取 Github 上的项目
+        public static async Task<string?> MakeGithubGet(string url) {
+            foreach (var proxy in Constants.UrlGithubProxy) {
+                var response = await MakeHttpGet(proxy + url);
+                if (response != null) return response;
+            }
+            return null;
         }
     }
 }

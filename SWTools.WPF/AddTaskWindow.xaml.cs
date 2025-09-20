@@ -19,7 +19,7 @@ namespace SWTools.WPF {
     public partial class AddTaskWindow : Window {
         // ViewModel 访问点
         public ViewModel.AddTaskWindow ViewModel {
-            get { return DataContext as ViewModel.AddTaskWindow; }
+            get => (ViewModel.AddTaskWindow)DataContext;
             set { DataContext = value; }
         }
 
@@ -43,8 +43,7 @@ namespace SWTools.WPF {
                     "单击“是”，解析失败的物品不会被添加到下载列表。", true) { Owner = this };
                 bool? res = msgBox.ShowDialog();
                 if (res == true) {
-                    var owner = Owner as MainWindow;
-                    if (owner != null) {
+                    if (Owner is MainWindow owner) {
                         foreach (var item in ViewModel.Items) {
                             if (item.ParseState == Core.Item.EParseState.Failed) continue;
                             owner.ViewModel.Items.Add(item);
@@ -68,7 +67,7 @@ namespace SWTools.WPF {
                     bool? res = msgBox.ShowDialog();
                     if (res == true) {
                         foreach(var item in dupItems) {
-                            owner.ViewModel.Items.Remove(owner.ViewModel.Items.Find(item));
+                            owner.ViewModel.Items.Remove(owner.ViewModel.Items.Find(item)!);
                         }
                     }
                 }
@@ -119,8 +118,7 @@ namespace SWTools.WPF {
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             if (ListView.SelectedItems.Count == 0) return;
-            var selection = ListView.SelectedItems[0] as ViewModel.DisplayItem;
-            if (selection == null) return;
+            if (ListView.SelectedItems[0] is not ViewModel.DisplayItem selection) return;
             if (selection.Item.ParseState == Core.Item.EParseState.Failed ||
                 selection.Item.ParseState == Core.Item.EParseState.Manual) {
                 ViewModel.IsBtnEditEnable = true;
@@ -136,8 +134,7 @@ namespace SWTools.WPF {
                 msgBox.ShowDialog();
                 return;
             }
-            var selection = ListView.SelectedItems[0] as ViewModel.DisplayItem;
-            if (selection == null) return;
+            if (ListView.SelectedItems[0] is not ViewModel.DisplayItem selection) return;
             if (!ViewModel.CheckString(TextBoxAppId.Text)) {
                 MsgBox msgBox = new("输入格式不正确",
                 "App ID 只能包含数字且不能为空。", false) { Owner = this };

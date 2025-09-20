@@ -45,7 +45,7 @@ namespace SWTools.Core {
         public static void Load() {
             // 此方法内必须用 LogManager.Log?. !!!
             if (!File.Exists(Constants.ConfigFile)) {
-                LogManager.Log?.Error("{Filename} not found, skipping loading:",
+                LogManager.Log?.Warning("{Filename} not found, skipping loading",
                     Constants.ConfigFile);
                 return;
             }

@@ -110,9 +110,10 @@ namespace SWTools.Core {
             }
             await Task.Delay(500); // 仪式感
             for (var i = 0; i < Count; i++) {
-                if (this[i].ParseState == Item.EParseState.Handling &&
-                    Cache.Parse.Get(this[i].ItemId) != null) {
-                    this[i] = Cache.Parse.Get(this[i].ItemId);
+                if (this[i].ParseState == Item.EParseState.Handling) {
+                    if (Cache.Parse.Get(this[i].ItemId) != null) {
+                        this[i] = Cache.Parse.Get(this[i].ItemId)!;
+                    }
                 }
             }
             // 复位状态
@@ -136,13 +137,13 @@ namespace SWTools.Core {
             if (items.Count == 0) return;
             var response = await API.SwDownloader.Request(items);
             // 处理回复，注意回复的序列可能和请求的不一致
-            if (response == null) {
-                LogManager.Log.Error("Failed to parse items");
+            if (response == null || response.Length == 0) {
+                LogManager.Log.Error("Failed to parse items: Empty response");
             } else {
                 for (var i = 0; i < response.Length; i++) {
-                    if (!Contains(response[i].publishedfileid))
-                        continue;
-                    this[FindIndex(response[i].publishedfileid)].ParseWith(response[i]);
+                    if (response[i].publishedfileid == null) continue;
+                    if (!Contains(response[i].publishedfileid!)) continue;
+                    this[FindIndex(response[i].publishedfileid!)].ParseWith(response[i]);
                 }
             }
             // 设置状态

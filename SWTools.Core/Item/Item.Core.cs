@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Serilog;
+using System;
 using System.Diagnostics;
+using System.Security.Principal;
 using System.Text;
-using Serilog;
 
 namespace SWTools.Core {
     /// <summary>
@@ -11,19 +12,19 @@ namespace SWTools.Core {
         // 解析 API.SwDownloader 返回的数据
         public void ParseWith(in API.SwDownloader.Response swdResponse) {
             lock (this) {
-                ItemTitle = swdResponse.title;
-                ItemSize = long.Parse(swdResponse.file_size);
+                ItemTitle = swdResponse.title ?? "";
+                ItemSize = long.Parse(swdResponse.file_size ?? "");
                 AppId = swdResponse.consumer_appid;
-                AppName = swdResponse.app_name;
+                AppName = swdResponse.app_name ?? "";
                 // 免费下载
-                if (!string.IsNullOrEmpty(swdResponse.filename)) {
+                if (!string.IsNullOrEmpty(swdResponse.file_url)) {
                     IsFree = true;
-                    UrlFreeDownload = swdResponse.filename;
+                    UrlFreeDownload = swdResponse.file_url;
                 } else {
                     IsFree = false;
                     UrlFreeDownload = string.Empty;
                 }
-                UrlPreview = swdResponse.preview_url;
+                UrlPreview = swdResponse.preview_url ?? "";
                 // 设置状态
                 if (AppId == 0) {
                     ParseState = EParseState.Failed;
@@ -40,17 +41,27 @@ namespace SWTools.Core {
         // 下载总逻辑
         public async Task<bool> Download() {
             if (IsFree) {
-                if (await Helper.Http.DownloadFile(UrlFreeDownload, GetDownloadPath())) {
+                if (!Directory.Exists(GetDownloadPath())) {
+                    Directory.CreateDirectory(GetDownloadPath());
+                }
+                // 大部分都是截图
+                var res = await Helper.Http.DownloadImage(UrlFreeDownload, GetDownloadPath() + ItemId) != null;
+                if (!res) {
+                    res = await Helper.Http.DownloadFile(UrlFreeDownload, GetDownloadPath() + ItemId);
+                }
+                if (res) {
+                    DownloadState = EDownloadState.Done;
                     return true;
                 } else {
                     LogManager.Log.Warning("Failed to download {ItemId} with UrlFreeDownload, " +
                         "tring download with steamcmd", ItemId);
+                    Directory.Delete(GetDownloadPath(), true);
                 }
             }
             var accounts = AccountManager.GetAccountFor(AppId);
+            // 使用已有账户下载
             foreach (var account in accounts) {
                 if (await DownloadWithSteamcmd(account)) {
-                    DownloadState = EDownloadState.Done;
                     return true;
                 } else {
                     if (FailReason != EFailReason.AccountDisabled &&
@@ -58,6 +69,10 @@ namespace SWTools.Core {
                         break;
                     }
                 }
+            }
+            if (accounts.Count == 0) {
+                // 尝试匿名下载
+                return await DownloadWithSteamcmd(AccountManager.Anonymous);
             }
             return false;
         }
@@ -94,7 +109,11 @@ namespace SWTools.Core {
                 // 检查文件是否存在
                 if (!Directory.Exists(GetDownloadPath())) {
                     DownloadState = EDownloadState.Failed;
-                    GetFailReason(downloadLog.ToString());
+                    FailReason = GetFailReason(downloadLog.ToString());
+                    if (FailReason == EFailReason.Unknown) {
+                        LogManager.Log.Error("Download failed with unknown reason. Here's the log of Steamcmd:\n{Log}",
+                            downloadLog);
+                    }
                     return false;
                 }
                 DownloadState = EDownloadState.Done;

@@ -11,13 +11,15 @@ namespace SWTools.Core {
     /// </summary>
     public static class Constants {
         /* 版本 */
-        public static readonly SemVersion Version = SemVersion.Parse("2.0.0-beta.1", SemVersionStyles.Strict);
+        public static readonly SemVersion Version = SemVersion.Parse("2.0.0-beta.2", SemVersionStyles.Strict);
 
         /* 目录 */
         // 公共数据
         public const string CommonDir = "data/";
         public const string ConfigFile = CommonDir + "config.json"; // 配置
         public const string DownloadListFile = CommonDir + "download.json"; // 下载列表
+        public const string PubAccountsFile = CommonDir + "pub_accounts.json"; // 公有账户
+        public const string LatestInfoFile = CommonDir + "latest.json"; // 最新信息
         // 日志
         public const string LogDir = "logs/";
         public const string LogFile = LogDir + "latest.log";
@@ -30,13 +32,18 @@ namespace SWTools.Core {
         public const string SteamcmdFile = SteamcmdDir + "steamcmd.exe";
 
         /* URL */
-        public const string UrlVersion = "https://raw.githubusercontent.com/King-zzk/king-zzk.github.io/refs/heads/main/version.txt";
+        // Steamcmd
         public const string UrlSteamcmd = "https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip";
+        // 仓库托管的 API
+        public const string UrlRepoApi = "https://raw.githubusercontent.com/King-zzk/Steam-Workshops-Tools-SWTools/refs/heads/dev-dotnet-mlazy/api/";
+        // Release 页面
+        public const string UrlRelease = "https://github.com/King-zzk/Steam-Workshops-Tools-SWTools/releases";
+        // Github 代理
         public static readonly string[] UrlGithubProxy = [
-            "", // 这个空的不能删
             "https://gh.llkk.cc/",
             "https://gitproxy.click/",
-            "https://ghproxy.net/"
+            "https://ghproxy.net/",
+            "", // 这个空的不能删
         ];
 
         /* 日志 */

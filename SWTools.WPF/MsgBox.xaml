@@ -9,8 +9,8 @@
         Title="标题"
         SizeToContent="WidthAndHeight"
         MaxWidth="600"
-        ResizeMode="NoResize"
-        Background="{StaticResource BgDefault}"
+        ResizeMode="NoResize" WindowStyle="ThreeDBorderWindow"
+        Background="{StaticResource BgDefault}" ThemeMode="Light"
         WindowStartupLocation="CenterOwner"  ShowInTaskbar="False"
         RenderOptions.BitmapScalingMode="HighQuality">
 

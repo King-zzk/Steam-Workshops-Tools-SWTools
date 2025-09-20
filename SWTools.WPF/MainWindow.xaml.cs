@@ -22,15 +22,12 @@ namespace SWTools.WPF {
 
         // ViewModel 访问点
         public ViewModel.MainWindow ViewModel {
-            get { return DataContext as ViewModel.MainWindow; }
+            get => (ViewModel.MainWindow)DataContext;
             set { DataContext = value; }
         }
 
         public MainWindow() {
-            // 初始化
             InitializeComponent();
-            // 添加调试信息
-            //ViewModel.AddDebugData();
         }
 
         private void BtnAddTask_Click(object sender, RoutedEventArgs e) {
@@ -138,6 +135,36 @@ namespace SWTools.WPF {
             }
             System.Diagnostics.Process.Start("explorer.exe",
                 Path.GetFullPath(item.Item.GetDownloadPath()));
+        }
+
+        private void MenuRetry_Click(object sender, RoutedEventArgs e) {
+            if (sender is not MenuItem menuItem) return;
+            if (menuItem.Parent is not ContextMenu contextMenu) return;
+            if (contextMenu.PlacementTarget is not ListViewItem listViewItem) return;
+            if (listViewItem.Content is not ViewModel.DisplayItem item) return;
+            if (item.Item.DownloadState == Core.Item.EDownloadState.Handling) {
+                MsgBox msgBox = new("操作失败", "请等待当前物品下载完成。", false) { Owner = this };
+                msgBox.ShowDialog();
+                return;
+            }
+            item.Item.DownloadState = Core.Item.EDownloadState.InQueue;
+            ViewModel.UpdateDisplay();
+            if (!ViewModel.IsDownloading) { // 启动下载
+               _ = ViewModel.DownloadOne(item.Item.ItemId);
+            }
+        }
+
+        private void MenuCopy_Click(object sender, RoutedEventArgs e) {
+            if (sender is not MenuItem menuItem) return;
+            if (menuItem.Parent is not ContextMenu contextMenu) return;
+            if (contextMenu.PlacementTarget is not ListViewItem listViewItem) return;
+            if (listViewItem.Content is not ViewModel.DisplayItem item) return;
+            Clipboard.SetDataObject(item.Item.ItemId);
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e) {
+            // 拉取最新信息
+            ViewModel.FetchRepo();
         }
     }
 }

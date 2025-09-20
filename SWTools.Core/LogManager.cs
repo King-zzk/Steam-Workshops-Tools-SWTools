@@ -12,7 +12,7 @@ namespace SWTools.Core {
     /// <summary>
     /// 日志管理器
     /// </summary>
-    public class LogManager {
+    public static class LogManager {
         // 访问点
         public static ILogger Log { get; private set; }
 
@@ -35,6 +35,31 @@ namespace SWTools.Core {
                 Directory.CreateDirectory(Constants.LogDir);
             }
             // 配置日志器
+            Configure();
+            // 炫酷的启动消息
+            // https://www.lddgo.net/string/text-to-ascii-art 字体: ANSI Shadow
+            Log.Information(@"
+
+███████╗██╗    ██╗████████╗ ██████╗  ██████╗ ██╗     ███████╗   SWTools.Core v{Version}
+██╔════╝██║    ██║╚══██╔══╝██╔═══██╗██╔═══██╗██║     ██╔════╝   
+███████╗██║ █╗ ██║   ██║   ██║   ██║██║   ██║██║     ███████╗   Copyright (c) 2025 Commkom (king-zzk), 
+╚════██║██║███╗██║   ██║   ██║   ██║██║   ██║██║     ╚════██║   masterLazy (mLazy).
+███████║╚███╔███╔╝   ██║   ╚██████╔╝╚██████╔╝███████╗███████║
+╚══════╝ ╚══╝╚══╝    ╚═╝    ╚═════╝  ╚═════╝ ╚══════╝╚══════╝   Licensed under GPL-2.0.
+", Constants.Version);
+            // 错误
+            if (failed) {
+                Log.Error("Failed to delete {LogFile}", Constants.LogFile);
+                Log.Warning("Is there another instance running? This may make the application UNSTABLE!");
+            }
+            // 监视配置更改
+            ConfigManager.Config.PropertyChanged += (s, e) => {
+                Configure();
+            };
+        }
+
+        // 配置日志格式
+        private static void Configure() {
             if (ConfigManager.Config.LogDebug) {
                 Log = new LoggerConfiguration()
                     .Enrich.WithCallerInfo(includeFileInfo: false,
@@ -56,22 +81,7 @@ namespace SWTools.Core {
                         rollingInterval: RollingInterval.Infinite)
                     .WriteTo.TextWriter(LogWriter, outputTemplate: Constants.LogTemplate)
                     .CreateLogger();
-            }
-            // 炫酷的启动消息
-            // https://www.lddgo.net/string/text-to-ascii-art 字体: ANSI Shadow
-            Log.Information(@"
-
-███████╗██╗    ██╗████████╗ ██████╗  ██████╗ ██╗     ███████╗   SWTools.Core v{Version}
-██╔════╝██║    ██║╚══██╔══╝██╔═══██╗██╔═══██╗██║     ██╔════╝   
-███████╗██║ █╗ ██║   ██║   ██║   ██║██║   ██║██║     ███████╗   Copyright (c) 2025 Commkom (king-zzk), 
-╚════██║██║███╗██║   ██║   ██║   ██║██║   ██║██║     ╚════██║   masterLazy (mLazy).
-███████║╚███╔███╔╝   ██║   ╚██████╔╝╚██████╔╝███████╗███████║
-╚══════╝ ╚══╝╚══╝    ╚═╝    ╚═════╝  ╚═════╝ ╚══════╝╚══════╝   Licensed under GPL-2.0.
-", Constants.Version);
-            // 错误
-            if (failed) {
-                Log.Error("Failed to delete {LogFile}", Constants.LogFile);
-                Log.Warning("Is there another instance running? This may make the application UNSTABLE!");
+                Log.Information("Log level has been set to INFORMATION");
             }
         }
     }

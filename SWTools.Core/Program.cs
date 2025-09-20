@@ -8,33 +8,18 @@ namespace SWTools.Core {
             // 启动
             Helper.Main.SetupAll();
 
-            //Helper.SetupSteamcmd().Wait();
+            //using (var task = API.LatestInfo.Request()) {
+            //    task.Wait();
+            //    Console.WriteLine(task.Result);
+            //}
 
-            Item item = new("3543159422");
-            item.Parse().Wait();
-            Console.WriteLine(item.UrlPreview);
-            Helper.Http.DownloadImage(item.UrlPreview,"preview").Wait();
-            //item.Download(AccountManager.GetAccountFor(item.AppId)[0]);
-            //Console.WriteLine(item.ToString());
-
+            //using (var task = API.PubAccounts.Request()) {
+            //    task.Wait();
+            //    Console.WriteLine(task.Result);
+            //}
 
             // 结束
             Helper.Main.CleanupAll();
-        }
-
-        // 下面是一些测试用方法
-
-        // 测试检查更新
-        private static void TestUpdate() {
-            //Console.WriteLine($"Lastest version: {Helper.RequestLatestVersion()}");
-        }
-        // 测试批量解析
-        private static void TestBatchParse() {
-            ItemList items = [];
-            items.Add(new("3492532274"));
-            items.Add(new("3543159422"));
-            items.ParseAll().Wait();
-            items.Save("items.json");
         }
     }
 }

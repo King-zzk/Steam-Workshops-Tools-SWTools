@@ -1,8 +1,9 @@
-﻿using System;
-using System.IO.Compression;
+﻿using Serilog;
+using System;
 using System.Diagnostics;
+using System.IO.Compression;
 using System.Text;
-using Serilog;
+using System.Text.Json;
 
 namespace SWTools.Core.Helper {
     /// <summary>
@@ -14,8 +15,10 @@ namespace SWTools.Core.Helper {
             // 必须先加载这俩 (这之前不要使用日志器)
             ConfigManager.Setup();
             LogManager.Setup();
+
             // 加载其他组件
             Cache.Parse.Load();
+            AccountManager.Setup();
 
             LogManager.Log.Information("Completed setting up Core");
         }
@@ -53,6 +56,20 @@ namespace SWTools.Core.Helper {
                 }
             }
             return null;
+        }
+
+        // 读取本地 “最新信息” 文件
+        public static API.LatestInfo.Response? ReadLatestInfo() {
+            try {
+                string jsonString;
+                using StreamReader sr = new(Constants.LatestInfoFile);
+                jsonString = sr.ReadToEnd();
+                return JsonSerializer.Deserialize<API.LatestInfo.Response>(jsonString, Constants.JsonOptions);
+            }
+            catch (Exception ex) {
+                LogManager.Log.Error("Exception occured when loading from {FileName}:\n{Exception}", Constants.LatestInfoFile, ex);
+                return null;
+            }
         }
     }
 }

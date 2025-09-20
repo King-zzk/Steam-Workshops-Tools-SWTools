@@ -10,7 +10,7 @@
         Title="添加下载任务"
         Height="600" Width="820"
         MinHeight="400" MinWidth="800"
-        Background="{StaticResource BgDefault}"
+        Background="{StaticResource BgDefault}" ThemeMode="Light"
         WindowStartupLocation="CenterOwner" ShowInTaskbar="False"
         RenderOptions.BitmapScalingMode="HighQuality">
     <Window.DataContext>
