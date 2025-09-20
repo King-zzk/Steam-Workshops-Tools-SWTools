@@ -20,7 +20,7 @@ namespace SWTools.Core.Cache {
         public static void Store(in Item item) {
             lock (Cache) {
                 if (Cache.Contains(item.ItemId)) {
-                    Cache.Remove(Cache.Find(item.ItemId));
+                    Cache.Remove(Cache.Find(item.ItemId)!);
                 }
                 item.DownloadState = Item.EDownloadState.InQueue;
                 Cache.Add(item);

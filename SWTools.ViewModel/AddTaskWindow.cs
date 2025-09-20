@@ -17,7 +17,7 @@ namespace SWTools.ViewModel {
         // 用户输入的要下载的项
         private string _itemsToDownload = "";
         public string ItemsToDownload {
-            get { return _itemsToDownload; }
+            get => _itemsToDownload;
             set {
                 if (_itemsToDownload == value) return;
                 _itemsToDownload = value;
@@ -27,7 +27,7 @@ namespace SWTools.ViewModel {
         // 解析按钮
         private bool _isBtnParseEnable = false;
         public bool IsBtnParseEnable {
-            get { return _isBtnParseEnable; }
+            get => _isBtnParseEnable;
             set {
                 if (_isBtnParseEnable == value) return;
                 _isBtnParseEnable = value;
@@ -37,7 +37,7 @@ namespace SWTools.ViewModel {
         // 进度条
         private bool _isIndeterminate = false;
         public bool IsIndeterminate {
-            get { return _isIndeterminate; }
+            get => _isIndeterminate;
             set {
                 if (_isIndeterminate == value) return;
                 _isIndeterminate = value;
@@ -47,7 +47,7 @@ namespace SWTools.ViewModel {
         // 解析列表
         private Core.ItemList _itemList = [];
         public Core.ItemList Items {
-            get { return _itemList; }
+            get => _itemList;
             set {
                 if (_itemList == value) return;
                 _itemList = value;
@@ -57,7 +57,7 @@ namespace SWTools.ViewModel {
         // 修改按钮
         private bool _isBtnEditEnable = false;
         public bool IsBtnEditEnable {
-            get { return _isBtnEditEnable; }
+            get => _isBtnEditEnable;
             set {
                 if (_isBtnEditEnable == value) return;
                 _isBtnEditEnable = value;

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using Semver;
 
 namespace SWTools.ViewModel {
     public class MainWindow : INotifyPropertyChanged {
@@ -17,7 +18,7 @@ namespace SWTools.ViewModel {
         // 下载列表
         private Core.ItemList _itemList = [];
         public Core.ItemList Items {
-            get { return _itemList; }
+            get => _itemList;
             set {
                 if (_itemList == value) return;
                 _itemList = value;
@@ -27,7 +28,7 @@ namespace SWTools.ViewModel {
         // 进度条
         private bool _isIndeterminate = false;
         public bool IsIndeterminate {
-            get { return _isIndeterminate; }
+            get => _isIndeterminate;
             set {
                 if (_isIndeterminate == value) return;
                 _isIndeterminate = value;
@@ -35,9 +36,10 @@ namespace SWTools.ViewModel {
             }
         }
         // 状态栏
-        private string _statusText = "提示：单击 “添加下载任务” 添加要下载的物品";
+        public const string StatusTextDefault = "就绪";
+        private string _statusText = StatusTextDefault;
         public string StatusText {
-            get { return _statusText; }
+            get => _statusText;
             set {
                 if (_statusText == value) return;
                 _statusText = value;
@@ -47,7 +49,7 @@ namespace SWTools.ViewModel {
         // 添加任务按钮
         private bool _isBtnAddTaskEnable = true;
         public bool IsBtnAddTaskEnable {
-            get { return _isBtnAddTaskEnable; }
+            get => _isBtnAddTaskEnable;
             set {
                 if (_isBtnAddTaskEnable == value) return;
                 _isBtnAddTaskEnable = value;
@@ -57,7 +59,7 @@ namespace SWTools.ViewModel {
         // 启动按钮
         private bool _isBtnStartEnable = true;
         public bool IsBtnStartEnable {
-            get { return _isBtnStartEnable; }
+            get => _isBtnStartEnable;
             set {
                 if (_isBtnStartEnable == value) return;
                 _isBtnStartEnable = value;
@@ -67,7 +69,7 @@ namespace SWTools.ViewModel {
         // 暂停按钮
         private bool _isBtnStopEnable = false;
         public bool IsBtnStopEnable {
-            get { return _isBtnStopEnable; }
+            get => _isBtnStopEnable;
             set {
                 if (_isBtnStopEnable == value) return;
                 _isBtnStopEnable = value;
@@ -77,7 +79,7 @@ namespace SWTools.ViewModel {
         // 清空按钮
         private bool _isBtnRemoveAllEnable = true;
         public bool IsBtnRemoveAllEnable {
-            get { return _isBtnRemoveAllEnable; }
+            get => _isBtnRemoveAllEnable;
             set {
                 if (_isBtnRemoveAllEnable == value) return;
                 _isBtnRemoveAllEnable = value;
@@ -87,7 +89,7 @@ namespace SWTools.ViewModel {
         // 绑定
         public ObservableCollection<DisplayItem> DisplayItems { get; set; } = [];
 
-        // 要下载吗
+        // 是否要执行下载
         public bool IsDownloading = false;
 
         public MainWindow() {
@@ -147,8 +149,78 @@ namespace SWTools.ViewModel {
             IsIndeterminate = false;
         }
 
+        // 下载单个物品
+        public async Task DownloadOne(string itemId) {
+            // 开始
+            IsDownloading = true;
+
+            IsBtnAddTaskEnable = false;
+            IsBtnStartEnable = false;
+            IsBtnRemoveAllEnable = false;
+
+            IsBtnStopEnable = true;
+            IsIndeterminate = true;
+
+            // 准备 Steamcmd
+            StatusText = "正在准备 Steamcmd，请耐心等待（在日志中查看详细信息）";
+            await Core.Helper.Steamcmd.Setup();
+            // 开始下载
+            for (var i = 0; i < DisplayItems.Count && IsDownloading; i++) {
+                if (DisplayItems[i].Item.DownloadState != Core.Item.EDownloadState.InQueue ||
+                    DisplayItems[i].Item.ItemId != itemId) {
+                    continue;
+                }
+                StatusText = $"正在下载 {DisplayItems[i].ItemName}";
+                DisplayItems[i].Item.PropertyChanged += (s, e) => {
+                    UpdateDisplay();
+                };
+                await DisplayItems[i].Item.Download();
+            }
+
+            // 结束
+            StatusText = "已完成";
+            IsDownloading = false;
+
+            IsBtnAddTaskEnable = true;
+            IsBtnStartEnable = true;
+            IsBtnRemoveAllEnable = true;
+
+            IsBtnStopEnable = false;
+            IsIndeterminate = false;
+        }
+
+        // 获取仓库最新信息
+        public async void FetchRepo() {
+            // 开始
+            StatusText = "正在从仓库拉取最新信息...（您可以在此期间添加下载任务）";
+            IsBtnStartEnable = false;
+            IsIndeterminate = true;
+
+            if (!Directory.Exists(Core.Constants.CommonDir)) {
+                Directory.CreateDirectory(Core.Constants.CommonDir);
+            }
+            await Core.API.LatestInfo.Fetch(Core.Constants.LatestInfoFile);
+            var info = Core.Helper.Main.ReadLatestInfo();
+            if (await Core.API.PubAccounts.Fetch(Core.Constants.PubAccountsFile)) {
+                Core.AccountManager.LoadPub();
+            }
+
+            // 结束
+            if (info?.Release != null &&
+                SemVersion.Parse(info.Release).CompareSortOrderTo(Core.Constants.Version) > 0) {
+                StatusText = $"检测到新的发行版。在 “更多” 查看详情";
+            } else if (info?.PreRelease != null &&
+                SemVersion.Parse(info.PreRelease).CompareSortOrderTo(Core.Constants.Version) > 0) {
+                StatusText = $"检测到新的预发行版。在 “更多” 查看详情";
+            } else {
+                StatusText = StatusTextDefault;
+            }
+            IsBtnStartEnable = true;
+            IsIndeterminate = false;
+        }
+
         // 更新绑定
-        private void UpdateDisplay() {
+        public void UpdateDisplay() {
             DisplayItems.Clear();
             bool hasInqueue = false; // 是否有等待下载的物品
             foreach (var item in _itemList) {

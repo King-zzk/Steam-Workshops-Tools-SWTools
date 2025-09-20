@@ -16,7 +16,7 @@ namespace SWTools.ViewModel {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private string _logContent;
+        private string _logContent = string.Empty;
         private string _lastLogContent;
         private readonly DispatcherTimer _timer;
 
@@ -34,13 +34,14 @@ namespace SWTools.ViewModel {
             _lastLogContent = LogContent;
 
             // 设置定时器检查日志变化
-            _timer = new DispatcherTimer();
-            _timer.Interval = TimeSpan.FromMilliseconds(500); 
+            _timer = new DispatcherTimer {
+                Interval = TimeSpan.FromMilliseconds(500)
+            };
             _timer.Tick += CheckLogChanges;
             _timer.Start();
         }
 
-        private void CheckLogChanges(object sender, EventArgs e) {
+        private void CheckLogChanges(object? sender, EventArgs e) {
             var currentContent = LogManager.LogWriter.ToString();
             if (currentContent != _lastLogContent) {
                 LogContent = currentContent;

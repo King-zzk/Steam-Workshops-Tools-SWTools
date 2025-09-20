@@ -8,7 +8,8 @@ namespace SWTools.ViewModel {
     /// <summary>
     /// 辅助方法
     /// </summary>
-    internal static class Helper {
+    public static class Helper {
+        // 字节数转字符串
         public static string ByteToString(long bytes) {
             float fbytes = bytes;
             if (bytes < 800) return bytes.ToString() + " B";

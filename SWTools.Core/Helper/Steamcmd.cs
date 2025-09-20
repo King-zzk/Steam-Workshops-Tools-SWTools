@@ -47,10 +47,8 @@ namespace SWTools.Core.Helper {
                     }
                 };
                 process.Start();
-                LogManager.Log.Information("Launched steamcmd");
-                if (ConfigManager.Config.LogDebug) {
-                    process.BeginOutputReadLine();
-                }
+                LogManager.Log.Information("Steamcmd has been launched, waiting for its update");
+                process.BeginOutputReadLine();
                 await process.WaitForExitAsync();
                 LogManager.Log.Information("Completed update of steamcmd");
             }

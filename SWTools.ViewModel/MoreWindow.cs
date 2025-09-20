@@ -23,8 +23,12 @@ namespace SWTools.ViewModel {
         }
 
         // 版本
-        public string Version => Core.Constants.Version.ToString();
+        public string Version { get; set; } = Core.Constants.Version.ToString();
+        public string PubVersion { get; set; } = Core.AccountManager.PubVersion;
         // 许可证
         public string ProjectLicense { get; set; } = Core.LicenseManager.ProjectLicense;
+
+        // 是否提醒过用户新版本
+        public static bool HasHintedLatestVersion { get; set; } = false;
     }
 }

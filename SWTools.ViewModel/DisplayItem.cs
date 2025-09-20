@@ -23,7 +23,7 @@ namespace SWTools.ViewModel {
         public string AppName { get; set; } = "";
         public string Creator { get; set; } = "";
         public string State { get; set; } = "";
-        public string StateInfo { get; set; } = "";
+
         private string _previewImage = "";
         public string PreviewImage {
             get { return _previewImage; }
@@ -70,16 +70,15 @@ namespace SWTools.ViewModel {
                     State = "信息解析失败";
                 } else {
                     if (item.DownloadState == Core.Item.EDownloadState.InQueue) {
-                        StateInfo = State = "等待下载...";
+                        State = "等待下载...";
                     } else if (item.DownloadState == Core.Item.EDownloadState.Handling) {
-                        StateInfo = State = "下载中...";
+                        State = "下载中...";
                     } else if (item.DownloadState == Core.Item.EDownloadState.Missing) {
-                        StateInfo = State = "文件丢失";
+                        State = "文件丢失";
                     } else if (item.DownloadState == Core.Item.EDownloadState.Done) {
-                        StateInfo = State = "完成";
+                        State = "完成";
                     } else if (item.DownloadState == Core.Item.EDownloadState.Failed) {
-                        State = "下载失败";
-                        StateInfo = item.GetFailMessage();
+                        State = "失败：" + item.GetFailMessage();
                     }
                 }
             }

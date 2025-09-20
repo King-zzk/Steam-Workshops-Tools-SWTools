@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Semver;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,8 +11,8 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.Windows.Navigation;
+using System.Windows.Shapes;
 
 namespace SWTools.WPF {
     /// <summary>
@@ -20,7 +21,7 @@ namespace SWTools.WPF {
     public partial class MoreWindow : Window {
         // ViewModel 访问点
         public ViewModel.MoreWindow ViewModel {
-            get { return DataContext as ViewModel.MoreWindow; }
+            get => (ViewModel.MoreWindow)DataContext;
             set { DataContext = value; }
         }
 
@@ -55,6 +56,28 @@ namespace SWTools.WPF {
 
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e) {
             System.Diagnostics.Process.Start("explorer.exe", e.Uri.ToString());
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e) {
+            // 提示新版本
+            if (!SWTools.ViewModel.MoreWindow.HasHintedLatestVersion) {
+                SWTools.ViewModel.MoreWindow.HasHintedLatestVersion = true;
+                var info = Core.Helper.Main.ReadLatestInfo();
+                if (info == null) return;
+                if (info.Release != null &&
+                SemVersion.Parse(info.Release).CompareSortOrderTo(Core.Constants.Version) > 0) {
+                    MsgBox msgBox = new("发现新版本", $"检测到新的发行版：{info.Release}\n（当前版本：{Core.Constants.Version}）\n\n" +
+                        $"您可以在下方链接获取新版本。", false,
+                        "查看 Release 页面", Core.Constants.UrlRelease) { Owner = this };
+                    msgBox.ShowDialog();
+                } else if (info.PreRelease != null &&
+                    SemVersion.Parse(info.PreRelease).CompareSortOrderTo(Core.Constants.Version) > 0) {
+                    MsgBox msgBox = new("发现新的预览版本", $"检测到新的预发行版：{info.Release}\n（当前版本：{Core.Constants.Version}）\n\n" +
+                        $"您可以在下方链接获取新版本。", false,
+                        "查看 Release 页面", Core.Constants.UrlRelease) { Owner = this };
+                    msgBox.ShowDialog();
+                }
+            }
         }
     }
 }
