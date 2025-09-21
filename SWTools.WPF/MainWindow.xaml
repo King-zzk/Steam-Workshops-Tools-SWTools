@@ -4,75 +4,165 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SWTools.WPF"
+        xmlns:controls="clr-namespace:SWTools.WPF.Controls"
+        xmlns:viewmodel="clr-namespace:SWTools.ViewModel;assembly=SWTools.ViewModel"
         mc:Ignorable="d"
         Title="Steam Workshop Tools (SWTools)" 
         Height="600" Width="900"
         MinHeight="400" MinWidth="800"
+        Background="{StaticResource BhDefault}" ThemeMode="Light"
         WindowStartupLocation="CenterScreen"
-        RenderOptions.BitmapScalingMode="HighQuality">
-    <Window.Background>
-        <ImageBrush ImageSource="/background.png" Opacity="0.5"/>
-    </Window.Background>
+        RenderOptions.BitmapScalingMode="HighQuality"
+        Closing="Window_Closing"  Closed="Window_Closed" Loaded="Window_Loaded">
+    <Window.DataContext>
+        <viewmodel:MainWindow/>
+    </Window.DataContext>
+    
+    <!--下载列表的右键菜单-->
+    <Window.Resources>
+        <ContextMenu x:Key="ContextMenu">
+            <MenuItem x:Name="MenuRemove" Click="MenuRemove_Click">
+                <MenuItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" 
+                               Text="&#xE711;" VerticalAlignment="Center" Margin="0 0 10 0"/>
+                        <TextBlock Text="移除"/>
+                    </StackPanel>
+                </MenuItem.Header>
+            </MenuItem>
+            <MenuItem x:Name="MenuOpenFolder" Click="MenuOpenFolder_Click">
+                <MenuItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" 
+                                Text="&#xE838;" VerticalAlignment="Center" Margin="0 0 10 0"/>
+                        <TextBlock Text="打开文件夹"/>
+                    </StackPanel>
+                </MenuItem.Header>
+            </MenuItem>
+            <Separator BorderBrush="{StaticResource BhBorder}" Margin="5 0 5 0"/>
+            <MenuItem x:Name="MenuRetry" Click="MenuRetry_Click">
+                <MenuItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" 
+                                Text="&#xE72C;" VerticalAlignment="Center" Margin="0 0 10 0"/>
+                        <TextBlock Text="重新下载"/>
+                    </StackPanel>
+                </MenuItem.Header>
+            </MenuItem>
+            <MenuItem x:Name="MenuCopy" Click="MenuCopy_Click">
+                <MenuItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" 
+                    Text="&#xE8C8;" VerticalAlignment="Center" Margin="0 0 10 0"/>
+                        <TextBlock Text="复制物品 ID"/>
+                    </StackPanel>
+                </MenuItem.Header>
+            </MenuItem>
+            <MenuItem x:Name="MenuLink" Click="MenuLink_Click">
+                <MenuItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" 
+                            Text="&#xE71B;" VerticalAlignment="Center" Margin="0 0 10 0"/>
+                        <TextBlock Text="打开详情页"/>
+                    </StackPanel>
+                </MenuItem.Header>
+            </MenuItem>
+            <Separator BorderBrush="{StaticResource BhBorder}" Margin="5 0 5 0"/>
+            <MenuItem x:Name="MenuDelete" Click="MenuDelete_Click">
+                <MenuItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Foreground="DarkRed"
+                            Text="&#xE74D;" VerticalAlignment="Center" Margin="0 0 10 0"/>
+                        <TextBlock Text="删除文件" Foreground="DarkRed"/>
+                    </StackPanel>
+                </MenuItem.Header>
+            </MenuItem>
+        </ContextMenu>
+    </Window.Resources>
+
     <DockPanel>
         <!--顶栏-->
         <DockPanel LastChildFill="False" DockPanel.Dock="Top" Margin="10 10 10 10">
-            <Image Height="40" Margin="0 0 5 0" VerticalAlignment="Center" Source="/icon.png" />
-            <Button x:Name="BtnAddTask" Margin="5 0 5 0" VerticalAlignment="Center" Height="40" Click="BtnAddTask_Click" Foreground="Black">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xE710;" VerticalAlignment="Center"/>
-                    <TextBlock Text=" 添加下载任务"/>
-                </StackPanel>
-            </Button>
-            <Button x:Name="BtnStart" Margin="5 0 5 0" VerticalAlignment="Center" Height="40" Style="{DynamicResource AccentButtonStyle}">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xE768;" VerticalAlignment="Center"/>
-                    <TextBlock Text=" 下载全部"/>
-                </StackPanel>
-            </Button>
-            <Button x:Name="BtnStop" Margin="5 0 5 0" VerticalAlignment="Center" Height="40" IsEnabled="False" Foreground="Black">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xE769;" VerticalAlignment="Center"/>
-                    <TextBlock Text=" 暂停全部"/>
-                </StackPanel>
-            </Button>
-            <Button x:Name="BtnRemoveAll" Margin="5 0 5 0" VerticalAlignment="Center" Height="40" Foreground="Black">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xE74D;" VerticalAlignment="Center"/>
-                    <TextBlock Text=" 清空列表（不删除）"/>
-                </StackPanel>
-            </Button>
-            <Button x:Name="BtnMore" Margin="5 0 5 0" VerticalAlignment="Center" Height="40" DockPanel.Dock="Right" Click="BtnMore_Click">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xE712;" VerticalAlignment="Center" Foreground="Black"/>
-                    <TextBlock Text=" 更多" Foreground="Black"/>
-                </StackPanel>
-            </Button>
+            <Image Height="40" Margin="0 0 5 0" VerticalAlignment="Center" Source="Resources/icon.png" />
+            <controls:IconButton x:Name="BtnAddTask" Click="BtnAddTask_Click"
+                Text="添加下载任务" Icon="&#xE710;" DockPanel.Dock="Left" Margin="5 0 5 0" IsEnabled="{Binding IsBtnAddTaskEnable}"/>
+            <controls:IconButtonAccent x:Name="BtnStart" Click="BtnStart_Click" IsEnabled="{Binding IsBtnStartEnable}"
+                Text="下载全部" Icon="&#xE768;" DockPanel.Dock="Left" Margin="5 0 5 0"/>
+            <controls:IconButton x:Name="BtnStop" IsEnabled="{Binding IsBtnStopEnable}"
+                Text="暂停" Icon="&#xE769;" DockPanel.Dock="Left" Margin="5 0 5 0" Click="BtnStop_Click"/>
+            <controls:IconButton x:Name="BtnRemoveAll"
+                Text="清空列表" Icon="&#xEA99;" DockPanel.Dock="Left" Margin="5 0 5 0" IsEnabled="{Binding IsBtnRemoveAllEnable}"
+                ToolTip="清空已下载物品的列表，这不会删除物品文件" ToolTipService.InitialShowDelay="100" Click="BtnRemoveAll_Click"/>
+            <controls:IconButton x:Name="BtnRemoveFM"
+                Text="移除失效项" Icon="&#xE711;" DockPanel.Dock="Left" Margin="5 0 5 0" IsEnabled="{Binding IsBtnRemoveAllEnable}"
+                ToolTip="移除下载失败和文件丢失的物品" ToolTipService.InitialShowDelay="100" Click="BtnRemoveFM_Click"/>
+            <controls:IconButton x:Name="BtnMore" Click="BtnMore_Click"
+                Text="更多" Icon="&#xE712;" DockPanel.Dock="Right" Margin="5 0 5 0"/>
         </DockPanel>
-        <Separator BorderBrush="#d4d4d4"  DockPanel.Dock="Top"/>
+        <Separator BorderBrush="{StaticResource BhBorder}"  DockPanel.Dock="Top" Margin="0"/>
+        
         <!--底栏-->
-        <DockPanel DockPanel.Dock="Bottom" LastChildFill="False" Background="#FF565656">
-            <Button x:Name="BtnOpenFolder" Margin="10 10 5 10" VerticalAlignment="Center" Height="40" IsEnabled="False">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xE838;" VerticalAlignment="Center" Foreground="Black"/>
-                    <TextBlock Text=" 打开文件夹" Foreground="Black"/>
-                </StackPanel>
-            </Button>
-            <Button x:Name="BtnRemove" Margin="5 10 5 10" VerticalAlignment="Center" Height="40" IsEnabled="False">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xE711;" VerticalAlignment="Center" Foreground="Black"/>
-                    <TextBlock Text=" 从列表中清除" Foreground="Black"/>
-                </StackPanel>
-            </Button>
-            <Button x:Name="BtnLog" Margin="5 10 10 10" VerticalAlignment="Center" Height="40" DockPanel.Dock="Right">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xE8A4;" VerticalAlignment="Center" Foreground="Black"/>
-                    <TextBlock Text=" 打开日志窗口" Foreground="Black"/>
-                </StackPanel>
-            </Button>
+        <DockPanel DockPanel.Dock="Bottom" LastChildFill="False" Background="{StaticResource BhGray}">
+            <controls:IconButton x:Name="BtnLog" Click="BtnLog_Click"
+                Text="打开日志窗口" Icon="&#xE8A4;" DockPanel.Dock="Right" Margin="5 10 10 10"/>
+            <TextBlock DockPanel.Dock="Left" VerticalAlignment="Center" Margin="20 10 10 10" Text="{Binding StatusText}"/>
         </DockPanel>
         <Separator DockPanel.Dock="Bottom" BorderBrush="#d4d4d4"/>
+        <ProgressBar x:Name="ProgressBar" DockPanel.Dock="Bottom" IsIndeterminate="{Binding IsIndeterminate}" 
+                     Background="Transparent"/>
+        
         <!--下载列表-->
-        <ListView SelectionChanged="ListView_SelectionChanged" Foreground="White"></ListView>
+        <ListView ItemsSource="{Binding DisplayItems}" FontSize="13" Background="{StaticResource BhLight}">
+            <!--右键菜单-->
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="ContextMenu" Value="{StaticResource ContextMenu}"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <!--列表-->
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="" Width="60">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5 5 5 5"
+                                       Height="40" Source="{Binding PreviewImage}" ToolTipService.InitialShowDelay="300">
+                                    <ToolTipService.ToolTip>
+                                        <Image VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0"
+                                        Height="200" Source="{Binding PreviewImage}" />
+                                    </ToolTipService.ToolTip>
+                                </Image>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="名称" Width="280">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock TextTrimming="CharacterEllipsis" Text="{Binding ItemName}" ToolTip="{Binding ItemName}" 
+                                           ToolTipService.InitialShowDelay="300"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="适用的 App" Width="170">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock TextTrimming="CharacterEllipsis" Text="{Binding AppName}" ToolTip="{Binding AppName}"
+                                           ToolTipService.InitialShowDelay="300"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="大小" Width="100" DisplayMemberBinding="{Binding ItemSize}"/>
+                    <GridViewColumn Header="状态" Width="250">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock TextTrimming="CharacterEllipsis" Text="{Binding State}" ToolTip="{Binding State}"
+                                    ToolTipService.InitialShowDelay="300"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </DockPanel>
 
 </Window>

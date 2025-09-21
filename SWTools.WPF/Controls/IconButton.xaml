@@ -1,0 +1,14 @@
+<UserControl x:Class="SWTools.WPF.Controls.IconButton"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:local="clr-namespace:SWTools.WPF"
+    x:Name="root">
+    <Button VerticalAlignment="Center" Height="40" x:Name="Btn">
+        <StackPanel Orientation="Horizontal">
+            <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Text="{Binding ElementName=root, Path=Icon}" VerticalAlignment="Center" Margin="0 0 10 0"/>
+            <TextBlock Text="{Binding ElementName=root, Path=Text}"/>
+        </StackPanel>
+    </Button>
+</UserControl>

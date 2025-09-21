@@ -1,19 +1,18 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Text;
 using System.Text.Json;
+using PropertyChanged;
 using Serilog;
-using static SWTools.Core.Item;
 
 namespace SWTools.Core {
     /// <summary>
     /// 创意工坊物品物品列表 (容器)
     /// </summary>
-    public class ItemList : List<Item> {
-        // 空列表
-        public static readonly ItemList Empty = [];
-
+    [AddINotifyPropertyChangedInterface]
+    public class ItemList : ObservableCollection<Item> {
         // 检查是否包含指定 ItemId 的物品
-        public bool Contains(string itemId) {
+        public bool Contains(in string itemId) {
             foreach (var item in this) {
                 if (item.ItemId.Equals(itemId)) {
                     return true;
@@ -23,17 +22,17 @@ namespace SWTools.Core {
         }
 
         // 查找指定 Item ID 对应的物品
-        public Item Find(string itemId) {
+        public Item? Find(in string itemId) {
             foreach (var item in this) {
                 if (item.ItemId == itemId) {
                     return item;
                 }
             }
-            return Item.Empty;
+            return null;
         }
 
         // 查找指定 Item ID 对应的物品，返回索引
-        public int FindIndex(string itemId) {
+        public int FindIndex(in string itemId) {
             for (var i = 0; i < Count; i++) {
                 if (this[i].ItemId == itemId) {
                     return i;
@@ -42,13 +41,20 @@ namespace SWTools.Core {
             return -1;
         }
 
+        // 添加物品
+        public new void Add(Item item) {
+            if (!Contains(item.ItemId)) {
+                base.Add(item);
+            }
+        }
+
         // 序列化到 Json
         public override string ToString() {
             try {
-                return JsonSerializer.Serialize(this, Helper._jsonOptions);
+                return JsonSerializer.Serialize(this, Constants.JsonOptions);
             }
             catch (Exception ex) {
-                Log.Logger.Error("Exception occured when serializing Json:\n{Exception}", ex);
+                LogManager.Log.Error("Exception occured when serializing Json:\n{Exception}", ex);
                 return string.Empty;
             }
         }
@@ -58,69 +64,93 @@ namespace SWTools.Core {
             try {
                 using StreamWriter sw = new(fileName);
                 sw.Write(ToString());
-                Log.Information("Saved {Count} item(s) to {Filaname}", Count, fileName);
+                LogManager.Log.Information("Saved {Count} item(s) to {Filaname}", Count, fileName);
                 return true;
             }
             catch (Exception ex) {
-                Log.Logger.Error("Exception occured when saving {FileName}:\n{Exception}",
+                LogManager.Log.Error("Exception occured when saving {FileName}:\n{Exception}",
                     fileName, ex);
                 return false;
             }
         }
 
         // 从 Json 读取
-        public static ItemList Load(in string fileName) {
+        public static ItemList? Load(in string fileName) {
             try {
                 string jsonString;
                 using StreamReader sr = new(fileName);
                 jsonString = sr.ReadToEnd();
-                var list = JsonSerializer.Deserialize<ItemList>(jsonString, Helper._jsonOptions);
-                if (list == null) return Empty;
+                var list = JsonSerializer.Deserialize<ItemList>(jsonString, Constants.JsonOptions);
+                if (list == null)
+                    return null;
                 list.RemoveEmptyItem();
-                Log.Information("Loaded {Count} item(s) from {Filaname}", list.Count, fileName);
+                LogManager.Log.Information("Loaded {Count} item(s) from {Filaname}", list.Count, fileName);
                 return list;
             }
             catch (Exception ex) {
-                Log.Logger.Error("Exception occured when loading from {FileName}:\n{Exception}",
+                LogManager.Log.Error("Exception occured when loading from {FileName}:\n{Exception}",
                     fileName, ex);
-                return Empty;
-            }
-        }
-
-        // 用传入物品列表更新当前列表
-        public void UpdateWith(in ItemList another) {
-            for (var i = 0; i < Count; i++) {
-                if (another.Contains(this[i].ItemId)) {
-                    this[i] = another.Find(this[i].ItemId);
-                }
+                return null;
             }
         }
 
         // 解析全部队列中物品
-        public void ParseAll() {
-            List<string> items = [];
-            StringBuilder sb = new();
-            sb.Append('[');
+        public async Task ParseAll() {
+            if (!ConfigManager.Config.NoCache) await ParseWithCache();
+            await ParseAllWithRequest();
+        }
+
+        // 缓存解析
+        private async Task ParseWithCache() {
+            // 设置状态
             foreach (var item in this) {
                 if (item.ParseState == Item.EParseState.InQueue) {
+                    item.ParseState = Item.EParseState.Handling;
+                }
+            }
+            await Task.Delay(500); // 仪式感
+            for (var i = 0; i < Count; i++) {
+                if (this[i].ParseState == Item.EParseState.Handling) {
+                    if (Cache.Parse.Get(this[i].ItemId) != null) {
+                        this[i] = Cache.Parse.Get(this[i].ItemId)!;
+                    }
+                }
+            }
+            // 复位状态
+            foreach (var item in this) {
+                if (item.ParseState == Item.EParseState.Handling) {
+                    item.ParseState = Item.EParseState.InQueue;
+                }
+            }
+        }
+
+        // 联网解析
+        private async Task ParseAllWithRequest() {
+            // 请求 API
+            List<string> items = [];
+            foreach (var item in this) {
+                if (item.ParseState == Item.EParseState.InQueue) {
+                    item.ParseState = Item.EParseState.Handling;
                     items.Add(item.ItemId);
-                    if (sb.Length > 1) sb.Append(',');
-                    sb.Append(item.ItemId);
                 }
             }
-            sb.Append(']');
-            string str = Helper.MakeHttpPost(SwdApi.Url, sb.ToString());
-            // 处理回复
-            try {
-                var response = JsonSerializer.Deserialize<SwdApi.Response[]>(str, Helper._jsonOptions);
-                if (response == null) throw new Exception("response is null");
+            if (items.Count == 0) return;
+            var response = await API.SwDownloader.Request(items);
+            // 处理回复，注意回复的序列可能和请求的不一致
+            if (response == null || response.Length == 0) {
+                LogManager.Log.Error("Failed to parse items: Empty response");
+            } else {
                 for (var i = 0; i < response.Length; i++) {
-                    if (!Contains(items[i])) continue;
-                    this[FindIndex(items[i])].ParseWith(response[i]);
+                    if (response[i].publishedfileid == null) continue;
+                    if (!Contains(response[i].publishedfileid!)) continue;
+                    this[FindIndex(response[i].publishedfileid!)].ParseWith(response[i]);
                 }
             }
-            catch (Exception ex) {
-                Log.Logger.Error("Exception occured when deserializing Json:\n{Exception}", ex);
+            // 设置状态
+            foreach (var item in this) {
+                if (items.Contains(item.ItemId) && item.ParseState == Item.EParseState.Handling) {
+                    item.ParseState = Item.EParseState.Failed;
+                }
             }
         }
 
@@ -128,7 +158,8 @@ namespace SWTools.Core {
         private void RemoveEmptyItem() {
             List<Item> itemsToRemove = [];
             foreach (var item in this) {
-                if (string.IsNullOrEmpty(item.ItemId)) itemsToRemove.Add(item);
+                if (string.IsNullOrEmpty(item.ItemId))
+                    itemsToRemove.Add(item);
             }
             foreach (var item in itemsToRemove) {
                 Remove(item);
@@ -138,14 +169,14 @@ namespace SWTools.Core {
         // 检查已下载的物品是否丢失
         public void CheckDownloadedItems() {
             int count = 0;
-            for(var i = 0; i < Count; i++) {
-                if (this[i].DownloadState == EDownloadState.Done &&
+            for (var i = 0; i < Count; i++) {
+                if (this[i].DownloadState == Item.EDownloadState.Done &&
                     !Directory.Exists(this[i].GetDownloadPath())) {
-                    this[i].DownloadState = EDownloadState.Missing;
+                    this[i].DownloadState = Item.EDownloadState.Missing;
                     count++;
                 }
             }
-            Log.Logger.Information("Found {Count} item(s) missing", count);
+            LogManager.Log.Information("Found {Count} item(s) missing", count);
         }
     }
 }

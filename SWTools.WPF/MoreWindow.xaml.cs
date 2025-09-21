@@ -1,89 +1,71 @@
 ﻿using System;
-using System.IO;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Semver;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-
+using System.Windows.Navigation;
 
 namespace SWTools.WPF {
     /// <summary>
     /// MoreWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class MoreWindow : Window
-    {
-        public MoreWindow()
-        {
-            InitializeComponent();
-            VersionText.Text = $"这是 Steam Workshop Tools v{SWTools.Core.Helper.GetVersionStr()}。";
-
-            if (File.Exists("./background.dat"))
-            {
-                // 读取 background.dat 文件内容作为背景图片路径
-                string backgroundfile;
-                using (FileStream F = new FileStream("./background.dat", FileMode.Open, FileAccess.Read, FileShare.Read))
-                {
-                    byte[] buffer = new byte[F.Length];
-                    F.ReadExactly(buffer);
-                    backgroundfile = Encoding.UTF8.GetString(buffer);
-                    F.Close();
-                }
-                if (backgroundfile != null)
-                {
-                    this.Background = new ImageBrush(new BitmapImage(new Uri(backgroundfile, UriKind.Absolute)));
-                }
-            }
+    public partial class MoreWindow : Window {
+        // ViewModel 访问点
+        public ViewModel.MoreWindow ViewModel {
+            get => (ViewModel.MoreWindow)DataContext;
+            set { DataContext = value; }
         }
 
-        private void BtnOk_Click(object sender, RoutedEventArgs e)
-        {
+        public MoreWindow() {
+            InitializeComponent();
+        }
+
+        private void BtnOk_Click(object sender, RoutedEventArgs e) {
             Close();
         }
 
-        private void BtnGithub_Click(object sender, RoutedEventArgs e)
-        {
+        private void BtnGithub_Click(object sender, RoutedEventArgs e) {
             System.Diagnostics.Process.Start("explorer.exe",
                 "https://github.com/King-zzk/Steam-Workshops-Tools-SWTools");
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-            // 获取文本框内容
-            string? backgroundfile = backgroundtextbox?.Text;
-
-            if (string.IsNullOrWhiteSpace(backgroundfile))
-            {
-                MessageBox.Show("请输入文件地址！");
-                return;
+        private void BtnClearCache_Click(object sender, RoutedEventArgs e) {
+            MsgBox msgBox0 = new("操作确认", "确认要清空缓存吗？\n", true) { Owner = this };
+            if (msgBox0.ShowDialog() == true) {
+                Core.Helper.Main.ClearAllCache();
+                MsgBox msgBox = new("清理完成", "已删除缓存（程序正在引用的缓存除外）。", false) { Owner = this };
+                msgBox.ShowDialog();
             }
+        }
 
-            if (!File.Exists(backgroundfile))
-            {
-                MessageBox.Show("文件不存在，请检查路径是否正确！");
-                return;
+        private void BtnReset_Click(object sender, RoutedEventArgs e) {
+            MsgBox msgBox0 = new("操作确认", "确认要重置所有设置吗？\n", true) { Owner = this };
+            if (msgBox0.ShowDialog() == true) {
+                ViewModel.Config = new();
             }
+        }
 
-            try
-            {
-                // 存储文件地址 
-                FileStream F = new FileStream("background.dat",
-                    FileMode.OpenOrCreate, FileAccess.ReadWrite);
-                F.Write(Encoding.UTF8.GetBytes(backgroundfile));
-                F.Close();
-                MessageBox.Show("设置背景成功，请重启软件以应用新背景！","提示",MessageBoxButton.OK);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"设置背景失败: {ex.Message}");
+        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e) {
+            System.Diagnostics.Process.Start("explorer.exe", e.Uri.ToString());
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e) {
+            // 提示新版本
+            if (!SWTools.ViewModel.MoreWindow.HasHintedLatestVersion) {
+                SWTools.ViewModel.MoreWindow.HasHintedLatestVersion = true;
+                var info = Core.Helper.Main.ReadLatestInfo();
+                if (info == null) return;
+                if (info.Release != null &&
+                SemVersion.Parse(info.Release).CompareSortOrderTo(Core.Constants.Version) > 0) {
+                    MsgBox msgBox = new("发现新版本", $"检测到新的发行版：{info.Release}\n（当前版本：{Core.Constants.Version}）\n\n" +
+                        $"您可以在下方链接获取新版本。", false,
+                        "查看 Release 页面", Core.Constants.UrlRelease) { Owner = this };
+                    msgBox.ShowDialog();
+                } else if (info.PreRelease != null &&
+                    SemVersion.Parse(info.PreRelease).CompareSortOrderTo(Core.Constants.Version) > 0) {
+                    MsgBox msgBox = new("发现新的预览版本", $"检测到新的预发行版：{info.Release}\n（当前版本：{Core.Constants.Version}）\n\n" +
+                        $"您可以在下方链接获取新版本。", false,
+                        "查看 Release 页面", Core.Constants.UrlRelease) { Owner = this };
+                    msgBox.ShowDialog();
+                }
             }
         }
     }

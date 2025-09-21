@@ -1,0 +1,37 @@
+{
+    "Version": "2025-09-20",
+    "Accounts": [
+        {
+            "//": "钢铁雄心4",
+            "Name": "thb112259",
+            "Password": "steamok7416",
+            "AppIds": [
+                394360
+            ]
+        },
+        {
+            "//": "壁纸引擎",
+            "Name": "kzeon410",
+            "Password": "wnq69815I",
+            "AppIds": [
+                431960
+            ]
+        },
+        {
+            "//": "十字军之王3",
+            "Name": "thb112181",
+            "Password": "steamok123123",
+            "AppIds": [
+                255710
+            ]
+        },
+        {
+            "//": "文明6",
+            "Name": "wenming622",
+            "Password": "Sw608728",
+            "AppIds": [
+                289070
+            ]
+        }
+    ]
+}
