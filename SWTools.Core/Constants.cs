@@ -35,7 +35,7 @@ namespace SWTools.Core {
         // Steamcmd
         public const string UrlSteamcmd = "https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip";
         // 仓库托管的 API
-        public const string UrlRepoApi = "https://raw.githubusercontent.com/King-zzk/Steam-Workshops-Tools-SWTools/refs/heads/dev-dotnet-mlazy/api/";
+        public const string UrlRepoApi = "https://raw.githubusercontent.com/King-zzk/Steam-Workshops-Tools-SWTools/refs/heads/dev-dotnet/api/";
         // Release 页面
         public const string UrlRelease = "https://github.com/King-zzk/Steam-Workshops-Tools-SWTools/releases";
         // Github 代理
