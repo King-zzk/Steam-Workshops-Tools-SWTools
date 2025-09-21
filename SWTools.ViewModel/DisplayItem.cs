@@ -78,7 +78,7 @@ namespace SWTools.ViewModel {
                     } else if (item.DownloadState == Core.Item.EDownloadState.Done) {
                         State = "完成";
                     } else if (item.DownloadState == Core.Item.EDownloadState.Failed) {
-                        State = "失败：" + item.GetFailMessage();
+                        State = "下载失败：" + item.GetFailMessage();
                     }
                 }
             }

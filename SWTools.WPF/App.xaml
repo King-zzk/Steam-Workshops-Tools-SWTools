@@ -10,11 +10,12 @@
                 <ResourceDictionary Source="pack://application:,,,/PresentationFramework.Fluent;component/Themes/Fluent.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <!--背景画刷-->
-            <SolidColorBrush x:Key="BgLight" Color="#fdfdfd"/>
-            <SolidColorBrush x:Key="BgDefault" Color="#f3f3f3"/>
-            <SolidColorBrush x:Key="BgGray" Color="#e6e6e6"/>
-            
+            <!--画刷-->
+            <SolidColorBrush x:Key="BhLight" Color="#fdfdfd"/>
+            <SolidColorBrush x:Key="BhDefault" Color="#f3f3f3"/>
+            <SolidColorBrush x:Key="BhGray" Color="#e6e6e6"/>
+            <SolidColorBrush x:Key="BhBorder" Color="#d0d0d0"/>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

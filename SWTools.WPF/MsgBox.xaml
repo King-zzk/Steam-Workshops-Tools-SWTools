@@ -8,15 +8,15 @@
         mc:Ignorable="d"
         Title="标题"
         SizeToContent="WidthAndHeight"
-        MaxWidth="600"
+        MaxWidth="650"
         ResizeMode="NoResize" WindowStyle="ThreeDBorderWindow"
-        Background="{StaticResource BgDefault}" ThemeMode="Light"
+        Background="{StaticResource BhDefault}" ThemeMode="Light"
         WindowStartupLocation="CenterOwner"  ShowInTaskbar="False"
         RenderOptions.BitmapScalingMode="HighQuality">
 
     <DockPanel>
         <!--底栏-->
-        <DockPanel DockPanel.Dock="Bottom" LastChildFill="False" Background="{StaticResource BgGray}">
+        <DockPanel DockPanel.Dock="Bottom" LastChildFill="False" Background="{StaticResource BhGray}">
             <controls:IconButtonAccent x:Name="BtnYes" Click="BtnYes_Click"
                 Text="是" Icon="&#xE8FB;" DockPanel.Dock="Right" Margin="10 10 20 10"/>
             <controls:IconButton x:Name="BtnNo" Click="BtnNo_Click"
@@ -24,7 +24,7 @@
             <controls:IconButton x:Name="BtnLink" Click="BtnLink_Click"
                 Text="链接" Icon="&#xE71B;" DockPanel.Dock="Left" Margin="20 10 10 10"/>
         </DockPanel>
-        <Separator DockPanel.Dock="Bottom" BorderBrush="#d4d4d4"/>
+        <Separator DockPanel.Dock="Bottom" BorderBrush="{StaticResource BhBorder}"/>
         <!--主体-->
         <DockPanel>
             <TextBlock DockPanel.Dock="Left" Margin="40" FontFamily="{StaticResource SymbolThemeFontFamily}" 

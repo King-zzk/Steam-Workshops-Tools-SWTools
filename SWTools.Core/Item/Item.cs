@@ -54,7 +54,7 @@ namespace SWTools.Core {
             Null, Unknown, Exception,
             FileNotFound, Timeout, NoConnection,
             AccountDisabled, InvalidPassword, NoMatch,
-            AccessDenied
+            AccessDenied, LockingFailed
         }
         public enum EAfterParse {
             Nothing, Download
@@ -99,6 +99,8 @@ namespace SWTools.Core {
                     return "Steam App 与物品 ID 不匹配";
                 case EFailReason.AccessDenied:
                     return "账户权限不足";
+                case EFailReason.LockingFailed:
+                    return "文件被占用";
             }
             LogManager.Log.Error("Received unknown enum value: {FailReason}", FailReason);
             return string.Empty;
@@ -133,8 +135,10 @@ namespace SWTools.Core {
                 return EFailReason.InvalidPassword;
             } else if (downloadLog.Contains("No match")) {
                 return EFailReason.NoMatch;
-            } else if(downloadLog.Contains("Access Denied")) {
+            } else if (downloadLog.Contains("Access Denied")) {
                 return EFailReason.AccessDenied;
+            } else if (downloadLog.Contains("Locking Failed")) {
+                return EFailReason.LockingFailed;
             }
             return EFailReason.Unknown;
         }

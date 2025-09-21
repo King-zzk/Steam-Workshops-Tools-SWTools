@@ -10,7 +10,7 @@
         Title="更多信息" 
         Height="480" Width="680"
         ResizeMode="NoResize"
-        Background="{StaticResource BgDefault}" ThemeMode="Light"
+        Background="{StaticResource BhDefault}" ThemeMode="Light"
         WindowStartupLocation="CenterOwner"  ShowInTaskbar="False"
         RenderOptions.BitmapScalingMode="HighQuality"
         Loaded="Window_Loaded">
@@ -20,14 +20,14 @@
 
     <DockPanel>
         <!--底栏-->
-        <DockPanel DockPanel.Dock="Bottom" LastChildFill="False" Background="{StaticResource BgGray}">
+        <DockPanel DockPanel.Dock="Bottom" LastChildFill="False" Background="{StaticResource BhGray}">
             <controls:IconButtonAccent x:Name="BtnOk" Click="BtnOk_Click"
                 Text="确定" Icon="&#xE8FB;" DockPanel.Dock="Right" Margin="10 10 20 10"/>
         </DockPanel>
-        <Separator DockPanel.Dock="Bottom" BorderBrush="#d4d4d4"/>
+        <Separator DockPanel.Dock="Bottom" BorderBrush="{StaticResource BhBorder}"/>
         <!--标签页-->
         <TabControl Margin="0,8,0,0">
-            <TabItem IsSelected="True" Background="{StaticResource BgLight}">
+            <TabItem IsSelected="True" Background="{StaticResource BhLight}">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal" Margin="5 0 5 0" MinWidth="60">
                         <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xECAA;" VerticalAlignment="Center" Margin="0 0 10 0"/>
@@ -62,7 +62,7 @@
                     </TextBlock>
                 </StackPanel>
             </TabItem>
-            <TabItem Background="{StaticResource BgLight}">
+            <TabItem Background="{StaticResource BhLight}">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal" Margin="5 0 5 0" MinWidth="80">
                         <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xE713;" VerticalAlignment="Center" Margin="0 0 10 0"/>
@@ -77,7 +77,7 @@
                                 Text="您做的大多数更改会被立即保存并生效。"/>
                     </DockPanel>
                     <TreeView Padding="5" AllowDrop="True" ScrollViewer.CanContentScroll="True"
-                              Background="{StaticResource BgLight}">
+                              Background="{StaticResource BhLight}">
                         <!--常规选项-->
                         <TreeViewItem IsExpanded="True">
                             <TreeViewItem.Header>
@@ -104,7 +104,7 @@
                     </TreeView>
                 </DockPanel>
             </TabItem>
-            <TabItem Background="{StaticResource BgLight}">
+            <TabItem Background="{StaticResource BhLight}">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal" Margin="5 0 5 0" MinWidth="80">
                         <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xE8A5;" VerticalAlignment="Center" Margin="0 0 10 0"/>

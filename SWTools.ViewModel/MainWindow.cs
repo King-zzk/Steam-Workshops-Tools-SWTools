@@ -222,11 +222,7 @@ namespace SWTools.ViewModel {
         // 更新绑定
         public void UpdateDisplay() {
             DisplayItems.Clear();
-            bool hasInqueue = false; // 是否有等待下载的物品
             foreach (var item in _itemList) {
-                if (item.DownloadState == Core.Item.EDownloadState.InQueue) {
-                    hasInqueue = true;
-                }
                 DisplayItem displayItem = new(item, false);
                 displayItem.PropertyChanged += (s, e) => {
                     UpdateDisplay();
@@ -235,10 +231,6 @@ namespace SWTools.ViewModel {
                     _ = displayItem.DownloadPreviewImage();
                 }
                 DisplayItems.Add(displayItem);
-            }
-            // 状态栏
-            if (hasInqueue && !IsDownloading) {
-                StatusText = "提示：单击 “下载全部” 开始下载物品";
             }
         }
     }

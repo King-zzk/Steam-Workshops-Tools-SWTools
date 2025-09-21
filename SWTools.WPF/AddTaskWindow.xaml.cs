@@ -1,16 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace SWTools.WPF {
     /// <summary>
@@ -23,18 +13,14 @@ namespace SWTools.WPF {
             set { DataContext = value; }
         }
 
+        private bool _closeFromBtnOk = false;
+
         public AddTaskWindow() {
             InitializeComponent();
         }
 
         private void BtnOk_Click(object sender, RoutedEventArgs e) {
-            if (ViewModel.DisplayItems.Count == 0) {
-                MsgBox msgBox = new("未添加任何物品", "看起来你没有添加任何物品，\n确认关闭此窗口吗？", true) { Owner = this };
-                bool? res = msgBox.ShowDialog();
-                if (res == true) {
-                    Close();
-                }
-            } else if (ViewModel.HasParsing()) {
+            if (ViewModel.HasParsing()) {
                 MsgBox msgBox = new("请等待当前解析完成", "请等待列表中所有物品完成解析再关闭此窗口。", false) { Owner = this };
                 msgBox.ShowDialog();
             } else if (ViewModel.HasFailed()) {
@@ -62,11 +48,12 @@ namespace SWTools.WPF {
                 }
                 if (dupItems.Count > 0) {
                     MsgBox msgBox = new("有重复的物品", "待添加的物品中有一个或多个已在下载列表中，您是否想覆盖？\n" +
-                    "单击“否”，重复的物品不会被添加到下载列表；\n" +
-                    "单击“是”，将会覆盖下载列表中重复的物品。", true) { Owner = this };
+                    "单击 “否”，重复的物品不会被添加到下载列表；\n" +
+                    "单击 “是”，将会覆盖下载列表中重复的物品。\n\n" +
+                    "被覆盖的物品可能会被重新下载。", true) { Owner = this };
                     bool? res = msgBox.ShowDialog();
                     if (res == true) {
-                        foreach(var item in dupItems) {
+                        foreach (var item in dupItems) {
                             owner.ViewModel.Items.Remove(owner.ViewModel.Items.Find(item)!);
                         }
                     }
@@ -75,6 +62,7 @@ namespace SWTools.WPF {
                 foreach (var item in ViewModel.Items) {
                     owner.ViewModel.Items.Add(item);
                 }
+                _closeFromBtnOk = true;
                 Close();
             }
         }
@@ -90,8 +78,9 @@ namespace SWTools.WPF {
         private void BtnHelpItem_Click(object sender, RoutedEventArgs e) {
             MsgBox msgBox = new("什么是物品 ID？",
                 "每个创意工坊物品有唯一的物品 ID。\n" +
-                "例如，您要下载的创意工坊物品的网页位于：\n" +
+                "例如，您要下载的创意工坊物品的网页位于：\n\n" +
                 "https://steamcommunity.com/sharedfiles/filedetails/?id=XXXXXX\n" +
+                "或 https://steamcommunity.com/sharedfiles/filedetails/XXXXXX\n\n" +
                 "那么 “XXXXXX” 就是物品 ID。", false) { Owner = this };
             msgBox.ShowDialog();
         }
@@ -110,8 +99,8 @@ namespace SWTools.WPF {
         private void BtnHelpApp_Click(object sender, RoutedEventArgs e) {
             MsgBox msgBox = new("什么是 App ID？",
                 "每个 Steam App（包括游戏）有唯一的 ID。\n" +
-                "例如，对于您要下载的物品，其所属 App 的网页位于：\n" +
-                "https://steamcommunity.com/app/XXXXXX\n" +
+                "例如，对于您要下载的物品，其所属 App 的网页位于：\n\n" +
+                "https://steamcommunity.com/app/XXXXXX\n\n" +
                 "那么 “XXXXXX” 就是 App ID。", false) { Owner = this };
             msgBox.ShowDialog();
         }
@@ -164,6 +153,23 @@ namespace SWTools.WPF {
 
         private void BtnParseRetry_Click(object sender, RoutedEventArgs e) {
             ViewModel.RetryParse();
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
+            if (_closeFromBtnOk) return;
+            if (ViewModel.DisplayItems.Count == 0) {
+                MsgBox msgBox = new("确认关闭？", "看起来你没有添加任何物品，\n确认关闭此窗口吗？", true) { Owner = this };
+                bool? res = msgBox.ShowDialog();
+                if (res != true) {
+                    e.Cancel = true;
+                }
+            } else {
+                MsgBox msgBox = new("确认关闭？", "您似乎有待添加的物品。\n请单击 “确认” 把列表中的物品添加到下载列表。\n\n单击 “是”，此窗口会关闭但不添加物品。", true) { Owner = this };
+                bool? res = msgBox.ShowDialog();
+                if (res != true) {
+                    e.Cancel = true;
+                }
+            }
         }
     }
 }
