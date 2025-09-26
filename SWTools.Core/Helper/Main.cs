@@ -34,8 +34,9 @@ namespace SWTools.Core.Helper {
         // 清空所有缓存
         public static void ClearAllCache() {
             try {
-                Directory.Delete(Constants.CacheDir, true);
-                LogManager.Log.Information("Deleted {CacheDir}", Constants.CacheDir);
+                Cache.Parse.Clear();
+                Directory.Delete(Constants.PreviewDir, true);
+                LogManager.Log.Information("Deleted {CacheDir}", Constants.PreviewDir);
             }
             catch (Exception ex) {
                 LogManager.Log.Error("Exception occured when deleting {CacheDir}:\n{Exception}", Constants.CacheDir, ex);

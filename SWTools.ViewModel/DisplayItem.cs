@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Threading;
 using System.IO;
+using System.Windows.Media;
 
 namespace SWTools.ViewModel {
     /// <summary>
@@ -24,6 +20,8 @@ namespace SWTools.ViewModel {
         public string Creator { get; set; } = "";
         public string State { get; set; } = "";
 
+        public Brush Brush { get; set; }
+
         private string _previewImage = "";
         public string PreviewImage {
             get { return _previewImage; }
@@ -33,6 +31,7 @@ namespace SWTools.ViewModel {
                 OnPropertyChanged(nameof(PreviewImage));
             }
         }
+        public const string PreviewImageDefault = "Resources/default-preview.png";
 
         public DisplayItem(Core.Item item) {
             Item = item;
@@ -56,14 +55,19 @@ namespace SWTools.ViewModel {
             if (displayParseState) {
                 if (item.ParseState == Core.Item.EParseState.Failed) {
                     State = "解析失败";
+                    Brush = new SolidColorBrush(Colors.Red);
                 } else if (item.ParseState == Core.Item.EParseState.Manual) {
                     State = "手动指定";
+                    Brush = new SolidColorBrush(Colors.DarkOliveGreen);
                 } else if (item.ParseState == Core.Item.EParseState.InQueue) {
                     State = "等待解析...";
+                    Brush = new SolidColorBrush(Colors.Black);
                 } else if (item.ParseState == Core.Item.EParseState.Handling) {
                     State = "解析中...";
+                    Brush = new SolidColorBrush(Colors.DarkCyan);
                 } else if (item.ParseState == Core.Item.EParseState.Done) {
                     State = "完成";
+                    Brush = new SolidColorBrush(Colors.DarkGreen);
                 }
             } else {
                 if (item.ParseState == Core.Item.EParseState.Failed) {
@@ -71,26 +75,31 @@ namespace SWTools.ViewModel {
                 } else {
                     if (item.DownloadState == Core.Item.EDownloadState.InQueue) {
                         State = "等待下载...";
+                        Brush = new SolidColorBrush(Colors.Black);
                     } else if (item.DownloadState == Core.Item.EDownloadState.Handling) {
                         State = "下载中...";
+                        Brush = new SolidColorBrush(Colors.DarkCyan);
                     } else if (item.DownloadState == Core.Item.EDownloadState.Missing) {
                         State = "文件丢失";
+                        Brush = new SolidColorBrush(Colors.Red);
                     } else if (item.DownloadState == Core.Item.EDownloadState.Done) {
-                        State = "完成";
+                        State = "✔ 完成";
+                        Brush = new SolidColorBrush(Colors.DarkGreen);
                     } else if (item.DownloadState == Core.Item.EDownloadState.Failed) {
                         State = "下载失败：" + item.GetFailMessage();
+                        Brush = new SolidColorBrush(Colors.DarkRed);
                     }
                 }
             }
             // 从缓存加载缩略图 (必须，不受 Config.UseCaeche 影响)
             if (string.IsNullOrEmpty(item.UrlPreview)) {
-                PreviewImage = "Resources/default-preview.png";
+                PreviewImage = PreviewImageDefault;
             }
             string? fileName = Core.Helper.Main.FindFileIgnoreExt(Core.Constants.PreviewDir, item.ItemId);
             if (fileName != null) {
                 PreviewImage = Path.GetFullPath(Core.Constants.PreviewDir + fileName);
             } else {
-                PreviewImage = String.Empty;
+                PreviewImage = PreviewImageDefault;
             }
         }
 

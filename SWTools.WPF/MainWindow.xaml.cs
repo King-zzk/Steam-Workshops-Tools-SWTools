@@ -137,7 +137,16 @@ namespace SWTools.WPF {
                 msgBox.ShowDialog();
                 return;
             }
-            ViewModel.Items.Remove(item.Item);
+            if (item.Item.DownloadState == Core.Item.EDownloadState.Done) {
+                MsgBox msgBox = new("操作确认", "确认要从列表中移除吗？\n" +
+                    "这样做不会删除文件，已下载的物品将占用空间，直到您手动删除。", true) { Owner = this };
+                bool? res = msgBox.ShowDialog();
+                if (res == true) {
+                    ViewModel.Items.Remove(item.Item);
+                }
+            } else {
+                ViewModel.Items.Remove(item.Item);
+            }
         }
 
         private void MenuOpenFolder_Click(object sender, RoutedEventArgs e) {

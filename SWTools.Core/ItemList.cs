@@ -1,9 +1,10 @@
-﻿using System;
+﻿using PropertyChanged;
+using Serilog;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 using System.Text.Json;
-using PropertyChanged;
-using Serilog;
 
 namespace SWTools.Core {
     /// <summary>
@@ -156,27 +157,27 @@ namespace SWTools.Core {
 
         // 移除空物品
         private void RemoveEmptyItem() {
-            List<Item> itemsToRemove = [];
-            foreach (var item in this) {
-                if (string.IsNullOrEmpty(item.ItemId))
-                    itemsToRemove.Add(item);
-            }
-            foreach (var item in itemsToRemove) {
-                Remove(item);
-            }
+            var items = from item in this
+                        where string.IsNullOrEmpty(item.ItemId)
+                        select item;
+            foreach (var item in items) Remove(item);
         }
 
         // 检查已下载的物品是否丢失
         public void CheckDownloadedItems() {
-            int count = 0;
-            for (var i = 0; i < Count; i++) {
-                if (this[i].DownloadState == Item.EDownloadState.Done &&
-                    !Directory.Exists(this[i].GetDownloadPath())) {
-                    this[i].DownloadState = Item.EDownloadState.Missing;
-                    count++;
+            var items = from item in this
+                        where item.DownloadState == Item.EDownloadState.Done &&
+                            !Directory.Exists(item.GetDownloadPath())
+                        select item;
+            if (ConfigManager.Config.IgnoreMissingFiles) {
+                foreach (var item in items) Remove(item);
+                LogManager.Log.Information("Found {Count} item(s) missing, ignoring...", items.Count());
+            } else {
+                foreach (var item in items) {
+                    this[FindIndex(item.ItemId)].DownloadState = Item.EDownloadState.Missing;
                 }
+                LogManager.Log.Information("Found {Count} item(s) missing", items.Count());
             }
-            LogManager.Log.Information("Found {Count} item(s) missing", count);
         }
     }
 }

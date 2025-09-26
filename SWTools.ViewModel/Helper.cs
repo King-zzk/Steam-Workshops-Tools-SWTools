@@ -18,7 +18,7 @@ namespace SWTools.ViewModel {
             fbytes /= 1024;
             if (fbytes < 800) return fbytes.ToString("#.##") + " MiB";
             fbytes /= 1024;
-            return bytes.ToString("#.##") + " GiB";
+            return fbytes.ToString("#.##") + " GiB";
         }
     }
 }

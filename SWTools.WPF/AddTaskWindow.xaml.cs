@@ -35,6 +35,7 @@ namespace SWTools.WPF {
                             owner.ViewModel.Items.Add(item);
                         }
                     }
+                    _closeFromBtnOk = true;
                     Close();
                 }
             } else {
@@ -156,7 +157,6 @@ namespace SWTools.WPF {
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
-            if (_closeFromBtnOk) return;
             if (ViewModel.DisplayItems.Count == 0) {
                 MsgBox msgBox = new("确认关闭？", "看起来你没有添加任何物品，\n确认关闭此窗口吗？", true) { Owner = this };
                 bool? res = msgBox.ShowDialog();
@@ -164,6 +164,7 @@ namespace SWTools.WPF {
                     e.Cancel = true;
                 }
             } else {
+                if (_closeFromBtnOk) return;
                 MsgBox msgBox = new("确认关闭？", "您似乎有待添加的物品。\n请单击 “确认” 把列表中的物品添加到下载列表。\n\n单击 “是”，此窗口会关闭但不添加物品。", true) { Owner = this };
                 bool? res = msgBox.ShowDialog();
                 if (res != true) {

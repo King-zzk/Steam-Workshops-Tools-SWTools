@@ -10,34 +10,34 @@ namespace SWTools.Core.Cache {
     /// </summary>
     internal static class Parse {
         // 缓存
-        public static ItemList Cache { get; set; } = [];
+        private static ItemList _cache = [];
 
         // 查找缓存
         public static Item? Get(string itemId) {
-            return Cache.Find(itemId);
+            return _cache.Find(itemId);
         }
         // 存入缓存 (暂存)
         public static void Store(in Item item) {
-            lock (Cache) {
-                if (Cache.Contains(item.ItemId)) {
-                    Cache.Remove(Cache.Find(item.ItemId)!);
+            lock (_cache) {
+                if (_cache.Contains(item.ItemId)) {
+                    _cache.Remove(_cache.Find(item.ItemId)!);
                 }
                 item.DownloadState = Item.EDownloadState.InQueue;
-                Cache.Add(item);
+                _cache.Add(item);
             }
         }
 
         // 加载缓存
         public static void Load() {
             if (ConfigManager.Config.NoCache) return;
-            lock (Cache) {
+            lock (_cache) {
                 if (!File.Exists(Constants.CacheParseFile)) return;
                 var cache = ItemList.Load(Constants.CacheParseFile);
                 if (cache != null) {
                     foreach (var item in cache) {
                         if (item.IsCompleted()) {
                             item.DownloadState = Item.EDownloadState.InQueue;
-                            Cache.Add(item);
+                            _cache.Add(item);
                         }
                     }
                 }
@@ -45,19 +45,19 @@ namespace SWTools.Core.Cache {
         }
         // 保存缓存
         public static void Save() {
-            lock (Cache) {
+            lock (_cache) {
                 var path = Path.GetDirectoryName(Constants.CacheParseFile);
                 if (path == null) return;
                 if (!Directory.Exists(path)) {
                     Directory.CreateDirectory(path);
                 }
-                Cache.Save(Constants.CacheParseFile);
+                _cache.Save(Constants.CacheParseFile);
             }
         }
         // 清空缓存
         public static void Clear() {
-            lock (Cache) {
-                Cache.Clear();
+            lock (_cache) {
+                _cache.Clear();
                 if (File.Exists(Constants.CacheParseFile)) {
                     File.Delete(Constants.CacheParseFile);
                     LogManager.Log.Information("Deleted {Filaname}", Constants.CacheParseFile);

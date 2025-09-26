@@ -227,7 +227,8 @@ namespace SWTools.ViewModel {
                 displayItem.PropertyChanged += (s, e) => {
                     UpdateDisplay();
                 };
-                if (string.IsNullOrEmpty(displayItem.PreviewImage)) {
+                if (string.IsNullOrEmpty(displayItem.PreviewImage) ||
+                    displayItem.PreviewImage == DisplayItem.PreviewImageDefault) {
                     _ = displayItem.DownloadPreviewImage();
                 }
                 DisplayItems.Add(displayItem);

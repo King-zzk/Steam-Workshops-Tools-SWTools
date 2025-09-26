@@ -2,6 +2,7 @@
 using Semver;
 using System.Windows;
 using System.Windows.Navigation;
+using System.IO;
 
 namespace SWTools.WPF {
     /// <summary>
@@ -24,7 +25,7 @@ namespace SWTools.WPF {
 
         private void BtnGithub_Click(object sender, RoutedEventArgs e) {
             System.Diagnostics.Process.Start("explorer.exe",
-                "https://github.com/King-zzk/Steam-Workshops-Tools-SWTools");
+                Core.Constants.UrlRepo);
         }
 
         private void BtnClearCache_Click(object sender, RoutedEventArgs e) {
@@ -41,6 +42,12 @@ namespace SWTools.WPF {
             if (msgBox0.ShowDialog() == true) {
                 ViewModel.Config = new();
             }
+        }
+
+        private void BtnOpenDownloadFolder_Click(object sender, RoutedEventArgs e) {
+            var path = Core.Constants.SteamcmdDir + "steamapps/workshop/content/";
+            System.Diagnostics.Process.Start("explorer.exe",
+                Path.GetFullPath(path));
         }
 
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e) {

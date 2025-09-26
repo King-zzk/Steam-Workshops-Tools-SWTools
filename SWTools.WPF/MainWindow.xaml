@@ -39,7 +39,7 @@
                     </StackPanel>
                 </MenuItem.Header>
             </MenuItem>
-            <Separator BorderBrush="{StaticResource BhBorder}" Margin="5 0 5 0"/>
+            <Separator BorderBrush="{StaticResource BhBorder}"/>
             <MenuItem x:Name="MenuRetry" Click="MenuRetry_Click">
                 <MenuItem.Header>
                     <StackPanel Orientation="Horizontal">
@@ -67,7 +67,7 @@
                     </StackPanel>
                 </MenuItem.Header>
             </MenuItem>
-            <Separator BorderBrush="{StaticResource BhBorder}" Margin="5 0 5 0"/>
+            <Separator BorderBrush="{StaticResource BhBorder}"/>
             <MenuItem x:Name="MenuDelete" Click="MenuDelete_Click">
                 <MenuItem.Header>
                     <StackPanel Orientation="Horizontal">
@@ -139,7 +139,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock TextTrimming="CharacterEllipsis" Text="{Binding ItemName}" ToolTip="{Binding ItemName}" 
-                                           ToolTipService.InitialShowDelay="300"/>
+                                           ToolTipService.InitialShowDelay="300" Foreground="{Binding Brush}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -147,16 +147,23 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock TextTrimming="CharacterEllipsis" Text="{Binding AppName}" ToolTip="{Binding AppName}"
-                                           ToolTipService.InitialShowDelay="300"/>
+                                           ToolTipService.InitialShowDelay="300" Foreground="{Binding Brush}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="大小" Width="100" DisplayMemberBinding="{Binding ItemSize}"/>
+                    <GridViewColumn Header="大小" Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock TextTrimming="CharacterEllipsis" Text="{Binding ItemSize}" ToolTip="{Binding ItemSize}"
+                                    ToolTipService.InitialShowDelay="300" Foreground="{Binding Brush}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                     <GridViewColumn Header="状态" Width="250">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock TextTrimming="CharacterEllipsis" Text="{Binding State}" ToolTip="{Binding State}"
-                                    ToolTipService.InitialShowDelay="300"/>
+                                    ToolTipService.InitialShowDelay="300" Foreground="{Binding Brush}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

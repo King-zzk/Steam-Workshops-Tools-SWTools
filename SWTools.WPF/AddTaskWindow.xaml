@@ -90,7 +90,7 @@
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock TextTrimming="CharacterEllipsis" Text="{Binding ItemName}" ToolTip="{Binding ItemName}" 
-                                            ToolTipService.InitialShowDelay="300"/>
+                                            ToolTipService.InitialShowDelay="300" Foreground="{Binding Brush}"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -98,14 +98,14 @@
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock TextTrimming="CharacterEllipsis" Text="{Binding AppName}" ToolTip="{Binding AppName}"
-                                            ToolTipService.InitialShowDelay="300"/>
+                                            ToolTipService.InitialShowDelay="300" Foreground="{Binding Brush}"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                             <GridViewColumn Header="解析状态" Width="100">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock TextTrimming="CharacterEllipsis" Text="{Binding State}"/>
+                                        <TextBlock TextTrimming="CharacterEllipsis" Text="{Binding State}" Foreground="{Binding Brush}"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>

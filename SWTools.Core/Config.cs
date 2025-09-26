@@ -18,13 +18,16 @@ namespace SWTools.Core {
         // 空配置
         public static readonly Config Empty = new();
 
-        // 配置
+        // [常规]
+        public bool IgnoreMissingFiles = false;         // 忽略丢失的文件
+
+        // [调试选项]
 #if DEBUG
-        public bool LogDebug { get; set; } = true;                 // 输出调试日志
+        public bool LogDebug { get; set; } = true;      // 输出调试日志
 #else
-        public bool LogDebug { get; set; } = false;                 // 输出调试日志
+        public bool LogDebug { get; set; } = false;     // 输出调试日志
 #endif
-        public bool NoCache { get; set; } = false;                  // 禁用缓存
+        public bool NoCache { get; set; } = false;      // 禁用缓存
 
         // 序列化到 Json
         public override string ToString() {
