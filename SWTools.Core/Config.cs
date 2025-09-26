@@ -19,7 +19,8 @@ namespace SWTools.Core {
         public static readonly Config Empty = new();
 
         // [常规]
-        public bool IgnoreMissingFiles = false;         // 忽略丢失的文件
+        public bool IgnoreMissingFiles { get; set; } = false;   // 忽略丢失的文件
+        public bool NoAutoFetch { get; set; } = false;          // 禁用自动更新
 
         // [调试选项]
 #if DEBUG

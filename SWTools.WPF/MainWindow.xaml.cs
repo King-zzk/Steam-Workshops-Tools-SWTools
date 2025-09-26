@@ -220,7 +220,9 @@ namespace SWTools.WPF {
 
         private void Window_Loaded(object sender, RoutedEventArgs e) {
             // 拉取最新信息
-            ViewModel.FetchRepo();
+            if (!Core.ConfigManager.Config.NoAutoFetch) {
+                ViewModel.FetchRepo();
+            }
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) {

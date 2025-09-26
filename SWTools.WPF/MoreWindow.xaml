@@ -90,6 +90,7 @@
                                 <CheckBox Content="忽略丢失的文件" IsChecked="{Binding Config.IgnoreMissingFiles}" Margin="0 0 10 0"/>
                                 <Button Content="打开总下载目录" x:Name="BtnOpenDownloadFolder" Click="BtnOpenDownloadFolder_Click"/>
                             </StackPanel>
+                            <CheckBox Content="禁用自动更新（包括新发行版检查和拉取最新账户池）" IsChecked="{Binding Config.NoAutoFetch}" Margin="0 0 10 0"/>
                         </TreeViewItem>
                         <!--调试选项-->
                         <TreeViewItem IsExpanded="True">
