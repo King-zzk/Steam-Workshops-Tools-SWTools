@@ -1,4 +1,18 @@
-# Steam Workshops Tools 创意工坊下载工具
+<h1 align="center">
+  Steam Workshops Tools 创意工坊下载工具
+</h1>
+<p align="center">
+    <a href="https://github.com/King-zzk/Steam-Workshops-Tools-SWTools/blob/master/LICENSE.txt"><img src="https://img.shields.io/github/license/King-zzk/Steam-Workshops-Tools-SWTools"></img></a>
+  <a href="https://github.com/King-zzk/Steam-Workshops-Tools-SWTools/releases"><img src="https://img.shields.io/github/downloads/King-zzk/Steam-Workshops-Tools-SWTools/total" alt="Release Downloads"></a>
+  <a href="#"><img src="https://img.shields.io/github/repo-size/King-zzk/Steam-Workshops-Tools-SWTools" alt="GitHub Repo Size"></a>
+  <a href="#"><img src="https://img.shields.io/github/last-commit/King-zzk/Steam-Workshops-Tools-SWTools" alt="Last Commit"></a>
+  <a href="https://github.com/King-zzk/Steam-Workshops-Tools-SWTools/issues"><img src="https://img.shields.io/github/issues/King-zzk/Steam-Workshops-Tools-SWTools" alt="Issues"></a>
+  <a href="https://github.com/King-zzk/Steam-Workshops-Tools-SWTools/releases"><img src="https://img.shields.io/github/v/release/King-zzk/Steam-Workshops-Tools-SWTools" alt="Latest Version"></a>
+  <a href="https://github.com/King-zzk/Steam-Workshops-Tools-SWTools/releases"><img src="https://img.shields.io/github/release-date/King-zzk/Steam-Workshops-Tools-SWTools" alt="Release Date"></a>
+  <a href="https://github.com/King-zzk/Steam-Workshops-Tools-SWTools/commits/"><img src="https://img.shields.io/github/commit-activity/m/King-zzk/Steam-Workshops-Tools-SWTools" alt="Commit Activity"></a>
+  <a href="https://deepwiki.com/King-zzk/Steam-Workshops-Tools-SWTools"><img src="https://deepwiki.com/badge.svg" alt="Ask DeepWiki"></a>
+</p>
+
 
 这是一款下载 Steam 创意工坊模组的工具，支持所有可通过匿名账户下载的模组，并支持部分需要正版账户的模组。
 
