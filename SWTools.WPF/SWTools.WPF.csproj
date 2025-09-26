@@ -1,0 +1,52 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net10.0-windows7.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<UseWPF>true</UseWPF>
+		<ApplicationIcon>Resources\icon.ico</ApplicationIcon>
+		<Copyright>Copyright (c) 2025 Commkom (king-zzk), masterLazy (mLazy) </Copyright>
+		<!--版本-->
+		<Version>2.0.0-rc.1</Version>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+	  <DebugType>full</DebugType>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+	  <DebugType>full</DebugType>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Content Include="Resources\icon.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\SWTools.Core\SWTools.Core.csproj" />
+		<ProjectReference Include="..\SWTools.ViewModel\SWTools.ViewModel.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Resource Include="Resources\default-preview.png" />
+		<Resource Include="Resources\icon.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Properties\Settings.Designer.cs">
+	    <DesignTimeSharedInput>True</DesignTimeSharedInput>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>Settings.settings</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="Properties\Settings.settings">
+	    <Generator>SettingsSingleFileGenerator</Generator>
+	    <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+	  </None>
+	</ItemGroup>
+
+</Project>

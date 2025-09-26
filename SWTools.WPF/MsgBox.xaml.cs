@@ -1,0 +1,58 @@
+﻿using System;
+using System.Windows;
+using System.Windows.Controls;
+
+namespace SWTools.WPF {
+    /// <summary>
+    /// MsgBox.xaml 的交互逻辑
+    /// </summary>
+    public partial class MsgBox : Window {
+        // 数据
+        private string _linkUrl = "";
+
+        public MsgBox(string title, string content, bool isYesNoBox) {
+            InitializeComponent();
+            DataContext = this;
+
+            Title2.Text = Title = title;
+            TextBlock.Text = content;
+            if (isYesNoBox) {
+                BtnNo.Visibility = Visibility.Visible;
+            } else {
+                BtnYes.Text = "确认";
+                BtnNo.Visibility = Visibility.Hidden;
+            }
+            BtnLink.Visibility = Visibility.Hidden;
+        }
+        public MsgBox(string title, string content, bool isYesNoBox, string linkText, string linkUrl) {
+            InitializeComponent();
+            DataContext = this;
+
+            Title2.Text = Title = title;
+            TextBlock.Text = content;
+            if (isYesNoBox) {
+                BtnNo.Visibility = Visibility.Visible;
+            } else {
+                BtnYes.Text = "确认";
+                BtnNo.Visibility = Visibility.Hidden;
+            }
+            BtnLink.Visibility = Visibility.Visible;
+            BtnLink.Text = linkText;
+            _linkUrl = linkUrl;
+        }
+
+        private void BtnYes_Click(object sender, RoutedEventArgs e) {
+            DialogResult = true;
+            Close();
+        }
+
+        private void BtnNo_Click(object sender, RoutedEventArgs e) {
+            DialogResult = false;
+            Close();
+        }
+
+        private void BtnLink_Click(object sender, RoutedEventArgs e) {
+            System.Diagnostics.Process.Start("explorer.exe", _linkUrl);
+        }
+    }
+}
