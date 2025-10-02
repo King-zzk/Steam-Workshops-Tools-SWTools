@@ -20,21 +20,31 @@
 
 ## 使用指南
 
+>[!important]
 > 使用此程序表示您已同意我们的 [许可证](https://github.com/King-zzk/Steam-Workshops-Tools-SWTools/blob/master/LICENSE.txt)。
 >
 > 如果您在使用中遇到了问题，请 [新建一个 Issue](https://github.com/King-zzk/Steam-Workshops-Tools-SWTools/issues/new/choose) 以提交反馈。
 
 步骤：
 
-1. 前往 [Releases](https://github.com/King-zzk/Steam-Workshops-Tools-SWTools/releases) 下载最新版本。
+1. 前往 [Releases](https://github.com/King-zzk/Steam-Workshops-Tools-SWTools/releases) 下载最新版本
 
-2. 您需要安装 [.NET 10 桌面运行时（Desktop Runtime）](https://dotnet.microsoft.com/zh-cn/download) 或更新版本。
+2. 您需要安装 [.NET 10 桌面运行时（Desktop Runtime）](https://dotnet.microsoft.com/zh-cn/download) 或更新版本
+
+3. 启动 `SWTools.WPF.exe`
+
+4. 添加下载任务，点击 “下载全部” 开始下载
 
 
 
 ## 支持的 Steam 游戏（Steam App）
 
 可通过匿名账户下载模组的 Steam App 不在此列出。
+
+>[!tip]
+> 您可在此查看可通过匿名下载模组的 Steam App：
+>
+> [Anonymous Dedicated Server Comp (SubID 17906) · Apps · SteamDB](https://steamdb.info/sub/17906/apps/)
 
 ***已可使用***
 - Crusader Kings III | 十字军之王3
