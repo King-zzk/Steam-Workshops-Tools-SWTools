@@ -71,14 +71,14 @@ namespace SWTools.WPF {
                 bool? res = msgBox.ShowDialog();
                 if (res == true) {
                     foreach (var item in fmItems) {
-                        ViewModel.Items[ViewModel.Items.FindIndex(item)].DownloadState = Core.Item.EDownloadState.InQueue;
+                        ViewModel.Items[ViewModel.Items.FindIndex(item)].DownloadState = Core.Item.EDownloadState.Pending;
                     }
                 }
             }
             // 检查队列中是否有物品
             bool hasInQueue = false;
             foreach (var item in ViewModel.Items) {
-                if (item.DownloadState == Core.Item.EDownloadState.InQueue) {
+                if (item.DownloadState == Core.Item.EDownloadState.Pending) {
                     hasInQueue = true;
                     break;
                 }
@@ -173,7 +173,7 @@ namespace SWTools.WPF {
                 msgBox.ShowDialog();
                 return;
             }
-            item.Item.DownloadState = Core.Item.EDownloadState.InQueue;
+            item.Item.DownloadState = Core.Item.EDownloadState.Pending;
             ViewModel.UpdateDisplay();
             if (!ViewModel.IsDownloading) { // 启动下载
                 _ = ViewModel.DownloadOne(item.Item.ItemId);

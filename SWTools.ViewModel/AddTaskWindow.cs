@@ -95,7 +95,7 @@ namespace SWTools.ViewModel {
             // 检查一下是不是真的添加了
             bool hasNew = false;
             foreach (var item in Items) {
-                if (item.ParseState == Core.Item.EParseState.InQueue) {
+                if (item.ParseState == Core.Item.EParseState.Pending) {
                     hasNew = true;
                     break;
                 }
@@ -145,7 +145,7 @@ namespace SWTools.ViewModel {
         public async void RetryParse() {
             for (var i = 0; i < Items.Count; i++) {
                 if (Items[i].ParseState != Core.Item.EParseState.Done) {
-                    Items[i].ParseState = Core.Item.EParseState.InQueue;
+                    Items[i].ParseState = Core.Item.EParseState.Pending;
                 }
             }
             await Items.ParseAll();

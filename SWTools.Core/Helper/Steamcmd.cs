@@ -23,7 +23,7 @@ namespace SWTools.Core.Helper {
                 }
                 try {
                     // 解压，删包
-                    ZipFile.ExtractToDirectory(Constants.SteamcmdDir + "temp.zip", Constants.SteamcmdDir);
+                    await ZipFile.ExtractToDirectoryAsync(Constants.SteamcmdDir + "temp.zip", Constants.SteamcmdDir);
                     File.Delete(Constants.SteamcmdDir + "temp.zip");
                     // 测试
                     if (!File.Exists(Constants.SteamcmdFile)) {

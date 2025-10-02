@@ -32,7 +32,7 @@
         <Separator DockPanel.Dock="Bottom" BorderBrush="{StaticResource BhBorder}"/>
         <!--日志显示-->
         <TextBox Margin="10 10 10 10" IsReadOnly="True" Text="{Binding LogContent}" FontFamily="Consolas" FontSize="13"
-                 VerticalScrollBarVisibility="Visible" TextWrapping="Wrap"
+                 VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Auto" TextWrapping="NoWrap"
                  x:Name="LogText" TextChanged="LogText_TextChanged"/>
     </DockPanel>
 </Window>

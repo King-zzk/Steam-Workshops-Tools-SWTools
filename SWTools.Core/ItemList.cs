@@ -105,7 +105,7 @@ namespace SWTools.Core {
         private async Task ParseWithCache() {
             // 设置状态
             foreach (var item in this) {
-                if (item.ParseState == Item.EParseState.InQueue) {
+                if (item.ParseState == Item.EParseState.Pending) {
                     item.ParseState = Item.EParseState.Handling;
                 }
             }
@@ -120,7 +120,7 @@ namespace SWTools.Core {
             // 复位状态
             foreach (var item in this) {
                 if (item.ParseState == Item.EParseState.Handling) {
-                    item.ParseState = Item.EParseState.InQueue;
+                    item.ParseState = Item.EParseState.Pending;
                 }
             }
         }
@@ -130,7 +130,7 @@ namespace SWTools.Core {
             // 请求 API
             List<string> items = [];
             foreach (var item in this) {
-                if (item.ParseState == Item.EParseState.InQueue) {
+                if (item.ParseState == Item.EParseState.Pending) {
                     item.ParseState = Item.EParseState.Handling;
                     items.Add(item.ItemId);
                 }

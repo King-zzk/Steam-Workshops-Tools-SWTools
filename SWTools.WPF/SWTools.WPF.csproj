@@ -9,7 +9,9 @@
 		<ApplicationIcon>Resources\icon.ico</ApplicationIcon>
 		<Copyright>Copyright (c) 2025 Commkom (king-zzk), masterLazy (mLazy) </Copyright>
 		<!--版本-->
-		<Version>2.0.0-rc.1</Version>
+		<Version>2.0.0-rc.2</Version>
+		<AssemblyName>SWTools</AssemblyName>
+		<AssemblyTitle>Steam Workshop Tools</AssemblyTitle>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

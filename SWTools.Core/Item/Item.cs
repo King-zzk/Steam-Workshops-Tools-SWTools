@@ -28,11 +28,11 @@ namespace SWTools.Core {
 
         // 解析状态
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        public EParseState ParseState { get; set; } = EParseState.InQueue;
+        public EParseState ParseState { get; set; } = EParseState.Pending;
 
         // 下载状态
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        public EDownloadState DownloadState { get; set; } = EDownloadState.InQueue;
+        public EDownloadState DownloadState { get; set; } = EDownloadState.Pending;
 
         // 下载失败原因
         [JsonConverter(typeof(JsonStringEnumConverter))]
@@ -44,11 +44,11 @@ namespace SWTools.Core {
         public EAfterParse AfterParse { get; set; } = EAfterParse.Nothing;
 
         public enum EParseState {
-            InQueue, Handling, Done, Failed,
+            Pending, Handling, Done, Failed,
             Manual // 指示物品信息是用户自己指定的
         }
         public enum EDownloadState {
-            InQueue, Handling, Done, Failed, Missing
+            Pending, Handling, Done, Failed, Missing
         }
         public enum EFailReason {
             Null, Unknown, Exception,
@@ -114,10 +114,10 @@ namespace SWTools.Core {
         // 把状态二值化到 InQueue / Done
         public void FixState() {
             if (ParseState != EParseState.Done) {
-                ParseState = EParseState.InQueue;
+                ParseState = EParseState.Pending;
             }
             if (DownloadState != EDownloadState.Done) {
-                DownloadState = EDownloadState.InQueue;
+                DownloadState = EDownloadState.Pending;
             }
         }
 

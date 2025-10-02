@@ -75,8 +75,7 @@ namespace SWTools.Core.Helper {
                 // 写入
                 using FileStream fileStream = new(filePath, FileMode.Create, FileAccess.Write, FileShare.None, 8192, true);
                 await contentStream.CopyToAsync(fileStream);
-                LogManager.Log.Information("Downloaded \"{Url}\" to \"{FilePath}\"",
-                    url, filePath);
+                LogManager.Log.Information("Downloaded \"{Url}\" to \"{FilePath}\"", url, filePath);
                 return true;
             }
             catch (Exception ex) {

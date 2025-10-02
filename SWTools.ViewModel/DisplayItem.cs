@@ -59,7 +59,7 @@ namespace SWTools.ViewModel {
                 } else if (item.ParseState == Core.Item.EParseState.Manual) {
                     State = "手动指定";
                     Brush = new SolidColorBrush(Colors.DarkOliveGreen);
-                } else if (item.ParseState == Core.Item.EParseState.InQueue) {
+                } else if (item.ParseState == Core.Item.EParseState.Pending) {
                     State = "等待解析...";
                     Brush = new SolidColorBrush(Colors.Black);
                 } else if (item.ParseState == Core.Item.EParseState.Handling) {
@@ -73,7 +73,7 @@ namespace SWTools.ViewModel {
                 if (item.ParseState == Core.Item.EParseState.Failed) {
                     State = "信息解析失败";
                 } else {
-                    if (item.DownloadState == Core.Item.EDownloadState.InQueue) {
+                    if (item.DownloadState == Core.Item.EDownloadState.Pending) {
                         State = "等待下载...";
                         Brush = new SolidColorBrush(Colors.Black);
                     } else if (item.DownloadState == Core.Item.EDownloadState.Handling) {

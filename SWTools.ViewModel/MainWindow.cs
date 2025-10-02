@@ -126,8 +126,9 @@ namespace SWTools.ViewModel {
             StatusText = "正在准备 Steamcmd，请耐心等待（在日志中查看详细信息）";
             await Core.Helper.Steamcmd.Setup();
             // 开始下载
+            bool isEarlyStopped = false;
             for (var i = 0; i < DisplayItems.Count && IsDownloading; i++) {
-                if (DisplayItems[i].Item.DownloadState != Core.Item.EDownloadState.InQueue) {
+                if (DisplayItems[i].Item.DownloadState != Core.Item.EDownloadState.Pending) {
                     continue;
                 }
                 StatusText = $"正在下载 {DisplayItems[i].ItemName}";
@@ -135,10 +136,18 @@ namespace SWTools.ViewModel {
                     UpdateDisplay();
                 };
                 await DisplayItems[i].Item.Download();
+                if (DisplayItems[i].Item.DownloadState == Core.Item.EDownloadState.Failed &&
+                    DisplayItems[i].Item.FailReason == Core.Item.EFailReason.NoConnection) {
+                    StatusText = "已停止";
+                    isEarlyStopped = true;
+                    break;
+                }
             }
 
             // 结束
-            StatusText = "已完成";
+            if (!isEarlyStopped) {
+                StatusText = "已完成";
+            }
             IsDownloading = false;
 
             IsBtnAddTaskEnable = true;
@@ -166,11 +175,11 @@ namespace SWTools.ViewModel {
             await Core.Helper.Steamcmd.Setup();
             // 开始下载
             for (var i = 0; i < DisplayItems.Count && IsDownloading; i++) {
-                if (DisplayItems[i].Item.DownloadState != Core.Item.EDownloadState.InQueue ||
+                if (DisplayItems[i].Item.DownloadState != Core.Item.EDownloadState.Pending ||
                     DisplayItems[i].Item.ItemId != itemId) {
                     continue;
                 }
-                StatusText = $"正在下载 {DisplayItems[i].ItemName}";
+                StatusText = $"正在下载：{DisplayItems[i].ItemName}";
                 DisplayItems[i].Item.PropertyChanged += (s, e) => {
                     UpdateDisplay();
                 };

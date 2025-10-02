@@ -22,7 +22,7 @@ namespace SWTools.Core.Cache {
                 if (_cache.Contains(item.ItemId)) {
                     _cache.Remove(_cache.Find(item.ItemId)!);
                 }
-                item.DownloadState = Item.EDownloadState.InQueue;
+                item.DownloadState = Item.EDownloadState.Pending;
                 _cache.Add(item);
             }
         }
@@ -36,7 +36,7 @@ namespace SWTools.Core.Cache {
                 if (cache != null) {
                     foreach (var item in cache) {
                         if (item.IsCompleted()) {
-                            item.DownloadState = Item.EDownloadState.InQueue;
+                            item.DownloadState = Item.EDownloadState.Pending;
                             _cache.Add(item);
                         }
                     }
