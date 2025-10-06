@@ -4,15 +4,7 @@
             // 启动
             Helper.Main.SetupAll();
 
-            //using (var task = API.LatestInfo.Request()) {
-            //    task.Wait();
-            //    Console.WriteLine(task.Result);
-            //}
-
-            //using (var task = API.PubAccounts.Request()) {
-            //    task.Wait();
-            //    Console.WriteLine(task.Result);
-            //}
+            // TODO: 放置测试代码...
 
             // 结束
             Helper.Main.CleanupAll();
