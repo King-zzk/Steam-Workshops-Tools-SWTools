@@ -1,9 +1,7 @@
-﻿using System;
+﻿using PropertyChanged;
 using System.ComponentModel;
-using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using PropertyChanged;
 
 namespace SWTools.Core {
     /// <summary>

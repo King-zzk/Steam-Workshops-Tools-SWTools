@@ -1,12 +1,5 @@
-﻿using Serilog.Context;
-using SWTools.Core;
-using System;
-using System.Collections.Generic;
+﻿using SWTools.Core;
 using System.ComponentModel;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Threading;
 
 namespace SWTools.ViewModel {

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SWTools.ViewModel {
+﻿namespace SWTools.ViewModel {
     /// <summary>
     /// 辅助方法
     /// </summary>

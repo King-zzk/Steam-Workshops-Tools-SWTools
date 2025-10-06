@@ -1,7 +1,4 @@
-﻿using Serilog;
-using System;
-using System.Diagnostics;
-using System.Security.Principal;
+﻿using System.Diagnostics;
 using System.Text;
 
 namespace SWTools.Core {

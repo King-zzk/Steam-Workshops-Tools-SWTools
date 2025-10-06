@@ -1,6 +1,4 @@
-﻿using System;
-using System.Text.Json;
-using Serilog;
+﻿using System.Text.Json;
 
 namespace SWTools.Core {
     /// <summary>

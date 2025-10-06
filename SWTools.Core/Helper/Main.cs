@@ -1,9 +1,4 @@
-﻿using Serilog;
-using System;
-using System.Diagnostics;
-using System.IO.Compression;
-using System.Text;
-using System.Text.Json;
+﻿using System.Text.Json;
 
 namespace SWTools.Core.Helper {
     /// <summary>

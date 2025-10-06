@@ -1,8 +1,7 @@
-﻿using System;
-using Semver;
+﻿using Semver;
+using System.IO;
 using System.Windows;
 using System.Windows.Navigation;
-using System.IO;
 
 namespace SWTools.WPF {
     /// <summary>

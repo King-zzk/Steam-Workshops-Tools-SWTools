@@ -1,7 +1,4 @@
-﻿using System;
-using Serilog;
-
-namespace SWTools.Core.Helper {
+﻿namespace SWTools.Core.Helper {
     /// <summary>
     /// 辅助方法 (Http)
     /// </summary>

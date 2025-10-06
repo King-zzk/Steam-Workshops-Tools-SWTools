@@ -1,12 +1,5 @@
 ﻿using Serilog;
 using Serilog.Enrichers.CallerInfo;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SWTools.Core {
     /// <summary>

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Net.Mime;
-using System.Text.Json;
-
-namespace SWTools.Core {
+﻿namespace SWTools.Core {
     internal class Program {
         private static void Main(string[] args) {
             // 启动
