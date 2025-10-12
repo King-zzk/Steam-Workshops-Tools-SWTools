@@ -116,6 +116,7 @@
 
 - 执行 “重新生成解决方案”（`Ctrl+Alt+F7`）。
 - 删除生成目录（如 `\bin\Release\net10.0-windows7.0\`）下的所有 `.pdb` 文件。这些文件是调试符号，不应包含在发行版中。
+- 添加必要的 `LICENSE.txt`、`THIRD-PARTY-NOTICE.md`（位于项目根目录下）。
 - 将剩余文件压缩，然后即可在 Github 上发布。
 
 ## SWTools.Core

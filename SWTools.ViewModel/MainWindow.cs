@@ -203,22 +203,30 @@ namespace SWTools.ViewModel {
             if (!Directory.Exists(Core.Constants.CommonDir)) {
                 Directory.CreateDirectory(Core.Constants.CommonDir);
             }
-            await Core.API.LatestInfo.Fetch(Core.Constants.LatestInfoFile);
-            var info = Core.Helper.Main.ReadLatestInfo();
-            if (await Core.API.PubAccounts.Fetch(Core.Constants.PubAccountsFile)) {
-                Core.AccountManager.LoadPub();
-            }
 
-            // 结束
+            // 拉取最新信息
+            if(!await Core.API.LatestInfo.Fetch(Core.Constants.LatestInfoFile)) {
+                StatusText = "拉取仓库最新信息失败，请检查网络连接（重启程序以重试）";
+            } 
+            var info = Core.Helper.Main.ReadLatestInfo();
             if (info?.Release != null &&
                 SemVersion.Parse(info.Release).CompareSortOrderTo(Core.Constants.Version) > 0) {
-                StatusText = $"检测到新的发行版。在 “更多” 查看详情";
+                StatusText = "检测到新的发行版。在 “更多” 查看详情";
             } else if (info?.PreRelease != null &&
                 SemVersion.Parse(info.PreRelease).CompareSortOrderTo(Core.Constants.Version) > 0) {
-                StatusText = $"检测到新的预发行版。在 “更多” 查看详情";
+                StatusText = "检测到新的预发行版。在 “更多” 查看详情";
             } else {
                 StatusText = StatusTextDefault;
             }
+
+            // 拉取公有账户池
+            if (await Core.API.PubAccounts.Fetch(Core.Constants.PubAccountsFile)) {
+                Core.AccountManager.LoadPub();
+            } else {
+                StatusText = "拉取公有账户池失败，请检查网络连接（重启程序以重试）";
+            }
+
+            // 结束
             IsBtnStartEnable = true;
             IsIndeterminate = false;
         }

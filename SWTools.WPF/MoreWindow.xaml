@@ -8,7 +8,7 @@
         xmlns:viewmodel="clr-namespace:SWTools.ViewModel;assembly=SWTools.ViewModel"
         mc:Ignorable="d"
         Title="更多信息" 
-        Height="480" Width="680"
+        Height="500" Width="680"
         ResizeMode="NoResize"
         Background="{StaticResource BhDefault}" ThemeMode="Light"
         WindowStartupLocation="CenterOwner"  ShowInTaskbar="False"
@@ -34,15 +34,15 @@
                         <TextBlock Text="关于此项目" VerticalAlignment="Center"/>
                     </StackPanel>
                 </TabItem.Header>
-                <StackPanel Margin="20 10 20 10">
+                <StackPanel Margin="20 20 20 10">
                     <DockPanel LastChildFill="False">
                         <Image Height="60" Source="Resources/icon.png" />
                         <TextBlock VerticalAlignment="Center" FontSize="30" Foreground="#13387b" Margin="10"
                                     Text="Steam Workshop Tools"/>
                         <controls:IconButton x:Name="BtnGithub" Click="BtnGithub_Click"
-                                Text="查看 Github 仓库" Icon="&#xE71B;" DockPanel.Dock="Right" Margin="10 10 20 10"/>
+                                Text="查看 Github 仓库" Icon="&#xE71B;" DockPanel.Dock="Right" Margin="10 10 0 10"/>
                     </DockPanel>
-                    <TextBlock Margin="10">
+                    <TextBlock Margin="10 20 10 10">
                         <Run Text="{Binding Version, StringFormat=这是 Steam Workshop Tools v{0}。}"/><LineBreak/>
                         <Run Text="{Binding PubVersion, StringFormat=公有账户池版本：{0}}"/>
                     </TextBlock>
@@ -59,6 +59,8 @@
                         <LineBreak/>
                         根据 GPL-2.0 许可证授权。<LineBreak/>
                         您可以在 “许可证” 标签页查看完整的许可证信息。<LineBreak/>
+                        <LineBreak/>
+                        关于项目使用的第三方库，请查看随程序分发的 THIRD-PARTY-NOTICE.md 文件。
                     </TextBlock>
                 </StackPanel>
             </TabItem>

@@ -13,11 +13,7 @@
   <a href="https://github.com/King-zzk/Steam-Workshops-Tools-SWTools/commits/"><img src="https://img.shields.io/github/commit-activity/m/King-zzk/Steam-Workshops-Tools-SWTools" alt="Commit Activity"/></a>
   <a href="https://deepwiki.com/King-zzk/Steam-Workshops-Tools-SWTools"><img src="https://deepwiki.com/badge.svg" alt="Ask DeepWiki"/></a>
 </p>
-
-
 这是一款下载 Steam 创意工坊模组的工具，支持所有可通过匿名账户下载的模组，并支持部分需要正版账户的模组。
-
-
 
 ## 使用指南
 
@@ -35,8 +31,6 @@
 3. 启动 `SWTools.WPF.exe`
 
 4. 添加下载任务，点击 “下载全部” 开始下载
-
-
 
 ## 支持的 Steam 游戏（Steam App）
 
@@ -61,15 +55,16 @@
 - Europa Universalis IV | 欧陆风云4
 - Company of Heroes 3 | 英雄连3
 
+## 声明
 
+仅供学习参考，支持正版，禁止用任何商业用途！
+
+## 许可证和第三方库
+
+- 本项目的许可证：[GPL-2.0 License](https://github.com/King-zzk/Steam-Workshops-Tools-SWTools/blob/master/LICENSE.txt)
+- 使用的第三方库请见：[第三方开源库](/THIRD-PARTY-NOTICE.md)
 
 ## 另请参阅
 
 - 欢迎为我们的项目做出贡献：[贡献指南](/CONTRIBUTING.md)
 - [开发者文档](/DEVELOPMENT.md)
-
-
-
-## 声明
-
-仅供学习参考，支持正版，禁止用任何商业用途！
