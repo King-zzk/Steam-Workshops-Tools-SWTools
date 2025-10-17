@@ -1,6 +1,6 @@
 ﻿namespace SWTools.Core {
     /// <summary>
-    /// 许可证文本
+    /// 许可证文本 (静态类)
     /// </summary>
     public static class LicenseManager {
         public const string ProjectLicense =

@@ -2,7 +2,7 @@
 
 namespace SWTools.Core {
     /// <summary>
-    /// Steam 账户 (静态类)
+    /// Steam 账户管理器 (静态类)
     /// </summary>
     static public class AccountManager {
         private static List<Account> _accounts = [];

@@ -3,7 +3,7 @@ using Serilog.Enrichers.CallerInfo;
 
 namespace SWTools.Core {
     /// <summary>
-    /// 日志管理器
+    /// 日志管理器 (静态类)
     /// </summary>
     public static class LogManager {
         // 访问点
