@@ -112,7 +112,7 @@
                      Background="Transparent"/>
         
         <!--下载列表-->
-        <ListView ItemsSource="{Binding DisplayItems}" FontSize="13" Background="{StaticResource BhLight}">
+        <ListView ItemsSource="{Binding DisplayItems}" FontSize="13" Background="{StaticResource BhLight}" SelectionChanged="ListView_SelectionChanged">
             <!--右键菜单-->
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">

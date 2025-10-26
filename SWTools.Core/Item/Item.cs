@@ -52,7 +52,7 @@ namespace SWTools.Core {
             Null, Unknown, Exception,
             FileNotFound, Timeout, NoConnection,
             AccountDisabled, InvalidPassword, NoMatch,
-            AccessDenied, LockingFailed
+            AccessDenied, LockingFailed, AccountNoSupportThisDownload
         }
         public enum EAfterParse {
             Nothing, Download
@@ -89,6 +89,8 @@ namespace SWTools.Core {
                     return "下载超时，请重试";
                 case EFailReason.NoConnection:
                     return "无网络连接";
+                case EFailReason.AccountNoSupportThisDownload:
+                    return "匿名账号不支持下载此游戏的创意工坊文件,可以反馈支持此游戏！";
                 case EFailReason.AccountDisabled:
                     return "账号不可用，请尝试向开发者反映此问题";
                 case EFailReason.InvalidPassword:
@@ -133,6 +135,8 @@ namespace SWTools.Core {
                 return EFailReason.InvalidPassword;
             } else if (downloadLog.Contains("No match")) {
                 return EFailReason.NoMatch;
+            } else if (downloadLog.Contains("Failure")) {
+                return EFailReason.AccountNoSupportThisDownload;
             } else if (downloadLog.Contains("Access Denied")) {
                 return EFailReason.AccessDenied;
             } else if (downloadLog.Contains("Locking Failed")) {

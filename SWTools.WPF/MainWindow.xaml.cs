@@ -240,5 +240,9 @@ namespace SWTools.WPF {
             System.Diagnostics.Process.Start("explorer.exe",
                 $"https://www.steamcommunity.com/sharedfiles/filedetails/{item.Item.ItemId}");
         }
+
+        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+
+        }
     }
 }
