@@ -10,6 +10,9 @@
 
 **邮箱：swtoolsMK@outlook.com**
 
+## 积分赞助
+
+您去可以去https://lixianla.com/里注册账号，并填写**1097014**邀请码，让我们获得积分去购买更多的Steam游戏账号！
 
 
 ## 开发

@@ -171,5 +171,9 @@ namespace SWTools.WPF {
                 }
             }
         }
+
+        private void BtnParse_Loaded(object sender, RoutedEventArgs e) {
+
+        }
     }
 }

@@ -47,6 +47,7 @@
 - Hearts of Iron IV | 钢铁雄心4
 - Sid Meier’s Civilization VI | 文明6
 - Wallpaper Engine | 壁纸引擎
+- Victoria 3 | 维多利亚3
 
 ---
 
