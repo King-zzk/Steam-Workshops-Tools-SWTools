@@ -20,17 +20,8 @@ namespace SWTools.WPF {
         }
 
         public MainWindow() {
-            InitializeComponent();
-            this.Loaded += MainWindow_Loaded_Async;
-        }
 
-        private async void MainWindow_Loaded_Async(object sender, RoutedEventArgs e) {
-            // 删除上次公告文件
-            string noticePath = @"./data/notice";
-            if (File.Exists(noticePath)) {
-                File.Delete(noticePath);
-            }
-            await Downloadandshow_notice();
+            InitializeComponent();
         }
 
         private void BtnAddTask_Click(object sender, RoutedEventArgs e) {
@@ -257,32 +248,6 @@ namespace SWTools.WPF {
 
         }
         // 下载公告
-        public async Task Downloadandshow_notice() {
-            string fileUrl = "https://github.com/King-zzk/Steam-Workshops-Tools-SWTools/raw/refs/heads/master/api/notice";
-            string savePath = @"./data/notice";
-            if (File.Exists(savePath)) {
-                using (WebClient client = new WebClient()) {
-                    await client.DownloadFileTaskAsync(new Uri(fileUrl), savePath);
-                }
-            } else {
-                string folderPath = @"./data";
-                DirectoryInfo dirInfo = new DirectoryInfo(folderPath);
-                dirInfo.Create();
-                using (WebClient client = new WebClient()) {
-                    await client.DownloadFileTaskAsync(new Uri(fileUrl), savePath);
-                }
-            }
-            string filePath = "./data/notice";
-            string fileContent = string.Empty; // 修复：初始化变量
-            if (!File.Exists(filePath)) {
-                // 读取文件内容到字符串
-                fileContent = File.ReadAllText(filePath);
-            } else {
-                // 修复：如果文件已存在，也要读取内容
-                fileContent = File.ReadAllText(filePath);
-            }
-            MsgBox msgBox = new("公告", fileContent, false) { Owner = this };
-            msgBox.ShowDialog();
-        }
+
     }
 }
