@@ -1,7 +1,12 @@
 ﻿using Semver;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics.Eventing.Reader;
 using System.IO;
+using System.Net;
+using System.Threading.Tasks;
+using System.Xml.Serialization;
+using System.Windows;
 
 namespace SWTools.ViewModel {
     public class MainWindow : INotifyPropertyChanged {
@@ -205,7 +210,7 @@ namespace SWTools.ViewModel {
             }
 
             // 拉取最新信息
-            if(!await Core.API.LatestInfo.Fetch(Core.Constants.LatestInfoFile)) {
+            if (!await Core.API.LatestInfo.Fetch(Core.Constants.LatestInfoFile)) {
                 StatusText = "拉取仓库最新信息失败，请检查网络连接（重启程序以重试）";
             } 
             var info = Core.Helper.Main.ReadLatestInfo();
