@@ -25,35 +25,12 @@ namespace SWTools.WPF {
         }
 
         private async void MainWindow_Loaded_Async(object sender, RoutedEventArgs e) {
-            string filePath = "./data/notice";
-            string fileContent = string.Empty; // 修复：初始化变量
-            if (!File.Exists(filePath)) {
-                await Download_notice();
-                // 读取文件内容到字符串
-                fileContent = File.ReadAllText(filePath);
-                try {
-                    // 输出内容（示例）
-                    Console.WriteLine("文件内容：");
-                    Console.WriteLine(fileContent);
-                }
-                catch (FileNotFoundException)
-                {
-                    Console.WriteLine("错误：文件不存在。");
-                }
-                catch (UnauthorizedAccessException)
-                {
-                    Console.WriteLine("错误：没有权限访问文件。");
-                }
-                catch (IOException ex)
-                {
-                    Console.WriteLine("错误：文件读取失败。详情：" + ex.Message);
-                }
-            } else {
-                // 修复：如果文件已存在，也要读取内容
-                fileContent = File.ReadAllText(filePath);
+            // 删除上次公告文件
+            string noticePath = @"./data/notice";
+            if (File.Exists(noticePath)) {
+                File.Delete(noticePath);
             }
-            MsgBox msgBox = new("公告", fileContent, false) { Owner = this };
-            msgBox.ShowDialog();
+            await Downloadandshow_notice();
         }
 
         private void BtnAddTask_Click(object sender, RoutedEventArgs e) {
@@ -280,39 +257,32 @@ namespace SWTools.WPF {
 
         }
         // 下载公告
-        public async Task Download_notice() {
+        public async Task Downloadandshow_notice() {
             string fileUrl = "https://github.com/King-zzk/Steam-Workshops-Tools-SWTools/raw/refs/heads/master/api/notice";
-            string savePath = @"./data/";
+            string savePath = @"./data/notice";
             if (File.Exists(savePath)) {
                 using (WebClient client = new WebClient()) {
-                    try {
-                        await client.DownloadFileTaskAsync(new Uri(fileUrl), savePath);
-                        Console.WriteLine("文件下载完成！");
-                    }
-                    catch (WebException ex) {
-                        Console.WriteLine($"网络错误：{ex.Message}");
-                    }
-                    catch (Exception ex) {
-                        Console.WriteLine($"下载失败：{ex.Message}");
-                    }
+                    await client.DownloadFileTaskAsync(new Uri(fileUrl), savePath);
                 }
             } else {
                 string folderPath = @"./data";
                 DirectoryInfo dirInfo = new DirectoryInfo(folderPath);
                 dirInfo.Create();
                 using (WebClient client = new WebClient()) {
-                    try {
-                        await client.DownloadFileTaskAsync(new Uri(fileUrl), savePath);
-                        Console.WriteLine("文件下载完成！");
-                    }
-                    catch (WebException ex) {
-                        Console.WriteLine($"网络错误：{ex.Message}");
-                    }
-                    catch (Exception ex) {
-                        Console.WriteLine($"下载失败：{ex.Message}");
-                    }
+                    await client.DownloadFileTaskAsync(new Uri(fileUrl), savePath);
                 }
             }
+            string filePath = "./data/notice";
+            string fileContent = string.Empty; // 修复：初始化变量
+            if (!File.Exists(filePath)) {
+                // 读取文件内容到字符串
+                fileContent = File.ReadAllText(filePath);
+            } else {
+                // 修复：如果文件已存在，也要读取内容
+                fileContent = File.ReadAllText(filePath);
+            }
+            MsgBox msgBox = new("公告", fileContent, false) { Owner = this };
+            msgBox.ShowDialog();
         }
     }
 }
