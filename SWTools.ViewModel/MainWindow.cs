@@ -1,4 +1,5 @@
 ﻿using Semver;
+using SWTools.Core;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics.Eventing.Reader;
@@ -234,8 +235,21 @@ namespace SWTools.ViewModel {
                 StatusText = "拉取公有账户池失败，请检查网络连接（重启程序以重试）";
             }
 
-            var noticeDownloader = new Core.API.notice_downloader();
-            noticeDownloader.DownloadNotice();
+            if (await Core.API.notice_downloader.Fetch()) {
+                Core.AccountManager.LoadPub();
+                try {
+                    using (StreamReader reader = new StreamReader("./data/notice", System.Text.Encoding.UTF8)) {
+                        string FileContent = reader.ReadToEnd();
+                        MessageBox.Show(FileContent, "公告", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                }
+                catch (Exception ex) {
+                    LogManager.Log.Error("读取 notice 文件失败：" + ex.Message);
+                    StatusText = "读取 notice 文件失败：" + ex.Message;
+                }
+            } else {
+                StatusText = "拉取公告失败，请检查网络连接（重启程序以重试）";
+            }
 
             StatusText = StatusTextDefault;
             // 结束

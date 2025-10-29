@@ -40,9 +40,9 @@ namespace SWTools.Core {
         public const string UrlRelease = UrlRepo + "releases";
         // Github 代理
         public static readonly string[] UrlGithubProxy = [
-            "https://gh.llkk.cc/",
             "https://gitproxy.click/",
             "https://ghproxy.net/",
+            "https://gh.llkk.cc/",
             "", // 这个空的不能删
         ];
 
