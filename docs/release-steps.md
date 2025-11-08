@@ -51,7 +51,7 @@
 
 - 删除生成目录（如 `\bin\Release\net10.0-windows7.0\`）下的所有 `.pdb` 文件。这些文件是调试符号，不应包含在发布包中。
 
-- 添加必要的 `LICENSE.txt`、`THIRD-PARTY-NOTICE.md`（位于项目根目录下）。
+- 目录下应该包含`LICENSE.txt`、`THIRD-PARTY-NOTICE.md`，这些文件会在生成时自动从 `SWTools.WPF/` 复制到生成目录下。
 
   ---
 

@@ -50,8 +50,9 @@ graph TB
 
 ```
 api/
-├── latest_info    # 仓库的最新版本
-└── pub_accounts   # 公有账户池
+├── latest_info    # 仓库的最新版本 (json)
+├── pub_accounts   # 公有账户池 (json)
+└── notice         # 公告 (markdown)
 ```
 
 以上 API 托管在 Github 上，可被运行中的程序拉取。

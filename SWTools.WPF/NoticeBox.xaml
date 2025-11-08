@@ -27,7 +27,7 @@
                 Text="&#xE789;" FontSize="30" VerticalAlignment="Center"/>
                 <TextBlock Margin="20 0 0 0" Text="公告" FontSize="20" FontWeight="Bold" VerticalAlignment="Center" />
             </DockPanel>
-            <WebBrowser Width="600" MaxHeight="300" x:Name="WebViewer"/>
+            <WebBrowser Width="700" MaxHeight="300" x:Name="WebViewer"/>
         </DockPanel>
     </DockPanel>
 </Window>
