@@ -1,14 +1,8 @@
 ﻿using Semver;
-using SWTools.Core;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics.Eventing.Reader;
 using System.IO;
-using System.Net;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Interop;
-using System.Xml.Serialization;
 
 namespace SWTools.ViewModel {
     public class MainWindow : INotifyPropertyChanged {
@@ -200,10 +194,11 @@ namespace SWTools.ViewModel {
             IsIndeterminate = false;
         }
 
-        // 获取仓库最新信息
-        public async void FetchRepo() {
+        // 获取仓库最新信息 (返回公告)
+        public async Task<string?> FetchRepo() {
             // 开始
-            StatusText = "正在从仓库拉取最新信息...（您可以在此期间添加下载任务）";
+            string statusText = "正在从仓库拉取最新信息...（您可以在此期间添加下载任务）";
+            StatusText = statusText;
             IsBtnStartEnable = false;
             IsIndeterminate = true;
 
@@ -215,10 +210,6 @@ namespace SWTools.ViewModel {
             if (!await Core.API.LatestInfo.Fetch(Core.Constants.LatestInfoFile)) {
                 StatusText = "拉取仓库最新信息失败，请检查网络连接（重启程序以重试）";
             }
-
-
-
-
             var info = Core.Helper.Main.ReadLatestInfo();
             if (info?.Release != null &&
                 SemVersion.Parse(info.Release).CompareSortOrderTo(Core.Constants.Version) > 0) {
@@ -235,26 +226,21 @@ namespace SWTools.ViewModel {
                 StatusText = "拉取公有账户池失败，请检查网络连接（重启程序以重试）";
             }
 
-            if (await Core.API.notice_downloader.Fetch()) {
-                Core.AccountManager.LoadPub();
-                try {
-                    using (StreamReader reader = new StreamReader("./data/notice", System.Text.Encoding.UTF8)) {
-                        string FileContent = reader.ReadToEnd();
-                        MessageBox.Show(FileContent, "公告", MessageBoxButton.OK, MessageBoxImage.Information);
-                    }
-                }
-                catch (Exception ex) {
-                    LogManager.Log.Error("读取 notice 文件失败：" + ex.Message);
-                    StatusText = "读取 notice 文件失败：" + ex.Message;
-                }
-            } else {
+            // 拉取公告
+            string? notice;
+            notice = await Core.API.Notice.Request();
+            if (notice != null) {
                 StatusText = "拉取公告失败，请检查网络连接（重启程序以重试）";
             }
 
-            StatusText = StatusTextDefault;
+            if (StatusText != statusText) { // 正常结束
+                StatusText = StatusTextDefault;
+            }
             // 结束
             IsBtnStartEnable = true;
             IsIndeterminate = false;
+
+            return notice;
         }
 
         // 更新绑定

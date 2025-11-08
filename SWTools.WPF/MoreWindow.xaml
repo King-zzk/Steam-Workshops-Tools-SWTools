@@ -8,7 +8,7 @@
         xmlns:viewmodel="clr-namespace:SWTools.ViewModel;assembly=SWTools.ViewModel"
         mc:Ignorable="d"
         Title="更多信息" 
-        Height="500" Width="680"
+        Height="520" Width="700"
         ResizeMode="NoResize"
         Background="{StaticResource BhDefault}" ThemeMode="Light"
         WindowStartupLocation="CenterOwner"  ShowInTaskbar="False"
@@ -60,7 +60,6 @@
                         根据 GPL-2.0 许可证授权。<LineBreak/>
                         您可以在 “许可证” 标签页查看完整的许可证信息。<LineBreak/>
                         <LineBreak/>
-                        关于项目使用的第三方库，请查看随程序分发的 THIRD-PARTY-NOTICE.md 文件。
                     </TextBlock>
                 </StackPanel>
             </TabItem>
@@ -118,8 +117,17 @@
                         <TextBlock Text="许可证" VerticalAlignment="Center"/>
                     </StackPanel>
                 </TabItem.Header>
-                <TextBox Margin="20 10 20 20" IsReadOnly="True" Text="{Binding ProjectLicense}" Padding="40 10 40 10"
+                <TextBox Margin="20 10 20 20" IsReadOnly="True" x:Name="LicenseText" Text="{Binding ProjectLicense}" Padding="40 10 40 10"
                          FontFamily="Consolas" FontSize="13" VerticalScrollBarVisibility="Visible"/>
+            </TabItem>
+            <TabItem Background="{StaticResource BhLight}">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal" Margin="5 0 5 0" MinWidth="80">
+                        <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xE8F1;" VerticalAlignment="Center" Margin="0 0 10 0"/>
+                        <TextBlock Text="第三方库" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </TabItem.Header>
+                    <WebBrowser x:Name="WebViewer"/>
             </TabItem>
         </TabControl>
     </DockPanel>

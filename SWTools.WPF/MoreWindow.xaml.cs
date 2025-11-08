@@ -16,6 +16,12 @@ namespace SWTools.WPF {
 
         public MoreWindow() {
             InitializeComponent();
+            LicenseText.Text = Helper.GetEmbeddedResource("SWTools.WPF.LICENSE.txt");
+            WebViewer.NavigateToString(Helper.MdToHtml(Helper.GetEmbeddedResource("SWTools.WPF.THIRD-PARTY-NOTICE.md")));
+            WebViewer.Navigating += (s, e) => {
+                e.Cancel = true;
+                System.Diagnostics.Process.Start("explorer.exe", e.Uri.ToString());
+            };
         }
 
         private void BtnOk_Click(object sender, RoutedEventArgs e) {

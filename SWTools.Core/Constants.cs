@@ -16,9 +16,10 @@ namespace SWTools.Core {
         // 公共数据
         public const string CommonDir = "data/";
         public const string ConfigFile = CommonDir + "config.json"; // 配置
-        public const string DownloadListFile = CommonDir + "download.json"; // 下载列表
-        public const string PubAccountsFile = CommonDir + "pub_accounts.json"; // 公有账户
-        public const string LatestInfoFile = CommonDir + "latest_info.json"; // 最新信息
+        public const string DownloadListFile = CommonDir + "download.json";     // 下载列表
+        public const string PubAccountsFile = CommonDir + "pub_accounts.json";  // 公有账户
+        public const string LatestInfoFile = CommonDir + "latest_info.json";    // 最新信息
+        public const string NoticeFile = CommonDir + "notice.txt";    // 最新信息
         // 日志
         public const string LogDir = "logs/";
         public const string LogFile = LogDir + "latest.log";
@@ -40,6 +41,7 @@ namespace SWTools.Core {
         public const string UrlRelease = UrlRepo + "releases";
         // Github 代理
         public static readonly string[] UrlGithubProxy = [
+            "https://ghfile.geekertao.top/",
             "https://gitproxy.click/",
             "https://ghproxy.net/",
             "https://gh.llkk.cc/",

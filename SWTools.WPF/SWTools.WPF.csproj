@@ -23,7 +23,28 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="LICENSE.txt" />
+	  <None Remove="Resources\LICENSE.txt" />
+	  <None Remove="Resources\markdown.css" />
+	  <None Remove="THIRD-PARTY-NOTICE.md" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<Content Include="Resources\icon.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="LICENSE.txt">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="Resources\markdown.css" />
+	  <EmbeddedResource Include="THIRD-PARTY-NOTICE.md">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="CommonMark.NET" Version="0.15.1" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -34,6 +55,12 @@
 	<ItemGroup>
 		<Resource Include="Resources\default-preview.png" />
 		<Resource Include="Resources\icon.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="Resources\THIRD-PARTY-NOTICE.md">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
 	</ItemGroup>
 
 </Project>

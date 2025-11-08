@@ -1,0 +1,33 @@
+﻿<Window x:Class="SWTools.WPF.NoticeBox"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SWTools.WPF"
+        xmlns:controls="clr-namespace:SWTools.WPF.Controls"
+        mc:Ignorable="d"
+        Title="公告"
+        SizeToContent="WidthAndHeight"
+        ResizeMode="NoResize" WindowStyle="ThreeDBorderWindow"
+        Background="{StaticResource BhDefault}" ThemeMode="Light"
+        WindowStartupLocation="CenterOwner"  ShowInTaskbar="False"
+        RenderOptions.BitmapScalingMode="HighQuality">
+
+    <DockPanel>
+        <!--底栏-->
+        <DockPanel DockPanel.Dock="Bottom" LastChildFill="False" Background="{StaticResource BhGray}">
+            <controls:IconButtonAccent x:Name="BtnYes" Click="BtnYes_Click"
+                Text="确认" Icon="&#xE8FB;" DockPanel.Dock="Right" Margin="10 10 20 10"/>
+        </DockPanel>
+        <Separator DockPanel.Dock="Bottom" BorderBrush="{StaticResource BhBorder}"/>
+        <!--主体-->
+        <DockPanel>
+            <DockPanel DockPanel.Dock="Top" LastChildFill="False" Margin="30 30 30 10">
+                <TextBlock DockPanel.Dock="Left" FontFamily="{StaticResource SymbolThemeFontFamily}" 
+                Text="&#xE789;" FontSize="30" VerticalAlignment="Center"/>
+                <TextBlock Margin="20 0 0 0" Text="公告" FontSize="20" FontWeight="Bold" VerticalAlignment="Center" />
+            </DockPanel>
+            <WebBrowser Width="600" MaxHeight="300" x:Name="WebViewer"/>
+        </DockPanel>
+    </DockPanel>
+</Window>

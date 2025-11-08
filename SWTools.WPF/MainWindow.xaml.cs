@@ -220,10 +220,13 @@ namespace SWTools.WPF {
             }
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e) {
+        private async void Window_Loaded(object sender, RoutedEventArgs e) {
             // 拉取最新信息
             if (!Core.ConfigManager.Config.NoAutoFetch) {
-                ViewModel.FetchRepo();
+                string? notice = await ViewModel.FetchRepo();
+                if (notice == null) return;
+                NoticeBox msgBox = new(notice) { Owner = this };
+                msgBox.ShowDialog();
             }
         }
 
