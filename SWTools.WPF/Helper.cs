@@ -9,12 +9,10 @@ namespace SWTools.WPF {
             var assembly = Assembly.GetExecutingAssembly();
             var css = GetEmbeddedResource("SWTools.WPF.Resources.markdown.css");
             var content = CommonMark.CommonMarkConverter.Convert(markdown);
-            return $@"
-<html>
+            return $@"<html>
 <head><meta charset=""UTF-8""><style>{css}</style></head>
 <body>{content}</body>
-</html>
-";
+</html>";
         }
 
         // 获取嵌入的资源

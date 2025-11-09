@@ -1,7 +1,4 @@
-﻿using SWTools.Core;
-using System.IO;
-using System.Reflection;
-using System.Text;
+﻿using SWTools.Core.API;
 using System.Windows;
 
 namespace SWTools.WPF {

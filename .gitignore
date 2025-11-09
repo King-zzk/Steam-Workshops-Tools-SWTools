@@ -362,6 +362,8 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 
+*.lnk
+
 # Project-adapted
 steamcmd
 eula.txt

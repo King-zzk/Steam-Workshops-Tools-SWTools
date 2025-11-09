@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SWTools.WPF"
         xmlns:controls="clr-namespace:SWTools.WPF.Controls"
+        xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif"
         xmlns:viewmodel="clr-namespace:SWTools.ViewModel;assembly=SWTools.ViewModel"
         mc:Ignorable="d"
         Title="Steam Workshop Tools (SWTools)" 
@@ -17,7 +18,7 @@
     <Window.DataContext>
         <viewmodel:MainWindow/>
     </Window.DataContext>
-    
+
     <!--下载列表的右键菜单-->
     <Window.Resources>
         <ContextMenu x:Key="ContextMenu">
@@ -100,7 +101,7 @@
                 Text="更多" Icon="&#xE712;" DockPanel.Dock="Right" Margin="5 0 5 0"/>
         </DockPanel>
         <Separator BorderBrush="{StaticResource BhBorder}"  DockPanel.Dock="Top" Margin="0"/>
-        
+
         <!--底栏-->
         <DockPanel DockPanel.Dock="Bottom" LastChildFill="False" Background="{StaticResource BhGray}">
             <controls:IconButton x:Name="BtnLog" Click="BtnLog_Click"
@@ -110,7 +111,7 @@
         <Separator DockPanel.Dock="Bottom" BorderBrush="#d4d4d4"/>
         <ProgressBar x:Name="ProgressBar" DockPanel.Dock="Bottom" IsIndeterminate="{Binding IsIndeterminate}" 
                      Background="Transparent"/>
-        
+
         <!--下载列表-->
         <ListView ItemsSource="{Binding DisplayItems}" FontSize="13" Background="{StaticResource BhLight}" SelectionChanged="ListView_SelectionChanged">
             <!--右键菜单-->
@@ -126,10 +127,10 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Image VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5 5 5 5"
-                                       Height="40" Source="{Binding PreviewImage}" ToolTipService.InitialShowDelay="300">
+                                       Height="40" gif:AnimationBehavior.SourceUri="{Binding PreviewImage}" ToolTipService.InitialShowDelay="300">
                                     <ToolTipService.ToolTip>
                                         <Image VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0"
-                                        Height="200" Source="{Binding PreviewImage}" />
+                                        Height="200" gif:AnimationBehavior.SourceUri="{Binding PreviewImage}" />
                                     </ToolTipService.ToolTip>
                                 </Image>
                             </DataTemplate>

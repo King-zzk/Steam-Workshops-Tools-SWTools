@@ -6,13 +6,13 @@
         // 字节数转字符串
         public static string ByteToString(long bytes) {
             float fbytes = bytes;
-            if (bytes < 800) return bytes.ToString() + " B";
+            if (bytes < 1000) return bytes.ToString() + " B";
             fbytes /= 1024;
-            if (fbytes < 800) return fbytes.ToString("#.##") + " KiB";
+            if (fbytes < 1000) return fbytes.ToString("0.##") + " KiB";
             fbytes /= 1024;
-            if (fbytes < 800) return fbytes.ToString("#.##") + " MiB";
+            if (fbytes < 1000) return fbytes.ToString("0.##") + " MiB";
             fbytes /= 1024;
-            return fbytes.ToString("#.##") + " GiB";
+            return fbytes.ToString("0.##") + " GiB";
         }
     }
 }
