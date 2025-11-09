@@ -20,7 +20,6 @@ namespace SWTools.WPF {
         }
 
         public MainWindow() {
-
             InitializeComponent();
         }
 
@@ -220,11 +219,12 @@ namespace SWTools.WPF {
             }
         }
 
+        // 窗口加载时的行为
         private async void Window_Loaded(object sender, RoutedEventArgs e) {
             // 拉取最新信息
             if (!Core.ConfigManager.Config.NoAutoFetch) {
                 string? notice = await ViewModel.FetchRepo();
-                if (notice == null) return;
+                if (string.IsNullOrEmpty(notice)) return;
                 NoticeBox msgBox = new(notice) { Owner = this };
                 msgBox.ShowDialog();
             }
@@ -232,9 +232,11 @@ namespace SWTools.WPF {
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
             if (ViewModel.IsIndeterminate) {
-                MsgBox msgBox = new("请勿关闭此窗口", "请等待当前任务完成。此时关闭窗口可能引发未知的问题。", false) { Owner = this };
-                msgBox.ShowDialog();
-                e.Cancel = true;
+                MsgBox msgBox = new("请勿关闭此窗口", "请等待当前任务完成。此时关闭窗口可能引发未知的问题。\n\n如果您坚持要关闭窗口，请单击 “否”。", true) { Owner = this };
+                bool? res = msgBox.ShowDialog();
+                if (res == true) {
+                    e.Cancel = true;
+                }
             }
         }
 
@@ -246,11 +248,5 @@ namespace SWTools.WPF {
             System.Diagnostics.Process.Start("explorer.exe",
                 $"https://www.steamcommunity.com/sharedfiles/filedetails/{item.Item.ItemId}");
         }
-
-        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-
-        }
-        // 下载公告
-
     }
 }

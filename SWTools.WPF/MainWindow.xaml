@@ -21,7 +21,7 @@
 
     <!--下载列表的右键菜单-->
     <Window.Resources>
-        <ContextMenu x:Key="ContextMenu">
+        <ContextMenu x:Key="ContextMenu" TextOptions.TextFormattingMode="Display">
             <MenuItem x:Name="MenuRemove" Click="MenuRemove_Click">
                 <MenuItem.Header>
                     <StackPanel Orientation="Horizontal">
@@ -113,7 +113,7 @@
                      Background="Transparent"/>
 
         <!--下载列表-->
-        <ListView ItemsSource="{Binding DisplayItems}" FontSize="13" Background="{StaticResource BhLight}" SelectionChanged="ListView_SelectionChanged">
+        <ListView ItemsSource="{Binding DisplayItems}" FontSize="13" Background="{StaticResource BhLight}">
             <!--右键菜单-->
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">

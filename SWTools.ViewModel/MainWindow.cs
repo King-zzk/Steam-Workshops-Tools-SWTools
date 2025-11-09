@@ -229,11 +229,24 @@ namespace SWTools.ViewModel {
             // 拉取公告
             string? notice;
             notice = await Core.API.Notice.Request();
-            if (notice != null) {
+            if (string.IsNullOrEmpty(notice)) {
                 StatusText = "拉取公告失败，请检查网络连接（重启程序以重试）";
+            } else if(File.Exists(Core.Constants.NoticeFile)) {
+                string lastNotice;
+                using StreamReader sr = new(Core.Constants.NoticeFile);
+                lastNotice = sr.ReadToEnd();
+                // 公告内容一样就不显示了
+                if (notice == lastNotice) notice = null;
+            }
+            if (! string.IsNullOrEmpty(notice)) {
+                if (!Directory.Exists(Core.Constants.CacheDir)) {
+                    Directory.CreateDirectory(Core.Constants.CacheDir);
+                }
+                using StreamWriter sw = new(Core.Constants.NoticeFile, false);
+                sw.Write(notice);
             }
 
-            if (StatusText != statusText) { // 正常结束
+            if (StatusText == statusText) { // 正常结束
                 StatusText = StatusTextDefault;
             }
             // 结束

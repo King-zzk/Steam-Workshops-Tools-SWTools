@@ -20,7 +20,7 @@
     
     <!--解析列表的右键菜单-->
     <Window.Resources>
-        <ContextMenu x:Key="ContextMenu">
+        <ContextMenu x:Key="ContextMenu" TextOptions.TextFormattingMode="Display">
             <MenuItem x:Name="MenuRemove" Click="MenuRemove_Click">
                 <MenuItem.Header>
                     <StackPanel Orientation="Horizontal">

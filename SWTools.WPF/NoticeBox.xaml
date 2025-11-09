@@ -17,7 +17,7 @@
         <!--底栏-->
         <DockPanel DockPanel.Dock="Bottom" LastChildFill="False" Background="{StaticResource BhGray}">
             <controls:IconButtonAccent x:Name="BtnYes" Click="BtnYes_Click"
-                Text="确认" Icon="&#xE8FB;" DockPanel.Dock="Right" Margin="10 10 20 10"/>
+                Text="知道了" Icon="&#xE8FB;" DockPanel.Dock="Right" Margin="10 10 20 10"/>
         </DockPanel>
         <Separator DockPanel.Dock="Bottom" BorderBrush="{StaticResource BhBorder}"/>
         <!--主体-->

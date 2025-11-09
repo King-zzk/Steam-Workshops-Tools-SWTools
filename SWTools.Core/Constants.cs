@@ -19,7 +19,6 @@ namespace SWTools.Core {
         public const string DownloadListFile = CommonDir + "download.json";     // 下载列表
         public const string PubAccountsFile = CommonDir + "pub_accounts.json";  // 公有账户
         public const string LatestInfoFile = CommonDir + "latest_info.json";    // 最新信息
-        public const string NoticeFile = CommonDir + "notice.txt";    // 最新信息
         // 日志
         public const string LogDir = "logs/";
         public const string LogFile = LogDir + "latest.log";
@@ -27,6 +26,7 @@ namespace SWTools.Core {
         public const string CacheDir = "cache/";
         public const string PreviewDir = CacheDir + "previews/";
         public const string CacheParseFile = CacheDir + "parse.json";
+        public const string NoticeFile = CacheDir + "last_notice.md";    // 上次下载的公告
         // Steamcmd
         public const string SteamcmdDir = "steamcmd/";
         public const string SteamcmdFile = SteamcmdDir + "steamcmd.exe";

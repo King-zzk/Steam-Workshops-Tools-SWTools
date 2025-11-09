@@ -1,5 +1,4 @@
-﻿using SWTools.Core.API;
-using System.Windows;
+﻿using System.Windows;
 
 namespace SWTools.WPF {
     /// <summary>
