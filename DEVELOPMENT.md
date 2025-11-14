@@ -11,12 +11,7 @@
 
 项目使用 **.NET 10** SDK，推荐使用 Visual Studio 进行开发。
 
-> [!NOTE]
->
-> Visual Studio 2026 发布之前，您应安装其预览版（Insiders），并确保 “单个组件” 中选中了 .NET 10 的相关组件。
->
-
-- 你需要安装 Visual Studio 2026 或更新版本：[Visual Studio: 适用于软件开发的 IDE 和代码编辑器](https://visualstudio.microsoft.com/zh-hans/)。
+- 你需要安装 Visual Studio **2026** 或更新版本：[Visual Studio: 适用于软件开发的 IDE 和代码编辑器](https://visualstudio.microsoft.com/zh-hans/)。
 
 - 在安装程序的 “工作负荷” 的选项中，确保选中了 **“.NET 桌面开发”**。
 

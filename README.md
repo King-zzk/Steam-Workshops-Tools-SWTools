@@ -26,7 +26,7 @@
 
 1. 前往 [Releases](https://github.com/King-zzk/Steam-Workshops-Tools-SWTools/releases) 下载最新版本
 
-2. 您需要安装 [.NET 10 桌面运行时（Desktop Runtime）](https://dotnet.microsoft.com/zh-cn/download) 或更新版本
+2. 您需要安装 [.NET 10 桌面运行时（Desktop Runtime）](https://get.dot.net/10) 或更新版本
 
 3. 启动 `SWTools.WPF.exe`
 
