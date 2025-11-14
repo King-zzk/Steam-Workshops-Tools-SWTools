@@ -90,6 +90,11 @@ namespace SWTools.ViewModel {
 
         public MainWindow() {
             // 加载下载列表
+            if (!File.Exists(Core.Constants.DownloadListFile)) {
+                Core.LogManager.Log?.Warning("{Filename} not found, skipping loading",
+                    Core.Constants.DownloadListFile);
+                return;
+            }
             _itemList = Core.ItemList.Load(Core.Constants.DownloadListFile) ?? [];
             _itemList.CheckDownloadedItems();
             UpdateDisplay();
@@ -231,14 +236,14 @@ namespace SWTools.ViewModel {
             notice = await Core.API.Notice.Request();
             if (string.IsNullOrEmpty(notice)) {
                 StatusText = "拉取公告失败，请检查网络连接（重启程序以重试）";
-            } else if(File.Exists(Core.Constants.NoticeFile)) {
+            } else if (File.Exists(Core.Constants.NoticeFile)) {
                 string lastNotice;
                 using StreamReader sr = new(Core.Constants.NoticeFile);
                 lastNotice = sr.ReadToEnd();
                 // 公告内容一样就不显示了
                 if (notice == lastNotice) notice = null;
             }
-            if (! string.IsNullOrEmpty(notice)) {
+            if (!string.IsNullOrEmpty(notice)) {
                 if (!Directory.Exists(Core.Constants.CacheDir)) {
                     Directory.CreateDirectory(Core.Constants.CacheDir);
                 }
