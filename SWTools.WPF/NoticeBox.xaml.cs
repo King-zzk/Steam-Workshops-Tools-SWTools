@@ -7,11 +7,12 @@ namespace SWTools.WPF {
     public partial class NoticeBox : Window {
         public NoticeBox(string noticeMd) {
             InitializeComponent();
-            WebViewer.NavigateToString(Helper.MdToHtml(noticeMd));
-            WebViewer.Navigating += (s, e) => {
-                e.Cancel = true;
-                System.Diagnostics.Process.Start("explorer.exe", e.Uri.ToString());
-            };
+            MdViewer.Content = noticeMd;
+        }
+
+        protected override void OnClosed(EventArgs e) {
+            base.OnClosed(e);
+            MdViewer.Dispose();
         }
 
         private void BtnYes_Click(object sender, RoutedEventArgs e) {

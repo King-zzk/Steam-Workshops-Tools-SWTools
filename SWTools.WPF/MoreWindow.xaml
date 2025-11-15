@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:SWTools.WPF"
         xmlns:controls="clr-namespace:SWTools.WPF.Controls"
         xmlns:viewmodel="clr-namespace:SWTools.ViewModel;assembly=SWTools.ViewModel"
+        xmlns:md="clr-namespace:MdViewer;assembly=MdViewer"
         mc:Ignorable="d"
         Title="更多信息" 
         Height="520" Width="700"
@@ -127,7 +128,7 @@
                         <TextBlock Text="第三方库" VerticalAlignment="Center"/>
                     </StackPanel>
                 </TabItem.Header>
-                    <WebBrowser x:Name="WebViewer"/>
+                <md:Markdown x:Name="MdViewer" FontSize="15" />
             </TabItem>
         </TabControl>
     </DockPanel>
