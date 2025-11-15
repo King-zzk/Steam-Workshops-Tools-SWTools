@@ -28,7 +28,7 @@
 
 2. 您需要安装 [.NET 10 桌面运行时（Desktop Runtime）](https://get.dot.net/10) 或更新版本
 
-3. 启动 `SWTools.WPF.exe`
+3. 启动 `SWTools.exe`
 
 4. 添加下载任务，点击 “下载全部” 开始下载
 
