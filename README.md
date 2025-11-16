@@ -1,7 +1,9 @@
 <h1 align="center">
-  Steam Workshops Tools 创意工坊下载工具
+  Steam Workshop Tools 创意工坊下载工具
 </h1>
-<p align="center">
+<img src="SWTools.WPF/Resources/icon.png" width="162px" align="right"/>
+
+<p>
     <a href="https://github.com/King-zzk/Steam-Workshops-Tools-SWTools/blob/master/LICENSE.txt"><img src="https://img.shields.io/github/license/King-zzk/Steam-Workshops-Tools-SWTools"/></a>
   <a href="https://github.com/King-zzk/Steam-Workshops-Tools-SWTools/releases"><img src="https://img.shields.io/github/downloads/King-zzk/Steam-Workshops-Tools-SWTools/total" alt="Release Downloads"/></a>
   <a href="https://learn.microsoft.com/zh-cn/dotnet/core/whats-new/dotnet-10/overview/"><img src="https://img.shields.io/badge/dotnet-10.0-purple.svg?color=512bd4" alt="DotNet 10"/></a>
@@ -13,7 +15,8 @@
   <a href="https://github.com/King-zzk/Steam-Workshops-Tools-SWTools/commits/"><img src="https://img.shields.io/github/commit-activity/m/King-zzk/Steam-Workshops-Tools-SWTools" alt="Commit Activity"/></a>
   <a href="https://deepwiki.com/King-zzk/Steam-Workshops-Tools-SWTools"><img src="https://deepwiki.com/badge.svg" alt="Ask DeepWiki"/></a>
 </p>
-这是一款下载 Steam 创意工坊模组的工具，支持所有可通过匿名账户下载的模组，并支持部分需要正版账户的模组。
+
+Steam Workshop Tools (SWTools) 是一款下载 Steam 创意工坊模组的工具，支持所有可通过匿名账户下载的模组，并支持部分需要正版账户的模组。
 
 ## 使用指南
 
