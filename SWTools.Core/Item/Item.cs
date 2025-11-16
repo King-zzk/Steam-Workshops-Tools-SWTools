@@ -140,6 +140,11 @@ namespace SWTools.Core {
             } else if (downloadLog.Contains("Access Denied")) {
                 return EFailReason.AccessDenied;
             } else if (downloadLog.Contains("Locking Failed")) {
+                LogManager.Log.Warning("!!!!!!!!! You might meet a HEISENBUG\n!!!!!!!!! Please DO submit the following log to developers:\n" +
+                    "{log}\nThis log will also be saved in HEISENBUG.log.",
+                    downloadLog);
+                using StreamWriter sw = new("HEISENBUG.log");
+                sw.Write($"!!!!!!!!! You might meet a HEISENBUG\n!!!!!!!!! Please DO submit the following log to developers:\n{downloadLog}");
                 return EFailReason.LockingFailed;
             }
             return EFailReason.Unknown;

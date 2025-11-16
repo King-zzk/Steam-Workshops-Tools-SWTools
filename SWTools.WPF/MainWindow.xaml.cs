@@ -210,12 +210,12 @@ namespace SWTools.WPF {
             if (res == true) {
                 try {
                     Directory.Delete(item.Item.GetDownloadPath(), true);
+                    ViewModel.Items.Remove(item.Item);
                 }
                 catch (Exception) {
                     msgBox = new("操作失败", "未能成功删除文件，您可以尝试自行删除", true) { Owner = this };
                     msgBox.ShowDialog();
                 }
-                ViewModel.Items.Remove(item.Item);
             }
         }
 

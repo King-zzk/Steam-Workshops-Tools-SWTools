@@ -35,6 +35,8 @@ Steam Workshop Tools (SWTools) 是一款下载 Steam 创意工坊模组的工具
 
 4. 添加下载任务，点击 “下载全部” 开始下载
 
+5. 右键列表中的物品可以查看更多操作；光标悬浮在缩略图上方可放大展示
+
 ## 支持的 Steam 游戏（Steam App）
 
 可通过匿名账户下载模组的 Steam App 不在此列出。

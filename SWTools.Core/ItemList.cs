@@ -159,20 +159,32 @@ namespace SWTools.Core {
             foreach (var item in items) Remove(item);
         }
 
-        // 检查已下载的物品是否丢失
+        // 检查已下载的物品
         public void CheckDownloadedItems() {
+            // 检查是否丢失
             var items = from item in this
                         where item.DownloadState == Item.EDownloadState.Done &&
                             !Directory.Exists(item.GetDownloadPath())
                         select item;
-            if (ConfigManager.Config.IgnoreMissingFiles) {
-                foreach (var item in items) Remove(item);
-                LogManager.Log.Information("Found {Count} item(s) missing, ignoring...", items.Count());
-            } else {
-                foreach (var item in items) {
-                    this[FindIndex(item.ItemId)].DownloadState = Item.EDownloadState.Missing;
+            if(items.Count() > 0) {
+                if (ConfigManager.Config.IgnoreMissingFiles) {
+                    foreach (var item in items) Remove(item);
+                    LogManager.Log.Information("Found {Count} item(s) missing, ignoring...", items.Count());
+                } else {
+                    foreach (var item in items) {
+                        this[FindIndex(item.ItemId)].DownloadState = Item.EDownloadState.Missing;
+                    }
+                    LogManager.Log.Information("Found {Count} item(s) missing", items.Count());
                 }
-                LogManager.Log.Information("Found {Count} item(s) missing", items.Count());
+            }
+            // 检查是否存在
+            items = from item in this
+                    where item.DownloadState == Item.EDownloadState.Failed &&
+                        Directory.Exists(item.GetDownloadPath())
+                    select item;
+            if(items.Count() > 0) {
+                foreach (var item in items) this[FindIndex(item.ItemId)].DownloadState=Item.EDownloadState.Done;
+                LogManager.Log.Warning("Found {Count} failed item(s) exists in the dir (this is weird)", items.Count());
             }
         }
     }
