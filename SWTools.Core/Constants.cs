@@ -41,7 +41,6 @@ namespace SWTools.Core {
         public const string UrlRelease = UrlRepo + "releases";
         // Github 代理
         public static readonly string[] UrlGithubProxy = [
-            "https://ghfile.geekertao.top/",
             "https://gitproxy.click/",
             "https://ghproxy.net/",
             "https://gh.llkk.cc/",

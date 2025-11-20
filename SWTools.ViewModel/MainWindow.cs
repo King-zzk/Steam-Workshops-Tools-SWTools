@@ -128,17 +128,23 @@ namespace SWTools.ViewModel {
             await Core.Helper.Steamcmd.Setup();
             // 开始下载
             bool isEarlyStopped = false;
-            for (var i = 0; i < DisplayItems.Count && IsDownloading; i++) {
-                if (DisplayItems[i].Item.DownloadState != Core.Item.EDownloadState.Pending) {
-                    continue;
+            Queue<DisplayItem> downloadQueue = [];
+            foreach (var i in DisplayItems) {
+                if (i.Item.DownloadState == Core.Item.EDownloadState.Pending) {
+                    downloadQueue.Enqueue(i);
                 }
-                StatusText = $"正在下载 {DisplayItems[i].ItemName}";
-                DisplayItems[i].Item.PropertyChanged += (s, e) => {
+            }
+            while (downloadQueue.Count() > 0 && IsDownloading) {
+                var item = downloadQueue.Dequeue();
+                if (!DisplayItems.Contains(item)) continue;
+                StatusText = $"正在下载 {item.ItemName}";
+                Core.LogManager.Log.Information("Downloading item {itemId}", item.Item.ItemId);
+                item.Item.PropertyChanged += (s, e) => {
                     UpdateDisplay();
                 };
-                await DisplayItems[i].Item.Download();
-                if (DisplayItems[i].Item.DownloadState == Core.Item.EDownloadState.Failed &&
-                    DisplayItems[i].Item.FailReason == Core.Item.EFailReason.NoConnection) {
+                await item.Item.Download();
+                if (item.Item.DownloadState == Core.Item.EDownloadState.Failed &&
+                    item.Item.FailReason == Core.Item.EFailReason.NoConnection) {
                     StatusText = "已停止";
                     isEarlyStopped = true;
                     break;

@@ -52,7 +52,8 @@ namespace SWTools.Core {
             Null, Unknown, Exception,
             FileNotFound, Timeout, NoConnection,
             AccountDisabled, InvalidPassword, NoMatch,
-            AccessDenied, LockingFailed, AccountNoSupportThisDownload
+            AccessDenied, LockingFailed, AccountNoSupportThisDownload,
+            UpdateFailed
         }
         public enum EAfterParse {
             Nothing, Download
@@ -101,6 +102,8 @@ namespace SWTools.Core {
                     return "账户权限不足";
                 case EFailReason.LockingFailed:
                     return "文件被占用";
+                case EFailReason.UpdateFailed:
+                    return "Steamcmd 更新失败，请检查网络连接";
             }
             LogManager.Log.Error("Received unknown enum value: {FailReason}", FailReason);
             return string.Empty;
@@ -140,12 +143,14 @@ namespace SWTools.Core {
             } else if (downloadLog.Contains("Access Denied")) {
                 return EFailReason.AccessDenied;
             } else if (downloadLog.Contains("Locking Failed")) {
-                LogManager.Log.Warning("!!!!!!!!! You might meet a HEISENBUG\n!!!!!!!!! Please DO submit the following log to developers:\n" +
+                LogManager.Log.Warning("!!!! You might meet a HEISENBUG\n!!!! Please submit the following log to developers:\n" +
                     "{log}\nThis log will also be saved in HEISENBUG.log.",
                     downloadLog);
                 using StreamWriter sw = new("HEISENBUG.log");
-                sw.Write($"!!!!!!!!! You might meet a HEISENBUG\n!!!!!!!!! Please DO submit the following log to developers:\n{downloadLog}");
+                sw.Write($"!!!! You might meet a HEISENBUG\n!!!! Please submit the following log to developers:\n{downloadLog}");
                 return EFailReason.LockingFailed;
+            } else if (downloadLog.Contains("Steam needs to be online to update")) {
+                return EFailReason.UpdateFailed;
             }
             return EFailReason.Unknown;
         }
