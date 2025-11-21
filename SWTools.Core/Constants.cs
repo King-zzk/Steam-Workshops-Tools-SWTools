@@ -10,7 +10,7 @@ namespace SWTools.Core {
     /// </summary>
     public static class Constants {
         /* 版本 */
-        public static readonly SemVersion Version = SemVersion.Parse("2.0.0-rc.2");
+        public static readonly SemVersion Version = SemVersion.Parse("2.0.0");
 
         /* 目录 */
         // 公共数据
@@ -41,7 +41,6 @@ namespace SWTools.Core {
         public const string UrlRelease = UrlRepo + "releases";
         // Github 代理
         public static readonly string[] UrlGithubProxy = [
-            "https://ghfile.geekertao.top/",
             "https://gitproxy.click/",
             "https://ghproxy.net/",
             "https://gh.llkk.cc/",

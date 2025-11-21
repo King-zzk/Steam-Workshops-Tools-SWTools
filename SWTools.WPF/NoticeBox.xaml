@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SWTools.WPF"
         xmlns:controls="clr-namespace:SWTools.WPF.Controls"
+        xmlns:md="clr-namespace:MdViewer;assembly=MdViewer"
         mc:Ignorable="d"
         Title="公告"
         SizeToContent="WidthAndHeight"
@@ -27,7 +28,7 @@
                 Text="&#xE789;" FontSize="30" VerticalAlignment="Center"/>
                 <TextBlock Margin="20 0 0 0" Text="公告" FontSize="20" FontWeight="Bold" VerticalAlignment="Center" />
             </DockPanel>
-            <WebBrowser Width="700" MaxHeight="300" x:Name="WebViewer"/>
+            <md:Markdown Width="700" MaxHeight="300" x:Name="MdViewer" FontSize="15" />
         </DockPanel>
     </DockPanel>
 </Window>

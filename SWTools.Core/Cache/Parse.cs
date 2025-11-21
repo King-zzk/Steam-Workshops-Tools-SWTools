@@ -8,6 +8,9 @@
 
         // 查找缓存
         public static Item? Get(string itemId) {
+            if (_cache.Find(itemId)?.DownloadState == Item.EDownloadState.Done) { // 不要删掉这个逻辑
+                _cache[_cache.FindIndex(itemId)].DownloadState = Item.EDownloadState.Pending;
+            }
             return _cache.Find(itemId);
         }
         // 存入缓存 (暂存)

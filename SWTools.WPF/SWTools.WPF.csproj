@@ -9,7 +9,7 @@
 		<ApplicationIcon>Resources\icon.ico</ApplicationIcon>
 		<Copyright>Copyright (c) 2025 Commkom (king-zzk), masterLazy (mLazy) </Copyright>
 		<!--版本-->
-		<Version>2.0.0-rc.2</Version>
+		<Version>2.0.0</Version>
 		<AssemblyName>SWTools</AssemblyName>
 		<AssemblyTitle>Steam Workshop Tools</AssemblyTitle>
 	</PropertyGroup>
@@ -25,7 +25,6 @@
 	<ItemGroup>
 	  <None Remove="LICENSE.txt" />
 	  <None Remove="Resources\LICENSE.txt" />
-	  <None Remove="Resources\markdown.css" />
 	  <None Remove="THIRD-PARTY-NOTICE.md" />
 	</ItemGroup>
 
@@ -37,14 +36,13 @@
 	  <EmbeddedResource Include="LICENSE.txt">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </EmbeddedResource>
-	  <EmbeddedResource Include="Resources\markdown.css" />
 	  <EmbeddedResource Include="THIRD-PARTY-NOTICE.md">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </EmbeddedResource>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="CommonMark.NET" Version="0.15.1" />
+	  <PackageReference Include="mdviewer" Version="1.0.0" />
 	  <PackageReference Include="XamlAnimatedGif" Version="2.3.1" />
 	</ItemGroup>
 

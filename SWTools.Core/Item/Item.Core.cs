@@ -108,8 +108,9 @@ namespace SWTools.Core {
                     DownloadState = EDownloadState.Failed;
                     FailReason = GetFailReason(downloadLog.ToString());
                     if (FailReason == EFailReason.Unknown) {
-                        LogManager.Log.Error("Download failed with unknown reason. Here's the log of Steamcmd:\n{Log}",
-                            downloadLog);
+                        LogManager.Log.Error("Download failed with unknown reason. Please check the log of Steamcmd");
+                    } else {
+                        LogManager.Log.Error("Download failed with reason {reason}", FailReason);
                     }
                     return false;
                 }

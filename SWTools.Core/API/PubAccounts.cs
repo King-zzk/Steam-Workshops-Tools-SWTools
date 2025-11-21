@@ -7,8 +7,10 @@ namespace SWTools.Core.API {
     public static class PubAccounts {
         // 请求 API
         public static async Task<Response?> Request() {
+            LogManager.Log.Information("Requesting pub_accounts");
             string? response = await Helper.Http.MakeGithubGet(_apiUrl);
             if (response == null) return null;
+            LogManager.Log.Information("Requested pub_accounts successfully");
             // 处理回复
             try {
                 return JsonSerializer.Deserialize<Response>(response, Constants.JsonOptions);
@@ -21,7 +23,6 @@ namespace SWTools.Core.API {
 
         // 请求并保存到文件
         public static async Task<bool> Fetch(string filename) {
-            LogManager.Log.Information("Fetching pub_accounts");
             var response = await Request();
             if (response == null) return false;
             try {

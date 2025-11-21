@@ -83,7 +83,7 @@
 
     <DockPanel>
         <!--顶栏-->
-        <DockPanel LastChildFill="False" DockPanel.Dock="Top" Margin="10 10 10 10">
+        <DockPanel LastChildFill="False" DockPanel.Dock="Top" Margin="10">
             <Image Height="40" Margin="0 0 5 0" VerticalAlignment="Center" Source="Resources/icon.png" />
             <controls:IconButton x:Name="BtnAddTask" Click="BtnAddTask_Click"
                 Text="添加下载任务" Icon="&#xE710;" DockPanel.Dock="Left" Margin="5 0 5 0" IsEnabled="{Binding IsBtnAddTaskEnable}"/>
@@ -108,7 +108,7 @@
                 Text="打开日志窗口" Icon="&#xE8A4;" DockPanel.Dock="Right" Margin="5 10 10 10"/>
             <TextBlock DockPanel.Dock="Left" VerticalAlignment="Center" Margin="20 10 10 10" Text="{Binding StatusText}"/>
         </DockPanel>
-        <Separator DockPanel.Dock="Bottom" BorderBrush="#d4d4d4"/>
+        <Separator DockPanel.Dock="Bottom" BorderBrush="{StaticResource BhBorder}"/>
         <ProgressBar x:Name="ProgressBar" DockPanel.Dock="Bottom" IsIndeterminate="{Binding IsIndeterminate}" 
                      Background="Transparent"/>
 

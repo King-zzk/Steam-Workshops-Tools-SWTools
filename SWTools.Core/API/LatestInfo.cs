@@ -7,8 +7,10 @@ namespace SWTools.Core.API {
     public static class LatestInfo {
         // 请求 API
         public static async Task<Response?> Request() {
+            LogManager.Log.Information("Requesting latest_info");
             string? response = await Helper.Http.MakeGithubGet(_apiUrl);
             if (response == null) return null;
+            LogManager.Log.Information("Requested latest_info successfully");
             // 处理回复
             try {
                 return JsonSerializer.Deserialize<Response>(response, Constants.JsonOptions);
@@ -21,14 +23,12 @@ namespace SWTools.Core.API {
 
         // 请求并保存到文件
         public static async Task<bool> Fetch(string filename) {
-            LogManager.Log.Information("Fetching latest_info");
             var response = await Request();
             if (response == null) return false;
             try {
                 // 写入文件
-                using (StreamWriter sw = new(filename)) {
-                    sw.Write(response.ToString());
-                }
+                using StreamWriter sw = new(filename);
+                sw.Write(response.ToString());
                 return true;
             }
             catch (Exception ex) {

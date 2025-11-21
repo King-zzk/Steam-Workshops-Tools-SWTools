@@ -19,8 +19,10 @@ namespace SWTools.Core.API {
             }
             sb.Append(']');
             // 发送请求
+            LogManager.Log.Information("Requesting steamworkshopdownloader.io/api");
             string? response = await Helper.Http.MakeHttpPost(_apiUrl, sb.ToString());
             if (response == null) return null;
+            LogManager.Log.Information("Requested steamworkshopdownloader.io/api successfully");
             // 处理回复
             try {
                 return JsonSerializer.Deserialize<Response[]>(response, Constants.JsonOptions);

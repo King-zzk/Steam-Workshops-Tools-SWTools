@@ -90,6 +90,11 @@ namespace SWTools.ViewModel {
 
         public MainWindow() {
             // 加载下载列表
+            if (!File.Exists(Core.Constants.DownloadListFile)) {
+                Core.LogManager.Log?.Warning("{Filename} not found, skipping loading",
+                    Core.Constants.DownloadListFile);
+                return;
+            }
             _itemList = Core.ItemList.Load(Core.Constants.DownloadListFile) ?? [];
             _itemList.CheckDownloadedItems();
             UpdateDisplay();
@@ -123,17 +128,23 @@ namespace SWTools.ViewModel {
             await Core.Helper.Steamcmd.Setup();
             // 开始下载
             bool isEarlyStopped = false;
-            for (var i = 0; i < DisplayItems.Count && IsDownloading; i++) {
-                if (DisplayItems[i].Item.DownloadState != Core.Item.EDownloadState.Pending) {
-                    continue;
+            Queue<DisplayItem> downloadQueue = [];
+            foreach (var i in DisplayItems) {
+                if (i.Item.DownloadState == Core.Item.EDownloadState.Pending) {
+                    downloadQueue.Enqueue(i);
                 }
-                StatusText = $"正在下载 {DisplayItems[i].ItemName}";
-                DisplayItems[i].Item.PropertyChanged += (s, e) => {
+            }
+            while (downloadQueue.Count() > 0 && IsDownloading) {
+                var item = downloadQueue.Dequeue();
+                if (!DisplayItems.Contains(item)) continue;
+                StatusText = $"正在下载 {item.ItemName}";
+                Core.LogManager.Log.Information("Downloading item {itemId}", item.Item.ItemId);
+                item.Item.PropertyChanged += (s, e) => {
                     UpdateDisplay();
                 };
-                await DisplayItems[i].Item.Download();
-                if (DisplayItems[i].Item.DownloadState == Core.Item.EDownloadState.Failed &&
-                    DisplayItems[i].Item.FailReason == Core.Item.EFailReason.NoConnection) {
+                await item.Item.Download();
+                if (item.Item.DownloadState == Core.Item.EDownloadState.Failed &&
+                    item.Item.FailReason == Core.Item.EFailReason.NoConnection) {
                     StatusText = "已停止";
                     isEarlyStopped = true;
                     break;
@@ -231,14 +242,14 @@ namespace SWTools.ViewModel {
             notice = await Core.API.Notice.Request();
             if (string.IsNullOrEmpty(notice)) {
                 StatusText = "拉取公告失败，请检查网络连接（重启程序以重试）";
-            } else if(File.Exists(Core.Constants.NoticeFile)) {
+            } else if (File.Exists(Core.Constants.NoticeFile)) {
                 string lastNotice;
                 using StreamReader sr = new(Core.Constants.NoticeFile);
                 lastNotice = sr.ReadToEnd();
                 // 公告内容一样就不显示了
                 if (notice == lastNotice) notice = null;
             }
-            if (! string.IsNullOrEmpty(notice)) {
+            if (!string.IsNullOrEmpty(notice)) {
                 if (!Directory.Exists(Core.Constants.CacheDir)) {
                     Directory.CreateDirectory(Core.Constants.CacheDir);
                 }
