@@ -31,13 +31,15 @@
 
 上述例子中的版本号应替换为实际发布的版本号。关于版本号制定规则，见 [开发者手册/版本管理](../DEVELOPMENT.md#版本管理)。
 
-## 构建前准备
+## 发布前准备
 
 在构建发布包前，需要检查：
 
 - 程序中的测试逻辑是否已经删除。
 - SWTools.WPF 的输出类型设为 “Windows 应用程序”；SWTools.ViewModel、SWTools.Core 设为 “类库”。
 - 把解决方案配置改为 “Release”。
+
+如果创建了开发分支，应先合并开发分支再发布新的发行版。
 
 ## 构建发布包
 
@@ -55,7 +57,7 @@
 
   ---
 
-- 将生成目录下所有文件压缩，然后即可在 GitHub 上发布。
+- 将生成目录下**所有文件**（包括 `SWTools.deps.json` 和 `SWTools.runtimeconfig.json`）压缩，然后即可在 GitHub 上发布。
 
 > [!WARNING]
 >
