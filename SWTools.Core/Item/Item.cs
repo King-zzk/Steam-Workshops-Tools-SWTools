@@ -143,11 +143,15 @@ namespace SWTools.Core {
             } else if (downloadLog.Contains("Access Denied")) {
                 return EFailReason.AccessDenied;
             } else if (downloadLog.Contains("Locking Failed")) {
-                LogManager.Log.Warning("!!!! You might meet a HEISENBUG\n!!!! Please submit the following log to developers:\n" +
-                    "{log}\nThis log will also be saved in HEISENBUG.log.",
-                    downloadLog);
-                using StreamWriter sw = new("HEISENBUG.log");
-                sw.Write($"!!!! You might meet a HEISENBUG\n!!!! Please submit the following log to developers:\n{downloadLog}");
+                LogManager.NoOverride = true;
+                LogManager.Log.Warning("\n!!!! You might meet a HEISENBUG\n" +
+                    "!!!! Please submit the following log to developers:\n" +
+                    "{log}\nThis log will also be saved in {LogHeisenbug}.",
+                    downloadLog, Constants.LogHeisenbug);
+                using StreamWriter sw = new(Constants.LogHeisenbug);
+                sw.Write($"{DateTime.Now:yyyy-MM-dd HH:mm:ss}\n" +
+                    $"!!!! You might meet a HEISENBUG\n" +
+                    $"!!!! Please submit the following log to developers:\n{downloadLog}");
                 return EFailReason.LockingFailed;
             } else if (downloadLog.Contains("Steam needs to be online to update")) {
                 return EFailReason.UpdateFailed;

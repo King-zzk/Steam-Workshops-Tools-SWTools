@@ -12,16 +12,37 @@ namespace SWTools.Core {
         // 日志字符串
         public static StringWriter LogWriter { get; private set; } = new();
 
+        // 是否禁止覆盖
+        private static bool _noOverride = false;
+        public static bool NoOverride {
+            get { return _noOverride; }
+            set {
+                if (_noOverride == value) return;
+                _noOverride = value;
+                if (_noOverride) {
+                    File.Create(Constants.LogNoOverride);
+                } else {
+                    try { File.Delete(Constants.LogNoOverride); }
+                    catch (Exception) {
+                        Log?.Error("Failed to delete {LogNoOverride}", Constants.LogNoOverride);
+                    }
+                }
+            }
+        }
+
         // 启动
         public static void Setup() {
             // 删除旧日志
             bool failed = false;
             if (File.Exists(Constants.LogFile)) {
-                try {
-                    File.Delete(Constants.LogFile);
-                }
-                catch (Exception) {
-                    failed = true;
+                if (File.Exists(Constants.LogNoOverride)) {
+                    var dateTime = File.GetCreationTime(Constants.LogFile);
+                    File.Move(Constants.LogFile, Constants.LogDir + dateTime.ToString("yyyy-MM-dd HH-mm-ss") + ".log");
+                } else {
+                    try { File.Delete(Constants.LogFile); }
+                    catch (Exception) {
+                        failed = true;
+                    }
                 }
             }
             if (!Directory.Exists(Constants.LogDir)) {
@@ -31,7 +52,7 @@ namespace SWTools.Core {
             Configure();
             // 炫酷的启动消息
             // https://www.lddgo.net/string/text-to-ascii-art 字体: ANSI Shadow
-            Log.Information(@"
+            Log?.Information(@"
 
 ███████╗██╗    ██╗████████╗ ██████╗  ██████╗ ██╗     ███████╗   SWTools.Core v{Version}
 ██╔════╝██║    ██║╚══██╔══╝██╔═══██╗██╔═══██╗██║     ██╔════╝   
@@ -42,13 +63,20 @@ namespace SWTools.Core {
 ", Constants.Version);
             // 错误
             if (failed) {
-                Log.Error("Failed to delete {LogFile}", Constants.LogFile);
-                Log.Warning("Is there another instance running? This may make the application UNSTABLE!");
+                Log?.Error("Failed to delete {LogFile}", Constants.LogFile);
+                Log?.Warning("Is there another instance running? This may make the application UNSTABLE!");
             }
             // 监视配置更改
             ConfigManager.Config.PropertyChanged += (s, e) => {
                 Configure();
             };
+            // 删除 LogNoOverride
+            if (File.Exists(Constants.LogNoOverride)) {
+                try { File.Delete(Constants.LogNoOverride); }
+                catch (Exception) {
+                    Log?.Error("Failed to delete {LogNoOverride}", Constants.LogNoOverride);
+                }
+            }
         }
 
         // 配置日志格式

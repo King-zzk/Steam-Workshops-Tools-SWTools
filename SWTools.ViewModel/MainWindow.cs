@@ -12,15 +12,7 @@ namespace SWTools.ViewModel {
         }
 
         // 下载列表
-        private Core.ItemList _itemList = [];
-        public Core.ItemList Items {
-            get => _itemList;
-            set {
-                if (_itemList == value) return;
-                _itemList = value;
-                UpdateDisplay();
-            }
-        }
+        public Core.ItemList Items { get; set; } = [];
         // 进度条
         private bool _isIndeterminate = false;
         public bool IsIndeterminate {
@@ -95,11 +87,11 @@ namespace SWTools.ViewModel {
                     Core.Constants.DownloadListFile);
                 return;
             }
-            _itemList = Core.ItemList.Load(Core.Constants.DownloadListFile) ?? [];
-            _itemList.CheckDownloadedItems();
+            Items = Core.ItemList.Load(Core.Constants.DownloadListFile) ?? [];
+            Items.CheckDownloadedItems();
             UpdateDisplay();
             // 注册事件
-            _itemList.CollectionChanged += (s, e) => {
+            Items.CollectionChanged += (s, e) => {
                 UpdateDisplay();
             };
         }
@@ -108,7 +100,7 @@ namespace SWTools.ViewModel {
             if (!Directory.Exists(Core.Constants.CommonDir)) {
                 Directory.CreateDirectory(Core.Constants.CommonDir);
             }
-            _itemList.Save(Core.Constants.DownloadListFile);
+            Items.Save(Core.Constants.DownloadListFile);
         }
 
         // 启动下载
@@ -270,7 +262,7 @@ namespace SWTools.ViewModel {
         // 更新绑定
         public void UpdateDisplay() {
             DisplayItems.Clear();
-            foreach (var item in _itemList) {
+            foreach (var item in Items) {
                 DisplayItem displayItem = new(item, false);
                 displayItem.PropertyChanged += (s, e) => {
                     UpdateDisplay();

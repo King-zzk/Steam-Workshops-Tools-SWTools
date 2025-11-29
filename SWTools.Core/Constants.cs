@@ -22,6 +22,8 @@ namespace SWTools.Core {
         // 日志
         public const string LogDir = "logs/";
         public const string LogFile = LogDir + "latest.log";
+        public const string LogHeisenbug = LogDir + "HEISENBUG.log";
+        public const string LogNoOverride = LogDir + "NO_OVERRIDE"; // 目录下出现此文件，不覆盖上次日志文件
         // 缓存
         public const string CacheDir = "cache/";
         public const string PreviewDir = CacheDir + "previews/";
