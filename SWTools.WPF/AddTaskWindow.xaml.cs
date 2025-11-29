@@ -62,6 +62,7 @@ namespace SWTools.WPF {
                 foreach (var item in ViewModel.Items) {
                     owner.ViewModel.Items.Add(item);
                 }
+                owner.ViewModel.UpdateDisplay(); // Issue #42
                 _closeFromBtnOk = true;
                 Close();
             }
