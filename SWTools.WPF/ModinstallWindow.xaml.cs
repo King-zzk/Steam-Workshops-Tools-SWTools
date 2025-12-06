@@ -14,10 +14,10 @@ namespace SWTools.WPF {
     /// <summary>
     /// ModinstallWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class ModinstallWindow : Window {
+    public partial class ModInstallWindow : Window {
         
 
-        public ModinstallWindow() {
+        public ModInstallWindow() {
             InitializeComponent();
         }
 

@@ -39,7 +39,7 @@ namespace SWTools.WPF {
         }
 
         private void BtnModinstall_Click(object sender, RoutedEventArgs e) {
-            ModinstallWindow modinstallWindow = new() { Owner = this };
+            ModInstallWindow modinstallWindow = new() { Owner = this };
             modinstallWindow.ShowDialog();
         }
 
