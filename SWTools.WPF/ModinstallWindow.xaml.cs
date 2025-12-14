@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,7 +16,7 @@ namespace SWTools.WPF {
     /// ModinstallWindow.xaml 的交互逻辑
     /// </summary>
     public partial class ModInstallWindow : Window {
-        
+
 
         public ModInstallWindow() {
             InitializeComponent();
@@ -34,7 +35,39 @@ namespace SWTools.WPF {
             } else if (installPath == string.Empty) {
                 MsgBox msgBox = new("错误", "您没有输入游戏安装路径！", true) { Owner = this };
                 msgBox.ShowDialog();
-            }
+            } else {
+                if (selectText == "钢铁雄心4") {
+                    ModInstall_gtxx(modPath, installPath);
+                } else {
+                    MsgBox msgBox = new("错误", "没有获取游戏信息？？？", true) { Owner = this };
+                    msgBox.ShowDialog();
+                }
             }
         }
-}
+            public void ModInstall_gtxx(String mod_path, String Game_path) {
+            Process p = new Process();
+            p.StartInfo.FileName = "cmd.exe";
+            p.StartInfo.UseShellExecute = false;
+            p.StartInfo.RedirectStandardInput = true;
+            p.StartInfo.RedirectStandardOutput = true;
+            p.StartInfo.RedirectStandardError = true;
+            p.StartInfo.CreateNoWindow = true;
+            p.Start();
+            string command = "xcopy" + mod_path + Game_path + " /s /e /y";
+            p.StandardInput.WriteLine(command + "&exit");
+            p.StandardInput.AutoFlush = true;
+
+            // 获取cmd窗口的输出信息
+
+            string output = p.StandardOutput.ReadToEnd();
+
+            // 等待cmd窗口执行完毕，退出cmd窗口
+            p.WaitForExit();
+            p.Close();
+
+            MsgBox msgBox = new("返回结果", output, true) { Owner = this };
+            msgBox.ShowDialog();
+
+            }
+        }
+    }
