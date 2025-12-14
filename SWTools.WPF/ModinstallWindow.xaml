@@ -24,7 +24,7 @@
             <ComboBoxItem Content="钢铁雄心4" />
         </ComboBox>
         <Label Content="选择你要安装模组的游戏" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="290"/>
-        <Label Content="模组文件夹所在的路径 - 类似于&quot;steamcmd\steamapps\workshop\content\XXXXXX\XXXXXXX&quot;" HorizontalAlignment="Left" Margin="10,77,0,0" VerticalAlignment="Top" Width="622" />
+        <Label Content="模组文件夹所在的路径" HorizontalAlignment="Left" Margin="10,77,0,0" VerticalAlignment="Top" Width="622" />
         <TextBox x:Name="ModPath" HorizontalAlignment="Left" Margin="10,101,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="290"/>
         <Label Content="游戏模组安装路径" HorizontalAlignment="Left" Margin="10,133,0,0" VerticalAlignment="Top" Width="188"/>
         <TextBox x:Name="GamesinstallModPath" HorizontalAlignment="Left" Margin="10,157,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="290"/>

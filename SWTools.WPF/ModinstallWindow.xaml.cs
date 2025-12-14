@@ -44,7 +44,8 @@ namespace SWTools.WPF {
                 }
             }
         }
-            public void ModInstall_gtxx(String mod_path, String Game_path) {
+        /* 未完工 的钢铁雄心4模组安装功能 参考:https://www.bilibili.com/opus/602208299562833051 */
+        public void ModInstall_gtxx(String mod_path, String Game_path) {
             Process p = new Process();
             p.StartInfo.FileName = "cmd.exe";
             p.StartInfo.UseShellExecute = false;
@@ -67,6 +68,8 @@ namespace SWTools.WPF {
 
             MsgBox msgBox = new("返回结果", output, true) { Owner = this };
             msgBox.ShowDialog();
+
+            
 
             }
         }
