@@ -109,6 +109,14 @@ namespace SWTools.Core {
                     FailReason = GetFailReason(downloadLog.ToString());
                     if (FailReason == EFailReason.Unknown) {
                         LogManager.Log.Error("Download failed with unknown reason. Please check the log of Steamcmd");
+                    } else if (FailReason == EFailReason.LockingFailed) { // #35 的缓解措施
+                        if (await CheckBytes()) {
+                            LogManager.Log.Information("Steamcmd exited with failure {Reason}, but download seems successful",
+                                FailReason);
+                            DownloadState = EDownloadState.Done;
+                            FailReason = EFailReason.Null;
+                            return true;
+                        }
                     } else {
                         LogManager.Log.Error("Download failed with reason {reason}", FailReason);
                     }
@@ -124,7 +132,30 @@ namespace SWTools.Core {
                 FailReason = EFailReason.Exception;
                 _exceptionMsg = ex.Message;
             }
+            await CheckBytes(); // TODO: 字节数检查失败后的处理
             return true;
+        }
+
+        // 检查字节数
+        private async Task<bool> CheckBytes() {
+            int retryTimes = 0;
+            long bytes = 0;
+            while (retryTimes < 10) {
+                bytes = Helper.Main.GetDirectorySize(GetDownloadPath());
+                if (bytes > 0) {
+                    break;
+                }
+                await Task.Delay(1000); // 等 1000ms
+                retryTimes++;
+            }
+            if (bytes == ItemSize) {
+                LogManager.Log.Information("Bytes check passed", ItemId, ItemSize);
+                return true;
+            }
+            LogManager.Log.Warning("Bytes check NOT passed", ItemId, ItemSize);
+            LogManager.Log.Warning("Download size of {Id}: {Bytes}", ItemId, bytes);
+            LogManager.Log.Warning("Expected size of {Id}: {Bytes}", ItemId, ItemSize);
+            return false;
         }
     }
 }

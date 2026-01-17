@@ -12,15 +12,7 @@ namespace SWTools.ViewModel {
         }
 
         // 下载列表
-        private Core.ItemList _itemList = [];
-        public Core.ItemList Items {
-            get => _itemList;
-            set {
-                if (_itemList == value) return;
-                _itemList = value;
-                UpdateDisplay();
-            }
-        }
+        public Core.ItemList Items { get; set; } = [];
         // 进度条
         private bool _isIndeterminate = false;
         public bool IsIndeterminate {
@@ -95,11 +87,11 @@ namespace SWTools.ViewModel {
                     Core.Constants.DownloadListFile);
                 return;
             }
-            _itemList = Core.ItemList.Load(Core.Constants.DownloadListFile) ?? [];
-            _itemList.CheckDownloadedItems();
+            Items = Core.ItemList.Load(Core.Constants.DownloadListFile) ?? [];
+            Items.CheckDownloadedItems();
             UpdateDisplay();
             // 注册事件
-            _itemList.CollectionChanged += (s, e) => {
+            Items.CollectionChanged += (s, e) => {
                 UpdateDisplay();
             };
         }
@@ -108,7 +100,7 @@ namespace SWTools.ViewModel {
             if (!Directory.Exists(Core.Constants.CommonDir)) {
                 Directory.CreateDirectory(Core.Constants.CommonDir);
             }
-            _itemList.Save(Core.Constants.DownloadListFile);
+            Items.Save(Core.Constants.DownloadListFile);
         }
 
         // 启动下载
@@ -128,23 +120,26 @@ namespace SWTools.ViewModel {
             await Core.Helper.Steamcmd.Setup();
             // 开始下载
             bool isEarlyStopped = false;
-            Queue<DisplayItem> downloadQueue = [];
-            foreach (var i in DisplayItems) {
-                if (i.Item.DownloadState == Core.Item.EDownloadState.Pending) {
+            Queue<Core.Item> downloadQueue = [];
+            foreach (var i in Items) {
+                if (i.DownloadState == Core.Item.EDownloadState.Pending) {
                     downloadQueue.Enqueue(i);
                 }
             }
-            while (downloadQueue.Count() > 0 && IsDownloading) {
+            while (downloadQueue.Count > 0 && IsDownloading) {
                 var item = downloadQueue.Dequeue();
-                if (!DisplayItems.Contains(item)) continue;
-                StatusText = $"正在下载 {item.ItemName}";
-                Core.LogManager.Log.Information("Downloading item {itemId}", item.Item.ItemId);
-                item.Item.PropertyChanged += (s, e) => {
+                if (!Items.Contains(item)) continue;
+                var displayItem = (from dItem in DisplayItems
+                                  where dItem.Item == item
+                                  select dItem).First();
+                StatusText = $"正在下载 {displayItem.ItemName}";
+                Core.LogManager.Log.Information("Downloading item {itemId}", displayItem.Item.ItemId);
+                displayItem.Item.PropertyChanged += (s, e) => {
                     UpdateDisplay();
                 };
-                await item.Item.Download();
-                if (item.Item.DownloadState == Core.Item.EDownloadState.Failed &&
-                    item.Item.FailReason == Core.Item.EFailReason.NoConnection) {
+                await displayItem.Item.Download();
+                if (displayItem.Item.DownloadState == Core.Item.EDownloadState.Failed &&
+                    displayItem.Item.FailReason == Core.Item.EFailReason.NoConnection) {
                     StatusText = "已停止";
                     isEarlyStopped = true;
                     break;
@@ -270,7 +265,7 @@ namespace SWTools.ViewModel {
         // 更新绑定
         public void UpdateDisplay() {
             DisplayItems.Clear();
-            foreach (var item in _itemList) {
+            foreach (var item in Items) {
                 DisplayItem displayItem = new(item, false);
                 displayItem.PropertyChanged += (s, e) => {
                     UpdateDisplay();

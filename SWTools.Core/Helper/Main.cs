@@ -67,5 +67,27 @@ namespace SWTools.Core.Helper {
                 return null;
             }
         }
+
+        // 计算目录大小
+        public static long GetDirectorySize(string path) {
+            if (!Directory.Exists(path)) {
+                LogManager.Log.Error("GetDirectorySize() failed: directory not exsist");
+                return 0;
+            }
+            long totalSize = 0;
+            try {
+                var files = new DirectoryInfo(path).EnumerateFiles();
+                totalSize = files.Sum(file => file.Length);
+                var subDirs = Directory.EnumerateDirectories(path);
+                foreach (string subDir in subDirs) {
+                    totalSize += GetDirectorySize(subDir);
+                }
+            }
+            catch (UnauthorizedAccessException ex) {
+                LogManager.Log.Error("UnauthorizedAccessException occured when calculating size of directory {Directory}:\n{Exception}",
+                    path, ex);
+            }
+            return totalSize;
+        }
     }
 }

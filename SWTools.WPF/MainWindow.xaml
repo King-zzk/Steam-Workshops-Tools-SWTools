@@ -105,7 +105,7 @@
         <!--底栏-->
         <DockPanel DockPanel.Dock="Bottom" LastChildFill="False" Background="{StaticResource BhGray}">
             <controls:IconButton x:Name="BtnLog" Click="BtnLog_Click"
-                Text="打开日志窗口" Icon="&#xE8A4;" DockPanel.Dock="Right" Margin="5 10 10 10"/>
+                Text="打开日志窗口" Icon="&#xE8A4;" DockPanel.Dock="Right" Margin="5 10 10 10" Height="42"/>
             <TextBlock DockPanel.Dock="Left" VerticalAlignment="Center" Margin="20 10 10 10" Text="{Binding StatusText}"/>
         </DockPanel>
         <Separator DockPanel.Dock="Bottom" BorderBrush="{StaticResource BhBorder}"/>
