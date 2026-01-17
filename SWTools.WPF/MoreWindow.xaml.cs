@@ -67,7 +67,7 @@ namespace SWTools.WPF {
                 var info = Core.Helper.Main.ReadLatestInfo();
                 if (info == null) return;
                 if (info.Release != null &&
-                SemVersion.Parse(info.Release).CompareSortOrderTo(Core.Constants.Version) > 0) {
+                    SemVersion.Parse(info.Release).CompareSortOrderTo(Core.Constants.Version) > 0) {
                     MsgBox msgBox = new("发现新版本", $"检测到新的发行版：{info.Release}\n（当前版本：{Core.Constants.Version}）\n\n" +
                         $"您可以在下方链接获取新版本。", false,
                         "查看 Release 页面", Core.Constants.UrlRelease) { Owner = this };
