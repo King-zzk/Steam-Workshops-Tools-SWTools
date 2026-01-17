@@ -38,12 +38,6 @@ namespace SWTools.WPF {
             }
         }
 
-        private void BtnModinstall_Click(object sender, RoutedEventArgs e) {
-            ModInstallWindow modinstallWindow = new() { Owner = this };
-            modinstallWindow.ShowDialog();
-        }
-
-
         private void BtnMore_Click(object sender, RoutedEventArgs e) {
             MoreWindow moreWindow = new() { Owner = this };
             moreWindow.ShowDialog();
@@ -254,12 +248,5 @@ namespace SWTools.WPF {
             System.Diagnostics.Process.Start("explorer.exe",
                 $"https://www.steamcommunity.com/sharedfiles/filedetails/{item.Item.ItemId}");
         }
-
-
-
-
-
-        //模组安装按钮交互处理
-
     }
 }

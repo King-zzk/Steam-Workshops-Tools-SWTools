@@ -15,9 +15,6 @@
     <Compile Update="LogWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="ModInstallWindow.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="MoreWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
