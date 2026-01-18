@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,57 +22,41 @@ namespace SWTools.WPF {
 
         public ModInstallWindow() {
             InitializeComponent();
+            GameItems.Items.Add("Hearts of Iron IV");
         }
+
+        // 未完工
+
+        public void judgment(string GameName, string installPath, string modPath) {
+            if (GameName == "Hearts of Iron IV") {
+                string sourceFile = modPath + "\\descriptor.mod";
+                int len = modPath.Length;
+                string subModPath = installPath  + "\\"  + modPath.Substring(len - 7, 7) + ".mod";
+                File.Copy(sourceFile, subModPath, true);
+                string addText = "path=" + modPath;
+                File.AppendAllText(subModPath, Environment.NewLine + addText);
+            }
+        }
+
 
         private void install_Click(object sender, RoutedEventArgs e) {
-            string? selectText = GameItems.SelectedItem as string;
+            string? selectedText = GameItems.SelectedItem?.ToString();
             string? modPath = ModPath.Text;
             string? installPath = GamesinstallModPath.Text;
-            if (selectText == string.Empty) {
-                MsgBox msgBox = new("错误", "您没有选中游戏！", true) { Owner = this };
+            MsgBox msgBox = new MsgBox("调试", $"选择的游戏:{selectedText}\n模组路径:{modPath}\n游戏安装路径:{installPath}", true) { Owner = this };
+            msgBox.ShowDialog();
+            if (string.IsNullOrEmpty(selectedText)) {
+                msgBox = new("错误", "您没有选中游戏！", true) { Owner = this };
                 msgBox.ShowDialog();
-            } else if (modPath == string.Empty) {
-                MsgBox msgBox = new("错误", "您没有输入模组路径！", true) { Owner = this };
+            } else if (string.IsNullOrEmpty(modPath)) {
+                msgBox = new("错误", "您没有输入模组路径！", true) { Owner = this };
                 msgBox.ShowDialog();
-            } else if (installPath == string.Empty) {
-                MsgBox msgBox = new("错误", "您没有输入游戏安装路径！", true) { Owner = this };
+            } else if (string.IsNullOrEmpty(installPath)) {
+                msgBox = new("错误", "您没有输入游戏安装路径！", true) { Owner = this };
                 msgBox.ShowDialog();
             } else {
-                if (selectText == "钢铁雄心4") {
-                    ModInstall_gtxx(modPath, installPath);
-                } else {
-                    MsgBox msgBox = new("错误", "没有获取游戏信息？？？", true) { Owner = this };
-                    msgBox.ShowDialog();
-                }
+                judgment(selectedText, installPath, modPath);
             }
         }
-        /* 未完工 的钢铁雄心4模组安装功能 参考:https://www.bilibili.com/opus/602208299562833051 */
-        public void ModInstall_gtxx(String mod_path, String Game_path) {
-            Process p = new Process();
-            p.StartInfo.FileName = "cmd.exe";
-            p.StartInfo.UseShellExecute = false;
-            p.StartInfo.RedirectStandardInput = true;
-            p.StartInfo.RedirectStandardOutput = true;
-            p.StartInfo.RedirectStandardError = true;
-            p.StartInfo.CreateNoWindow = true;
-            p.Start();
-            string command = "xcopy" + mod_path + Game_path + " /s /e /y";
-            p.StandardInput.WriteLine(command + "&exit");
-            p.StandardInput.AutoFlush = true;
-
-            // 获取cmd窗口的输出信息
-
-            string output = p.StandardOutput.ReadToEnd();
-
-            // 等待cmd窗口执行完毕，退出cmd窗口
-            p.WaitForExit();
-            p.Close();
-
-            MsgBox msgBox = new("返回结果", output, true) { Owner = this };
-            msgBox.ShowDialog();
-
-            
-
-            }
         }
     }
