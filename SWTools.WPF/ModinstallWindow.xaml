@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SWTools.WPF"
         mc:Ignorable="d"
-        Title="模组安装" Height="347" Width="625"
+        Title="模组安装" Height="290" Width="463"
         ResizeMode="NoResize"
         Background="{StaticResource BhDefault}" ThemeMode="Light"
         WindowStartupLocation="CenterOwner"  ShowInTaskbar="False"
         RenderOptions.BitmapScalingMode="HighQuality">
-    <Grid Margin="0,0,0,1" RenderTransformOrigin="0.5,0.5">
+    <Grid Margin="0,0,-1,-1" RenderTransformOrigin="0.5,0.5">
         <Grid.RenderTransform>
             <TransformGroup>
                 <ScaleTransform/>
@@ -23,11 +23,9 @@
                    Width="290" Height="38" Grid.ColumnSpan="2">
         </ComboBox>
         <Label Content="选择你要安装模组的游戏" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="290" Grid.ColumnSpan="2"/>
-        <Label Content="模组文件夹所在的路径" HorizontalAlignment="Left" Margin="10,77,0,0" VerticalAlignment="Top" Width="622" Grid.ColumnSpan="2" />
-        <TextBox x:Name="ModPath" HorizontalAlignment="Left" Margin="10,98,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="290" Grid.ColumnSpan="2"/>
-        <Label Content="游戏模组安装路径" HorizontalAlignment="Left" Margin="10,133,0,0" VerticalAlignment="Top" Width="188"/>
-        <TextBox x:Name="GamesinstallModPath" HorizontalAlignment="Left" Margin="10,157,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="290" Grid.ColumnSpan="2"/>
-        <Button x:Name="install" Content="安装" Click="install_Click" Margin="443,265,0,0" VerticalAlignment="Top" Width="147" Height="42"/>
+        <Label Content="模组文件夹所在的路径" HorizontalAlignment="Left" Margin="11,89,0,0" VerticalAlignment="Top" Width="211" />
+        <TextBox x:Name="ModPath" HorizontalAlignment="Left" TextWrapping="NoWrap" Margin="10,118,0,0" Text="" VerticalAlignment="Top" Width="290"/>
+        <Button x:Name="install" Content="安装" Click="install_Click" Margin="266,198,0,0" VerticalAlignment="Top" Width="168" Height="41"/>
 
     </Grid>
 </Window>
