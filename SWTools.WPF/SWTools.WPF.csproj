@@ -9,7 +9,7 @@
 		<ApplicationIcon>Resources\icon.ico</ApplicationIcon>
 		<Copyright>Copyright (c) 2025 Commkom (king-zzk), masterLazy (mLazy) </Copyright>
 		<!--版本-->
-		<Version>2.0.2</Version>
+		<Version>2.0.3</Version>
 		<AssemblyName>SWTools</AssemblyName>
 		<AssemblyTitle>Steam Workshop Tools</AssemblyTitle>
 	</PropertyGroup>
@@ -58,6 +58,9 @@
 
 	<ItemGroup>
 	  <None Update="Resources\THIRD-PARTY-NOTICE.md">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="Steam Workshop Tools 用户手册.pdf">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
 	</ItemGroup>

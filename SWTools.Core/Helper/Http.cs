@@ -87,7 +87,6 @@
             using HttpClient client = new();
             // 处理 url
             url = url.Trim();
-            if (url[^1] == '/') url = url[..^1];
             try {
                 // 发送请求
                 HttpResponseMessage response = await client.GetAsync(url);

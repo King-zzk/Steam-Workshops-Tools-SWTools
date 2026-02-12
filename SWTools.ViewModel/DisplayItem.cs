@@ -119,6 +119,10 @@ namespace SWTools.ViewModel {
                 Directory.CreateDirectory(Core.Constants.PreviewDir);
             }
             var res = await Core.Helper.Http.DownloadImage(Item.UrlPreview, Core.Constants.PreviewDir + Item.ItemId);
+            if (res == null && Item.UrlPreview[^1] == '/') {
+                var url = Item.UrlPreview[..^1];
+                res = await Core.Helper.Http.DownloadImage(url, Core.Constants.PreviewDir + Item.ItemId);
+            }
             if (res != null) {
                 PreviewImage = Path.GetFullPath(res);
             }
