@@ -1,0 +1,48 @@
+name: Bug report | 报告 bug
+description: 报告程序中的问题，帮助我们改进
+labels: ['bug']
+body:
+- type: checkboxes
+  attributes:
+    label: 是否已存在描述相同问题的 issue？
+    description: 请在 issues 列表中搜索，看看是否有你遇到的问题。
+    options:
+    - label: 我已经搜索了已存在的 issues
+      required: true
+- type: textarea
+  attributes:
+    label: 环境信息
+    description: |
+      例如：
+        - **操作系统**: Windows 11
+        - **程序版本**: v2.0.3
+    value: |
+        - 操作系统:
+        - 程序版本:
+    render: markdown
+  validations:
+    required: true
+- type: textarea
+  attributes:
+    label: Bug 描述
+    description: 在这里写下对程序异常行为的清晰描述。
+  validations:
+    required: true
+- type: textarea
+  attributes:
+    label: 复现步骤
+    description: 在这里写下重现异常行为的步骤。
+  validations:
+    required: false
+- type: textarea
+  attributes:
+    label: 程序日志 / 屏幕截图
+    description: 在此处添加程序日志以帮助分析问题；如果适用，请添加屏幕截图以帮助解释您的问题。
+  validations:
+    required: false
+- type: textarea
+  attributes:
+    label: 其他信息
+    description: 在此处添加有关该问题的任何其他信息。
+  validations:
+    required: false
