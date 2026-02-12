@@ -19,53 +19,32 @@ namespace SWTools.WPF {
         }
 
         private void BtnOk_Click(object sender, RoutedEventArgs e) {
+            if (Owner is not MainWindow owner) return;
             if (ViewModel.HasParsing()) {
                 MsgBox msgBox = new("请等待当前解析完成", "请等待列表中所有物品完成解析再关闭此窗口。", false) { Owner = this };
                 msgBox.ShowDialog();
-            } else if (ViewModel.HasFailed()) {
+                return;
+            }
+            if (ViewModel.HasFailed()) {
                 MsgBox msgBox = new("有物品解析失败", "有一个或多个物品信息解析失败。确认关闭此窗口吗？\n\n" +
                     "单击“否”，您可以手动补充信息，然后添加到下载列表；\n" +
                     "单击“是”，解析失败的物品不会被添加到下载列表。", true) { Owner = this };
                 bool? res = msgBox.ShowDialog();
-                if (res == true) {
-                    if (Owner is MainWindow owner) {
-                        foreach (var item in ViewModel.Items) {
-                            if (item.ParseState == Core.Item.EParseState.Failed) continue;
-                            owner.ViewModel.Items.Add(item);
-                        }
-                    }
-                    _closeFromBtnOk = true;
-                    Close();
-                }
-            } else {
-                if (Owner is not MainWindow owner) return;
-                // 检查是否有重合的项
-                List<string> dupItems = [];
-                foreach (var item in ViewModel.Items) {
-                    if (owner.ViewModel.Items.Contains(item.ItemId)) {
-                        dupItems.Add(item.ItemId);
-                    }
-                }
-                if (dupItems.Count > 0) {
-                    MsgBox msgBox = new("有重复的物品", "待添加的物品中有一个或多个已在下载列表中，您是否想覆盖？\n" +
-                    "单击 “否”，重复的物品不会被添加到下载列表；\n" +
-                    "单击 “是”，将会覆盖下载列表中重复的物品。\n\n" +
-                    "被覆盖的物品可能会被重新下载。", true) { Owner = this };
-                    bool? res = msgBox.ShowDialog();
-                    if (res == true) {
-                        foreach (var item in dupItems) {
-                            owner.ViewModel.Items.Remove(owner.ViewModel.Items.Find(item)!);
-                        }
-                    }
-                }
-                // 添加
-                foreach (var item in ViewModel.Items) {
-                    owner.ViewModel.Items.Add(item);
-                }
-                owner.ViewModel.UpdateDisplay(); // Issue #42
-                _closeFromBtnOk = true;
-                Close();
+                if (res == false) return;
             }
+            // 检查是否有重合的项
+            bool overriding = false;
+            if (owner.ViewModel.HasDuplicated(ViewModel.Items)) {
+                MsgBox msgBox = new("有重复的物品", "待添加的物品中有一个或多个已在下载列表中，您是否想覆盖？\n" +
+                "单击 “否”，重复的物品不会被添加到下载列表；\n" +
+                "单击 “是”，将会覆盖下载列表中重复的物品。\n\n" +
+                "被覆盖的物品可能会被重新下载。", true) { Owner = this };
+                bool? res = msgBox.ShowDialog();
+                if (res == true) overriding = true;
+            }
+            owner.ViewModel.Append(ViewModel.Items, overriding);
+            _closeFromBtnOk = true;
+            Close();
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e) {
@@ -153,7 +132,12 @@ namespace SWTools.WPF {
         }
 
         private void BtnParseRetry_Click(object sender, RoutedEventArgs e) {
-            ViewModel.RetryParse();
+            if (!ViewModel.CanRetryParse()) {
+                MsgBox msgBox = new("无需重新解析", "所有物品都已成功解析。", false) { Owner = this };
+                msgBox.ShowDialog();
+            } else {
+                ViewModel.RetryParse();
+            }
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
@@ -171,10 +155,6 @@ namespace SWTools.WPF {
                     e.Cancel = true;
                 }
             }
-        }
-
-        private void BtnParse_Loaded(object sender, RoutedEventArgs e) {
-
         }
     }
 }

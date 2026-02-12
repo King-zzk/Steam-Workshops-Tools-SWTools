@@ -1,8 +1,6 @@
 ﻿using System.IO;
-using System.Net;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Interop;
 
 namespace SWTools.WPF {
     /// <summary>
@@ -22,6 +20,8 @@ namespace SWTools.WPF {
         public MainWindow() {
             InitializeComponent();
         }
+
+        /* 按钮响应程序 Btn- */
 
         private void BtnAddTask_Click(object sender, RoutedEventArgs e) {
             if (_addTaskWindow == null) {
@@ -60,41 +60,26 @@ namespace SWTools.WPF {
 
         private void BtnStart_Click(object sender, RoutedEventArgs e) {
             // 检查失败和失踪的
-            List<string> fmItems = [];
-            foreach (var item in ViewModel.Items) {
-                if (item.DownloadState == Core.Item.EDownloadState.Missing ||
-                    item.DownloadState == Core.Item.EDownloadState.Failed) {
-                    fmItems.Add(item.ItemId);
-                }
-            }
-            if (fmItems.Count > 0) {
+            bool includingFailedOrMissing = false;
+            if (ViewModel.HasFailedOrMissing()) {
                 MsgBox msgBox = new("操作确认", "下载列表中包含下载失败或文件丢失的物品，\n您想要重新下载吗？", true) { Owner = this };
                 bool? res = msgBox.ShowDialog();
-                if (res == true) {
-                    foreach (var item in fmItems) {
-                        ViewModel.Items[ViewModel.Items.FindIndex(item)].DownloadState = Core.Item.EDownloadState.Pending;
-                    }
-                }
+                if (res == true) includingFailedOrMissing = true;
             }
+            // 添加所有物品到下载队列
+            ViewModel.QueueAppendAll(includingFailedOrMissing);
             // 检查队列中是否有物品
-            bool hasInQueue = false;
-            foreach (var item in ViewModel.Items) {
-                if (item.DownloadState == Core.Item.EDownloadState.Pending) {
-                    hasInQueue = true;
-                    break;
-                }
-            }
-            if (!hasInQueue) {
+            if (ViewModel.QueueSize == 0) {
                 MsgBox msgBox = new("没有要下载的物品", "下载队列为空。请单击 “添加下载任务” 添加要下载的项。", false) { Owner = this };
                 msgBox.ShowDialog();
                 return;
             }
             // 开始
-            _ = ViewModel.StartDownload();
+            _ = ViewModel.QueueLaunch();
         }
 
         private void BtnStop_Click(object sender, RoutedEventArgs e) {
-            ViewModel.IsDownloading = false;
+            ViewModel.Stop();
             ViewModel.IsBtnStopEnable = false;
             ViewModel.StatusText += "（完成此项后暂停）";
         }
@@ -103,7 +88,7 @@ namespace SWTools.WPF {
             MsgBox msgBox = new("操作确认", "确认要清空下载列表吗？\n此操作不可撤销。", true) { Owner = this };
             bool? res = msgBox.ShowDialog();
             if (res == true) {
-                ViewModel.Items.Clear();
+                ViewModel.Clear();
             }
         }
 
@@ -111,16 +96,7 @@ namespace SWTools.WPF {
             MsgBox msgBox = new("操作确认", "确认要移除下载失败和文件丢失的物品吗？\n此操作不可撤销。", true) { Owner = this };
             bool? res = msgBox.ShowDialog();
             if (res == true) {
-                List<Core.Item> items = [];
-                foreach (var item in ViewModel.Items) {
-                    if (item.DownloadState == Core.Item.EDownloadState.Failed ||
-                        item.DownloadState == Core.Item.EDownloadState.Missing) {
-                        items.Add(item);
-                    }
-                }
-                foreach (var item in items) {
-                    ViewModel.Items.Remove(item);
-                }
+                ViewModel.RemoveFailedOrMissing();
             }
         }
 
@@ -128,98 +104,8 @@ namespace SWTools.WPF {
             ViewModel.CleanUp();
         }
 
-        private void MenuRemove_Click(object sender, RoutedEventArgs e) {
-            if (sender is not MenuItem menuItem) return;
-            if (menuItem.Parent is not ContextMenu contextMenu) return;
-            if (contextMenu.PlacementTarget is not ListViewItem listViewItem) return;
-            if (listViewItem.Content is not ViewModel.DisplayItem item) return;
-            if (item.Item.DownloadState == Core.Item.EDownloadState.Handling) {
-                MsgBox msgBox = new("操作失败", "请等待当前物品下载完成。", false) { Owner = this };
-                msgBox.ShowDialog();
-                return;
-            }
-            if (item.Item.DownloadState == Core.Item.EDownloadState.Done) {
-                MsgBox msgBox = new("操作确认", "确认要从列表中移除吗？\n" +
-                    "这样做不会删除文件，已下载的物品将占用空间，直到您手动删除。", true) { Owner = this };
-                bool? res = msgBox.ShowDialog();
-                if (res == true) {
-                    ViewModel.Items.Remove(item.Item);
-                }
-            } else {
-                ViewModel.Items.Remove(item.Item);
-            }
-        }
+        /* 窗口响应程序 Window- */
 
-        private void MenuOpenFolder_Click(object sender, RoutedEventArgs e) {
-            if (sender is not MenuItem menuItem) return;
-            if (menuItem.Parent is not ContextMenu contextMenu) return;
-            if (contextMenu.PlacementTarget is not ListViewItem listViewItem) return;
-            if (listViewItem.Content is not ViewModel.DisplayItem item) return;
-            if (item.Item.DownloadState != Core.Item.EDownloadState.Done) {
-                MsgBox msgBox = new("操作失败", "物品尚未完成下载。", false) { Owner = this };
-                msgBox.ShowDialog();
-                return;
-            }
-            System.Diagnostics.Process.Start("explorer.exe",
-                Path.GetFullPath(item.Item.GetDownloadPath()));
-        }
-
-        private void MenuRetry_Click(object sender, RoutedEventArgs e) {
-            if (sender is not MenuItem menuItem) return;
-            if (menuItem.Parent is not ContextMenu contextMenu) return;
-            if (contextMenu.PlacementTarget is not ListViewItem listViewItem) return;
-            if (listViewItem.Content is not ViewModel.DisplayItem item) return;
-            if (item.Item.DownloadState == Core.Item.EDownloadState.Handling) {
-                MsgBox msgBox = new("操作失败", "请等待当前物品下载完成。", false) { Owner = this };
-                msgBox.ShowDialog();
-                return;
-            }
-            item.Item.DownloadState = Core.Item.EDownloadState.Pending;
-            ViewModel.UpdateDisplay();
-            if (!ViewModel.IsDownloading) { // 启动下载
-                _ = ViewModel.DownloadOne(item.Item.ItemId);
-            }
-        }
-
-        private void MenuCopy_Click(object sender, RoutedEventArgs e) {
-            if (sender is not MenuItem menuItem) return;
-            if (menuItem.Parent is not ContextMenu contextMenu) return;
-            if (contextMenu.PlacementTarget is not ListViewItem listViewItem) return;
-            if (listViewItem.Content is not ViewModel.DisplayItem item) return;
-            Clipboard.SetDataObject(item.Item.ItemId);
-        }
-
-        private void MenuDelete_Click(object sender, RoutedEventArgs e) {
-            if (sender is not MenuItem menuItem) return;
-            if (menuItem.Parent is not ContextMenu contextMenu) return;
-            if (contextMenu.PlacementTarget is not ListViewItem listViewItem) return;
-            if (listViewItem.Content is not ViewModel.DisplayItem item) return;
-            MsgBox msgBox;
-            if (item.Item.DownloadState == Core.Item.EDownloadState.Handling) {
-                msgBox = new("操作失败", "请等待当前物品下载完成。", false) { Owner = this };
-                msgBox.ShowDialog();
-                return;
-            }
-            if (item.Item.DownloadState != Core.Item.EDownloadState.Done) {
-                msgBox = new("操作失败", "物品尚未完成下载。", false) { Owner = this };
-                msgBox.ShowDialog();
-                return;
-            }
-            msgBox = new("操作确认", "确认要删除此物品的文件吗？\n此操作不可撤销。", true) { Owner = this };
-            bool? res = msgBox.ShowDialog();
-            if (res == true) {
-                try {
-                    Directory.Delete(item.Item.GetDownloadPath(), true);
-                    ViewModel.Items.Remove(item.Item);
-                }
-                catch (Exception) {
-                    msgBox = new("操作失败", "未能成功删除文件，您可以尝试自行删除", true) { Owner = this };
-                    msgBox.ShowDialog();
-                }
-            }
-        }
-
-        // 窗口加载时的行为
         private async void Window_Loaded(object sender, RoutedEventArgs e) {
             // 拉取最新信息
             if (!Core.ConfigManager.Config.NoAutoFetch) {
@@ -238,15 +124,6 @@ namespace SWTools.WPF {
                     e.Cancel = true;
                 }
             }
-        }
-
-        private void MenuLink_Click(object sender, RoutedEventArgs e) {
-            if (sender is not MenuItem menuItem) return;
-            if (menuItem.Parent is not ContextMenu contextMenu) return;
-            if (contextMenu.PlacementTarget is not ListViewItem listViewItem) return;
-            if (listViewItem.Content is not ViewModel.DisplayItem item) return;
-            System.Diagnostics.Process.Start("explorer.exe",
-                $"https://www.steamcommunity.com/sharedfiles/filedetails/{item.Item.ItemId}");
         }
     }
 }

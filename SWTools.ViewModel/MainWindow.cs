@@ -5,14 +5,16 @@ using System.IO;
 using System.Windows;
 
 namespace SWTools.ViewModel {
-    public class MainWindow : INotifyPropertyChanged {
+    public partial class MainWindow : INotifyPropertyChanged {
         public event PropertyChangedEventHandler? PropertyChanged;
         protected void OnPropertyChanged(string propertyName) {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+        // 总列表
+        private Core.ItemList items = [];
+        // 绑定
+        public ObservableCollection<DisplayItem> DisplayItems { get; set; } = [];
 
-        // 下载列表
-        public Core.ItemList Items { get; set; } = [];
         // 进度条
         private bool _isIndeterminate = false;
         public bool IsIndeterminate {
@@ -74,11 +76,6 @@ namespace SWTools.ViewModel {
                 OnPropertyChanged(nameof(IsBtnRemoveAllEnable));
             }
         }
-        // 绑定
-        public ObservableCollection<DisplayItem> DisplayItems { get; set; } = [];
-
-        // 是否要执行下载
-        public bool IsDownloading = false;
 
         public MainWindow() {
             // 加载下载列表
@@ -87,11 +84,11 @@ namespace SWTools.ViewModel {
                     Core.Constants.DownloadListFile);
                 return;
             }
-            Items = Core.ItemList.Load(Core.Constants.DownloadListFile) ?? [];
-            Items.CheckDownloadedItems();
+            items = Core.ItemList.Load(Core.Constants.DownloadListFile) ?? [];
+            items.CheckDownloadedItems();
             UpdateDisplay();
             // 注册事件
-            Items.CollectionChanged += (s, e) => {
+            items.CollectionChanged += (s, e) => {
                 UpdateDisplay();
             };
         }
@@ -100,104 +97,7 @@ namespace SWTools.ViewModel {
             if (!Directory.Exists(Core.Constants.CommonDir)) {
                 Directory.CreateDirectory(Core.Constants.CommonDir);
             }
-            Items.Save(Core.Constants.DownloadListFile);
-        }
-
-        // 启动下载
-        public async Task StartDownload() {
-            // 开始
-            IsDownloading = true;
-
-            IsBtnAddTaskEnable = false;
-            IsBtnStartEnable = false;
-            IsBtnRemoveAllEnable = false;
-
-            IsBtnStopEnable = true;
-            IsIndeterminate = true;
-
-            // 准备 Steamcmd
-            StatusText = "正在准备 Steamcmd，请耐心等待（在日志中查看详细信息）";
-            await Core.Helper.Steamcmd.Setup();
-            // 开始下载
-            bool isEarlyStopped = false;
-            Queue<Core.Item> downloadQueue = [];
-            foreach (var i in Items) {
-                if (i.DownloadState == Core.Item.EDownloadState.Pending) {
-                    downloadQueue.Enqueue(i);
-                }
-            }
-            while (downloadQueue.Count > 0 && IsDownloading) {
-                var item = downloadQueue.Dequeue();
-                if (!Items.Contains(item)) continue;
-                var displayItem = (from dItem in DisplayItems
-                                  where dItem.Item == item
-                                  select dItem).First();
-                StatusText = $"正在下载 {displayItem.ItemName}";
-                Core.LogManager.Log.Information("Downloading item {itemId}", displayItem.Item.ItemId);
-                displayItem.Item.PropertyChanged += (s, e) => {
-                    UpdateDisplay();
-                };
-                await displayItem.Item.Download();
-                if (displayItem.Item.DownloadState == Core.Item.EDownloadState.Failed &&
-                    displayItem.Item.FailReason == Core.Item.EFailReason.NoConnection) {
-                    StatusText = "已停止";
-                    isEarlyStopped = true;
-                    break;
-                }
-            }
-
-            // 结束
-            if (!isEarlyStopped) {
-                StatusText = "已完成";
-            }
-            IsDownloading = false;
-
-            IsBtnAddTaskEnable = true;
-            IsBtnStartEnable = true;
-            IsBtnRemoveAllEnable = true;
-
-            IsBtnStopEnable = false;
-            IsIndeterminate = false;
-        }
-
-        // 下载单个物品
-        public async Task DownloadOne(string itemId) {
-            // 开始
-            IsDownloading = true;
-
-            IsBtnAddTaskEnable = false;
-            IsBtnStartEnable = false;
-            IsBtnRemoveAllEnable = false;
-
-            IsBtnStopEnable = true;
-            IsIndeterminate = true;
-
-            // 准备 Steamcmd
-            StatusText = "正在准备 Steamcmd，请耐心等待（在日志中查看详细信息）";
-            await Core.Helper.Steamcmd.Setup();
-            // 开始下载
-            for (var i = 0; i < DisplayItems.Count && IsDownloading; i++) {
-                if (DisplayItems[i].Item.DownloadState != Core.Item.EDownloadState.Pending ||
-                    DisplayItems[i].Item.ItemId != itemId) {
-                    continue;
-                }
-                StatusText = $"正在下载：{DisplayItems[i].ItemName}";
-                DisplayItems[i].Item.PropertyChanged += (s, e) => {
-                    UpdateDisplay();
-                };
-                await DisplayItems[i].Item.Download();
-            }
-
-            // 结束
-            StatusText = "已完成";
-            IsDownloading = false;
-
-            IsBtnAddTaskEnable = true;
-            IsBtnStartEnable = true;
-            IsBtnRemoveAllEnable = true;
-
-            IsBtnStopEnable = false;
-            IsIndeterminate = false;
+            items.Save(Core.Constants.DownloadListFile);
         }
 
         // 获取仓库最新信息 (返回公告)
@@ -262,10 +162,10 @@ namespace SWTools.ViewModel {
             return notice;
         }
 
-        // 更新绑定
+        // 更新绑定 (DisplayItems)
         public void UpdateDisplay() {
             DisplayItems.Clear();
-            foreach (var item in Items) {
+            foreach (var item in items) {
                 DisplayItem displayItem = new(item, false);
                 displayItem.PropertyChanged += (s, e) => {
                     UpdateDisplay();

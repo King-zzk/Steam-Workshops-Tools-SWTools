@@ -51,7 +51,7 @@
                 <TextBlock Text="在下面输入要下载的物品 ID（一行一个 ID）" DockPanel.Dock="Top"/>
                 <DockPanel LastChildFill="False" DockPanel.Dock="Bottom">
                     <controls:IconButtonAccent x:Name="BtnParse" Click="BtnParse_Click"
-                        Text="解析信息" Icon="&#xF6FA;" DockPanel.Dock="Right" IsEnabled="{Binding IsBtnParseEnable}" Loaded="BtnParse_Loaded"/>
+                        Text="解析信息" Icon="&#xF6FA;" DockPanel.Dock="Right" IsEnabled="{Binding IsBtnParseEnable}" />
                     <controls:IconButton x:Name="BtnHelpItem" Click="BtnHelpItem_Click"
                         Text="什么是物品 ID" Icon="&#xE897;" DockPanel.Dock="Left"/>
                 </DockPanel>

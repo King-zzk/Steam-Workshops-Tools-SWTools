@@ -137,6 +137,15 @@ namespace SWTools.ViewModel {
             IsIndeterminate = HasParsing();
         }
 
+        public bool CanRetryParse() {
+            bool hasFailed = false;
+            for (var i = 0; i < Items.Count; i++) {
+                if (Items[i].ParseState != Core.Item.EParseState.Done) {
+                    hasFailed = true; break;
+                }
+            }
+            return hasFailed;
+        }
         public async void RetryParse() {
             for (var i = 0; i < Items.Count; i++) {
                 if (Items[i].ParseState != Core.Item.EParseState.Done) {

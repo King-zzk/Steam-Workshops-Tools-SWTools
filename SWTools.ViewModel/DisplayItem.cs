@@ -12,6 +12,8 @@ namespace SWTools.ViewModel {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        /* 用于列表显示 */
+
         public Core.Item Item { get; private set; }
         public string ItemName { get; set; } = "";
         public string ItemSize { get; set; } = "";
@@ -31,6 +33,10 @@ namespace SWTools.ViewModel {
             }
         }
         public const string PreviewImageDefault = "Resources/default-preview.png";
+
+        /* 用于右键菜单 */
+        public bool IsHandling { get { return Item.DownloadState == Core.Item.EDownloadState.Handling; } }
+        public bool IsDownloaded { get { return Item.DownloadState == Core.Item.EDownloadState.Done; } }
 
         public DisplayItem(Core.Item item) {
             Item = item;
@@ -54,19 +60,19 @@ namespace SWTools.ViewModel {
             if (displayParseState) {
                 if (item.ParseState == Core.Item.EParseState.Failed) {
                     State = "解析失败";
-                    Brush = new SolidColorBrush(Colors.Red);
+                    Brush = Brushes.Firebrick;
                 } else if (item.ParseState == Core.Item.EParseState.Manual) {
                     State = "手动指定";
-                    Brush = new SolidColorBrush(Colors.DarkOliveGreen);
+                    Brush = Brushes.DarkOliveGreen;
                 } else if (item.ParseState == Core.Item.EParseState.Pending) {
                     State = "等待解析...";
-                    Brush = new SolidColorBrush(Colors.Black);
+                    Brush = Brushes.Black;
                 } else if (item.ParseState == Core.Item.EParseState.Handling) {
                     State = "解析中...";
-                    Brush = new SolidColorBrush(Colors.DarkCyan);
+                    Brush = Brushes.DarkCyan;
                 } else if (item.ParseState == Core.Item.EParseState.Done) {
                     State = "完成";
-                    Brush = new SolidColorBrush(Colors.DarkGreen);
+                    Brush = Brushes.DarkGreen;
                 }
             } else {
                 if (item.ParseState == Core.Item.EParseState.Failed) {
@@ -74,19 +80,19 @@ namespace SWTools.ViewModel {
                 } else {
                     if (item.DownloadState == Core.Item.EDownloadState.Pending) {
                         State = "等待下载...";
-                        Brush = new SolidColorBrush(Colors.Black);
+                        Brush = Brushes.Black;
                     } else if (item.DownloadState == Core.Item.EDownloadState.Handling) {
                         State = "下载中...";
-                        Brush = new SolidColorBrush(Colors.DarkCyan);
+                        Brush = Brushes.DarkCyan;
                     } else if (item.DownloadState == Core.Item.EDownloadState.Missing) {
                         State = "文件丢失";
-                        Brush = new SolidColorBrush(Colors.Red);
+                        Brush = Brushes.Firebrick;
                     } else if (item.DownloadState == Core.Item.EDownloadState.Done) {
                         State = "✔ 完成";
-                        Brush = new SolidColorBrush(Colors.DarkGreen);
+                        Brush = Brushes.DarkGreen;
                     } else if (item.DownloadState == Core.Item.EDownloadState.Failed) {
                         State = "下载失败：" + item.GetFailMessage();
-                        Brush = new SolidColorBrush(Colors.DarkRed);
+                        Brush = Brushes.Firebrick;
                     }
                 }
             }

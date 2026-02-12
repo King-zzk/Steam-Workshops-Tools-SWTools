@@ -108,6 +108,15 @@
                                 <Button Content="清空缓存" x:Name="BtnClearCache" Click="BtnClearCache_Click"/>
                             </StackPanel>
                         </TreeViewItem>
+                        <TreeViewItem IsExpanded="True">
+                            <TreeViewItem.Header>
+                                <StackPanel Orientation="Horizontal" Margin="5">
+                                    <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xE74C;" VerticalAlignment="Center" Margin="0 0 10 0"/>
+                                    <TextBlock Text="Steamcmd" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </TreeViewItem.Header>
+                            <Button Content="卸载 Steamcmd" x:Name="BtnUninstallSteamcmd" Click="BtnUninstallSteamcmd_Click"/>
+                        </TreeViewItem>
                     </TreeView>
                 </DockPanel>
             </TabItem>

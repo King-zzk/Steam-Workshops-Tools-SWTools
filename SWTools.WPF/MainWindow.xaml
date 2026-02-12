@@ -21,7 +21,8 @@
 
     <!--下载列表的右键菜单-->
     <Window.Resources>
-        <ContextMenu x:Key="ContextMenu" TextOptions.TextFormattingMode="Display">
+        <ContextMenu x:Key="ContextMenu" TextOptions.TextFormattingMode="Display" Opened="Menu_Opened">
+            <!-- #0 -->
             <MenuItem x:Name="MenuRemove" Click="MenuRemove_Click">
                 <MenuItem.Header>
                     <StackPanel Orientation="Horizontal">
@@ -31,6 +32,7 @@
                     </StackPanel>
                 </MenuItem.Header>
             </MenuItem>
+            <!-- #1 -->
             <MenuItem x:Name="MenuOpenFolder" Click="MenuOpenFolder_Click">
                 <MenuItem.Header>
                     <StackPanel Orientation="Horizontal">
@@ -40,7 +42,9 @@
                     </StackPanel>
                 </MenuItem.Header>
             </MenuItem>
+            <!-- #2 -->
             <Separator BorderBrush="{StaticResource BhBorder}"/>
+            <!-- #3 -->
             <MenuItem x:Name="MenuRetry" Click="MenuRetry_Click">
                 <MenuItem.Header>
                     <StackPanel Orientation="Horizontal">
@@ -50,6 +54,7 @@
                     </StackPanel>
                 </MenuItem.Header>
             </MenuItem>
+            <!-- #4 -->
             <MenuItem x:Name="MenuCopy" Click="MenuCopy_Click">
                 <MenuItem.Header>
                     <StackPanel Orientation="Horizontal">
@@ -59,6 +64,7 @@
                     </StackPanel>
                 </MenuItem.Header>
             </MenuItem>
+            <!-- #5 -->
             <MenuItem x:Name="MenuLink" Click="MenuLink_Click">
                 <MenuItem.Header>
                     <StackPanel Orientation="Horizontal">
@@ -68,13 +74,15 @@
                     </StackPanel>
                 </MenuItem.Header>
             </MenuItem>
+            <!-- #6 -->
             <Separator BorderBrush="{StaticResource BhBorder}"/>
+            <!-- #7 -->
             <MenuItem x:Name="MenuDelete" Click="MenuDelete_Click">
                 <MenuItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Foreground="DarkRed"
+                        <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}"
                             Text="&#xE74D;" VerticalAlignment="Center" Margin="0 0 10 0"/>
-                        <TextBlock Text="删除文件" Foreground="DarkRed"/>
+                        <TextBlock Text="删除文件"/>
                     </StackPanel>
                 </MenuItem.Header>
             </MenuItem>
@@ -113,7 +121,8 @@
                      Background="Transparent"/>
 
         <!--下载列表-->
-        <ListView ItemsSource="{Binding DisplayItems}" FontSize="13" Background="{StaticResource BhLight}">
+        <ListView ItemsSource="{Binding DisplayItems}" FontSize="13" Background="{StaticResource BhLight}"
+                  SelectionMode="Single">
             <!--右键菜单-->
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">

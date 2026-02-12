@@ -85,6 +85,9 @@
         // 下载图片 (自动判断后缀名, 返回文件路径)
         public static async Task<string?> DownloadImage(string url, string filePath) {
             using HttpClient client = new();
+            // 处理 url
+            url = url.Trim();
+            if (url[^1] == '/') url = url[..^1];
             try {
                 // 发送请求
                 HttpResponseMessage response = await client.GetAsync(url);

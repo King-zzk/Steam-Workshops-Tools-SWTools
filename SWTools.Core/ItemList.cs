@@ -45,6 +45,11 @@ namespace SWTools.Core {
             }
         }
 
+        // 移除物品
+        public void Remove(in string itemId) {
+            RemoveAt(FindIndex(itemId));
+        }
+
         // 序列化到 Json
         public override string ToString() {
             try {
@@ -185,6 +190,13 @@ namespace SWTools.Core {
             if(items.Count() > 0) {
                 foreach (var item in items) this[FindIndex(item.ItemId)].DownloadState=Item.EDownloadState.Done;
                 LogManager.Log.Warning("Found {Count} failed item(s) exists in the dir (this is weird)", items.Count());
+            }
+            // 检查是否在下载状态
+            items = from item in this
+                    where item.DownloadState == Item.EDownloadState.Handling
+                    select item;
+            foreach (var item in items) {
+                this[FindIndex(item.ItemId)].DownloadState = Item.EDownloadState.Failed;
             }
         }
     }

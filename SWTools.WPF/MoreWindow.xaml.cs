@@ -81,5 +81,25 @@ namespace SWTools.WPF {
                 }
             }
         }
+
+        private void BtnUninstallSteamcmd_Click(object sender, RoutedEventArgs e) {
+            MsgBox msgBox = new("操作确认", "确定要卸载 Steamcmd 吗？卸载后可能导致下面的后果：\n\n" +
+                "1. 如果您有存放在 Steamcmd 目录下的物品，这些物品将会被删除。您可以点击 “打开总下载目录” 来确认；\n" +
+                "2. 下次下载物品时，将重新安装 Steamcmd，下载用时将增加。", true);
+            bool? res = msgBox.ShowDialog();
+            if (res == true) {
+                try {
+                    Directory.Delete(Core.Constants.SteamcmdDir, true);
+                    Core.LogManager.Log.Information("Successfully deleted steamcmd");
+                    msgBox = new("操作成功", $"成功卸载了 Steamcmd。", false);
+                    msgBox.ShowDialog();
+                } catch (Exception ex) {
+                    Core.LogManager.Log.Error("Failed to delete steamcmd: {Exception}", ex);
+                    msgBox = new("操作失败", $"无法删除 Steamcmd 所在文件夹。您可以尝试自行删除程序目录下的 {Core.Constants.SteamcmdDir} 目录，" +
+                        $"或检查程序日志。", false);
+                    msgBox.ShowDialog();
+                }
+            }
+        }
     }
 }

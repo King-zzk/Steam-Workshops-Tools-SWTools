@@ -110,12 +110,16 @@ namespace SWTools.Core {
                     if (FailReason == EFailReason.Unknown) {
                         LogManager.Log.Error("Download failed with unknown reason. Please check the log of Steamcmd");
                     } else if (FailReason == EFailReason.LockingFailed) { // #35 的缓解措施
+                        DownloadState = EDownloadState.Handling;
                         if (await CheckBytes()) {
                             LogManager.Log.Information("Steamcmd exited with failure {Reason}, but download seems successful",
                                 FailReason);
                             DownloadState = EDownloadState.Done;
                             FailReason = EFailReason.Null;
                             return true;
+                        } else {
+                            DownloadState = EDownloadState.Failed;
+                            FailReason = EFailReason.LockingFailed;
                         }
                     } else {
                         LogManager.Log.Error("Download failed with reason {reason}", FailReason);
