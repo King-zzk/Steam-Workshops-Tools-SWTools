@@ -125,7 +125,7 @@
                   SelectionMode="Single">
             <!--右键菜单-->
             <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
+                <Style TargetType="ListViewItem" BasedOn="{StaticResource {x:Static GridView.GridViewItemContainerStyleKey}}">
                     <Setter Property="ContextMenu" Value="{StaticResource ContextMenu}"/>
                 </Style>
             </ListView.ItemContainerStyle>
