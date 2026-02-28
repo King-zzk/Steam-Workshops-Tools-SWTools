@@ -2,7 +2,8 @@
 
 namespace SWTools.Core.API {
     /// <summary>
-    /// 公有账户池 api/pub_accounts
+    /// 公有账户池
+    /// [Repo] api/pub_accounts
     /// </summary>
     public static class PubAccounts {
         // 请求 API

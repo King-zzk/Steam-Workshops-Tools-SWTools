@@ -31,12 +31,11 @@
         }
 
         // 发送 Http Post 请求
-        public static async Task<string?> MakeHttpPost(string url, string content) {
+        public static async Task<string?> MakeHttpPost(string url, HttpContent content) {
             using HttpClient client = new();
             try {
                 // 发送请求
-                using StringContent strContent = new(content);
-                var response = await client.PostAsync(url, strContent);
+                var response = await client.PostAsync(url, content);
                 // 检查回复
                 response.EnsureSuccessStatusCode();
                 var contentType = response.Content.Headers.ContentType;
@@ -46,7 +45,7 @@
                 if (contentType.MediaType == null) {
                     throw new Exception("response.Content.Headers.ContentType.MediaType is null");
                 }
-                if (!contentType.MediaType.StartsWith("text/")) {
+                if (contentType.MediaType != "application/json" && !contentType.MediaType.StartsWith("text/")) {
                     throw new Exception("Content is not text");
                 }
                 return await response.Content.ReadAsStringAsync();
@@ -54,8 +53,6 @@
             catch (Exception ex) {
                 LogManager.Log.Error("Exception occured when requesting \"{Url}\" (POST):\n{Exception}",
                     url, ex);
-                LogManager.Log.Error("The POST content was: \"{Content}\"",
-                    content);
                 return null;
             }
         }

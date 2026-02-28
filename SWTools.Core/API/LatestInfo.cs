@@ -2,7 +2,8 @@
 
 namespace SWTools.Core.API {
     /// <summary>
-    /// 仓库最新信息 api/latest_info
+    /// 仓库最新信息
+    /// [Repo] api/latest_info
     /// </summary>
     public static class LatestInfo {
         // 请求 API

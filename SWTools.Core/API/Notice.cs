@@ -1,6 +1,7 @@
 ﻿namespace SWTools.Core.API {
     /// <summary>
-    /// 公告 api/notice
+    /// 公告
+    /// [Repo] api/notice
     /// </summary>
     public class Notice {
         // API 地址
