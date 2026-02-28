@@ -1,5 +1,5 @@
-## 2026-02-27 紧急公告
+## 2026-02-28
 
-创意工坊的API可能故障，会出现 **解析失败的问题** 
+已修复物品信息解析失败的问题。请前往 [https://github.com/King-zzk/Steam-Workshops-Tools-SWTools/releases](https://github.com/King-zzk/Steam-Workshops-Tools-SWTools/releases) 下载 2.0.4 版本。
 
-请切换1.0.X版本使用！
+如果您刚刚下载的是 2.0.4 版本，则可以忽略此公告。
