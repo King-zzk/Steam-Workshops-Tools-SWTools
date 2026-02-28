@@ -137,15 +137,15 @@ namespace SWTools.Core {
                 }
             }
             if (items.Count == 0) return;
-            var response = await API.SwDownloader.Request(items);
+            var response = await API.GetPublishedFileDetails.Request(items);
             // 处理回复，注意回复的序列可能和请求的不一致
-            if (response == null || response.Length == 0) {
+            if (response == null || response.resultcount == 0 || response.publishedfiledetails == null) {
                 LogManager.Log.Error("Failed to parse items: Empty response");
             } else {
-                for (var i = 0; i < response.Length; i++) {
-                    if (response[i].publishedfileid == null) continue;
-                    if (!Contains(response[i].publishedfileid!)) continue;
-                    this[FindIndex(response[i].publishedfileid!)].ParseWith(response[i]);
+                foreach (var detail in response.publishedfiledetails) {
+                    if (detail.publishedfileid == null) continue;
+                    if (!Contains(detail.publishedfileid!)) continue;
+                    this[FindIndex(detail.publishedfileid!)].ParseWith(detail);
                 }
             }
             // 设置状态

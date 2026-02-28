@@ -6,22 +6,22 @@ namespace SWTools.Core {
     /// 创意工坊物品 (核心逻辑)
     /// </summary>
     public partial class Item {
-        // 解析 API.SwDownloader 返回的数据
-        public void ParseWith(in API.SwDownloader.Response swdResponse) {
+        // 解析 API.GetPublishedFileDetails 返回的数据
+        public void ParseWith(in API.GetPublishedFileDetails.Response.Publishedfiledetails fileDetails) {
             lock (this) {
-                ItemTitle = swdResponse.title ?? "";
-                ItemSize = long.Parse(swdResponse.file_size ?? "");
-                AppId = swdResponse.consumer_appid;
-                AppName = swdResponse.app_name ?? "";
+                ItemTitle = fileDetails.title ?? "";
+                ItemSize = long.Parse(fileDetails.file_size ?? "");
+                AppId = fileDetails.consumer_app_id;
+                AppName = Constants.AppNames[AppId] ?? "";
                 // 免费下载
-                if (!string.IsNullOrEmpty(swdResponse.file_url)) {
+                if (!string.IsNullOrEmpty(fileDetails.file_url)) {
                     IsFree = true;
-                    UrlFreeDownload = swdResponse.file_url;
+                    UrlFreeDownload = fileDetails.file_url;
                 } else {
                     IsFree = false;
                     UrlFreeDownload = string.Empty;
                 }
-                UrlPreview = swdResponse.preview_url ?? "";
+                UrlPreview = fileDetails.preview_url ?? "";
                 // 设置状态
                 if (AppId == 0) {
                     ParseState = EParseState.Failed;

@@ -8,7 +8,7 @@ namespace SWTools.Core {
     /// <summary>
     ///  包含了目录、URL、Helper 里面的常量
     /// </summary>
-    public static class Constants {
+    public static partial class Constants {
         /* 版本 */
         public static readonly SemVersion Version = SemVersion.Parse("2.0.3");
 
