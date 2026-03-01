@@ -12,7 +12,7 @@ namespace SWTools.Core {
                 ItemTitle = fileDetails.title ?? "";
                 ItemSize = long.Parse(fileDetails.file_size ?? "");
                 AppId = fileDetails.consumer_app_id;
-                AppName = Constants.AppNames[AppId] ?? "";
+                AppName = Constants.AppNames.GetValueOrDefault(AppId) ?? "";
                 // 免费下载
                 if (!string.IsNullOrEmpty(fileDetails.file_url)) {
                     IsFree = true;
