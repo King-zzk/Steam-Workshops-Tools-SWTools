@@ -12,6 +12,9 @@
     <Compile Update="AddTaskWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="ChooseSteamUserWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="LogWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -93,7 +93,7 @@ namespace SWTools.Core {
 
         // 解析全部队列中物品
         public async Task ParseAll() {
-            if (!ConfigManager.Config.NoCache) await ParseWithCache();
+            if (!ConfigManager.Config.NoCache) await ParseWithCache(); 
             await ParseAllWithRequest();
         }
 

@@ -38,6 +38,8 @@
         <DockPanel DockPanel.Dock="Bottom" LastChildFill="False" Background="{StaticResource BhGray}">
             <controls:IconButtonAccent x:Name="BtnOk" Click="BtnOk_Click"
                 Text="确定" Icon="&#xE8FB;" DockPanel.Dock="Right" Margin="10 10 20 10"/>
+            <controls:IconButtonAccent x:Name="Btn_use_my_account_to_download" Click="Btn_accountdownload"
+                Text="使用我的账号" Icon="&#xE8B8;" DockPanel.Dock="Right" Margin="10 10 20 10" Width="135"/>
             <TextBlock DockPanel.Dock="Left" VerticalAlignment="Center" Margin="20 10 10 10"
                        Text="提示：输入要下载的 ID → 解析信息 → 补充缺失的信息（如有）→ 完成"/>
         </DockPanel>

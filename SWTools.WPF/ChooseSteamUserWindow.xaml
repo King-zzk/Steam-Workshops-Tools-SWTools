@@ -1,0 +1,24 @@
+﻿<Window x:Class="SWTools.WPF.ChooseSteamUserWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SWTools.WPF"
+        mc:Ignorable="d"
+        Title="使用我的账号进行下载" Height="410" Width="709" Foreground="White">
+    <Grid Margin="0,0,0,-5">
+        <Label Content="输入账户名称" HorizontalAlignment="Left" Margin="10,19,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.484,0.533"/>
+        <TextBox x:Name="user_name" HorizontalAlignment="Left" Margin="10,46,0,0" TextWrapping="NoWrap" Text="" VerticalAlignment="Top" Width="290"/>
+        <Label Content="输入账户密码" HorizontalAlignment="Left" Margin="10,95,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.484,0.533"/>
+        <TextBox x:Name="user_passwd" HorizontalAlignment="Left" Margin="10,122,0,0" TextWrapping="NoWrap" Text="" VerticalAlignment="Top" Width="290"/>
+        <Label Content="输入创意工坊ID" HorizontalAlignment="Left" Margin="10,163,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.484,0.533"/>
+        <TextBox x:Name="workshop_id" HorizontalAlignment="Left" 
+                 AcceptsReturn="True"
+                 Margin="10,187,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="311" Height="123" Cursor="IBeam"/>
+        <Label Content="一行一个创意工坊编号，支持批量" HorizontalAlignment="Left" Margin="462,323,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.484,0.533"/>
+        <Button Content="开始" Click="Btn_Start"  Margin="544,282,0,0" VerticalAlignment="Top" Width="98" Foreground="Black" Background="#FF969696"/>
+        <TextBlock x:Name="tips" HorizontalAlignment="Left" Margin="10,323,0,0" Text="状态：就绪" VerticalAlignment="Top" Foreground="Black"/>
+        <Button Content="查看日志" Click="Btn_log" Margin="462,282,0,0" VerticalAlignment="Top" Foreground="#FF0E0E0E" Background="#FF9C9C9C"/>
+
+    </Grid>
+</Window>

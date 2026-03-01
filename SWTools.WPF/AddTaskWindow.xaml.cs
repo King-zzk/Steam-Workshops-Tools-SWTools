@@ -18,6 +18,12 @@ namespace SWTools.WPF {
             InitializeComponent();
         }
 
+        private void Btn_accountdownload(object sender, RoutedEventArgs e) {
+            ChooseSteamUserWindow chooseSteamUserWindow = new();
+            chooseSteamUserWindow.Show();
+        }
+
+
         private void BtnOk_Click(object sender, RoutedEventArgs e) {
             if (ViewModel.HasParsing()) {
                 MsgBox msgBox = new("请等待当前解析完成", "请等待列表中所有物品完成解析再关闭此窗口。", false) { Owner = this };
@@ -176,5 +182,7 @@ namespace SWTools.WPF {
         private void BtnParse_Loaded(object sender, RoutedEventArgs e) {
 
         }
+
+
     }
 }
