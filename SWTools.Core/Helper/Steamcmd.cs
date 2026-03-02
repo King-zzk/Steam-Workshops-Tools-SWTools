@@ -11,8 +11,8 @@ namespace SWTools.Core.Helper {
         // 安装 Steamcmd
         public static async Task<bool> Setup() {
             // 检测Steamcmd存在（不确定，为什么只是检测目录，如果确实是检测目录，请修改）
-            if (File.Exists(Constants.SteamcmdPath)) {
-                LogManager.Log.Warning("Directory \"{StramcmdPath}\steamcmd.exe" already exists, skipping download",
+            if (File.Exists(Constants.SteamcmdFile)) {
+                LogManager.Log.Warning("File \"{StramcmdPath}\steamcmd.exe" already exists, skipping download",
                     Constants.SteamcmdDir);
             } else { // 下载
                 Directory.CreateDirectory(Constants.SteamcmdDir);
