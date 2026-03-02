@@ -1,4 +1,4 @@
-﻿using Serilog;
+using Serilog;
 using System.Diagnostics;
 using System.IO.Compression;
 using System.Text;
@@ -10,9 +10,9 @@ namespace SWTools.Core.Helper {
     public static class Steamcmd {
         // 安装 Steamcmd
         public static async Task<bool> Setup() {
-            // 安装目录存在
-            if (Directory.Exists(Constants.SteamcmdDir)) {
-                LogManager.Log.Warning("Directory \"{StramcmdPath}\" already exists, skipping download",
+            // 检测Steamcmd存在（不确定，为什么只是检测目录，如果确实是检测目录，请修改）
+            if (File.Exists(Constants.SteamcmdPath)) {
+                LogManager.Log.Warning("Directory \"{StramcmdPath}\steamcmd.exe" already exists, skipping download",
                     Constants.SteamcmdDir);
             } else { // 下载
                 Directory.CreateDirectory(Constants.SteamcmdDir);
