@@ -25,7 +25,7 @@
         <Label Content="选择你要安装模组的游戏" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="290" Grid.ColumnSpan="2"/>
         <Label Content="模组文件夹所在的路径" HorizontalAlignment="Left" Margin="11,89,0,0" VerticalAlignment="Top" Width="211" />
         <TextBox x:Name="ModPath" HorizontalAlignment="Left" TextWrapping="NoWrap" Margin="10,118,0,0" Text="" VerticalAlignment="Top" Width="290"/>
-        <Button x:Name="install" Content="安装" Click="install_Click" Margin="266,198,0,0" VerticalAlignment="Top" Width="168" Height="41" Foreground="Black" Background="#FF9E9E9E"/>
+        <Button x:Name="install" Content="安装" Click="install_Click" Margin="266,198,0,0" VerticalAlignment="Top" Width="168" Height="41"/>
 
 
     </Grid>
