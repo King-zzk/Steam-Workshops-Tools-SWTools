@@ -74,9 +74,9 @@ namespace SWTools.ViewModel {
 
         // 移除失败或失踪的物品
         public void RemoveFailedOrMissing() {
-            var fmItems = from item in items
+            var fmItems = (from item in items
                       where item.DownloadState == Core.Item.EDownloadState.Missing || item.DownloadState == Core.Item.EDownloadState.Failed
-                      select item;
+                      select item).ToList();
             if (fmItems == null) return;
             foreach (var item in fmItems) {
                 if (items.Contains(item.ItemId)) items.Remove(item.ItemId);
