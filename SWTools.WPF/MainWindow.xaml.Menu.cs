@@ -25,7 +25,7 @@ namespace SWTools.WPF {
             if (item == null) return;
 
             (contextMenu.Items[0] as MenuItem)?.IsEnabled = !item.IsHandling; // 移除
-            (contextMenu.Items[3] as MenuItem)?.IsEnabled = !item.IsHandling; // 重试
+            (contextMenu.Items[3] as MenuItem)?.IsEnabled = !item.IsHandling && ViewModel.IsBtnStartEnable; // 重试
 
             (contextMenu.Items[1] as MenuItem)?.IsEnabled = item.IsDownloaded; // 打开文件夹
             (contextMenu.Items[7] as MenuItem)?.IsEnabled = item.IsDownloaded; // 删除

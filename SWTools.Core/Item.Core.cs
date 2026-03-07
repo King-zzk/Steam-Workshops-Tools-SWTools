@@ -85,13 +85,15 @@ namespace SWTools.Core {
                 }
             }
             var accounts = AccountManager.GetAccountFor(AppId);
+            LogManager.Log.Debug("Found {Count} account(s) for {AppId}", accounts.Count, AppId);
             // 使用已有账户下载
             foreach (var account in accounts) {
                 if (await DownloadWithSteamcmd(account)) {
                     return true;
                 } else {
                     if (FailReason != EFailReason.AccountDisabled &&
-                        FailReason != EFailReason.InvalidPassword) {
+                        FailReason != EFailReason.InvalidPassword &&
+                        FailReason != EFailReason.AccountNotSupport) {
                         break;
                     }
                 }

@@ -32,10 +32,7 @@ namespace SWTools.Core {
                 if (pub == null) throw new Exception("pub is null");
                 if (pub.Accounts == null) throw new Exception("pub.Accounts is null");
                 if (pub.Version == null) throw new Exception("pub.Version is null");
-                foreach (var account in pub.Accounts) {
-                    _accounts.Remove(account); // 保证覆盖
-                    _accounts.Add(account);
-                }
+                _accounts = pub.Accounts.ToList();
                 PubVersion = pub.Version;
                 LogManager.Log.Information("Loaded public accounts from {Filaname} (version {Version})",
                     Constants.PubAccountsFile, pub.Version);

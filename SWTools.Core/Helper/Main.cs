@@ -71,7 +71,7 @@ namespace SWTools.Core.Helper {
         // 计算目录大小
         public static long GetDirectorySize(string path) {
             if (!Directory.Exists(path)) {
-                LogManager.Log.Error("GetDirectorySize() failed: directory not exsist");
+                LogManager.Log.Debug("GetDirectorySize() failed: directory not exsist");
                 return 0;
             }
             long totalSize = 0;
