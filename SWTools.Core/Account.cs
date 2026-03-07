@@ -4,6 +4,11 @@ namespace SWTools.Core {
     /// <summary>
     /// (用于下载的) Steam 账户
     /// </summary>
+    public record PriAccount : Account {
+        public string Name_pri { get; set; } = "";
+        public string Password_pri { get; set; } = "";
+
+    }
     public record Account {
         public string Name { get; set; } = "";      // 账户名
         public string Password { get; set; } = "";  // 密码

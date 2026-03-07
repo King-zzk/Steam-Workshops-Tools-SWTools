@@ -32,7 +32,9 @@ namespace SWTools.Core {
         // Steamcmd
         public const string SteamcmdDir = "steamcmd/";
         public const string SteamcmdFile = SteamcmdDir + "steamcmd.exe";
-
+        // 隐私数据
+        public const string PrivateDir = "private/";
+        public const string PriAccountsFile = PrivateDir + "pri_accounts.json";  // 私有账户
         /* URL */
         // Steamcmd
         public const string UrlSteamcmd = "https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip";
