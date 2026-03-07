@@ -9,8 +9,10 @@
     <Grid Margin="0,0,0,-5">
         <TextBox x:Name="steam_user_name" HorizontalAlignment="Left" Margin="34,77,0,0" TextWrapping="NoWrap" Text=""  VerticalAlignment="Top" Width="165" Foreground="Black"/>
         <TextBox x:Name="steam_user_passwd" HorizontalAlignment="Left" Margin="34,128,0,0" TextWrapping="NoWrap" Text=""  VerticalAlignment="Top" Width="165" Foreground="Black"/>
-        <Button Content="test" Margin="34,182,0,0" VerticalAlignment="Top" Width="82" Click="btn_user"/>
-        <ComboBox x:Name="User_choice" HorizontalAlignment="Center" Margin="0,77,0,0" VerticalAlignment="Top" Width="200" RenderTransformOrigin="0.502,0.493"/>
+        <Button Content="添加用户" Margin="34,182,0,0" VerticalAlignment="Top" Width="82" Click="btn_user"/>
+        <ComboBox x:Name="User_choice" HorizontalAlignment="Center" Margin="0,77,0,0" VerticalAlignment="Top" Width="250" RenderTransformOrigin="0.502,0.493"/>
+        <Button x:Name="btn_flash" Content="刷新" Margin="531,78,0,0" VerticalAlignment="Top" Width="80" Click="btn_flash_click"/>
+
 
 
     </Grid>

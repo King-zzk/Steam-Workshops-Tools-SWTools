@@ -24,7 +24,23 @@ namespace SWTools.WPF {
     public partial class ChooseSteamUserWindow : Window {
         public ChooseSteamUserWindow() {
             InitializeComponent();
-            // 确保私有目录和文件存在
+            btn_flash_click(null, null);
+        }
+        private void btn_user(object sender, RoutedEventArgs e) {
+            List<PriAccount> priAccounts = new List<PriAccount>()
+            {
+            new PriAccount
+                {
+                    Name_pri = steam_user_name.Text,
+                    Password_pri = steam_user_passwd.Text
+                }
+            };
+            string jsonContent = JsonSerializer.Serialize(priAccounts, Constants.JsonOptions);
+            File.WriteAllText(Constants.PriAccountsFile, jsonContent);
+        }
+
+
+        private void btn_flash_click(object sender, RoutedEventArgs e) {
             try {
                 if (!Directory.Exists(Constants.PrivateDir)) {
                     Directory.CreateDirectory(Constants.PrivateDir);
@@ -58,9 +74,6 @@ namespace SWTools.WPF {
             catch (Exception ex) {
                 LogManager.Log.Error("Failed to load private accounts: {Exception}", ex);
             }
-        }
-        private void btn_user(object sender, RoutedEventArgs e) {
-
         }
     }
 }
