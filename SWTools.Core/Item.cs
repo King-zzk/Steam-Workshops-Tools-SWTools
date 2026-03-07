@@ -159,17 +159,6 @@ namespace SWTools.Core {
             return EFailReason.Unknown;
         }
 
-        // 解析自己 (注意: 如果要解析多个物品，请使用 ItemList.ParseAll(), 此方法主要用于测试)
-        public async Task Parse() {
-            ParseState = EParseState.Handling;
-            var response = await API.GetPublishedFileDetails.Request([ItemId]);
-            if (response == null || response.resultcount == 0 || response.publishedfiledetails == null) {
-                LogManager.Log.Error("Failed to parse item {ItemId}", ItemId);
-                return;
-            }
-            ParseWith(response.publishedfiledetails[0]);
-        }
-
         // 检查信息是否完备
         public bool IsCompleted() {
             return !string.IsNullOrEmpty(ItemId) &&

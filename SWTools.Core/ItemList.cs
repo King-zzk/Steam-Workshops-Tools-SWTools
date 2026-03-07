@@ -7,7 +7,7 @@ namespace SWTools.Core {
     /// 创意工坊物品物品列表 (容器)
     /// </summary>
     [AddINotifyPropertyChangedInterface]
-    public class ItemList : ObservableCollection<Item> {
+    public partial class ItemList : ObservableCollection<Item> {
         // 检查是否包含指定 ItemId 的物品
         public bool Contains(in string itemId) {
             foreach (var item in this) {
@@ -93,66 +93,6 @@ namespace SWTools.Core {
                 LogManager.Log.Error("Exception occured when loading from {FileName}:\n{Exception}",
                     fileName, ex);
                 return null;
-            }
-        }
-
-        // 解析全部队列中物品
-        public async Task ParseAll() {
-            if (!ConfigManager.Config.NoCache) await ParseWithCache();
-            await ParseAllWithRequest();
-        }
-
-        // 缓存解析
-        private async Task ParseWithCache() {
-            // 设置状态
-            foreach (var item in this) {
-                if (item.ParseState == Item.EParseState.Pending) {
-                    item.ParseState = Item.EParseState.Handling;
-                }
-            }
-            await Task.Delay(500); // 仪式感
-            for (var i = 0; i < Count; i++) {
-                if (this[i].ParseState == Item.EParseState.Handling) {
-                    if (Cache.Parse.Get(this[i].ItemId) != null) {
-                        this[i] = Cache.Parse.Get(this[i].ItemId)!;
-                    }
-                }
-            }
-            // 复位状态
-            foreach (var item in this) {
-                if (item.ParseState == Item.EParseState.Handling) {
-                    item.ParseState = Item.EParseState.Pending;
-                }
-            }
-        }
-
-        // 联网解析
-        private async Task ParseAllWithRequest() {
-            // 请求 API
-            List<string> items = [];
-            foreach (var item in this) {
-                if (item.ParseState == Item.EParseState.Pending) {
-                    item.ParseState = Item.EParseState.Handling;
-                    items.Add(item.ItemId);
-                }
-            }
-            if (items.Count == 0) return;
-            var response = await API.GetPublishedFileDetails.Request(items);
-            // 处理回复，注意回复的序列可能和请求的不一致
-            if (response == null || response.resultcount == 0 || response.publishedfiledetails == null) {
-                LogManager.Log.Error("Failed to parse items: Empty response");
-            } else {
-                foreach (var detail in response.publishedfiledetails) {
-                    if (detail.publishedfileid == null) continue;
-                    if (!Contains(detail.publishedfileid!)) continue;
-                    this[FindIndex(detail.publishedfileid!)].ParseWith(detail);
-                }
-            }
-            // 设置状态
-            foreach (var item in this) {
-                if (items.Contains(item.ItemId) && item.ParseState == Item.EParseState.Handling) {
-                    item.ParseState = Item.EParseState.Failed;
-                }
             }
         }
 

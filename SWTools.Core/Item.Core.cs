@@ -6,8 +6,37 @@ namespace SWTools.Core {
     /// 创意工坊物品 (核心逻辑)
     /// </summary>
     public partial class Item {
+        // 解析 API.SwDownloader 返回的数据
+        public void ParseFrom(in API.SwDownloader.Response response) {
+            lock (this) {
+                ItemTitle = response.title ?? "";
+                ItemSize = long.Parse(response.file_size ?? "");
+                AppId = response.consumer_appid;
+                AppName = response.app_name ?? "";
+                // 免费下载
+                if (!string.IsNullOrEmpty(response.file_url)) {
+                    IsFree = true;
+                    UrlFreeDownload = response.file_url;
+                } else {
+                    IsFree = false;
+                    UrlFreeDownload = string.Empty;
+                }
+                UrlPreview = response.preview_url ?? "";
+                // 设置状态
+                if (AppId == 0) {
+                    ParseState = EParseState.Failed;
+                    LogManager.Log.Error("Failed to parse item {ItemId} with SwDownloader, AppId is 0", ItemId);
+                } else {
+                    ParseState = EParseState.Done;
+                    LogManager.Log.Debug("Parsed item {ItemId}", ItemId);
+                    // 保存到缓存
+                    Cache.Parse.Store(this);
+                }
+            }
+        }
+
         // 解析 API.GetPublishedFileDetails 返回的数据
-        public void ParseWith(in API.GetPublishedFileDetails.Response.Publishedfiledetails fileDetails) {
+        public void ParseFrom(in API.GetPublishedFileDetails.Response.Publishedfiledetails fileDetails) {
             lock (this) {
                 ItemTitle = fileDetails.title ?? "";
                 ItemSize = long.Parse(fileDetails.file_size ?? "");
@@ -25,7 +54,7 @@ namespace SWTools.Core {
                 // 设置状态
                 if (AppId == 0) {
                     ParseState = EParseState.Failed;
-                    LogManager.Log.Error("Failed to parse item {ItemId}, AppId is 0", ItemId);
+                    LogManager.Log.Error("Failed to parse item {ItemId} with GetPublishedFileDetails, AppId is 0", ItemId);
                 } else {
                     ParseState = EParseState.Done;
                     LogManager.Log.Debug("Parsed item {ItemId}", ItemId);
