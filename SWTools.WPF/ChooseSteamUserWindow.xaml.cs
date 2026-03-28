@@ -75,5 +75,21 @@ namespace SWTools.WPF {
                 LogManager.Log.Error("Failed to load private accounts: {Exception}", ex);
             }
         }
+
+        private void Download_Start_Click(object sender, RoutedEventArgs e) {
+            string Content = Steam_Workshops_id.Text;
+            string Content_User = User_choice.Text;
+            string json = File.ReadAllText(Constants.PriAccountsFile);
+
+
+        }
+
+        private void Download_Private_Description_Cilck(object sender, RoutedEventArgs e) {
+            MsgBox msgBox;
+            msgBox = new("隐私问题", "我们不会透露你的账号密码，\n" +
+                "不会在云端或服务器上传保存，\n" +
+                "所有操作均在本地运行保存。", false) { Owner = this };
+            msgBox.ShowDialog();
+        }
     }
-}
+    }

@@ -5,13 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SWTools.WPF"
         mc:Ignorable="d"
-        Title="使用我的账号进行下载" Height="410" Width="709" Foreground="White">
+        Title="使用我的账号进行下载" Height="481" Width="709" Foreground="White" Background="White">
     <Grid Margin="0,0,0,-5">
-        <TextBox x:Name="steam_user_name" HorizontalAlignment="Left" Margin="34,77,0,0" TextWrapping="NoWrap" Text=""  VerticalAlignment="Top" Width="165" Foreground="Black"/>
-        <TextBox x:Name="steam_user_passwd" HorizontalAlignment="Left" Margin="34,128,0,0" TextWrapping="NoWrap" Text=""  VerticalAlignment="Top" Width="165" Foreground="Black"/>
-        <Button Content="添加用户" Margin="34,182,0,0" VerticalAlignment="Top" Width="82" Click="btn_user"/>
-        <ComboBox x:Name="User_choice" HorizontalAlignment="Center" Margin="0,77,0,0" VerticalAlignment="Top" Width="250" RenderTransformOrigin="0.502,0.493"/>
-        <Button x:Name="btn_flash" Content="刷新" Margin="531,78,0,0" VerticalAlignment="Top" Width="80" Click="btn_flash_click"/>
+        <TextBox x:Name="steam_user_name" HorizontalAlignment="Left" Margin="130,75,0,0" TextWrapping="NoWrap" Text=""  VerticalAlignment="Top" Width="166" Foreground="Black" SelectionTextBrush="Black" Background="#FFBBBBBB"/>
+        <TextBox x:Name="steam_user_passwd" HorizontalAlignment="Left" Margin="130,122,0,0" TextWrapping="NoWrap" Text=""  VerticalAlignment="Top" Width="164" Foreground="Black" SelectionTextBrush="Black" Background="#FFBBBBBB"/>
+        <Button Content="添加用户" Margin="34,200,0,0" VerticalAlignment="Top" Width="82" Click="btn_user" Foreground="Black" Background="#FFA4A4A4"/>
+        <ComboBox x:Name="User_choice" HorizontalAlignment="Left" Margin="130,27,0,0" VerticalAlignment="Top" Width="250" RenderTransformOrigin="0.502,0.493" Foreground="Black" Background="#FFBBBBBB"/>
+        <Button x:Name="btn_flash" Content="刷新" Margin="456,25,0,0" VerticalAlignment="Top" Width="92" Click="btn_flash_click" Foreground="Black" Background="#FFA4A4A4" Height="32"/>
+        <TextBox x:Name="Steam_Workshops_id" HorizontalAlignment="Left" Margin="34,258,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="320" Height="110" Foreground="Black" SelectionTextBrush="White"/>
+        <Button x:Name="Download_Start" Content="下载" Margin="374,340,0,0" VerticalAlignment="Top" Width="98" Background="#FFA4A4A4" Foreground="Black" Click="Download_Start_Click"/>
+        <TextBlock HorizontalAlignment="Left" Margin="34,83,0,0" Text="账号名称" VerticalAlignment="Top" Foreground="Black"/>
+        <TextBlock HorizontalAlignment="Left" Margin="34,130,0,0" Text="账号密码" VerticalAlignment="Top" Foreground="Black"/>
+        <TextBlock HorizontalAlignment="Left" Margin="34,35,0,0" Text="账号选择" VerticalAlignment="Top" Foreground="Black"/>
+        <Button x:Name="Download_Private_Description" Content="隐私说明" Margin="374,305,0,0" VerticalAlignment="Top" Width="98" Background="#FFA4A4A4" Foreground="Black" Click="Download_Private_Description_Cilck"/>
 
 
 
