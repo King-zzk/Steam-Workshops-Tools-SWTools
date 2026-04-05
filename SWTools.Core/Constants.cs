@@ -10,7 +10,7 @@ namespace SWTools.Core {
     /// </summary>
     public static partial class Constants {
         /* 版本 */
-        public static readonly SemVersion Version = SemVersion.Parse("2.0.5");
+        public static readonly SemVersion Version = SemVersion.Parse("2.0.6");
 
         /* 目录 */
         // 公共数据
