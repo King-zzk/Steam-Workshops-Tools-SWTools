@@ -74,3 +74,13 @@ Steam Workshop Tools (SWTools) 是一款下载 Steam 创意工坊模组的工具
 
 - 欢迎为我们的项目做出贡献：[贡献指南](/CONTRIBUTING.md)
 - [开发者文档](/DEVELOPMENT.md)
+
+## Star History
+
+<a href="https://www.star-history.com/?repos=King-zzk%2FSteam-Workshops-Tools-SWTools&type=date&legend=top-left">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=King-zzk/Steam-Workshops-Tools-SWTools&type=date&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=King-zzk/Steam-Workshops-Tools-SWTools&type=date&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=King-zzk/Steam-Workshops-Tools-SWTools&type=date&legend=top-left" />
+ </picture>
+</a>
