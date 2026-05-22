@@ -4,6 +4,7 @@
              xmlns:local="clr-namespace:SWTools.WPF"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+        
         <ResourceDictionary>
             <!--Fluent-->
             <ResourceDictionary.MergedDictionaries>

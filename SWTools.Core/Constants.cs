@@ -32,6 +32,9 @@ namespace SWTools.Core {
         // Steamcmd
         public const string SteamcmdDir = "steamcmd/";
         public const string SteamcmdFile = SteamcmdDir + "steamcmd.exe";
+        // 私有数据
+        public const string PrivateDir = "private/";
+        public const string PrivateAccountFile = PrivateDir + "account.json";   // 账户信息
 
         /* URL */
         // Steamcmd

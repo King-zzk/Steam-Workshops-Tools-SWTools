@@ -21,6 +21,9 @@
     <Compile Update="MsgBox.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="PrivateUserDownloadWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="AddTaskWindow.xaml">

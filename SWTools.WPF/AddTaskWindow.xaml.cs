@@ -156,5 +156,10 @@ namespace SWTools.WPF {
                 }
             }
         }
+
+        private void BtnUsePriv_Click(object sender, RoutedEventArgs e) {
+            PrivateUserDownloadWindow privateUserDownloadWindow = new() { Owner = this };
+            privateUserDownloadWindow.ShowDialog();
+        }
     }
 }
