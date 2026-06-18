@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.IO;
+using System.Windows;
 using System.Windows.Media;
 
 namespace SWTools.ViewModel {
@@ -96,7 +97,7 @@ namespace SWTools.ViewModel {
                     }
                 }
             }
-            // 从缓存加载缩略图 (必须，不受 Config.UseCaeche 影响)
+            // 从缓存加载缩略图 (必须，不受 Config.UseCache 影响)
             if (string.IsNullOrEmpty(item.UrlPreview)) {
                 PreviewImage = PreviewImageDefault;
             }
@@ -119,7 +120,7 @@ namespace SWTools.ViewModel {
                 Directory.CreateDirectory(Core.Constants.PreviewDir);
             }
             var res = await Core.Helper.Http.DownloadImage(Item.UrlPreview, Core.Constants.PreviewDir + Item.ItemId);
-            if (res == null && Item.UrlPreview[^1] == '/') {
+            if (res == null && Item.UrlPreview.Length > 0 && Item.UrlPreview[^1] == '/') {
                 var url = Item.UrlPreview[..^1];
                 res = await Core.Helper.Http.DownloadImage(url, Core.Constants.PreviewDir + Item.ItemId);
             }
