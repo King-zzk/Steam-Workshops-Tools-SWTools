@@ -127,7 +127,7 @@
                         <TextBlock Text="许可证" VerticalAlignment="Center"/>
                     </StackPanel>
                 </TabItem.Header>
-                <TextBox Margin="20 10 20 20" IsReadOnly="True" x:Name="LicenseText" Text="{Binding ProjectLicense}" Padding="40 10 40 10"
+                <TextBox Margin="20 10 20 20" IsReadOnly="True" x:Name="LicenseText" Padding="40 10 40 10"
                          FontFamily="Consolas" FontSize="13" VerticalScrollBarVisibility="Visible"/>
             </TabItem>
             <TabItem Background="{StaticResource BhLight}">

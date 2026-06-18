@@ -32,6 +32,7 @@ namespace SWTools.Core.Helper {
                 Cache.Parse.Clear();
                 Directory.Delete(Constants.PreviewDir, true);
                 LogManager.Log.Information("Deleted {CacheDir}", Constants.PreviewDir);
+                if (File.Exists(Constants.LastFetchFile)) File.Delete(Constants.LastFetchFile);
             }
             catch (Exception ex) {
                 LogManager.Log.Error("Exception occurred when deleting {CacheDir}:\n{Exception}", Constants.CacheDir, ex);
@@ -57,9 +58,7 @@ namespace SWTools.Core.Helper {
         // 读取本地 “最新信息” 文件
         public static API.LatestInfo.Response? ReadLatestInfo() {
             try {
-                string jsonString;
-                using StreamReader sr = new(Constants.LatestInfoFile);
-                jsonString = sr.ReadToEnd();
+                var jsonString = File.ReadAllText(Constants.LatestInfoFile);
                 return JsonSerializer.Deserialize<API.LatestInfo.Response>(jsonString, Constants.JsonOptions);
             }
             catch (Exception ex) {

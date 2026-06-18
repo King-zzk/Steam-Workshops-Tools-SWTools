@@ -1,6 +1,7 @@
 ﻿using Semver;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.IO;
 using System.Windows;
 
@@ -102,6 +103,16 @@ namespace SWTools.ViewModel {
 
         // 获取仓库最新信息 (返回公告)
         public async Task<string?> FetchRepo() {
+            // 检查拉取时间
+            if (File.Exists(Core.Constants.LastFetchFile)) {
+                var text = File.ReadAllText(Core.Constants.LastFetchFile);
+                var dateTime = new DateTime();
+                if (DateTime.TryParse(text, null, DateTimeStyles.RoundtripKind, out dateTime)) {
+                    // 间隔不到 24h，跳过检查
+                    if ((DateTime.Now - dateTime).Hours < 24) return null;
+                }
+            }
+            bool isFailed = false;
             // 开始
             string statusText = "正在从仓库拉取最新信息...（您可以在此期间添加下载任务）";
             StatusText = statusText;
@@ -129,18 +140,16 @@ namespace SWTools.ViewModel {
             if (await Core.API.PubAccounts.Fetch(Core.Constants.PubAccountsFile)) {
                 Core.AccountManager.LoadPub();
             } else {
-                StatusText = "拉取公有账户池失败，请检查网络连接（重启程序以重试）";
+                StatusText = "拉取公有账户池失败，请检查网络连接（重启程序以重试）"; isFailed = true;
             }
 
             // 拉取公告
             string? notice;
             notice = await Core.API.Notice.Request();
             if (string.IsNullOrEmpty(notice)) {
-                StatusText = "拉取公告失败，请检查网络连接（重启程序以重试）";
+                StatusText = "拉取公告失败，请检查网络连接（重启程序以重试）"; isFailed = true;
             } else if (File.Exists(Core.Constants.NoticeFile)) {
-                string lastNotice;
-                using StreamReader sr = new(Core.Constants.NoticeFile);
-                lastNotice = sr.ReadToEnd();
+                var lastNotice = File.ReadAllText(Core.Constants.NoticeFile);
                 // 公告内容一样就不显示了
                 if (notice == lastNotice) notice = null;
             }
@@ -158,7 +167,8 @@ namespace SWTools.ViewModel {
             // 结束
             IsBtnStartEnable = true;
             IsIndeterminate = false;
-
+            // 更新最新拉取时间
+            if(!isFailed) File.WriteAllText(Core.Constants.LastFetchFile, DateTime.Now.ToString("o"));
             return notice;
         }
 

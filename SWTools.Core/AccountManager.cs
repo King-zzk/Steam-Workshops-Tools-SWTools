@@ -25,9 +25,7 @@ namespace SWTools.Core {
                 return;
             }
             try {
-                string jsonString;
-                using StreamReader sr = new(Constants.PubAccountsFile);
-                jsonString = sr.ReadToEnd();
+                var jsonString = File.ReadAllText(Constants.PubAccountsFile);
                 var pub = JsonSerializer.Deserialize<API.PubAccounts.Response>(jsonString, Constants.JsonOptions);
                 if (pub == null) throw new Exception("pub is null");
                 if (pub.Accounts == null) throw new Exception("pub.Accounts is null");

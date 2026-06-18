@@ -48,9 +48,7 @@ namespace SWTools.Core {
                 return;
             }
             try {
-                string jsonString;
-                using StreamReader sr = new(Constants.ConfigFile);
-                jsonString = sr.ReadToEnd();
+                var jsonString = File.ReadAllText(Constants.ConfigFile);
                 var config = JsonSerializer.Deserialize<Config>(jsonString, Constants.JsonOptions);
                 if (config == null)
                     throw new Exception("config is null");

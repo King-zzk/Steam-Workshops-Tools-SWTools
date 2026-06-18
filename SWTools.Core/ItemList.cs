@@ -79,9 +79,7 @@ namespace SWTools.Core {
         // 从 Json 读取
         public static ItemList? Load(in string fileName) {
             try {
-                string jsonString;
-                using StreamReader sr = new(fileName);
-                jsonString = sr.ReadToEnd();
+                var jsonString = File.ReadAllText(fileName);
                 var list = JsonSerializer.Deserialize<ItemList>(jsonString, Constants.JsonOptions);
                 if (list == null)
                     return null;

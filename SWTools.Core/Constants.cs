@@ -29,6 +29,7 @@ namespace SWTools.Core {
         public const string PreviewDir = CacheDir + "previews/";
         public const string CacheParseFile = CacheDir + "parse.json";
         public const string NoticeFile = CacheDir + "last_notice.md";    // 上次下载的公告
+        public const string LastFetchFile = CacheDir + "last_fetch";   // 上次拉取最新信息的时间
         // Steamcmd
         public const string SteamcmdDir = "steamcmd/";
         public const string SteamcmdFile = SteamcmdDir + "steamcmd.exe";
