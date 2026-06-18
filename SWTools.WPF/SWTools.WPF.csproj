@@ -9,7 +9,7 @@
 		<ApplicationIcon>Resources\icon.ico</ApplicationIcon>
 		<Copyright>Copyright (c) 2025 Commkom (king-zzk), masterLazy (mLazy) </Copyright>
 		<!--版本-->
-		<Version>2.0.7</Version>
+		<Version>2.0.8</Version>
 		<AssemblyName>SWTools</AssemblyName>
 		<AssemblyTitle>Steam Workshop Tools</AssemblyTitle>
 	</PropertyGroup>
@@ -19,7 +19,7 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-	  <DebugType>full</DebugType>
+	  <DebugType>none</DebugType>
 	</PropertyGroup>
 
 	<ItemGroup>

@@ -49,17 +49,11 @@
 
 - 转到 SWTools.WPF 的生成目录。
 
-  ---
+> [!tip]
+>
+> 如果编写了新版本的用户手册，请导出为 pdf 后复制到 `SWTools.WPF/` 下。
 
-- 删除生成目录（如 `\bin\Release\net10.0-windows7.0\`）下的所有 `.pdb` 文件。这些文件是调试符号，不应包含在发布包中。
-
-- 目录下应该包含`LICENSE.txt`、`THIRD-PARTY-NOTICE.md`、`Steam Workshop Tools 用户手册.pdf`，这些文件会在生成时自动从 `SWTools.WPF/` 复制到生成目录下。
-
-  > [!tip]
-  >
-  > 如果编写了新版本的用户手册，请导出为 pdf 后复制到 `SWTools.WPF/` 下。
-
-  ---
+---
 
 - 将生成目录下**所有文件**（包括 `SWTools.deps.json` 和 `SWTools.runtimeconfig.json`）压缩，然后即可在 GitHub 上发布。
 

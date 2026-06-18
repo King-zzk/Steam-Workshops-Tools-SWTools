@@ -43,6 +43,6 @@
 
 下面，你可能想要阅读：
 
-- [架构设计](/docs/architecture.md)
-- [发布步骤](/docs/release-steps.md)
+- [架构设计](docs/architecture.md)
+- [发布步骤](docs/release-steps.md)
 
