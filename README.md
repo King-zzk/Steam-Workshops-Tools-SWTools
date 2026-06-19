@@ -53,6 +53,7 @@ Steam Workshop Tools (SWTools) 是一款下载 Steam 创意工坊模组的工具
 - Sid Meier’s Civilization VI | 文明6
 - Wallpaper Engine | 壁纸引擎
 - Victoria 3 | 维多利亚3
+- The Scroll Of Taiwu | 太吾绘卷
 
 ---
 
