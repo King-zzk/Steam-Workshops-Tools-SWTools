@@ -1,5 +1,5 @@
 {
-  "Version": "2025-10-28",
+  "Version": "2026-6-20",
   "Accounts": [
     {
       "//": "钢铁雄心4",
@@ -55,6 +55,14 @@
       "Password": "erling30999",
       "AppIds": [
         838350
+      ]
+    },
+    {
+      "//": "鬼谷八荒 || fbjh 提供",
+      "Name": "513348539",
+      "Password": "qFAKkeLRfs",
+      "AppIds": [
+      1468810
       ]
     }
   ]
