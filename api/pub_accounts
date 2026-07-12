@@ -1,5 +1,5 @@
 {
-  "Version": "2026-7-06",
+  "Version": "2026-7-12",
   "Accounts": [
     {
       "//": "天际线",
@@ -9,6 +9,7 @@
         255710
       ]
     },
+  
     {
       "//": "文明6",
       "Name": "wenming622",
@@ -31,6 +32,14 @@
       "Password": "Chengziaiqishlp",
       "AppIds": [
         529340
+      ]
+    },
+    {
+      "//": "wallpaper engine",
+      "Name": "adgjl1182",
+      "Password": "QETUO99999",
+      "AppIds": [
+        431960
       ]
     },
     {
